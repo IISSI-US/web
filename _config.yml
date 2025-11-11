@@ -3,9 +3,10 @@ description: Sitio de documentación con colecciones de Jekyll
 theme: just-the-docs
 
 # GitHub Pages configuration
-url: "https://TU_USUARIO.github.io"  # Cambiar TU_USUARIO por tu usuario de GitHub
-baseurl: "/hub"  # Cambiar por el nombre de tu repositorio si es diferente
-repository: TU_USUARIO/hub  # Cambiar TU_USUARIO por tu usuario de GitHub
+# Dejar vacío para que funcione tanto en local como en GitHub Pages
+url: ""
+baseurl: ""
+repository: ""
 
 collections:
   requisitos:
