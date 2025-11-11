@@ -1,0 +1,41 @@
+title: Documentación Unificada
+description: Sitio de documentación con colecciones de Jekyll
+theme: just-the-docs
+
+# GitHub Pages configuration
+url: "https://TU_USUARIO.github.io"  # Cambiar TU_USUARIO por tu usuario de GitHub
+baseurl: "/hub"  # Cambiar por el nombre de tu repositorio si es diferente
+repository: TU_USUARIO/hub  # Cambiar TU_USUARIO por tu usuario de GitHub
+
+collections:
+  requisitos:
+    output: true
+    permalink: /requisitos/:path/
+  conceptual:
+    output: true
+    permalink: /modelado-conceptual/:path/
+  relacional:
+    output: true
+    permalink: /modelado-relacional/:path/
+  sql:
+    output: true
+    permalink: /sql/:path/
+
+just_the_docs:
+  collections:
+    requisitos:
+      name: Requisitos
+    conceptual:
+      name: Modelado Conceptual
+    relacional:
+      name: Modelado Relacional
+    sql:
+      name: SQL
+
+# Pestañas del header (usadas como tabs)
+aux_links:
+  Requisitos: /requisitos/
+  Modelado Conceptual: /modelado-conceptual/
+  Modelado Relacional: /modelado-relacional/
+  SQL: /sql/
+aux_links_new_tab: false
