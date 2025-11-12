@@ -1,8 +1,13 @@
+---
 layout: single
 title: Anexo A · Entorno de trabajo
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Anexo A: Entorno de trabajo
+<!-- # Anexo A: Entorno de trabajo -->
 
 ## Objetivo
 El objetivo de esta práctica es configurar el entorno de trabajo inicial para el desarrollo de la asignatura. El alumno aprenderá a:

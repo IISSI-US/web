@@ -1,9 +1,13 @@
 ---
 layout: single
 title: "Lab5 - Procedimientos, funciones y disparadores"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Procedimientos, funciones y disparadores
+<!-- # Procedimientos, funciones y disparadores -->
 
 ## Objetivo
 

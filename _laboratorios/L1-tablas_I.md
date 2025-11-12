@@ -1,13 +1,8 @@
----
 layout: single
 title: "Lab1 - Creación de tablas"
-toc: true
-toc_label: "Contenido"
-toc_icon: "fa-solid fa-list-ul"
-toc_sticky: true
 ---
 
-<!-- # Creación de tablas SQL -->
+# Creación de tablas SQL
 
 ## Objetivo
 

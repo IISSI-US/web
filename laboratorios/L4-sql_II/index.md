@@ -1,9 +1,13 @@
 ---
 layout: single
 title: "Lab4 - Consultas avanzadas"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Consultas avanzadas
+<!-- # Consultas avanzadas -->
 
 ## Objetivo
 

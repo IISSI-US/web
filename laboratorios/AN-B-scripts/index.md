@@ -1,8 +1,13 @@
+---
 layout: single
 title: Anexo B - Scripts
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Anexo B: Scripts de creación y poblado
+<!-- # Anexo B: Scripts de creación y poblado -->
 
 ## Creación de tablas
 

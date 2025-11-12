@@ -8,6 +8,32 @@
 // Overrides o estilos propios
 // .mm-custom { }
 
+// Typography: use Roboto and slightly smaller base size
+body {
+	font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	font-size: 0.95rem;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+// Botón de copiar: usamos el del tema (enable_copy_code_button). Sin estilos propios.
+
+// (sin overrides de anchura: usamos los valores por defecto del tema)
+
+// Bloques de código: interlineado más compacto para mejorar el aprovechamiento vertical
+// El tema fija 1.8; lo reducimos ligeramente manteniendo legibilidad
+div.highlighter-rouge,
+figure.highlight {
+	line-height: 1.45;
+}
+div.highlighter-rouge pre,
+figure.highlight pre,
+div.highlighter-rouge code,
+figure.highlight code {
+	line-height: 1.45;
+}
+
 // Tema: botón de toggle claro/oscuro en la masthead
 .theme-toggle {
 	margin-left: .5rem;
@@ -25,4 +51,13 @@
 
 // Transición suave al alternar tema
 html { transition: color .2s ease, background-color .2s ease; }
+
+
+// Imágenes: centradas y con esquinas redondeadas en el contenido
+// Evitamos afectar emojis y las clases de alineación explícita
+.page__content img:not(.emoji):not(.align-left):not(.align-right) {
+	display: block;
+	margin: 1.25rem auto; // centrado horizontal con un poco de respiro vertical
+	border-radius: 8px;
+}
 

@@ -15,6 +15,7 @@ plugins:
 
 # Apariencia
 minimal_mistakes_skin: default # options: default, dark, dirt, neon, etc.
+enable_copy_code_button: true
 
 # Motor de Markdown
 markdown: kramdown
@@ -49,6 +50,7 @@ defaults:
       path: "laboratorios"
     values:
       layout: single
+      # Ancho por defecto del tema (sin "wide")
       author_profile: false
       share: false
       sidebar:

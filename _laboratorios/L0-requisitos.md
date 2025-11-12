@@ -1,17 +1,14 @@
----
 layout: single
 title: "Lab0 - Requisitos"
-toc: true
-toc_label: "Contenido"
-toc_icon: "fa-solid fa-list-ul"
-toc_sticky: true
 ---
 
-<!-- # Requisitos -->
+# Requisitos
 
 ## Introducción
 
 Un centro universitario desea desarrollar un sistema para automatizar el servicio de gestión académica con la información relativa a alumnos y asignaturas impartidas en el centro, incluidas las notas. Iniciado el estudio del dominio del problema, de las necesidades de negocio y de la situación actual y realizadas varias entrevistas, se han desarrollado los siguientes requisitos que debe cumplir el sistema de información a desarrollar.
+
+---
 
 ## Catálogo de requisitos
 
@@ -74,6 +71,8 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 - **Quiero**: Un alumno no puede pertenecer a más de un grupo de teoría y a más de un grupo de prácticas de cada asignatura
 - **Para**: Evitar duplicidad en las listas de clases
 
+---
+
 ## Requisitos funcionales
 
 **RF001 - Añadir nota**
@@ -116,6 +115,10 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 - **Quiero**: Disponer de un listado de las asignaturas de un grado
 - **Para**: Poder ver información sobre las asignaturas de un grado
 
+---
+
+## Modelo Conceptual
+
 ### Diagrama de clases
 
 ![Diagrama de clases y asociaciones](/assets/images/laboratorios/fig/req/d_conceptual.svg)
@@ -126,31 +129,48 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ![Diagrama de objetos](/assets/images/laboratorios/fig/req/d_objetos.svg)
 
+---
+
 ## Modelo Relacional
 
 ### Intensión
 
-
+Grado: 
 ```text
 Degrees(degreeId, name, years)
     PK(degreeId)
+```
 
+Asignatura: 
+```text
 Subjects(subjectId, degreeId, name, acronym, credits, year, type)
     PK(subjectId)
     FK(degreeId) / Degrees
+```
 
+Grupo: 
+```text
 Groups(groupId, subjectId, name, activity, year)
     PK(groupId)
     FK(subjectId) / Subjects
+```
 
+Alumno: 
+```text
 Students(studentId, accessMethod, dni, firstName, surname, birthDate, email, password)
     PK(studentId)
+```
 
+Nota: 
+```text
 Grades(gradeId, studentId, groupId, value, gradeCall, withHonours)
     PK(gradeId)
     FK(studentId) / Students
     FK(groupId) / Groups
+```
 
+matriculadoEn: 
+```text
 GroupsStudents(groupStudentId, studentId, groupId)
     PK(groupStudentId)
     FK(studentId) / Students
@@ -200,62 +220,65 @@ Grades = {
 }
 ```
 
+---
+
 ## Pruebas de aceptación
+
 ### Grados
-- ✅ Crear grado con datos correctos. 
-- ❌ Crear grado con nombre vacío. 
-- ❌ Crear grado con el mismo nombre que otro ya existente. 
-- ❌ Crear grado con años incorrecto. 
-- ✅ Actualizar grado con datos correctos. 
-- ❌ Actualizar grado con nombre a None. 
-- ❌ Actualizar grado con el mismo nombre que otro existente. 
-- ❌ Actualizar grado con años incorrectos. 
-- ✅ Eliminar grado. 
-- ❌ Eliminar grado no existente. 
-- ❌ Eliminar grado con relaciones. 
+- Crear grado con datos correctos. (Positiva)
+- Crear grado con nombre vacío. (Negativa)
+- Crear grado con el mismo nombre que otro ya existente. (Negativa)
+- Crear grado con años incorrecto. (Negativa)
+- Actualizar grado con datos correctos. (Positiva)
+- Actualizar grado con nombre a None. (Negativa)
+- Actualizar grado con el mismo nombre que otro existente. (Negativa)
+- Actualizar grado con años incorrectos. (Negativa)
+- Eliminar grado. (Positiva)
+- Eliminar grado no existente. (Negativa)
+- Eliminar grado con relaciones. (Negativa)
 
 ### Asignaturas
-- ✅ Crear asignatura con datos correctos. 
-- ❌ Crear asignatura con nombre vacío. 
-- ❌ Crear asignatura con el mismo nombre que otra ya existente. 
-- ❌ Crear asignatura con acrónimo vacío. 
-- ❌ Crear asignatura con el mismo acrónimo que una ya existente. 
-- ❌ Crear asignatura con créditos incorrectos. 
-- ❌ Crear asignatura con curso incorrecto. 
-- ❌ Crear asignatura con tipo incorrecto. 
-- ✅ Actualizar asignatura con valores correctos. 
-- ❌ Actualizar asignatura con el mismo nombre que otra. 
-- ❌ Actualizar asignatura con nombre a None. 
-- ❌ Actualizar asignatura con el mismo acrónimo que otra. 
-- ❌ Actualizar asignatura con acrónimo a None. 
-- ❌ Actualizar asignatura con créditos incorrectos. 
-- ❌ Actualizar asignatura con curso incorrecto. 
-- ❌ Actualizar asignatura con tipo incorrecto. 
-- ✅ Borrar asignatura. 
-- ❌ Borrar asignatura que ha sido borrada. 
-- ❌ Borrar asignatura con relaciones. 
-- ❌ Crear una asignación entre grado y asignatura, con grado a None. 
-- ❌ Actualizar una asignación entre grado y asignatura, con grado a None. 
+- Crear asignatura con datos correctos. (Positiva)
+- Crear asignatura con nombre vacío. (Negativa)
+- Crear asignatura con el mismo nombre que otra ya existente. (Negativa)
+- Crear asignatura con acrónimo vacío. (Negativa)
+- Crear asignatura con el mismo acrónimo que una ya existente. (Negativa)
+- Crear asignatura con créditos incorrectos. (Negativa)
+- Crear asignatura con curso incorrecto. (Negativa)
+- Crear asignatura con tipo incorrecto. (Negativa)
+- Actualizar asignatura con valores correctos. (Positiva)
+- Actualizar asignatura con el mismo nombre que otra. (Negativa)
+- Actualizar asignatura con nombre a None. (Negativa)
+- Actualizar asignatura con el mismo acrónimo que otra. (Negativa)
+- Actualizar asignatura con acrónimo a None. (Negativa)
+- Actualizar asignatura con créditos incorrectos. (Negativa)
+- Actualizar asignatura con curso incorrecto. (Negativa)
+- Actualizar asignatura con tipo incorrecto. (Negativa)
+- Borrar asignatura. (Positiva)
+- Borrar asignatura que ha sido borrada. (Negativa)
+- Borrar asignatura con relaciones. (Negativa)
+- Crear una asignación entre grado y asignatura, con grado a None. (Negativa)
+- Actualizar una asignación entre grado y asignatura, con grado a None. (Negativa)
 
 ### Alumnos
-- ✅ Crear alumno con datos correctos. 
-- ❌ Crear alumno con el mismo DNI que otro. 
-- ❌ Crear alumno con el mismo email que otro. 
-- ❌ Crear alumno con formato de fecha de nacimiento incorrecto. 
-- ❌ Crear alumno con método de acceso incorrecto. 
-- ❌ Crear alumno con nombre vacío. 
-- ❌ Crear alumno con apellidos vacío. 
-- ❌ Crear alumno con email vacío. 
-- ❌ Crear alumno con DNI vacío. 
-- ✅ Actualizar alumno con datos correctos. 
-- ❌ Actualizar alumno con el mismo DNI que otro. 
-- ❌ Actualizar alumno con el mismo email que otro. 
-- ❌ Actualizar alumno con formato de fecha de nacimiento incorrecto. 
-- ❌ Actualizar alumno con método de acceso incorrecto. 
-- ❌ Actualizar alumno con nombre vacío. 
-- ❌ Actualizar alumno con apellidos vacío. 
-- ❌ Actualizar alumno con email vacío. 
-- ❌ Actualizar alumno con DNI vacío. 
-- ✅ Borrar alumno. 
-- ❌ Borrar alumno que no existe. 
-- ❌ Borrar alumno con relaciones. 
+- Crear alumno con datos correctos. (Positiva)
+- Crear alumno con el mismo DNI que otro. (Negativa)
+- Crear alumno con el mismo email que otro. (Negativa)
+- Crear alumno con formato de fecha de nacimiento incorrecto. (Negativa)
+- Crear alumno con método de acceso incorrecto. (Negativa)
+- Crear alumno con nombre vacío. (Negativa)
+- Crear alumno con apellidos vacío. (Negativa)
+- Crear alumno con email vacío. (Negativa)
+- Crear alumno con DNI vacío. (Negativa)
+- Actualizar alumno con datos correctos. (Positiva)
+- Actualizar alumno con el mismo DNI que otro. (Negativa)
+- Actualizar alumno con el mismo email que otro. (Negativa)
+- Actualizar alumno con formato de fecha de nacimiento incorrecto. (Negativa)
+- Actualizar alumno con método de acceso incorrecto. (Negativa)
+- Actualizar alumno con nombre vacío. (Negativa)
+- Actualizar alumno con apellidos vacío. (Negativa)
+- Actualizar alumno con email vacío. (Negativa)
+- Actualizar alumno con DNI vacío. (Negativa)
+- Borrar alumno. (Positiva)
+- Borrar alumno que no existe. (Negativa)
+- Borrar alumno con relaciones. (Negativa)

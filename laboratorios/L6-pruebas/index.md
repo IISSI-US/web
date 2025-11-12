@@ -1,10 +1,14 @@
 ---
 layout: single
 title: "Lab6 - Pruebas SQL"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
 
-# Pruebas de aceptación SQL
+<!-- # Pruebas de aceptación SQL -->
 
 ## Objetivo
 

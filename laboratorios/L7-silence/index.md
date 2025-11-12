@@ -1,9 +1,13 @@
 ---
 layout: single
 title: "Lab7 - APIs REST y Silence"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# APIs REST y Silence
+<!-- # APIs REST y Silence -->
 
 
 ## Objetivo

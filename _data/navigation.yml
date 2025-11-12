@@ -9,6 +9,22 @@ main:
         url: /laboratorios/L1-tablas_I/
       - title: "Lab2 - Restricciones en tablas"
         url: /laboratorios/L2-tablas_II/
+      - title: "Lab3 - Datos y consultas simples"
+        url: /laboratorios/L3-sql_I/
+      - title: "Lab4 - Consultas avanzadas"
+        url: /laboratorios/L4-sql_II/
+      - title: "Lab5 - Procedimientos, funciones y disparadores"
+        url: /laboratorios/L5-proc_func_trig/
+      - title: "Lab6 - Pruebas SQL"
+        url: /laboratorios/L6-pruebas/
+      - title: "Lab7 - APIs REST y Silence"
+        url: /laboratorios/L7-silence/
+      - title: "Lab8 - Transacciones"
+        url: /laboratorios/L8-transacciones/
+      - title: "Anexo A · Entorno de trabajo"
+        url: /laboratorios/AN-A-entorno/
+      - title: "Anexo B - Scripts"
+        url: /laboratorios/AN-B-scripts/
   - title: "Modelado Conceptual"
     url: /modelado-conceptual/
     children:

@@ -1,9 +1,13 @@
 ---
 layout: single
 title: "Lab3 - Datos y consultas simples"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Manejo de datos y consultas simples
+<!-- # Manejo de datos y consultas simples -->
 
 ## Objetivo
 

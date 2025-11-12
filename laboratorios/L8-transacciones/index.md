@@ -1,9 +1,13 @@
 ---
 layout: single
 title: "Lab8 - Transacciones"
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
 ---
 
-# Transacciones
+<!-- # Transacciones -->
 
 ## Objetivo
 El objetivo de esta práctica es implementar transacciones en SQL. El alumno aprenderá a:
