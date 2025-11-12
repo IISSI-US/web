@@ -25,7 +25,7 @@ main:
         url: /laboratorios/AN-A-entorno/
       - title: "Anexo B - Scripts"
         url: /laboratorios/AN-B-scripts/
-  - title: "MC2MR"
+  - title: "MC → MR"
     url: /mc2mr/
     children:
       - title: "1. Universidad"

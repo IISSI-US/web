@@ -138,8 +138,7 @@
   window.MathJax.svg = Object.assign({ fontCache: 'global' }, window.MathJax.svg || {});
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js"></script>
-<link rel="stylesheet" href="{{ '/assets/css/mc2mr/math.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/mc2mr/custom-theme.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/mc2mr/code.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/mc2mr/print.css' | relative_url }}" media="print">
-<script defer src="{{ '/assets/js/mc2mr/plantuml-renderer.js' | relative_url }}"></script>
+{%- comment -%}
+  Estilos y JS específicos de MC2MR desactivados para unificar con Laboratorios.
+  MathJax queda con estilos por defecto del tema; bloques de código usan assets/css/main.scss.
+{%- endcomment -%}

@@ -3,7 +3,7 @@ layout: single
 title: "MC → MR"
 permalink: /mc2mr/
 sidebar:
-nav: mc2mr
+    nav: mc2mr
 ---
 
 # Ejercicios UML → Relacional
