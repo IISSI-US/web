@@ -1,0 +1,11 @@
+// Code blocks: reduce line-height slightly to improve vertical density
+div.highlighter-rouge,
+figure.highlight {
+	line-height: 1.45;
+}
+div.highlighter-rouge pre,
+figure.highlight pre,
+div.highlighter-rouge code,
+figure.highlight code {
+	line-height: 1.45;
+}

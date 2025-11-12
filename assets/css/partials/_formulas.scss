@@ -1,0 +1,29 @@
+// Math (MathJax v3): show inside a rounded box (inline and display)
+.page__content mjx-container {
+  background: #f6f8fa; // similar to code block background in light theme
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: .35rem .6rem;
+}
+
+// Block formulas
+.page__content mjx-container[display="true"] {
+  display: block;
+  margin: 1rem 0;
+  padding: .6rem .75rem;
+  border-radius: 8px;
+}
+
+// Inline formulas (compact)
+.page__content mjx-container[display="false"] {
+  display: inline-block;
+  margin: 0 .2rem;
+  padding: .15rem .35rem;
+  border-radius: 6px;
+}
+
+// Dark theme: improve contrast
+html[data-theme="dark"] .page__content mjx-container {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.2);
+}

@@ -10,10 +10,10 @@ sidebar:
 ---
 
 # Ejercicio 1: Universidad-Centro-Estudiante
-<!-- {: .fs-9 } --> 
+
 
 Composición básica con agregación y asociaciones 1:N
-<!-- {: .fs-6 .fw-300 } --> 
+
 
 ---
 
