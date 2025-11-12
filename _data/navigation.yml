@@ -36,3 +36,44 @@ main:
         url: /sql/sql_2/
       - title: "sql_3"
         url: /sql/sql_3/
+
+# Navegación lateral por colección
+requisitos:
+  - title: "Requisitos"
+    children:
+      - title: "Introducción a los Requisitos"
+        url: /requisitos/requisitos_1/
+      - title: "requisitos_2"
+        url: /requisitos/requisitos_2/
+      - title: "requisitos_3"
+        url: /requisitos/requisitos_3/
+
+conceptual:
+  - title: "Modelado Conceptual"
+    children:
+      - title: "conceptual_1"
+        url: /modelado-conceptual/conceptual_1/
+      - title: "conceptual_2"
+        url: /modelado-conceptual/conceptual_2/
+      - title: "conceptual_3"
+        url: /modelado-conceptual/conceptual_3/
+
+relacional:
+  - title: "Modelado Relacional"
+    children:
+      - title: "relacional_1"
+        url: /modelado-relacional/relacional_1/
+      - title: "relacional_2"
+        url: /modelado-relacional/relacional_2/
+      - title: "relacional_3"
+        url: /modelado-relacional/relacional_3/
+
+sql:
+  - title: "SQL"
+    children:
+      - title: "sql_1"
+        url: /sql/sql_1/
+      - title: "sql_2"
+        url: /sql/sql_2/
+      - title: "sql_3"
+        url: /sql/sql_3/

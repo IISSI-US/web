@@ -45,6 +45,8 @@ defaults:
       layout: single
       author_profile: false
       share: false
+      sidebar:
+        nav: requisitos
   - scope:
       path: ""
       type: conceptual
@@ -52,6 +54,8 @@ defaults:
       layout: single
       author_profile: false
       share: false
+      sidebar:
+        nav: conceptual
   - scope:
       path: ""
       type: relacional
@@ -59,6 +63,8 @@ defaults:
       layout: single
       author_profile: false
       share: false
+      sidebar:
+        nav: relacional
   - scope:
       path: ""
       type: sql
@@ -66,6 +72,8 @@ defaults:
       layout: single
       author_profile: false
       share: false
+      sidebar:
+        nav: sql
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 include: ["_pages"]
