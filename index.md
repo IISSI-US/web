@@ -5,4 +5,12 @@ excerpt: "Documentación unificada de requisitos, modelado conceptual, relaciona
 classes: wide
 ---
 
-Bienvenido. Usa la navegación superior para explorar las secciones o empieza por [Requisitos](/requisitos/).
+Contacto con los profesores de la asignatura:
+
+- David Ruiz
+- Inma Hernández
+- Daniel Ayala
+- Margarita Cruz
+- Carlos Arévalo
+- ...
+

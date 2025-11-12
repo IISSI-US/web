@@ -1,4 +1,4 @@
-title: Documentación Unificada
+title: IISSI (2026/27)
 description: Sitio de documentación con colecciones de Jekyll
 
 # Usa Minimal Mistakes como remote theme (recomendado para GitHub Pages)
@@ -15,6 +15,11 @@ plugins:
 
 # Apariencia
 minimal_mistakes_skin: default # options: default, dark, dirt, neon, etc.
+
+# Compilación de SASS/SCSS
+sass:
+  sass_dir: assets/css
+  style: compressed
 
 # Colecciones
 collections:
