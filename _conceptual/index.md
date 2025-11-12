@@ -1,12 +1,9 @@
 ---
 title: Modelado Conceptual
-nav_order: 1
-has_children: true
+layout: collection
 permalink: /modelado-conceptual/
+collection: conceptual
+entries_layout: list
 ---
 
-# Modelado Conceptual
-
 Bienvenido a la sección de **Modelado Conceptual**. Aquí aprenderás sobre diagramas entidad-relación y diseño conceptual de bases de datos.
-
-Las colecciones permiten crear sitios bien estructurados con navegación automática.

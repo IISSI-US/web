@@ -1,7 +1,5 @@
 ---
 title: Introducción a los Requisitos
-parent: Requisitos
-nav_order: 1
 ---
 
 # Introducción a los Requisitos

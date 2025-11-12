@@ -1,10 +1,9 @@
 ---
 title: Modelado Relacional
-nav_order: 1
-has_children: true
+layout: collection
 permalink: /modelado-relacional/
+collection: relacional
+entries_layout: list
 ---
-
-# Modelado Relacional
 
 Bienvenido a la sección de **Modelado Relacional**. Aquí encontrarás información sobre el modelo relacional de bases de datos.

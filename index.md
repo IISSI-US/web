@@ -1,6 +1,8 @@
 ---
-layout: default
+layout: home
 title: Inicio
-nav_exclude: true
+excerpt: "Documentación unificada de requisitos, modelado conceptual, relacional y SQL."
+classes: wide
 ---
-<meta http-equiv="refresh" content="0; url=/requisitos/" />
+
+Bienvenido. Usa la navegación superior para explorar las secciones o empieza por [Requisitos](/requisitos/).

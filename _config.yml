@@ -1,13 +1,22 @@
 title: Documentación Unificada
 description: Sitio de documentación con colecciones de Jekyll
-theme: just-the-docs
 
-# GitHub Pages configuration
-# Dejar vacío para que funcione tanto en local como en GitHub Pages
+# Usa Minimal Mistakes como remote theme (recomendado para GitHub Pages)
+remote_theme: "mmistakes/minimal-mistakes@4.27.3"
+
+# Configuración GitHub Pages / despliegue
 url: ""
 baseurl: ""
 repository: ""
 
+# Plugins necesarios
+plugins:
+  - jekyll-include-cache
+
+# Apariencia
+minimal_mistakes_skin: default # options: default, dark, dirt, neon, etc.
+
+# Colecciones
 collections:
   requisitos:
     output: true
@@ -22,21 +31,37 @@ collections:
     output: true
     permalink: /sql/:path/
 
-just_the_docs:
-  collections:
-    requisitos:
-      name: Requisitos
-    conceptual:
-      name: Modelado Conceptual
-    relacional:
-      name: Modelado Relacional
-    sql:
-      name: SQL
+# Valores por defecto para documentos de colecciones
+defaults:
+  - scope:
+      path: ""
+      type: requisitos
+    values:
+      layout: single
+      author_profile: false
+      share: false
+  - scope:
+      path: ""
+      type: conceptual
+    values:
+      layout: single
+      author_profile: false
+      share: false
+  - scope:
+      path: ""
+      type: relacional
+    values:
+      layout: single
+      author_profile: false
+      share: false
+  - scope:
+      path: ""
+      type: sql
+    values:
+      layout: single
+      author_profile: false
+      share: false
 
-# Pestañas del header (usadas como tabs)
-aux_links:
-  Requisitos: /requisitos/
-  Modelado Conceptual: /modelado-conceptual/
-  Modelado Relacional: /modelado-relacional/
-  SQL: /sql/
-aux_links_new_tab: false
+# Navegación superior (se gestiona mejor vía _data/navigation.yml)
+include: ["_pages"]
+
