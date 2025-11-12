@@ -1,0 +1,263 @@
+/* Custom styles for UML-Relational exercises */
+
+/* Math display improvements */
+.MathJax_Display {
+  margin: 1em 0 !important;
+}
+
+/* Math formulas with code block background */
+.MathJax,
+.MathJax_Display,
+mjx-container,
+mjx-container[display="true"] {
+  background-color: var(--code-background-color, #f6f8fa) !important;
+  color: var(--body-text-color, #24292e) !important;
+  padding: 0.5rem !important;
+  border-radius: 6px !important;
+  margin: 1rem 0 !important;
+  border: 1px solid var(--border-color, #e1e4e8) !important;
+}
+
+/* Inline math formulas */
+mjx-container[display="false"],
+.MathJax_Preview + script + mjx-container {
+  background-color: var(--code-background-color, #f6f8fa) !important;
+  color: var(--body-text-color, #24292e) !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 4px !important;
+  margin: 0 0.2rem !important;
+  display: inline-block !important;
+  border: 1px solid var(--border-color, #e1e4e8) !important;
+}
+
+/* Additional MathJax 3 support */
+mjx-math {
+  background-color: inherit !important;
+}
+
+/* Ensure math containers have proper contrast for both themes */
+.dark-theme mjx-container,
+.dark-theme .MathJax,
+.dark-theme .MathJax_Display {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: var(--body-text-color) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Light theme math formulas */
+.light-theme mjx-container,
+.light-theme .MathJax,
+.light-theme .MathJax_Display,
+body mjx-container {
+  background-color: #f6f8fa !important;
+  color: #24292e !important;
+  border: 1px solid #e1e4e8 !important;
+}
+
+/* Force same background as code blocks for dark theme */
+[data-color-mode="dark"] mjx-container,
+.dark-theme mjx-container {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-color-mode="dark"] mjx-container[display="false"],
+.dark-theme mjx-container[display="false"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Light theme inline math */
+[data-color-mode="light"] mjx-container[display="false"],
+.light-theme mjx-container[display="false"],
+body mjx-container[display="false"] {
+  background-color: #f6f8fa !important;
+  border: 1px solid #e1e4e8 !important;
+}
+
+/* Code blocks styling */
+pre code {
+  border-radius: 6px;
+  background-color: var(--code-background-color);
+  line-height: 1.1 !important;
+}
+
+/* Ensure all code blocks have consistent line height */
+.highlight pre,
+pre,
+code {
+  line-height: 1.1 !important;
+}
+
+/* Specific styling for data/relation extension blocks */
+.highlight pre code,
+pre code,
+div.highlighter-rouge pre {
+  line-height: 1.1 !important;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+/* Additional coverage for plain code blocks */
+div.language-text pre,
+div.language-plaintext pre,
+.language-text pre code,
+.language-plaintext pre code {
+  line-height: 1.1 !important;
+}
+
+/* Result blocks styling for algebra */
+.result-block {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--link-color);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 6px 6px 0;
+}
+
+/* PlantUML diagram containers */
+.plantuml-diagram {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.plantuml-diagram img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white; /* Ensure diagrams have white background */
+}
+
+/* Loading indicator for diagrams */
+.plantuml-diagram div {
+  color: var(--body-text-color);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* General UML diagram containers */
+.diagram-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.diagram-container img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Exercise navigation improvements */
+.exercise-nav {
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+/* Table improvements for relational schemas */
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+table th, table td {
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+
+table th {
+  background-color: var(--sidebar-color);
+  font-weight: 600;
+}
+
+/* Highlight for primary keys */
+.primary-key {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Foreign key styling */
+.foreign-key {
+  font-style: italic;
+  color: var(--link-color);
+}
+
+/* Fallback code block styling in diagrams */
+.plantuml-diagram details {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.plantuml-diagram details summary {
+  cursor: pointer;
+  color: var(--link-color);
+  font-weight: 500;
+}
+
+.plantuml-diagram details pre {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Print styles */
+@media print {
+  /* Math formulas for print - lighter weight */
+  .MathJax,
+  .MathJax_Display,
+  mjx-container,
+  mjx-container[display="true"],
+  mjx-container[display="false"] {
+    background-color: transparent !important;
+    border: none !important;
+    font-weight: normal !important;
+    color: black !important;
+    padding: 0.2rem !important;
+  }
+
+  /* MathJax elements */
+  mjx-math,
+  mjx-math *,
+  .MathJax *,
+  .MathJax_Display * {
+    font-weight: normal !important;
+    color: black !important;
+    background: none !important;
+  }
+
+  /* Ensure clean math rendering */
+  mjx-container svg {
+    color: black !important;
+    fill: black !important;
+  }
+
+  /* Print-specific footer */
+  @page {
+    margin-bottom: 3cm;
+    @bottom-center {
+      content: "Ejercicios MC → MR. David Ruiz";
+      font-size: 9pt;
+      color: #666;
+    }
+  }
+
+  /* Ensure proper page breaks */
+  .exercise-content {
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  /* Hide non-essential elements in print */
+  .site-nav,
+  .main-header,
+  .breadcrumb-nav,
+  .edit-page-link {
+    display: none !important;
+  }
+}

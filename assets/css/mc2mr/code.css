@@ -1,0 +1,43 @@
+/* Code styling improvements */
+.highlight {
+  background-color: var(--code-background-color) !important;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+/* SQL syntax highlighting */
+.language-sql .highlight {
+  border-left: 4px solid #61dafb;
+}
+
+/* PlantUML code highlighting */
+.language-plantuml .highlight {
+  border-left: 4px solid #4CAF50;
+}
+
+/* Result output styling */
+.language-text .highlight {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-left: 4px solid var(--link-color);
+}
+
+/* Copy button styling */
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--btn-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.highlight:hover .copy-btn {
+  opacity: 1;
+}

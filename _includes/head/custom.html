@@ -104,3 +104,42 @@
 <script>
   // Copiado de código: se usa la funcionalidad nativa del tema (enable_copy_code_button)
 </script>
+
+<!-- MathJax + macros para álgebra relacional (MC2MR) -->
+<script>
+  window.MathJax = window.MathJax || {};
+  window.MathJax.tex = Object.assign({
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    tags: 'ams',
+    packages: {'[+]': ['textmacros']},
+    macros: {
+      Proj: ["\\mathop{\\mathchoice{\\Huge\\Pi}{\\Large\\Pi}{\\large\\Pi}{\\normalsize\\Pi}}\\limits_{#1}", 1],
+      Sel: ["\\mathop{\\mathchoice{\\Huge\\sigma}{\\Large\\sigma}{\\large\\sigma}{\\normalsize\\sigma}}\\limits_{#1}", 1],
+      Ren: ["\\mathop{\\mathchoice{\\Huge\\rho}{\\Large\\rho}{\\large\\rho}{\\normalsize\\rho}}_{#1}", 1],
+      Group: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits^{#1}_{#2}", 2],
+      GroupUp: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits^{#1}", 1],
+      GroupDown: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits_{#1}", 1],
+      JoinR: ["\\mathbin{\\mathop{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}\\limits_{#1}}", 1],
+      NatJoin: ["\\mathbin{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}", 0],
+      Diff: ["\\mathbin{\\mathchoice{\\Huge\\setminus}{\\Large\\setminus}{\\large\\setminus}{\\normalsize\\setminus}}", 0],
+      Union: ["\\mathbin{\\mathchoice{\\Huge\\cup}{\\Large\\cup}{\\large\\cup}{\\normalsize\\cup}}", 0],
+      Inter: ["\\mathbin{\\mathchoice{\\Huge\\cap}{\\Large\\cap}{\\large\\cap}{\\normalsize\\cap}}", 0],
+      Div: ["\\mathbin{\\mathchoice{\\Huge\\div}{\\Large\\div}{\\large\\div}{\\normalsize\\div}}", 0],
+      LeftJoin: ["\\mathbin{\\mathchoice{\\Large\\ltimes}{\\large\\ltimes}{\\normalsize\\ltimes}{\\small\\ltimes}}", 0],
+      RightJoin: ["\\mathbin{\\mathchoice{\\Large\\rtimes}{\\large\\rtimes}{\\normalsize\\rtimes}{\\small\\rtimes}}", 0],
+      OuterJoin: ["\\mathbin{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}", 0]
+    }
+  }, window.MathJax.tex || {});
+  window.MathJax.options = Object.assign({
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }, window.MathJax.options || {});
+  window.MathJax.svg = Object.assign({ fontCache: 'global' }, window.MathJax.svg || {});
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js"></script>
+<link rel="stylesheet" href="{{ '/assets/css/mc2mr/math.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/mc2mr/custom-theme.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/mc2mr/code.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/mc2mr/print.css' | relative_url }}" media="print">
+<script defer src="{{ '/assets/js/mc2mr/plantuml-renderer.js' | relative_url }}"></script>

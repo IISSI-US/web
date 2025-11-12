@@ -31,16 +31,6 @@ sass:
 
 # Colecciones
 collections:
-  conceptual:
-    output: true
-    permalink: /modelado-conceptual/:path/
-  relacional:
-    output: true
-    permalink: /modelado-relacional/:path/
-  sql:
-    output: true
-    permalink: /sql/:path/
-
   test:
     output: true
 
@@ -56,32 +46,13 @@ defaults:
       sidebar:
         nav: laboratorios
   - scope:
-      path: ""
-      type: conceptual
+      path: "mc2mr"
     values:
       layout: single
       author_profile: false
       share: false
       sidebar:
-        nav: conceptual
-  - scope:
-      path: ""
-      type: relacional
-    values:
-      layout: single
-      author_profile: false
-      share: false
-      sidebar:
-        nav: relacional
-  - scope:
-      path: ""
-      type: sql
-    values:
-      layout: single
-      author_profile: false
-      share: false
-      sidebar:
-        nav: sql
+        nav: mc2mr
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar
