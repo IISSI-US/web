@@ -1,0 +1,187 @@
+@startuml
+
+skinparam object {
+    BackgroundColor #FFDDCC
+    BorderColor #B96E4C
+    FontColor #000000
+    FontSize 12
+}
+
+together {
+
+' Degrees
+object "d1:Degree" as d1 {
+  name = "Ingeniería del Software"
+  years = 4
+}
+object "d2:Degree" as d2 {
+  name = "Ingeniería del Computadores"
+  years = 4
+}
+object "d3:Degree" as d3 {
+  name = "Tecnologías Informáticas"
+  years = 4
+}
+}
+
+together {
+
+' Subjects
+object "s1:Subject" as s1 {
+  name = "Fundamentos de Programación"
+  acronym = "FP"
+  credits = 12
+  year = 1
+  type = "Formacion Básica"
+}
+object "s2:Subject" as s2 {
+  name = "Lógica Informática"
+  acronym = "LI"
+  credits = 6
+  year = 2
+  type = "Optativa"
+}
+}
+together {
+
+' Groups
+object "g1:Group" as g1 {
+  name = "T1"
+  activity = "Teoría"
+  year = 2019
+}
+object "g2:Group" as g2 {
+  name = "L1"
+  activity = "Laboratorio"
+  year = 2019
+}
+object "g3:Group" as g3 {
+  name = "L2"
+  activity = "Laboratorio"
+  year = 2019
+}
+}
+
+together {
+
+' Students
+object "st1:Student" as st1 {
+  accessMethod = "Selectividad"
+  dni = "12345678A"
+  firstName = "Daniel"
+  surname = "Pérez"
+  birthDate = "1991-01-01"
+  email = "daniel@alum.us.es"
+  password = "pw1"
+}
+object "st2:Student" as st2 {
+  accessMethod = "Selectividad"
+  dni = "22345678A"
+  firstName = "Rafael"
+  surname = "Ramírez"
+  birthDate = "1992-01-01"
+  email = "rafael@alum.us.es"
+  password = "pw2"
+}
+object "st3:Student" as st3 {
+  accessMethod = "Selectividad"
+  dni = "32345678A"
+  firstName = "Gabriel"
+  surname = "Hernández"
+  birthDate = "1993-01-01"
+  email = "gabriel@alum.us.es"
+  password = "pw3"
+}
+
+}
+
+' GroupsStudents
+object "gs1:GroupsStudent" as gs1
+object "gs2:GroupsStudent" as gs2
+
+together {
+
+' Grades
+object "gr1:Grade" as gr1 {
+  value = 4.50
+  gradeCall = 1
+  withHonours = 0
+}
+object "gr2:Grade" as gr2 {
+  value = 5.00
+  gradeCall = 1
+  withHonours = 0
+}
+object "gr3:Grade" as gr3 {
+  value = 6.00
+  gradeCall = 1
+  withHonours = 0
+}
+object "gr4:Grade" as gr4 {
+  value = 7.00
+  gradeCall = 2
+  withHonours = 0
+}
+object "gr5:Grade" as gr5 {
+  value = 9.00
+  gradeCall = 2
+  withHonours = 1
+}
+object "gr6:Grade" as gr6 {
+  value = 9.00
+  gradeCall = 2
+  withHonours = 0
+}
+object "gr7:Grade" as gr7 {
+  value = 10.00
+  gradeCall = 3
+  withHonours = 0
+}
+object "gr8:Grade" as gr8 {
+  value = 5.50
+  gradeCall = 3
+  withHonours = 0
+}
+object "gr9:Grade" as gr9 {
+  value = 6.00
+  gradeCall = 2
+  withHonours = 1
+}
+}
+
+
+' Associations with labels
+d3 -- s1
+d3 -- s2
+
+s1 *-- g1
+s1 *-- g2
+s1 *-- g3
+
+g1 -- gs1
+g3 -- gs2
+
+gs1 -- st1
+gs2 -- st1
+
+g1 -- gr1
+g1 -- gr2
+g1 -- gr3
+g1 -- gr4
+g1 -- gr5
+g1 -- gr6
+g3 -- gr7
+g3 -- gr8
+g3 -- gr9
+
+st1 -- gr1
+st2 -- gr2
+st3 -- gr3
+st1 -- gr4
+st2 -- gr5
+st3 -- gr6
+st1 -- gr7
+st2 -- gr8
+st3 -- gr9
+
+@enduml

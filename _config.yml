@@ -16,6 +16,13 @@ plugins:
 # Apariencia
 minimal_mistakes_skin: default # options: default, dark, dirt, neon, etc.
 
+# Motor de Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+markdown_ext: "md,markdown"
+
 # Compilación de SASS/SCSS
 sass:
   sass_dir: assets/css
@@ -23,9 +30,6 @@ sass:
 
 # Colecciones
 collections:
-  requisitos:
-    output: true
-    permalink: /requisitos/:path/
   conceptual:
     output: true
     permalink: /modelado-conceptual/:path/
@@ -36,17 +40,19 @@ collections:
     output: true
     permalink: /sql/:path/
 
+  test:
+    output: true
+
 # Valores por defecto para documentos de colecciones
 defaults:
   - scope:
-      path: ""
-      type: requisitos
+      path: "laboratorios"
     values:
       layout: single
       author_profile: false
       share: false
       sidebar:
-        nav: requisitos
+        nav: laboratorios
   - scope:
       path: ""
       type: conceptual
@@ -76,5 +82,5 @@ defaults:
         nav: sql
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
-include: ["_pages"]
+# Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar
 
