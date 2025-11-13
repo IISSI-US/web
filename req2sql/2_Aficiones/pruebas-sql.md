@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Pruebas SQL
 parent: Aficiones
 nav_order: 5

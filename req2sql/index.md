@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Req → MC → MR → SQL"
+title: "Req → SQL"
 excerpt: "10 ejercicios de ciclo completo: requisitos, modelo conceptual, modelo relacional y SQL"
 author_profile: false
 share: false

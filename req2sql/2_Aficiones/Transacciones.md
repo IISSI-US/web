@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Transacciones
 parent: Aficiones
 nav_order: 6

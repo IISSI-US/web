@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Modelo Relacional (v2)
 parent: Bodegas
 nav_order: 4

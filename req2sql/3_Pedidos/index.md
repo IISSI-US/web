@@ -1,10 +1,456 @@
 ---
-layout: default
 title: Pedidos
-nav_order: 30
-has_children: true
-has_toc: false
+layout: single
+sidebar:
+  nav: req2sql
+toc: true
 ---
+
+# Pedidos
+
+\n## Requisitos\n
+
+# Catálogo de Requisitos
+
+## Requisitos de información (RI)
+
+### RI-1: Usuarios
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los usuarios: nombre, provincia y fecha de alta en el Sistema de Pedidos.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+### RI-2: Productos
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los productos: descripción, precio y stock en el almacén.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+### RI-3: Pedidos
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los pedidos: fecha de compra en la que el usuario hace el pedido y cantidad de productos que se piden.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+## Reglas de negocio (RN)
+
+### RN-1: Límite de pedidos
+- Como: Profesor de la asignatura
+- Quiero: Que un usuario no pueda hacer más de tres pedidos al día
+- Para: Que el estudiante practique con restricciones simples
+
+### RN-2: Agosto inhábil
+- Como: Profesor de la asignatura
+- Quiero: Que no se puedan hacer pedidos en el mes de agosto
+- Para: Que el estudiante practique con restricciones simples
+
+### RN-3: Stock suficiente
+- Como: Profesor de la asignatura
+- Quiero: Que solo se pueda realizar el pedido si hay stock suficiente
+- Para: Que el estudiante practique con restricciones simples
+
+## Pruebas de aceptación (PA)
+
+### PA-1: Pedidos
+
+  1. ✅ Crear un nuevo pedido con todos los datos correctos según las reglas de negocio.
+  2. ❌ Crear un nuevo pedido sin especificar la cantidad de productos.
+  3. ❌ Crear un nuevo pedido sin especificar la fecha de compra.
+  4. ❌ Crear un nuevo pedido con más de tres pedidos al día.
+  5. ❌ Crear un nuevo pedido en el mes de agosto.
+  6. ❌ Crear un nuevo pedido sin stock suficiente.
+
+\n## Modelo Conceptual\n
+
+# Modelo conceptual
+
+## Diagrama de clases 
+
+El modelo extiende el dominio de Usuarios incorporando las entidades Producto y Pedido para gestionar un sistema de comercio básico.
+
+- **Entidades principales**: Usuario, Producto, Pedido.
+- **asociaciones**: Un Usuario puede realizar 0..* Pedidos; un Pedido pertenece a 1 Usuario. Un Pedido incluye 1..* Productos; un Producto puede estar en 0..* Pedidos.
+- **Restricciones de negocio**: Stock suficiente antes de crear pedido; máximo 3 pedidos por día por usuario; no pedidos en agosto.
+
+![Diagrama de clases]({{ '/assets/images/req2sql/Pedidos/pedidos-dc.png' | relative_url }})
+
+## Diagrama de objetos
+
+Los objetos ejemplifican escenarios típicos de uso del sistema de pedidos con diferentes patrones de compra.
+
+- **Instancias de usuarios**: Varios usuarios (u1,u2) con pedidos realizados en fechas diferentes.
+- **Productos**: Artículos con stock y precio variable (p1,p2,p3).
+- **Pedidos**: Diferentes cantidades, fechas válidas (no agosto), respetando límite diario (se utiliza la notación para objetos anónimos _).
+- **Vínculos**: Conexiones entre usuarios-pedidos y pedidos-productos mostrando las cardinalidades del modelo.
+
+![Diagrama de objetos]({{ '/assets/images/req2sql/Pedidos/pedidos-do.png' | relative_url }})
+\n## Modelo Relacional\n
+
+# Modelo relacional
+
+## Intensión
+
+```
+Usuarios(usuarioId, nombre, provincia, fechaAlta)
+	PK(usuarioId)
+Productos(productoId, descripcion, precio, stock)
+	PK(productoId)
+Pedidos(pedidoId, usuarioId, productoId, fechaCompra, cantidad)
+	PK(pedidoId)
+	FK(usuarioId) / Usuarios
+	FK(productoId) / Productos
+```
+
+## Extensión
+
+```
+Usuarios = {
+	(u1, "David Ruiz", "Sevilla", "2018-05-18"),
+	(u2, "Marta López", "Málaga", "2018-06-12"),
+	(u3, "Raquel Lobato", "Granada", "2018-12-01"),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11"),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12"),
+	(u6, "Jimena Martín", "Granada", "2018-05-13"),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07"),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07")
+}
+Productos = {
+	(p1, "Mi Band 3", 19.90, 50),
+	(p2, "Mi Band 4", 29.90, 20),
+	(p3, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(p4, "Mi Scooter", 349.90, 25),
+	(p5, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
+	(p6, "Rueda delantera de respuesto Mi Scooter", 59.90, 50)
+}
+Pedidos = {
+	(pe1, u1, p1, "2019-05-13", 2),
+	(pe2, u1, p3, "2019-05-13", 2),
+	(pe3, u2, p2, "2019-06-11", 3),
+	(pe4, u2, p3, "2019-06-11", 1),
+	(pe5, u3, p4, "2019-06-15", 2),
+	(pe6, u4, p5, "2019-06-18", 1),
+	(pe7, u4, p6, "2019-06-18", 1),
+	(pe8, u5, p4, "2019-12-15", 2),
+	(pe9, u7, p1, "2019-12-15", 1),
+	(pe10, u7, p2, "2019-12-16", 1),
+	(pe11, u7, p3, "2019-12-17", 1),
+	(pe12, u7, p4, "2019-12-18", 1),
+	(pe13, u7, p5, "2019-12-19", 1),
+	(pe14, u7, p6, "2019-12-20", 1),
+	(pe15, u8, p1, "2019-12-15", 1)
+}
+```
+
+## Álgebra relacional
+
+Renombrado:
+
+$$
+U(uId,n,p,fa) \leftarrow Usuarios(usuarioId,nombre,provincia,fechaAlta)\\
+$$
+
+$$
+P(pId,d,p,s) \leftarrow Productos(productoId,descripcion,precio,stock)\\
+$$
+
+$$
+Ped(pedId,uId,pId,fc,c) \leftarrow Pedidos(pedidoId,usuarioId,productoId,fechaCompra,cantidad)
+$$
+
+Listados y consultas:
+
+- Todos los pedidos con sus usuarios y productos:
+
+$$
+UPP \leftarrow U \NatJoin Ped \NatJoin P
+$$
+
+- Pedidos de usuarios de Málaga:
+
+$$
+\Sel{U.p=\text{Málaga}}(UPP)
+$$
+
+- Descripción y stock de productos con stock < 100:
+
+$$
+\Proj{P.d,P.s}(\Sel{P.s<100}(P))
+$$
+
+- Número de pedidos por usuario:
+
+$$
+\Group{\operatorname{COUNT}(pedId)}{uId}(U \NatJoin Ped)
+$$
+
+- Importe total por usuario:
+
+$$
+\Group{\operatorname{SUM}(P.p\cdot Ped.c)}{uId}(P \NatJoin Ped)
+$$
+
+- Pedidos por mes:
+
+$$
+\Group{\operatorname{COUNT}(pedId)}{\operatorname{MES}(Ped.fc)}(Ped)
+$$
+
+- Usuario que más gasta cada mes:
+
+$$
+\Group{U.n,\;\operatorname{MAX}(P.p\cdot Ped.c)}{\operatorname{MES}(Ped.fc)}(U \NatJoin P \NatJoin Ped)
+$$
+
+- Mes de máxima recaudación:
+
+$$
+\GroupUp{\operatorname{MAX}(P.p\cdot Ped.c)}(P \NatJoin Ped)
+$$
+\n## Modelo Tecnológico (MariaDB)\n
+
+# Modelo tecnológico (MariaDB)
+
+## Script SQL para crear la base de datos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/createDB.sql' | relative_url }}"></div>
+
+## Script SQL para la carga inicial de datos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/populateDB.sql' | relative_url }}"></div>
+
+## Consultas
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/queries.sql' | relative_url }}"></div>
+
+## Procedimientos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/procedures.sql' | relative_url }}"></div>
+
+## Tests
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/tests.sql' | relative_url }}"></div>
+
+\n## Pedidos\n
+
+# title: Pedidos
+
+\n## Requisitos\n
+
+# Catálogo de Requisitos
+
+## Requisitos de información (RI)
+
+### RI-1: Usuarios
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los usuarios: nombre, provincia y fecha de alta en el Sistema de Pedidos.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+### RI-2: Productos
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los productos: descripción, precio y stock en el almacén.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+### RI-3: Pedidos
+- Como: Profesor de la asignatura
+- Quiero: Poder almacenar la siguiente información de los pedidos: fecha de compra en la que el usuario hace el pedido y cantidad de productos que se piden.
+- Para: Que el estudiante realice a partir de este requisito el modelo conceptual, relacional y tecnológico
+
+## Reglas de negocio (RN)
+
+### RN-1: Límite de pedidos
+- Como: Profesor de la asignatura
+- Quiero: Que un usuario no pueda hacer más de tres pedidos al día
+- Para: Que el estudiante practique con restricciones simples
+
+### RN-2: Agosto inhábil
+- Como: Profesor de la asignatura
+- Quiero: Que no se puedan hacer pedidos en el mes de agosto
+- Para: Que el estudiante practique con restricciones simples
+
+### RN-3: Stock suficiente
+- Como: Profesor de la asignatura
+- Quiero: Que solo se pueda realizar el pedido si hay stock suficiente
+- Para: Que el estudiante practique con restricciones simples
+
+## Pruebas de aceptación (PA)
+
+### PA-1: Pedidos
+
+  1. ✅ Crear un nuevo pedido con todos los datos correctos según las reglas de negocio.
+  2. ❌ Crear un nuevo pedido sin especificar la cantidad de productos.
+  3. ❌ Crear un nuevo pedido sin especificar la fecha de compra.
+  4. ❌ Crear un nuevo pedido con más de tres pedidos al día.
+  5. ❌ Crear un nuevo pedido en el mes de agosto.
+  6. ❌ Crear un nuevo pedido sin stock suficiente.
+
+\n## Modelo Conceptual\n
+
+# Modelo conceptual
+
+## Diagrama de clases 
+
+El modelo extiende el dominio de Usuarios incorporando las entidades Producto y Pedido para gestionar un sistema de comercio básico.
+
+- **Entidades principales**: Usuario, Producto, Pedido.
+- **asociaciones**: Un Usuario puede realizar 0..* Pedidos; un Pedido pertenece a 1 Usuario. Un Pedido incluye 1..* Productos; un Producto puede estar en 0..* Pedidos.
+- **Restricciones de negocio**: Stock suficiente antes de crear pedido; máximo 3 pedidos por día por usuario; no pedidos en agosto.
+
+![Diagrama de clases]({{ '/assets/images/req2sql/Pedidos/pedidos-dc.png' | relative_url }})
+
+## Diagrama de objetos
+
+Los objetos ejemplifican escenarios típicos de uso del sistema de pedidos con diferentes patrones de compra.
+
+- **Instancias de usuarios**: Varios usuarios (u1,u2) con pedidos realizados en fechas diferentes.
+- **Productos**: Artículos con stock y precio variable (p1,p2,p3).
+- **Pedidos**: Diferentes cantidades, fechas válidas (no agosto), respetando límite diario (se utiliza la notación para objetos anónimos _).
+- **Vínculos**: Conexiones entre usuarios-pedidos y pedidos-productos mostrando las cardinalidades del modelo.
+
+![Diagrama de objetos]({{ '/assets/images/req2sql/Pedidos/pedidos-do.png' | relative_url }})
+\n## Modelo Relacional\n
+
+# Modelo relacional
+
+## Intensión
+
+```
+Usuarios(usuarioId, nombre, provincia, fechaAlta)
+	PK(usuarioId)
+Productos(productoId, descripcion, precio, stock)
+	PK(productoId)
+Pedidos(pedidoId, usuarioId, productoId, fechaCompra, cantidad)
+	PK(pedidoId)
+	FK(usuarioId) / Usuarios
+	FK(productoId) / Productos
+```
+
+## Extensión
+
+```
+Usuarios = {
+	(u1, "David Ruiz", "Sevilla", "2018-05-18"),
+	(u2, "Marta López", "Málaga", "2018-06-12"),
+	(u3, "Raquel Lobato", "Granada", "2018-12-01"),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11"),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12"),
+	(u6, "Jimena Martín", "Granada", "2018-05-13"),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07"),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07")
+}
+Productos = {
+	(p1, "Mi Band 3", 19.90, 50),
+	(p2, "Mi Band 4", 29.90, 20),
+	(p3, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(p4, "Mi Scooter", 349.90, 25),
+	(p5, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
+	(p6, "Rueda delantera de respuesto Mi Scooter", 59.90, 50)
+}
+Pedidos = {
+	(pe1, u1, p1, "2019-05-13", 2),
+	(pe2, u1, p3, "2019-05-13", 2),
+	(pe3, u2, p2, "2019-06-11", 3),
+	(pe4, u2, p3, "2019-06-11", 1),
+	(pe5, u3, p4, "2019-06-15", 2),
+	(pe6, u4, p5, "2019-06-18", 1),
+	(pe7, u4, p6, "2019-06-18", 1),
+	(pe8, u5, p4, "2019-12-15", 2),
+	(pe9, u7, p1, "2019-12-15", 1),
+	(pe10, u7, p2, "2019-12-16", 1),
+	(pe11, u7, p3, "2019-12-17", 1),
+	(pe12, u7, p4, "2019-12-18", 1),
+	(pe13, u7, p5, "2019-12-19", 1),
+	(pe14, u7, p6, "2019-12-20", 1),
+	(pe15, u8, p1, "2019-12-15", 1)
+}
+```
+
+## Álgebra relacional
+
+Renombrado:
+
+$$
+U(uId,n,p,fa) \leftarrow Usuarios(usuarioId,nombre,provincia,fechaAlta)\\
+$$
+
+$$
+P(pId,d,p,s) \leftarrow Productos(productoId,descripcion,precio,stock)\\
+$$
+
+$$
+Ped(pedId,uId,pId,fc,c) \leftarrow Pedidos(pedidoId,usuarioId,productoId,fechaCompra,cantidad)
+$$
+
+Listados y consultas:
+
+- Todos los pedidos con sus usuarios y productos:
+
+$$
+UPP \leftarrow U \NatJoin Ped \NatJoin P
+$$
+
+- Pedidos de usuarios de Málaga:
+
+$$
+\Sel{U.p=\text{Málaga}}(UPP)
+$$
+
+- Descripción y stock de productos con stock < 100:
+
+$$
+\Proj{P.d,P.s}(\Sel{P.s<100}(P))
+$$
+
+- Número de pedidos por usuario:
+
+$$
+\Group{\operatorname{COUNT}(pedId)}{uId}(U \NatJoin Ped)
+$$
+
+- Importe total por usuario:
+
+$$
+\Group{\operatorname{SUM}(P.p\cdot Ped.c)}{uId}(P \NatJoin Ped)
+$$
+
+- Pedidos por mes:
+
+$$
+\Group{\operatorname{COUNT}(pedId)}{\operatorname{MES}(Ped.fc)}(Ped)
+$$
+
+- Usuario que más gasta cada mes:
+
+$$
+\Group{U.n,\;\operatorname{MAX}(P.p\cdot Ped.c)}{\operatorname{MES}(Ped.fc)}(U \NatJoin P \NatJoin Ped)
+$$
+
+- Mes de máxima recaudación:
+
+$$
+\GroupUp{\operatorname{MAX}(P.p\cdot Ped.c)}(P \NatJoin Ped)
+$$
+\n## Modelo Tecnológico (MariaDB)\n
+
+# Modelo tecnológico (MariaDB)
+
+## Script SQL para crear la base de datos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/createDB.sql' | relative_url }}"></div>
+
+## Script SQL para la carga inicial de datos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/populateDB.sql' | relative_url }}"></div>
+
+## Consultas
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/queries.sql' | relative_url }}"></div>
+
+## Procedimientos
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/procedures.sql' | relative_url }}"></div>
+
+## Tests
+
+<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/tests.sql' | relative_url }}"></div>
+
+\n## Pedidos\n
 
 # Pedidos
 

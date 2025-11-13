@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Pruebas SQL
 parent: Bodegas
 nav_order: 7

@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Modelo Tecnológico (v1)
 parent: Bodegas
 nav_order: 5

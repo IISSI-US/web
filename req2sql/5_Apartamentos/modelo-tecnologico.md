@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Modelo Tecnológico (MariaDB)
 parent: Apartamentos
 nav_order: 4

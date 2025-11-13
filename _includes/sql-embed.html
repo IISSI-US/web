@@ -1,0 +1,12 @@
+<div class="sql-embed" data-src="{{ include.src }}">
+  <div class="sql-embed__header">
+    <span class="sql-embed__label">{{ include.label | default: include.src }}</span>
+    <button type="button" class="sql-embed__copy" aria-label="Copiar">Copiar</button>
+  </div>
+  <div class="highlight">
+    <pre><code class="language-sql"></code></pre>
+  </div>
+  <noscript>
+    <p>JavaScript deshabilitado. Puedes abrir el archivo: <a href="{{ include.src }}">{{ include.src }}</a></p>
+  </noscript>
+</div>

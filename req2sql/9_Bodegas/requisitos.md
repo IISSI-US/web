@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Requisitos
 parent: Bodegas
 nav_order: 1

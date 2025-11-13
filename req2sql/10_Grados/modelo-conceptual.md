@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Modelo Conceptual
 parent: Grados
 nav_order: 2

@@ -46,7 +46,7 @@ main:
         url: /mc2mr/08_relaciones-mn/
       - title: "9. Torneo de tenis"
         url: /mc2mr/09_torneo-tenis/
-  - title: "Req → MC → MR → SQL"
+  - title: "Req → SQL"
     url: /req2sql/
     children:
       - title: "1. Usuarios"
@@ -121,7 +121,7 @@ mc2mr:
         url: /mc2mr/09_torneo-tenis/
 
 req2sql:
-  - title: "Req → MC → MR → SQL"
+  - title: "Req → SQL"
     children:
       - title: "1. Usuarios"
         url: /req2sql/1_Usuarios/

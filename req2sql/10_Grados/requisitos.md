@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Requisitos
 parent: Grados
 nav_order: 1

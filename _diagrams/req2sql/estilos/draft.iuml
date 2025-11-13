@@ -5,7 +5,7 @@ hide circle
 'skinparam linetype ortho 
 skinparam defaultFontName MV Boli
 
-skinparam backgroundColor transparent
+'skinparam backgroundColor transparent
 
 skinparam Arrow {
     FontColor Black

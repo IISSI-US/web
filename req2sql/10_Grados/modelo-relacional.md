@@ -1,5 +1,6 @@
 ---
 layout: default
+published: false
 title: Modelo Relacional
 parent: Grados
 nav_order: 3

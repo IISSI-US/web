@@ -1,8 +1,7 @@
 ---
-layout: default
 title: Modelo Tecnológico (MariaDB)
+published: false
 parent: Usuarios
-nav_order: 4
 ---
 
 # Modelo tecnológico (MariaDB)
@@ -11,19 +10,19 @@ Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente 
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios/createDB.sql' label='Usuarios/createDB.sql' %}
 
 ## Script SQL para la carga inicial de datos
 
 Para cargar los datos de prueba se puede usar el siguiente script:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios/populateDB.sql' label='Usuarios/populateDB.sql' %}
 
 ## Consultas
 
 Para crear las consultas que implementan los requisitos funcionales se puede usar el siguiente script:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios/queries.sql' label='Usuarios/queries.sql' %}
 
 ## SQL Avanzado
 
@@ -31,11 +30,11 @@ Tenemos que implementar una función que calcula la edad de un usuario a partir 
 
 El script para la función es el siguiente:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios/fGetAge.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios/fGetAge.sql' label='Usuarios/fGetAge.sql' %}
 
 El script para el trigger es el siguiente:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios/tCheckAge.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios/tCheckAge.sql' label='Usuarios/tCheckAge.sql' %}
 
 ## Fecha de nacimiento en lugar de la edad
 
@@ -43,16 +42,16 @@ En la creación de la tabla ahora hay que añadir que sustituir la edad por la f
 
 Ahora el script para la creación de la tabla es el siguiente:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios2/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios2/createDB.sql' label='Usuarios2/createDB.sql' %}
 
 Los datos de prueba son los mismos que en el caso anterior pero sustituyendo la fecha de nacimiento por la edad:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios2/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios2/populateDB.sql' label='Usuarios2/populateDB.sql' %}
 
 Para las consultas podemos usar la función definida para calcular la edad o crear una vista de la tabla Usuarios que tendrá la edad siempre actualizada.
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios2/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios2/queries.sql' label='Usuarios2/queries.sql' %}
 
 El trigger quedaría de la siguiente forma:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Usuarios2/tCheckAge.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Usuarios2/tCheckAge.sql' label='Usuarios2/tCheckAge.sql' %}

@@ -65,6 +65,9 @@ defaults:
       share: false
       sidebar:
         nav: req2sql
+      toc: true
+      footer_scripts:
+        - /assets/js/sql-embed.js
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar

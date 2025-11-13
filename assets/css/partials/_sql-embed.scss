@@ -1,0 +1,38 @@
+.sql-embed {
+  margin: 1.25rem 0 2rem;
+
+  .sql-embed__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--mm-gray-300, #e6e6e6);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    background: var(--mm-gray-050, #fafafa);
+    color: inherit;
+
+    .sql-embed__label {
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sql-embed__copy {
+      appearance: none;
+      border: 1px solid var(--mm-gray-300, #e6e6e6);
+      border-radius: 4px;
+      background: white;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+    }
+  }
+
+  .highlight {
+    // Reuse Minimal Mistakes code block styling
+    border-radius: 0 0 6px 6px;
+  }
+}
