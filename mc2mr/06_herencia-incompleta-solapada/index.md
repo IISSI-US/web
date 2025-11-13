@@ -12,15 +12,11 @@ sidebar:
 ![Diagrama de Clases](/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png)
 
 ## Modelo Relacional. Intensión
-```
 RecursosHumanos(recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia)
     PK(recursoId)
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/mc2mr/ejercicio-06-herencia-incompleta-solapada-objetos.png) -->
-
-## Modelo Relacional. Extensión
+toc_sticky: true
 ```text
 RecursosHumanos = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),

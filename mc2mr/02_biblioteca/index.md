@@ -5,8 +5,6 @@ toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
-sidebar:
-  nav: mc2mr
 ---
 
 ## Modelo Conceptual
