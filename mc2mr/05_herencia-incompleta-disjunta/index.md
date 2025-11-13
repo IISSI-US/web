@@ -292,7 +292,7 @@ $$\Sel{año = añoMin}(V \Join C)$$
 
 **9. Obtener todas las marcas que fabrican tanto coches como motos**
 
-$$\Proj{mar}(V \Join C \Join M)
+$$\Proj{mar}(V \Join C \Join M) $$
 
 **10. Obtener vehículos que no son especializados (solo vehículos genéricos)**
 
