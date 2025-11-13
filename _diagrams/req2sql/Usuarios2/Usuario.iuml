@@ -1,0 +1,7 @@
+    Class Usuario << Entidad >>{
+        nombre: String
+        género: Género
+        fechaNacimiento: Fecha
+        email: String
+        /edad: Integer
+    } 

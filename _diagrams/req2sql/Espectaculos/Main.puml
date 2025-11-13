@@ -1,0 +1,47 @@
+@startuml espectaculos-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    
+    'Asociaciones
+    TipoEspectáculo *-- Espectáculo : contiene >
+    Espectáculo *-- Representación : esRepresentado >
+    Zona *-- Localidad : contiene >
+    Zona "*" - "*" TipoEspectáculo : tieneprecio >
+    Localidad "*" - "*" Representación : está_Ocupada >
+    (Representación , Localidad) .. Entrada
+    (TipoEspectáculo , Zona) .. Precio
+    
+    ' Restricciones
+    note bottom of Representación
+    RN-1: No puede haber más de una representación 
+    del mismo espectáculo el mismo día
+    end note
+@enduml
+
+@startuml espectaculos-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+    'hide members
+    note bottom of acdc
+        Es un concierto de ACDC que tiene 2 representaciones
+        en cada representación se ha vendido una única entrada,
+        una por el canal WEB y otra por el canal INVITACIÓN.
+        Las entradas son en dos zonas distintas: patio(50 euros) 
+        y 1ra balcón (100 euros)
+    end note 
+
+    ' Enlaces entre los objetos
+    concierto *-- acdc : contiene >
+    acdc *-- r1 : esRepresentado >
+    acdc *-- r2 : esRepresentado >
+    patio -- concierto : tienePrecio > 
+    balcon1 -- concierto : tienePrecio > 
+    patio *-- l1 : contiene >
+    balcon1 *-- l2 : contiene >
+    l1 *-- r1 : está_Ocupada >
+    l2 *-- r2 : está_Ocupada >
+    (patio,concierto) .. cincuenta
+    (balcon1,concierto) .. cien
+    (l1, r1) .. e1
+    (l2, r2) .. e2
+@enduml

@@ -1,0 +1,11 @@
+    class Departamento {
+        nombre: String
+        localidad: String
+    }
+    class Empleado {
+        nombre: String
+        fechaInicio: Date
+        fechaFin: Date
+        salario: Double
+        comisión: Double
+    }

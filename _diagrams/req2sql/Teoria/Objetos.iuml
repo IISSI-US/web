@@ -1,0 +1,18 @@
+object "<u><i>obj1: Clase1" as obj1 {
+atrib1 = valor1
+atrib2 = valor2
+...
+atribn = valorn
+}
+
+object "<u><i>obj2: Clase2" as obj2 {
+...
+}
+
+object "<u><i>obj3: Clase3" as obj3 {
+...
+}
+
+object "<u><i>obj4: Clase4" as obj4 {
+...
+}

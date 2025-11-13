@@ -1,0 +1,81 @@
+object "is:Grado" as is {
+    nombre = "Ingeniería  del Software"
+    años = 4
+}
+
+' object "ic:Grado" as ic {
+'     nombre = "Ingeniería de Computadores"
+'     años = 4
+' }
+
+object "ti:Grado" as ti {
+    nombre = "Tecnologías Informáticas"
+    años = 4
+}
+
+object "fp_ti: Asignatura" as fp_ti {
+    nombre: "Fundamentos de Programación"
+    acrónimo: "FP"
+    créditos: 12
+    curso: 1
+    tipo: FormaciónBásica
+}
+
+object "li_ti: Asignatura" as li_ti {
+    nombre: "Lógica Informática"
+    acrónimo: "LI"
+    créditos: 6
+    curso: 2
+    tipo: Optativa
+}
+
+object "_:Grupo" as fp_t1 {
+    nombre: "T1"
+    actividad: "Teoría"
+    añoAcadémico: 2019
+}
+
+object "_:Grupo" as fp_l1 {
+    nombre: "L1"
+    actividad: "Laboratorio"
+    añoAcadémico: 2019
+}
+
+object "_:Grupo" as fp_l2 {
+    nombre: "L2"
+    actividad: "Laboratorio"
+    añoAcadémico: 2019
+}
+
+object "dperez:Alumno" as dperez {
+    métodoAcceso: Selectividad
+    dni: "12345678A"
+    nombre: "Daniel"
+    apellidos: "Pérez"
+    fechaNacimiento: "1991-01-01"
+    email: "daniel@alum.us.es"
+}
+
+object "rramirez:Alumno" as rramirez {
+    métodoAcceso: Selectividad
+    dni: "22345678A"
+    nombre: "Rafael"
+    apellidos: "Ramírez"
+    fechaNacimiento: "1992-01-01"
+    email: "rafael@alum.us.es"
+}
+
+' object "ghernandez:Alumno" as ghernandez {
+'     métodoAcceso: Selectividad
+'     dni: "32345678A"
+'     nombre: "Gabriel"
+'     apellidos: "Hernández"
+'     fechaNacimiento: "1993-01-01"
+'     email: "gabriel@alum.us.es"
+' }
+
+object "_:Nota" as nota_fp_t1 {
+    valor: 4,50
+    convocatoria: Primera
+    esMH: false
+}

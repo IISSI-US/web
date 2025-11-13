@@ -1,0 +1,58 @@
+object "j:Huesped" as j {
+  dni = "12345678A"
+  nombre = "Juan"
+  apellidos = "Pérez"
+  correo = "juanperez@example.com"
+  contraseña = "juan123"
+  dirección = "Calle Falsa 123"
+  teléfono = "600123456"
+}
+
+object "m:Propietario" as m {
+  dni = "87654321B"
+  nombre = "Marta"
+  apellidos = "López"
+  correo = "martalopez@example.com"
+  contraseña = "marta456"
+  dirección = "Av. Siempre Viva 456"
+  teléfono = "600654321"
+  fCompra = "2022-01-15"
+}
+
+object "a1:Alojamiento" as a1 {
+  dirección = "Calle Mayor 10"
+  numDormitorios = 3
+  numBaños = 2
+  ocupaciónMáxima = 6
+}
+
+object "r1:Reserva" as r1 {
+  checkIn = "2024-10-01"
+  checkOut = "2024-10-10"
+  comentario = "Excelente estancia"
+  valoración = 1
+}
+
+object "wifi:Servicio" as wifi {
+  tipoServicio = WIFI
+  disponible = true
+}
+
+object "piscina:Sercicio" as piscina {
+  tipoServicio = PISCINA
+  disponible = true
+}
+
+object "csol:ZonaTuristica" as csol {
+  zona = "Costa del Sol"
+}
+
+object "f1:Foto" as f1 {
+    titulo = "Salón"
+    foto = "Siempre-viva-salon.jpg"
+}
+
+object "f2:Foto" as f2 {
+    titulo = "Cocina"
+    foto = "Siempre-viva-cocina.jpg"
+}

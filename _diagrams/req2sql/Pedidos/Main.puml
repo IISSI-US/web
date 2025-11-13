@@ -1,0 +1,38 @@
+@startuml pedidos-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    !include restricciones.iuml
+
+    'Asociaciones
+    Usuario "*" -right- "*" Producto: Compra >
+    (Usuario, Producto) .. Pedido 
+
+@enduml
+
+@startuml pedidos-dc2
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    !include restricciones.iuml
+
+    'Asociaciones
+    Usuario *-right- "*" Pedido : realiza >
+    Producto *-- "*" Pedido : esParteDe >
+
+@enduml
+
+
+
+@startuml pedidos-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+
+    'Enlaces
+    'Pedidos del Usuario 1
+    (u1, p1) .. pedido1
+    (u1, p2) .. pedido2
+    (u1, p3) .. pedido3
+    'Pedidos del Usuario 2
+    (u2, p1) .. pedido4
+    (u2, p2) .. pedido5
+    
+@enduml

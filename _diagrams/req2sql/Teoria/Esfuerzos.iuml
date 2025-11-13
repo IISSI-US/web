@@ -1,0 +1,19 @@
+object "<u><i>f1: Esfuerzo" as f1 {
+horas = 20
+}
+
+object "<u><i>f2: Esfuerzo" as f2 {
+horas = 15
+}
+
+object "<u><i>f3: Esfuerzo" as f3 {
+horas = 7,5
+}
+
+object "<u><i>f4: Esfuerzo" as f4 {
+horas = 25
+}
+
+object "<u><i>f5: Esfuerzo" as f5 {
+horas = 12
+}

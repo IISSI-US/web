@@ -1,0 +1,5 @@
+Enum Género << Enumerado >>{
+    Masculino
+    Femenino
+    Otros
+} 

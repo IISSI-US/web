@@ -1,0 +1,66 @@
+object "u1:Usuario" as u1 {
+    nombre = "David Ruiz",
+    edad = 45,
+    género = MASCULINO, 
+    email = "druiz@us.es"
+} 
+object "u2:Usuario" as u2 {
+    nombre = "Carlos Arévalo",
+    edad = 58,
+    género = MASCULINO, 
+    email = "carevalo@us.es"
+}
+object "u3:Usuario" as u3 {
+    nombre = "Margarita Cruz",
+    edad = 58,
+    género = FEMENINO, 
+    email = "mcruz@us.es"
+}
+object "u4:Usuario" as u4 {
+    nombre = "Inma Hernández",
+    edad = 35,
+    género = FEMENINO,
+    email = "inmahernandez@us.es"
+}
+object "u5:Usuario" as u5 {
+    nombre = "Alfonso Márquez",
+    edad = 35,
+    género = MASCULINO,
+    email = "amarquez@us.es"
+}
+object "u6:Usuario" as u6 {
+    nombre = "Daniel Ayala",
+    edad = 28,
+    género = MASCULINO,
+    email = "dayala1@us.es"
+}
+object "u7:Usuario" as u7 {
+    nombre = "Raquel Sampedro",
+    edad = 55,
+    género = FEMENINO,
+    email = "rsamperdro@gmail.com"
+}
+object "u8:Usuario" as u8 {
+    nombre = "Marta López",
+    edad = 18,
+    género = FEMENINO,
+    email = "mlopez@mail.com"
+}
+object "u9:Usuario" as u9 {
+    nombre = "David Ruiz",
+    edad = 25,
+    género = MASCULINO,
+    email = "druiz@mail.com"
+}
+object "u10:Usuario" as u10 {
+    nombre = "Andrea Gómez",
+    edad = 27,
+    género = OTRO,
+    email = "agomez@mail.es"
+}
+object "u11:Usuario" as u11 {
+    nombre = "Ernesto Murillo",
+    edad = 55,
+    género = OTRO,
+    email = "emurillo@correo.es"
+}

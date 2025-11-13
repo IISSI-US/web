@@ -1,0 +1,55 @@
+object "a1:Afición" as a1 { 
+    afición = Deporte 
+}
+object "a2:Afición" as a2 { 
+    afición = Gastronomía 
+}
+object "a3:Afición" as a3{ 
+    afición = Deporte 
+}
+object "a4:Afición" as a4{ 
+    afición = Literatura 
+}
+object "a5:Afición" as a5{ 
+    afición = Cine 
+}
+object "a6:Afición" as a6{ 
+    afición = Gastronomía 
+}
+object "a7:Afición" as a7{ 
+    afición = Cine 
+}
+object "a8:Afición" as a8{ 
+    afición = Literatura 
+}
+object "a9:Afición" as a9{ 
+    afición = Deporte
+}
+object "a10:Afición" as a10{ 
+    afición = Cine 
+}
+object "a11:Afición" as a11{ 
+    afición = Deporte 
+}
+object "a12:Afición" as a12{ 
+    afición = Gastronomía 
+}
+object "a13:Afición" as a13{ 
+    afición = Literatura 
+}
+object "a14:Afición" as a14{ 
+    afición = Cine 
+}
+object "a15:Afición" as a15{ 
+    afición = Deporte
+}
+object "a16:Afición" as a16{ 
+    afición = Literatura 
+}
+object "a17:Afición" as a17{ 
+    afición = Cine
+}
+' Aficiones de u10
+object "a18:Afición" as a18{ 
+    afición = Gastronomía 
+}

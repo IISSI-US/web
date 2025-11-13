@@ -1,0 +1,392 @@
+@startuml dc-trazabilidad
+title Ejemplo trazabilidad
+
+!include ../estilos/draft.iuml
+
+!include Usuario.iuml
+
+note left of Usuario
+RI-001 - El
+sistema deberá
+almacenar la
+información
+correspondiente
+a los usuarios
+del sistema. En
+concreto: ...
+end note
+
+note bottom of Usuario
+RF-004 - El
+sistema deberá
+enviar
+automáticamente
+un email a los
+usuarios cuando ...
+end note
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-clases
+title Ejemplo de clases
+!include ../estilos/draft.iuml
+
+!include Alumno.iuml
+!include Asignatura.iuml
+!include Matricula.iuml
+
+Alumno -[hidden]> Asignatura
+Asignatura -[hidden]> Matrícula
+'-[hidden]> es un truco para poner una clase al lado de otra
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-asociacion
+title Ejemplo de asociación
+!include ../estilos/draft.iuml
+
+!include Asignatura.iuml
+!include Matricula.iuml
+
+Asignatura "0..*" -r- "0..*" Matrícula : apareceEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-roles-I
+title Ejemplos de roles I
+!include ../estilos/draft.iuml
+
+Persona "padre\n0..2" -- "0..*\nhijo" Persona : esPadreDe
+@enduml
+
+@startuml dc-ejemplo-roles-II
+title Ejemplos de roles II
+!include ../estilos/draft.iuml
+
+Vuelo "*\nsalidas" --- "origen\n1" Aeropuerto : saleDe
+Vuelo "*\nllegadas" --- "destino\n1" Aeropuerto : llegaA 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-equipos-futbol
+title Equipos de fútbol. Modelo
+!include ../estilos/draft.iuml
+
+!include Jugador.iuml
+!include Equipo.iuml
+
+Jugador "*" -r- "0..1" Equipo :juegaEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml do-equipos-futbol
+title Equipos de fútbol. Objetos
+!include ../estilos/draft.iuml
+!include Jugadores.iuml
+!include Equipos.iuml
+
+j1 --  e2: juegaEn
+j2 --  e2: juegaEn
+j3 --  e1: juegaEn
+j4 --  e1: juegaEn
+j5 --  e1: juegaEn
+j6 -[hidden]> j3
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-generalizacion-I
+title Ejemplo de generalización I
+!include ../estilos/draft.iuml
+!include Turismo.iuml
+!include Camion.iuml
+!include Motocicleta.iuml
+!include Seguro.iuml
+
+Persona "0..1" -- "*" Turismo : esPropietariaDe 
+Persona "0..1" -- "*" Motocicleta :esPropietariaDe
+Persona "0..1" -- "*" Camión :esPropietariaDe
+Turismo "1" -- "0..1" Seguro :tiene
+Motocicleta "1" -- "0..1" Seguro :tiene
+Camión "1" -- "0..1" Seguro :tiene
+
+Turismo -[hidden]> Camión
+Camión -[hidden]> Motocicleta
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-generalizacion-II
+title Ejemplo de generalización II
+!include ../estilos/draft.iuml
+
+!include Turismo2.iuml
+!include Camion2.iuml
+!include Motocicleta2.iuml
+!include Seguro.iuml
+!include Vehiculo.iuml
+
+Persona "0..1" -- "*" Vehículo :esPropietariaDe 
+Vehículo "1" -l- "0..1" Seguro :tiene > 
+Vehículo <|-- Motocicleta : {completa,disjunta} 
+Vehículo <|-- Camión 
+Vehículo <|-- Turismo
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-composicion
+title Ejemplo de composición
+!include ../estilos/draft.iuml
+
+Factura *-- "1..*\n{ordered}" LineaDeFactura 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clases-uml-I
+title Notación para clases UML I
+!include ../estilos/draft.iuml
+!include NombreClase.iuml 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clases-uml-II
+title Notación para clases UML II
+!include ../estilos/draft.iuml
+!include NombreClaseValor.iuml 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clases-uml-III
+title Notación para clases UML III
+!include ../estilos/draft.iuml
+
+"Clase A" "mult A\nrol A" --- "rol B\nmult B" "Clase B" : nombreAsociación 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml do-notacion-objetos-uml-I
+title Notación para objetos y enlaces UML I
+!include ../estilos/draft.iuml
+
+!include Objetos.iuml
+
+obj1 -- obj2: __enlace__
+obj1 -- obj3: __enlace__
+obj1 -- obj4: __enlace__
+
+' __Text__ también se puede usr para subrayar
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml do-notacion-objetos-uml-II
+title Notación para objetos y enlaces UML II
+!include ../estilos/draft.iuml
+
+!include Facturas.iuml
+!include Productos.iuml
+!include LineaDeFacturas.iuml
+
+facturas -- c1: __posee__ <
+c1 -- f1: __emitidaA__ <
+
+f1 *-- lf1
+f1 *-- lf2
+f1 *-- lf3
+lf1 -- p1: __contiene__
+lf2 -- p2: __contiene__
+lf3 -- p3: __contiene__
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clasificacion-uml-I
+title Notación para clasificación UML I
+!include ../estilos/draft.iuml
+
+!include Superclase.iuml
+!include Subclase1.iuml
+!include SubclaseN.iuml
+
+Superclase <|-- Subclase1 
+Superclase <|-- SubclaseN : {restricciones}
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clasificacion-uml-II
+title Notación para clasificación UML II
+!include ../estilos/draft.iuml
+
+MiembroCU <|-- Alumno 
+MiembroCU <|-- Empleado : {completa, solapada}
+Empleado <|-- PAS 
+Empleado <|-- PDI : {completa, disjunta}
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-composicion-uml
+title Notación composición
+!include ../estilos/draft.iuml
+
+Compuesto *-- "mult" Componente 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-factura
+title Ejemplo Factura 
+!include ../estilos/draft.iuml
+
+!include Factura.iuml
+!include LineaDeFactura.iuml
+
+Cliente "1" -r- "*" Factura: emitidaA <
+Factura *-- "1..*\n{ordered}" LineaDeFactura 
+LineaDeFactura "*" -r- "1" Producto :contiene
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-asociacion-I
+title Ejemplo clase asociación I
+!include ../estilos/draft.iuml
+
+Empleado "*" -r- "*" Proyecto : trabajaEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-asociacion-II
+title Ejemplo clase asociación II
+!include ../estilos/draft.iuml
+
+!include Proyecto.iuml
+!include Empleado.iuml
+!include Esfuerzo.iuml
+
+Empleado "*" -r- "*" Proyecto : trabajaEn
+(Empleado, Proyecto) .. Esfuerzo
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml do-ejemplo-asociacion
+title Diagrama de objetos con clases asociación
+!include ../estilos/draft.iuml
+!include Empleados.iuml
+!include Proyectos.iuml
+!include Esfuerzos.iuml
+
+juan -- p1: __trabajaEn__
+juan -- p2: __trabajaEn__
+ana -- p1: __trabajaEn__
+ana -- p2: __trabajaEn__
+cristina -- p2: __trabajaEn__
+
+(juan, p1) .. f1
+(juan, p2) .. f2
+(ana, p1) .. f3
+(cristina, p2) .. f4
+(ana, p2) .. f5
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-composicion-II
+title Ejemplo clase asociación con composición
+!include ../estilos/draft.iuml
+
+!include Proyecto.iuml
+!include Empleado.iuml
+!include Esfuerzo.iuml
+
+Empleado *-r- "*" Esfuerzo
+Esfuerzo "*" -- "1" Proyecto
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-restriccion
+title Ejemplo de restricción
+!include ../estilos/draft.iuml
+
+!include Factura.iuml
+!include LineaDeFactura.iuml
+
+Factura *-- "1..*\n{ordered}" LineaDeFactura 
+Factura "*" -- "1" Cliente :emitidaA
+LineaDeFactura "*" -- "1" Producto :contiene
+
+note as N1
+{factura sin duplicados.
+Un mismo producto
+no debe aparecer dos
+veces en la misma
+factura.}
+end note
+
+Factura .. N1
+N1 .. LineaDeFactura
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-enumerados
+title Notación enumerados
+!include ../estilos/draft.iuml
+
+!include Sexo.iuml
+!include ViaPublica.iuml
+!include Categoria.iuml
+
+Sexo -[hidden]> VíaPública
+VíaPública -[hidden]> Categoría
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-agregacion
+title Ejemplo de agregación
+!include ../estilos/draft.iuml
+
+!include GeneroMusical.iuml
+!include Cancion.iuml
+
+GéneroMusical "*" o-- "*" Canción
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-agregacion-uml
+title Notación agregación
+!include ../estilos/draft.iuml
+
+Agregado "multA" o-- "multB" Componente 
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-ejemplo-fotos
+title Ejemplo fotos
+!include ../estilos/draft.iuml
+
+!include Usuario.iuml
+!include Foto.iuml
+!include Categoria.iuml
+
+Usuario "1" -- "*" Foto: sube
+Foto "*" -l-o "*" Categoría: perteneceA
+
+@enduml

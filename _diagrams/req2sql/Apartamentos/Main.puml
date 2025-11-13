@@ -1,0 +1,28 @@
+@startuml apartamentos-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    'Asociaciones
+    Usuario <|-- Huésped
+    Usuario <|-- Propietario
+    Propietario "1" -- "*" Alojamiento : esPropietario >
+    Huésped "1" -- "*" Reserva : realiza >
+    Alojamiento "1" -- "*" Reserva : esReservado >
+    Alojamiento "1" -- "*" Foto : contiene >
+    Alojamiento "1" -- "1" ZonaTurística : ubicadoEn >
+    Alojamiento "1" -- "*" Servicio : ofrece >
+@enduml
+
+@startuml apartamentos-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+    'Enlaces
+    j -- r1 : realiza >
+    r1 -- a1 : esReservado >
+    m -- a1 : esPropietario >
+    a1 -- csol : ubicadoEn >
+    a1 -- wifi : ofrece >
+    a1 -- piscina : ofrece >
+    a1 -- f1 : tiene >
+    a1 -- f2 : tiene >
+@enduml
+

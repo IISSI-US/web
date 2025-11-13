@@ -1,0 +1,4 @@
+Class Equipo << Entidad >>{
+nombre
+...
+}

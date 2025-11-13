@@ -1,0 +1,54 @@
+object "u1:Usuario" as u1 {
+        nombre = "David Ruiz",
+        provincia = "Sevilla",
+        fechaAlta = "2021-01-01"
+    } 
+
+    object "u2:Usuario" as u2 {
+        nombre = "Carlos Arévalo",
+        provincia = "Málaga",
+        fechaAlta = "2022-02-02"
+    }
+
+    object "p1:Producto" as p1 {
+        descripción = "Producto de 10 euros",
+        precio = 10.0,
+        stock = 100
+    }
+
+    object "p2:Producto" as p2 {
+        descripción = "Producto de 20 euros",
+        precio = 20.0,
+        stock = 200
+    }
+
+    object "p3:Producto" as p3 {
+        descripción = "Producto de 30 euros",
+        precio = 30.0,
+        stock = 300
+    }
+
+    object "_:Pedido" as pedido1 {
+        fechaCompra = "2021-01-01",
+        cantidad = 1
+    }
+
+    object "_:Pedido" as pedido2 {
+        fechaCompra = "2022-02-02",
+        cantidad = 2
+    }
+
+    object "_:Pedido" as pedido3 {
+        fechaCompra = "2023-03-03",
+        cantidad = 3
+    }
+
+    object "_:Pedido" as pedido4 {
+        fechaCompra = "2024-04-04",
+        cantidad = 4
+    }
+
+    object "_:Pedido" as pedido5 {
+        fechaCompra = "2021-01-01",
+        cantidad = 5
+    }

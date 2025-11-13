@@ -1,0 +1,43 @@
+    object "d1:Departamento" as d1 {
+        nombre = "Arte"
+        localidad = "Cádiz"
+    }
+    object "d2:Departamento" as d2 {
+        nombre = "Historia"
+    }
+    object "d3:Departamento" as d3 {
+        nombre = "Informática"
+        localidad = "Sevilla"
+    }
+    object "e1:Empleado" as e1 {
+        nombre = "Pedro"
+        salario = 2300
+        comisión = 0.2
+        fechaInicio = "2017-09-15"
+    }
+    object "e2:Empleado" as e2 {
+        nombre = "Jose"
+        salario = 2500
+        comisión = 0.5
+        fechaInicio = "2018-08-15"
+    }
+    object "e3:Empleado" as e3 {
+        nombre = "Lola"
+        salario = 2300
+        comisión = 0.3
+        fechaInicio = "2018-08-15"
+    }
+    object "e4:Empleado" as e4 {
+        nombre = "Luis"
+        salario = 1300
+        comisión = 0
+        fechaInicio = "2018-08-15"
+        fechaFin = "2018-11-15"
+    }
+    object "e5:Empleado" as e5 {
+        nombre = "Ana"
+        salario = 1300
+        comisión = 0
+        fechaInicio = "2018-08-15"
+        fechaFin = "2018-11-15"
+    }

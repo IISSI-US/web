@@ -1,0 +1,73 @@
+    
+object "carlos:Persona" as carlos {
+  persona = "Carlos García"
+  dirección = "Calle Falsa 123"
+  email = "carlosgarcia@example.com"
+}
+
+object "laura:Persona" as laura {
+  persona = "Laura Martínez"
+  dirección = "Avenida Siempre Viva 456"
+  email = "lauramartinez@example.com"
+}
+
+object "max:Animal" as max {
+  chip = "12345"
+  nombre = "Max"
+  descripción = "Perro color marrón"
+}
+
+object "rocky:animal" as rocky {
+  chip = "67890"
+  nombre = "Rocky"
+  descripción = "Perro negro"
+}
+
+object "luna:Animal" as luna {
+  chip = "54321"
+  nombre = "Luna"
+  descripción = "Gato gris"
+}
+
+object "ab1:Abandono" as ab1 {
+  fechaHoraIngreso = "2024-07-30 15:00"
+  fechaHoraAbandono = "2024-07-28 14:30"
+  lugar = "Parque Central"
+}
+
+object "e1:Entrega" as e1 {
+  fechaHoraIngreso = "2024-09-30 15:00"
+}
+
+object "e2:Entrega" as e2 {
+  fechaHoraIngreso = "2023-06-01 11:00"
+}
+
+
+object "ad1:Adopcion" as ad1 {
+  fechaHoraAdopción = "2024-10-05"
+}
+
+object "ad2:Adopción" as ad2 {
+  fechaHoraAdopción = "2024-10-10"
+}
+
+object "canino:Especie" as canino {
+  especie = "Canino"
+}
+
+object "labrador:Raza" as labrador {
+  raza = "Labrador"
+}
+
+object "felino:Especie" as felino {
+  especie = "Felino"
+}
+
+object "siames:Raza" as siames {
+  raza = "Siamesa"
+}
+
+object "pAleman:Raza" as pAleman {
+  raza = "Pastor Alemán"
+}

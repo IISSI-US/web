@@ -1,0 +1,27 @@
+class Bodega{
+    nombre: String
+    denominaciónOrigen: String
+}
+
+class Vino{
+    nombre: String
+    grados: Double
+}
+
+
+class Crianza{
+    tiempoBarrica: Integer
+    tiempoBotella: Integer
+}
+class Joven{
+    tiempoBarrica: Integer
+    tiempoBotella: Integer 
+}
+class Uva{
+    nombre: String
+}
+class Cosecha{
+    año: Year
+    calidad: String 
+}
+

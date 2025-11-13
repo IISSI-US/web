@@ -1,0 +1,23 @@
+@startuml usuarios-dc
+    !include ../estilos/draft.iuml
+
+    'Las Clases y Enumerados que están definidas en archivos independientes
+    !include Genero.iuml
+    !include Usuario.iuml
+
+    'Agregamos notas al modelo
+    Note left of Usuario
+        RN-1: Los usuarios del sistema 
+        deben ser mayores de edad.
+    End Note
+    Note bottom of Usuario
+        RN-2: No pueden existir emails 
+        duplicados.
+    End Note
+    Note right of Usuario
+        /edad: se calcula como la diferencia 
+        en años entre fechaNacimiento y la
+        fecha actual.
+    End Note
+@enduml
+

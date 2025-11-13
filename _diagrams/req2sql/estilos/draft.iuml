@@ -1,0 +1,40 @@
+skinparam style strictuml
+hide empty members
+hide circle
+'skinparam handwritten true
+'skinparam linetype ortho 
+skinparam defaultFontName MV Boli
+
+skinparam backgroundColor transparent
+
+skinparam Arrow {
+    FontColor Black
+    FontSize 11
+    'FontName Segoe Print
+}
+
+skinparam class {
+    BackgroundColor LightGray
+    ArrowColor Black
+    BorderColor Black
+    FontSize 15
+    FontStyle Bold
+    AttributeFontColor Black
+    AttributeFontSize 14
+}
+
+skinparam object {
+    BackgroundColor LightSalmon
+    ArrowColor Black
+    BorderColor Black
+    FontSize 12
+    AttributeFontColor Black
+    AttributeFontSize 10
+}
+
+skinparam note {
+    BackgroundColor LightSkyBlue
+    ArrowColor Black
+    BorderColor Black
+    FontSize 10
+}

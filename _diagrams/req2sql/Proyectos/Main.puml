@@ -1,0 +1,59 @@
+
+@startuml proyectos-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+
+    ' Asociaciones
+    Proyecto *-- "{ordered} *" Tarea : tiene
+    Proyecto *-- "*" Rol : "tiene"
+    Tarea *-- " * {ordered}" Tarea : compuestaPor
+    Empleado "0..1" -right- "*" Tarea :  esResponsableDe
+    (Empleado, Tarea) .. PeriodoTarea
+    Rol "*" -right- "*" Empleado :  correspondeA
+    (Empleado, Rol) .. PeriodoCargo
+@enduml
+
+@startuml proyectos-do
+!include ../estilos/draft.iuml
+!include objetos.iuml
+
+' Composición de tareas
+Tarea3 *-- Tarea31
+Tarea3 *-- Tarea32
+
+' Relaciones de proyectos y tareas
+p1 *-d- Tarea1 : contiene
+p1 *-d- Tarea2 : contiene
+p1 *-d- Tarea3 : contiene
+p1 *-d- Tarea4 : contiene
+
+' Relaciones de proyectos y roles
+p1 *-u- director
+p1 *-u- analista
+p1 *-u- tester
+
+' Responsables de tareas
+juan -- Tarea1 : esResponsableDe
+maría -- Tarea2 : esResponsableDe
+carlos -- Tarea3 : esResponsableDe
+ana -- Tarea4 : esResponsableDe
+
+' Períodos de responsabilidad en tareas
+(Tarea1, juan) .. PeriodoTarea1
+(Tarea2, maría) .. PeriodoTarea2
+(Tarea3, carlos) .. PeriodoTarea3
+(Tarea4, ana) .. PeriodoTarea4
+
+' Roles y periodos de cargos
+juan -- director : correspondeA
+maría -- analista : correspondeA
+carlos -- tester : correspondeA
+ana -- tester : correspondeA
+
+(juan, director) .. PeriodoCargo1
+(maría, analista) .. PeriodoCargo2
+(carlos, tester) .. PeriodoCargo3
+(maría, tester) .. PeriodoCargo4
+
+@enduml
+

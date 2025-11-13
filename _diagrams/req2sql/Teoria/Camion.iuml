@@ -1,0 +1,7 @@
+Class Camión{
+matrícula
+númeroBastidor
+modelo
+tonelaje
+ejes
+}

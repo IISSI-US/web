@@ -1,0 +1,32 @@
+    class Proyecto {
+        nombre
+        descripción
+        presupuesto
+    }
+    class Empleado {
+        dni
+        nombre
+    }
+    class Tarea {
+        id
+        descripción
+        estimación
+    }
+    class Rol {
+        nombre : Cargo
+    }
+    class Cargo <<Enumeration>> {
+        Director
+        Analista
+        ResponsablePruebas
+        ...
+    }
+    class PeriodoTarea {
+        fInicio
+        fFin
+    }
+    class PeriodoCargo {
+        fInicio
+        fFin [0..1]
+    }
+

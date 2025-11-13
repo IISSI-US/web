@@ -1,0 +1,103 @@
+' Objetos
+object "p1:Proyecto" as p1 {
+    nombre = "Proyecto A"
+    descripción = "Sistema de gestión"
+    presupuesto = 100000
+}
+
+object "juan:Empleado" as juan {
+    dni = 12345678A
+    nombre = "Juan Pérez"
+}
+object "maría:Empleado" as maría {
+    dni = 87654321B
+    nombre = "María López"
+}
+object "carlos:Empleado" as carlos {
+    dni = 11223344C
+    nombre = "Carlos García"
+}
+object "ana:Empleado" as ana {
+    dni = 44332211D
+    nombre = "Ana Rueda"
+}
+
+object Tarea1 {
+    id = 1
+    descripción = "Diseño de interfaz"
+    estimación = 30
+}
+object Tarea2 {
+    id = 2
+    descripción = "Desarrollo backend"
+    estimación = 50
+}
+object Tarea3 {
+    id = 3
+    descripción = "Testing"
+    estimación = 225
+}
+
+object Tarea31 {
+    id = 31
+    descripción = "Pruebas unitarias"
+    estimación = 150
+}
+
+object Tarea32 {
+    id = 32
+    descripción = "Pruebas de integración"
+    estimación = 75
+}
+
+object Tarea4 {
+    id = 4
+    descripción = "Despliegue"
+    estimación = 10
+}
+
+object "director:Rol" as director {
+    nombre = Director
+}
+object "analista:Rol" as analista {
+    nombre = Analista
+}
+object "tester:Rol" as tester {
+    nombre = ResponsablePruebas
+}
+
+object PeriodoTarea1 {
+    fInicio = "2024-01-01"
+    fFin = "2024-01-30"
+}
+object PeriodoTarea2 {
+    fInicio = "2024-02-01"
+    fFin = "2024-03-15"
+}
+object PeriodoTarea3 {
+    fInicio = "2024-03-01"
+    fFin = "2024-04-30"
+}
+
+object PeriodoTarea4 {
+    fInicio = "2024-05-01"
+    fFin = "2024-06-15"
+}
+
+object PeriodoCargo1 {
+    fInicio = "2023-12-01"
+
+}
+object PeriodoCargo2 {
+    fInicio = "2024-01-01"
+
+}
+object PeriodoCargo3 {
+    fInicio = "2024-01-01"
+
+}
+object PeriodoCargo4 {
+    fInicio = "2024-01-01"
+
+}
+

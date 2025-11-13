@@ -46,6 +46,29 @@ main:
         url: /mc2mr/08_relaciones-mn/
       - title: "9. Torneo de tenis"
         url: /mc2mr/09_torneo-tenis/
+  - title: "Req → MC → MR → SQL"
+    url: /req2sql/
+    children:
+      - title: "1. Usuarios"
+        url: /req2sql/1_Usuarios/
+      - title: "2. Aficiones"
+        url: /req2sql/2_Aficiones/
+      - title: "3. Pedidos"
+        url: /req2sql/3_Pedidos/
+      - title: "4. Empleados"
+        url: /req2sql/4_Empleados/
+      - title: "5. Apartamentos"
+        url: /req2sql/5_Apartamentos/
+      - title: "6. Animales"
+        url: /req2sql/6_Animales/
+      - title: "7. Proyectos"
+        url: /req2sql/7_Proyectos/
+      - title: "8. Espectáculos"
+        url: /req2sql/8_Espectaculos/
+      - title: "9. Bodegas"
+        url: /req2sql/9_Bodegas/
+      - title: "10. Grados"
+        url: /req2sql/10_Grados/
   
 
 # Navegación lateral por colección
@@ -96,5 +119,29 @@ mc2mr:
         url: /mc2mr/08_relaciones-mn/
       - title: "9. Modelo complejo (tenis)"
         url: /mc2mr/09_torneo-tenis/
+
+req2sql:
+  - title: "Req → MC → MR → SQL"
+    children:
+      - title: "1. Usuarios"
+        url: /req2sql/1_Usuarios/
+      - title: "2. Aficiones"
+        url: /req2sql/2_Aficiones/
+      - title: "3. Pedidos"
+        url: /req2sql/3_Pedidos/
+      - title: "4. Empleados"
+        url: /req2sql/4_Empleados/
+      - title: "5. Apartamentos"
+        url: /req2sql/5_Apartamentos/
+      - title: "6. Animales"
+        url: /req2sql/6_Animales/
+      - title: "7. Proyectos"
+        url: /req2sql/7_Proyectos/
+      - title: "8. Espectáculos"
+        url: /req2sql/8_Espectaculos/
+      - title: "9. Bodegas"
+        url: /req2sql/9_Bodegas/
+      - title: "10. Grados"
+        url: /req2sql/10_Grados/
 
 

@@ -1,0 +1,16 @@
+   class Usuario{
+        nombre: String
+        provincia: String
+        fechaAlta: Date
+    }
+
+    class Producto{
+        descripción: String
+        precio: Money
+        stock: Integer
+    }
+
+    class Pedido{
+        fechaCompra: Date
+        cantidad: Integer
+    }

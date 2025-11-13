@@ -1,0 +1,54 @@
+class Usuario {
+  dni: String
+  nombre: String
+  apellidos: String
+  correo: String
+  contraseña: String
+  dirección: String
+  teléfono: String
+}
+
+class Huésped {
+}
+
+class Propietario {
+  fCompra: Date
+}
+
+class Alojamiento {
+  dirección: String
+  numDormitorios: Integer
+  numBaños: Integer
+  ocupaciónMáxima: Integer
+}
+
+class Reserva {
+  checkIn: Date
+  checkOut: Date
+  comentario: String [0..1]
+  valoración: Integer [0..1]
+}
+
+class Foto {
+  título: String [0..1]
+  foto: Image
+}
+
+class ZonaTurística {
+  zona: String
+}
+
+class Servicio {
+  tipoServicio: TipoServicio
+  disponible: Boolean
+}
+
+enum TipoServicio {
+  WiFi
+  Piscina
+  Garaje
+  AireAcondicionado
+}
+
+
+

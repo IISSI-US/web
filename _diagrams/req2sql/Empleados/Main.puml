@@ -1,0 +1,32 @@
+@startuml empleados-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    'Asociaciones
+    Empleado "1" -- "0..*" Departamento: trabajaEn >
+    Empleado "Jefe 0..1" -- "Subordinado *" Empleado: tieneJefe >
+    'Agregamos notas al modelo
+    Note left of Departamento
+        - La combinación nombre y localidad no se puede repetir
+        - Un departamento no puede tener más de 5 empleados
+    End Note
+    Note left of Empleado
+        - Un empleado no puede ser su propio jefe
+        - La comisión es un porcentaje del salario entre 0 y 100
+        - Los nombres de los empleados son únicos
+        - La fecha de inicio del contrato no puede ser posterior a la fecha de fin
+    End Note
+@enduml
+
+@startuml empleados-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+    'Enlaces
+    e1 -- d1: trabajaEn >
+    e2 -- d1: trabajaEn >
+    e4 -- d1: trabajaEn >
+    e5 -- d1: trabajaEn >
+    e3 -- d2: trabajaEn >
+
+    e4 -- e1: tieneJefe >
+    e5 -- e1: tieneJefe >
+@enduml

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Verifica si se ha pasado un archivo como parámetro
+if [ -z "$1" ]; then
+  echo "Uso: $0 ruta/al/archivo.puml"
+  exit 1
+fi
+
+# Obtiene la ruta completa y el nombre del archivo
+filepath="$1"
+dirpath=$(dirname "$filepath")
+filename=$(basename -- "$filepath")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+# Verifica si el archivo tiene la extensión .tex
+if [ "$extension" != "puml" ]; then
+  echo "El archivo debe tener la extensión .puml"
+  exit 1
+fi
+
+# Exporta el archivo puml
+java -jar ~/.vscode-server/extensions/jebbs.plantuml-2.18.1/plantuml.jar -o ../exports/$dirpath "$1"
+
+# Verifica si la compilación fue exitosa
+if [ $? -eq 0 ]; then
+  echo "Exportación exitosa: $1"
+else
+  echo "Error en la exportación"
+  exit 1
+fi

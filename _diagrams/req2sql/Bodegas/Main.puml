@@ -1,0 +1,114 @@
+@startuml bodegas-dc
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    
+    Bodega "1" -- "1..*" Vino : produce >
+    Vino <|--  Joven: "{completa,disjunta}"
+    Vino <|-- Crianza
+    Crianza *-- "1..*" Cosecha
+    Vino "0..*" -- "1..*" Uva : elaboradoCon >
+
+      
+'Agregamos notas al modelo
+    Note left of Bodega
+        RN-1: Los nombres de las bodegas, 
+        vinos y uvas son únicos
+    End Note
+    Note bottom of Crianza
+        RN-2: 24 meses de crianza: 6 y 12 meses 
+        en barrica y el resto en botella
+    End Note
+    Note right of Vino
+        RN-3: la graduación está entre 
+        los 10 y 15 grados
+    End Note
+    Note right of Cosecha 
+        RN-4: Cada vino de crianza tiene
+        como máximo una cosecha por año
+    End Note
+    Note right of Joven
+        RN-2: Menos de 6 meses en barrica
+    End Note
+@enduml
+
+@startuml bodegas-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+    
+    b1 -- j1 : produce
+    b1 -- c1 : produce
+    b2 -- j2 : produce
+    b2 -- c2 : produce
+    c1 *-- a1 : tiene
+    c1 *-- a2 : tiene
+    c2 *-- a3 : tiene
+    j1 -- u3 : compuesto de
+    j2 -- u1 : compuesto de
+    c1 -- u1 : compuesto de
+    c1 -- u2 : compuesto de
+    c2 -- u1 : compuesto de
+    c2 -- u2 : compuesto de
+@enduml
+
+@startuml bodegas-dc-examen
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+    title "Modelo de Bodegas: Ejercicio de Evaluación Continua"
+    class Reserva <<Nuevo>>{
+    tiempoBarrica: Integer
+    tiempoBotella: Integer
+    }
+    class Valoración <<Nuevo>>{
+        ranking: TipoRanking
+        puntuación: Integer
+    }
+    enum TipoRanking  <<Nuevo>>{
+        PEÑÍN
+        SPECTATOR
+        PARKER
+        GOURMETS
+    }
+
+    <style>
+    .Nuevo {
+        BackgroundColor Yellow
+    }
+    </style>
+
+    Bodega "1" -- "1..*" Vino : produce >
+    Vino <|--  Joven
+    Vino <|-- Crianza
+    Vino <|-- Reserva: "{completa,disjunta}"
+    Crianza *-- "1..*" Cosecha
+    Reserva *-- "0..*" Valoración
+    Vino "0..*" -l- "1..*" Uva : compuestoDe >
+    Valoración -left[hidden]- TipoRanking
+'Agregamos notas al modelo
+    Note left of Bodega
+        RN-1: Los nombres de las bodegas, 
+        vinos y uvas son únicos
+    End Note
+    Note top of Crianza
+        RN-2: 24 meses de crianza: entre 6 y 12 
+        meses en barrica, el resto en botella
+    End Note
+    Note top of Joven
+        RN-2: Menos de 6 meses en barrica
+    End Note
+    Note right of Vino
+        RN-3: la graduación está entre 
+        los 10 y 15 grados
+    End Note
+    Note bottom of Cosecha 
+        RN-4: Cada vino de crianza tiene
+        como máximo una cosecha por año
+    End Note
+    Note right of Reserva #FFDD99
+        RN-5: 36 meses de crianza: entre 12 y 24 
+        meses en barrica, el resto en botella
+    End Note
+    Note right of Valoración #FFDD99
+        RN-6: La puntuación está entre 0 y 100. 
+        Un vino no puede tener dos valoraciones del mismo ranking
+    End Note
+@enduml

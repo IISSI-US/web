@@ -1,0 +1,5 @@
+Class Asignatura << Entidad >>{
+código
+nombre
+...
+}

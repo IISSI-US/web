@@ -7,11 +7,16 @@ This folder contains helper scripts and tools for maintaining the site.
 
 Available scripts:
 - `export_mc2mr.sh`: Render PlantUML sources to PNG directly into `assets/images/mc2mr/`.
+- `export_req2sql.sh`: Render all PlantUML sources under `_diagrams/req2sql/` to PNGs under `assets/images/req2sql/` (mirrors subfolders).
 
 Usage:
 
 ```bash
 bash _scripts/export_mc2mr.sh
+```
+
+```bash
+bash _scripts/export_req2sql.sh
 ```
 
 Renderer:

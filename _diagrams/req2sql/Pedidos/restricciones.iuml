@@ -1,0 +1,19 @@
+    note top of Producto
+    RN-01:
+        a) Precio obligatorio
+        b) Precio positivo
+        c) Stock positivo
+    end note
+
+    note top of Usuario
+    RN-02:
+        a) Nombre y fecha de altra obligatorios.
+        b) No se repiten nombres.
+    end note
+
+    note right of Pedido
+    RN-03:
+        a) Por defecto: cantidad = 1, fechaCompra=fecha actual.
+        b) Cantidad entre 0 y 10.
+        c) No se pueden hacer pedido en agosto
+    end note

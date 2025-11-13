@@ -1,0 +1,152 @@
+@startuml animales-dc
+        !include ../estilos/draft.iuml
+    !include clases.iuml
+    
+    'Asociaciones
+
+    Especie "0..1" -- "*" Raza : < perteneceA
+    Raza "0..1" -- "*" Animal :  < perteneceA
+    Animal "0..1" --d-- "0..1" Ingreso : esIngresado >
+    'Persona "1" -- "*" Entrega : > realiza
+    Persona "1" -up- "*" Ingreso : entrega >
+    Persona "1" -up- "*" Ingreso : adopta >
+    (Ingreso, Persona) .... Adopción
+    Abandono -r-|> Ingreso : "{Completa, Disjunta}"
+    Entrega -r-|> Ingreso 
+
+    ' Restricciones
+    '--------------
+    
+    note as Ny
+    {RN-01} Una persona no puede adoptar 
+    más de dos animales abandonados en un mes    
+    end note
+    Ny..Adopción
+
+    note top of Abandono
+    {RN-02} En caso de abandono 
+    datos obligatorios fechaAbandono y lugar
+    end note
+    
+@enduml
+
+@startuml animales-dc2
+    !include ../estilos/draft.iuml
+    !include clases.iuml
+
+    ' Relaciones de clasificación
+    Especie "1" -- "*" Raza : contiene >
+    Especie "1" -- "*" Animal : clasifica >
+    Raza "1" -- "0..*" Animal : clasifica >
+
+    ' Ingreso
+    Ingreso <|-- Abandono
+    Ingreso <|-- Entrega
+    Animal "1" -- "1" Ingreso : provieneDe >
+    Persona "1" -- "0..*" Ingreso : entrega >  ' solo si es Entrega
+
+    ' Adopción
+    Persona "1" -- "0..*" Adopción : realiza >
+    Animal "1" -- "0..1" Adopción : esAdoptadoEn >
+
+    ' Restricciones (notas)
+    note as N1
+    [RN-02]
+    Generalización Ingreso = {Completa, Disjunta}
+    - Si Ingreso es Abandono => 
+        lugarHallazgo y fechaHoraHallazgo OBLIGATORIOS
+    - Si Ingreso es Entrega => 
+        Persona OBLIGATORIA con nombre, direccion, email
+    end note
+    N1 .. Ingreso
+
+    note as N2
+    [Integridad]
+    Si Animal.raza != null => 
+        Animal.especie = Animal.raza.especie
+    end note
+    N2 .. Animal
+
+    note as N3
+    [RN-01]
+    Una Persona no puede adoptar > 2 Animales
+    con Ingreso de tipo Abandono en el MISMO mes
+    end note
+    N3 .. Adopción
+
+@enduml
+
+
+@startuml animales-do
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+    
+    note as Descripción
+        Carlos entrega tres animales: Max, Rocky y Luna.
+        Max y Rocky son perros (labrador y pastor alemán).
+        Max  fue abandonado.
+        Luna es una gata siamesa.
+        Los gatos son felinos y los perros caninos.
+        Laura adopta a Luna y Max.
+    end note
+
+    pAleman -- canino : perteneceA
+    labrador -- canino: perteneceA
+    siames -- felino: perteneceA
+    max -- labrador: perteneceA
+    rocky -- pAleman: perteneceA
+    luna -- siames: perteneceA
+    carlos -- e1: entrega
+    e1 -- rocky: esIngresado
+    ab1 -- max: esIngresado
+    carlos -- ab1: entrega
+    carlos -- luna: entrega
+    laura -- luna: adopta
+    (laura,luna) .. ad1
+    laura -- max: adopta
+    (laura,max) .. ad2
+@enduml
+
+@startuml animales-do2
+    !include ../estilos/draft.iuml
+    !include objetos.iuml
+
+    note as Descripcion
+    Carlos entrega dos animales: Rocky y Luna.
+    Max fue hallado abandonado (no hay persona que lo entregue).
+    Max y Rocky son perros (labrador y pastor alemán).
+    Luna es una gata siamesa.
+    Los gatos son felinos y los perros caninos.
+    Laura adopta a Luna y Max.
+    end note
+
+    ' ===== Clasificación especie/raza/animal =====
+    labrador -- canino : perteneceA
+    pAleman  -- canino : perteneceA
+    siames   -- felino : perteneceA
+    max   -- labrador : perteneceA
+    rocky -- pAleman  : perteneceA
+    luna  -- siames   : perteneceA
+
+    ' (Opcional) Enlace directo de especie a animal
+    max   -- canino : especie
+    rocky -- canino : especie
+    luna  -- felino : especie
+
+    ' ===== Ingresos (1–1 con Animal) =====
+    ab1 -- max   : esIngresado >
+    e1  -- rocky : esIngresado >
+    e2  -- luna  : esIngresado >
+
+    ' ===== Persona que entrega =====
+    carlos -- e1 : entrega >
+    carlos -- e2 : entrega >
+
+    ' ===== Adopciones =====
+    laura -- luna : adopta >
+    (laura,luna) .. ad1
+    laura -- max  : adopta >
+    (laura,max)  .. ad2
+
+@enduml
+

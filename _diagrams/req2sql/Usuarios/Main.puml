@@ -1,0 +1,26 @@
+@startuml usuarios-dc
+    !include ../estilos/draft.iuml
+
+    'Las Clases y Enumerados que están definidas en archivos independientes
+    !include Genero.iuml
+    !include Usuario.iuml
+
+    'Ocultamos el compartimento para los métodos
+    hide methods
+
+    'Agregamos notas al modelo
+    Note left of Usuario
+        RN-1: Los usuarios del sistema
+        deben ser mayores de edad.
+    End Note
+    Note bottom of Usuario
+        RN-2: No pueden existir emails 
+        duplicados  
+    End Note
+@enduml
+
+@startuml usuarios-do
+    !include ../estilos/draft.iuml
+    'Los objetos están definidos en un archivo independiente
+    !include objetos.iuml
+@enduml 

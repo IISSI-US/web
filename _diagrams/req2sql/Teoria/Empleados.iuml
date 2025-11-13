@@ -1,0 +1,11 @@
+object "<u><i>e1: Empleado" as juan{
+nombre = "Juan Marquéz"
+}
+
+object "<u><i>e2: Empleado" as ana{
+nombre = "Ana López"
+}
+
+object "<u><i>e3: Empleado" as cristina{
+nombre = "Cristina Fuentes"
+}

@@ -1,0 +1,49 @@
+@startuml aficiones-est-dc
+    !include ../estilos/draft.iuml
+
+    !include ../Usuarios/Genero.iuml
+    !include ../Usuarios/Usuario.iuml
+    !include AficionEstatica.iuml
+    !include TipoAficion.iuml
+
+    Usuario *-- "*" Afición
+@enduml
+
+@startuml aficiones-est-do
+    !include ../estilos/draft.iuml
+    !include ../Usuarios/objetos.iuml
+    !include AficionesEstatico.iuml
+    'Aficiones de u1
+    u1 *-- a1
+    u1 *-- a2
+    'Aficiones de u2
+    u2 *-- a3
+    u2 *-- a4
+    u2 *-- a5
+    'Aficiones de u4
+    u4 *-- a6
+    u4 *-- a7
+    u4 *-- a8
+    'Aficiones de u5
+    u5 *-- a9
+    'Aficiones de u6
+    u6 *-- a10
+    'Aficiones de u8
+    u8 *-- a11
+    u8 *-- a12
+    u8 *-- a13
+    u8 *-- a14
+    'Aficiones de u9
+    u9 *-- a15
+    u9 *-- a16
+    u9 *-- a17
+    'Aficiones de u10
+    u10 *-- a18
+    
+    'layout
+    u3 --[hidden]d- u11
+    u11 --[hidden]d- u7
+    u1 --[hidden]d- u2
+    u5 --[hidden]d- u8
+    u9 --[hidden]d- u10
+@enduml

@@ -1,0 +1,39 @@
+    class Espectáculo  {
+        nombre: String
+        denominación: String
+        duración: Decimal
+    }
+    class Representación  {
+        fechaHoraInicio: Date
+    }
+    class Zona  {
+        nombreZona: TipoZona
+    }
+    class Localidad  {
+        numFila: Integer
+        numButaca: Integer
+    }
+    class Precio  {
+        precio: Money
+    }
+    class Entrada  {
+        fechaHoraCompra: Date
+        canal: TipoCanal
+        precioCompra: Money
+    }
+
+    enum TipoCanal  {
+        WEB
+        TAQUILLA
+        INVITACIÓN 
+    }
+    enum TipoZona  {
+        Patio
+        1ª de Balcón
+        2ª de Balcón
+        1ª de Terraza
+        2ª de Terraza
+    }
+    class TipoEspectáculo  {
+        tipo: String
+    }

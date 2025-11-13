@@ -1,0 +1,15 @@
+object "a1:Afición" as a1{
+        afición = "Cine"
+}
+object "a2:Afición" as a2{
+    afición = "Deporte"
+}
+object "a3:Afición" as a3{
+    afición = "Jugar al fútbol"
+}
+object "a4:Afición" as a4{
+    afición = "Hacer senderismo"
+}
+object "a5:Afición" as a5{
+    afición = "Montar a caballo"
+}

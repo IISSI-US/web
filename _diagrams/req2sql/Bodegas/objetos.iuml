@@ -1,0 +1,71 @@
+' Cosechas para los vinos de Crianza
+
+    object "a1:Cosecha" as a1 {
+        año = 2020
+        calidad = "Excelente"
+    }
+ 
+    object "a2:Cosecha" as a2 {
+        año = 2019
+        calidad = "Buena"
+    }
+
+    object "a3:Cosecha" as a3 {
+        año = 2018
+        calidad = "Muy Buena"
+    }
+    
+    object "b1:Bodega" as b1 {
+        nombre = "Bodega El Sol"
+        denominaciónOrigen = "Rioja"
+    }
+ 
+    object "b2:Bodega" as b2 {
+        nombre = "Bodega La Luna"
+        denominaciónOrigen = "Ribera del Duero"
+    }
+
+' Uvas
+
+    object "u1:Uva" as u1 {
+        nombre = "Tempranillo"
+    }
+ 
+    object "u2:Uva" as u2 {
+        nombre = "Garnacha"
+    }
+ 
+    object "u3:Uva" as u3 {
+        nombre = "Albariño"
+    }
+ 
+' Instancias de Vinos Jóvenes
+    object "v1:Joven" as j1 {
+        nombre = "Vino Blanco Joven"
+        grados = 12
+        tiempoBarrica = 0
+        tiempoBotella = 6
+    }
+ 
+    object "v2:Joven" as j2 {
+        nombre = "Vino Tinto Joven"
+        grados = 13
+        tiempoBarrica = 0
+        tiempoBotella = 12
+    }
+ 
+' Instancias de Vinos de Crianza
+
+    object "v3:Crianza" as c1 {
+        nombre = "Vino Crianza Especial"
+        grados = 14
+        tiempoBarrica = 6
+        tiempoBotella = 18
+    }
+ 
+    object "v4:Crianza" as c2 {
+        nombre = "Vino Crianza Reserva"
+        grados = 13.5
+        tiempoBarrica = 12
+        tiempoBotella = 12
+    }

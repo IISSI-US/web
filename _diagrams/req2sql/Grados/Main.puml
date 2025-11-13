@@ -1,0 +1,59 @@
+@startuml grados-dc
+
+!include ../estilos/draft.iuml
+!include clases.iuml
+
+Grado "1" -- "*" Asignatura : impartidaEn >
+Asignatura  *-- "1..*" Grupo 
+Alumno "*" -- "*" Grupo : perteneceA
+Alumno "1" -- "*" Nota : obtiene
+Grupo "1" -- "*" Nota : obtenidaEn <
+TipoAsignatura -d[hidden]- TipoActividad
+TipoActividad -r[hidden]- Convocatoria
+Convocatoria -u[hidden]- MétodoAcceso
+
+'Agregamos restricciones al modelo
+note right of Grado
+     Los Grados pueden tener una carga en créditos
+     de 180 ECTS (3 años), 240 ECTS (4 años), 
+     300 ECTS (5 años) o 360 ECTS (6 años).
+end note
+
+note right of Nota
+    - El valor de la nota está comprendido 
+      entre 0 y 10.
+    - Para obtener MH el valor de la nota 
+      debe ser superior a 9.
+    - No puede tener más de un 5% del total 
+      de los estudiantes de una asignatura con MH.
+    - La nota se obtiene sobre 10 en cada asignatura 
+      antes de aplicar posibles ponderaciones.
+end note
+
+note right of Alumno
+    - No puede matricularse en más de 90 créditos
+      o menos de 30.
+    - Debe tener más de 16 años.
+    - De cada asignatura, no puede haber más de un
+      grupo de teoría y dos de laboratorio.
+    - No puede pedir una cita si tiene otra 
+    cita pendiente.
+end note
+
+@enduml
+
+@startuml grados-do
+!include ../estilos/draft.iuml
+!include objetos.iuml
+
+'Enlaces
+ti -- fp_ti: impartidaEn <
+ti -- li_ti: impartidaEn <
+fp_ti *-- fp_t1
+fp_ti *-- fp_l1
+fp_ti *-- fp_l2
+dperez -- fp_t1: perteneceA
+dperez -- fp_l2: perteneceA
+nota_fp_t1 -- dperez: obtiene
+nota_fp_t1 -- fp_t1: obtenidaEn >
+@enduml

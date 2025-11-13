@@ -1,0 +1,10 @@
+object "<u><i>f1: Factura" as f1 {
+numero = 8765
+fechaEmisión = 14/09/2019
+}
+
+object "<u><i>c1: Cliente" as c1 {
+    ...
+}
+
+object "<u><i>Facturas" as facturas

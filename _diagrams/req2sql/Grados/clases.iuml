@@ -1,0 +1,61 @@
+class Grado {
+    nombre: String
+    duracionAños: Natural
+    créditos: Natural
+}
+
+class Asignatura {
+    nombre: String
+    acrónimo: String
+    créditos: Real
+    curso: Natural
+    tipo: TipoAsignatura
+}
+
+class Grupo {
+    nombre: String
+    actividad: TipoActividad
+    añoAcadémico: Natural
+}
+
+class Alumno {
+    métodoAcceso: MétodoAcceso
+    dni: String
+    nombre: String
+    apellidos: String
+    fechaNacimiento: Fecha
+    email: String
+}
+
+class Nota {
+    valor: Real
+    convocatoria: Convocatoria
+    esMH: Boolean
+}
+
+enum TipoAsignatura <<Enumerado>>{
+    FormaciónBasicá
+    Obligatoria
+    Optativa
+}
+
+enum TipoActividad <<Enumerado>>{
+    Teoría
+    Laboratorio
+}
+
+enum Convocatoria <<Enumerado>>{
+    Primera
+    Segunda
+    Tercera
+    Extraordinaria
+}
+
+enum MétodoAcceso <<Enumerado>>{
+    Selectividad
+    Ciclo
+    Mayor
+    Titulado
+    Extranjero
+}
+

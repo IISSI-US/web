@@ -1,0 +1,28 @@
+class Especie{
+    especie:string
+}
+    class Raza{
+    raza:string
+}
+class Animal{
+    chip:string [0..1]
+    nombre:string [0..1]
+    descripción:string
+}
+abstract class Ingreso {
+    fechaHoraIngreso:date
+}
+class Abandono{
+    fechaHoraAbandono:date
+    lugar:string
+}
+class Entrega{
+}
+class Persona{
+    nombre:string
+    dirección:string
+    email:string
+}
+class Adopción{
+    fechaHoraAdopción:date
+}

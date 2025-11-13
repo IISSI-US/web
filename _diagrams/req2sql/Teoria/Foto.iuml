@@ -1,0 +1,4 @@
+class Foto {
+    título
+    descripción
+}

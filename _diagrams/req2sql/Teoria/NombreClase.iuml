@@ -1,0 +1,6 @@
+Class NombreClase <<Entidad>>{
+atributo1: Tipo1
+atributo2: Tipo2
+...
+atributoN: tipoN
+}

@@ -1,0 +1,75 @@
+@startuml
+title Conceptual Model\n
+
+skinparam linetype true
+skinparam ClassFontStyle bold
+Class User{
+    name
+    city
+    startDate
+}
+
+Class Product{
+    description
+    price
+    stock
+}
+
+Class Order{
+    purchaseDate
+    amount
+}
+
+Class Notification {
+    timestamp
+    message
+}
+
+
+
+User *-d- "*" Order: purchases >
+Product *-d- "*" Order: includes <
+
+note top of User
+    BR-1
+    (a) Mandatory: name, startDate
+    (b) Unique: name
+end note
+note top of Product
+BR-2
+(a) Mandatory: price  
+(b) price ≥ 0
+(c) stock ≥ 0
+(d) It is not possible to place orders 
+for out of stock products
+(e) If stock is below 10 units, add 
+notification
+end note
+note as br3
+  BR-3
+  (a) By default: amount=1, purchaseDate=Current date
+  (b) amount ∈ [0,10]
+  (c) Month(purchaseDate)≠August
+end note
+br3 .. Order
+note as br4
+  BR-4
+  IF ( Order.amount > Product.stock ) 
+    /* Order accepted-->Update stock */
+    Product.stock := 
+      Product.stock 
+      - Order.amount
+    Add notification
+  ELSE 
+    /* Cancel Order*/
+end note
+br4 .l. Order
+br4 .l. Product
+note as br5
+  BR-5
+  A user can place a maximum of 
+  three orders per day
+end note
+br5 .r. Order
+br5 .u. User 
+@enduml

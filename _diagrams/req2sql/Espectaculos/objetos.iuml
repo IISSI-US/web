@@ -1,0 +1,55 @@
+    object "acdc:Espectáculo" as acdc {
+        nombre = "Concierto de ACDC"
+        denominación = "Festival"
+        duración = 2.5
+    }
+
+    object "concierto:TipoEspectáculo" as concierto {
+        tipo = "Concierto"
+    }
+
+    object "r1:Representación" as r1 {
+        fechaHoraInicio = "2024-10-15 20:00"
+    }
+
+    object "r2:Representación" as r2 {
+        fechaHoraInicio = "2024-10-16 20:00"
+    }
+
+    object "patio:Zona" as patio {
+        nombreZona = "Patio"
+    }
+
+    object "1ª Balcón:Zona" as balcon1 {
+        nombreZona = "Patio"
+    }
+
+    object "l1:Localidad" as l1 {
+        numFila = 5
+        numButaca = 12
+    }
+
+    object "l2:Localidad" as l2 {
+        numFila = 1
+        numButaca = 6
+    }
+
+    object "_:Entrada" AS e1 {
+        fechaHoraCompra = "2024-10-10 18:00"
+        canal = web
+        precioCompra = 50€
+    }
+
+    object "_:Entrada" AS e2 {
+        fechaHoraCompra = "2024-10-11 18:00"
+        canal = INVITACION
+        precioCompra = 0€
+    }
+
+    object "_:Precio" as cincuenta {
+        precio = 50€
+    }
+
+    object "_:Precio" as cien {
+        precio = 100€
+    }
