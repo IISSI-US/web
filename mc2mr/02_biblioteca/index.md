@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 2
+title: "Agregación y 1:N"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,10 @@ sidebar:
   nav: mc2mr
 ---
 
-# Ejercicio 2: Biblioteca-Libro-Autor
-<!-- {: .fs-9 } -->
-
-Agregación con asociaciones 1:* y gestión bibliotecaria
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-02-biblioteca-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```text
 Bibliotecas(bibliotecaId, nombre, dirección, añoInauguración)
     PK(bibliotecaId)
@@ -38,7 +30,7 @@ Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-02-biblioteca-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```
 Bibliotecas = {
     (b1, 'Central', 'Av. Siempre Viva 123', 1995-04-15),
@@ -65,8 +57,6 @@ Libros = {
     (l8, b2, a5, '978-8', 'Machine Learning', 75.80, 680)
 }
 ```
-
----
 
 ## Álgebra Relacional
 

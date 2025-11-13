@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 7
+title: "Clase Asociación"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,10 @@ sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 7: Clase Asociación: Estudiante ↔ Curso con Inscripción
-<!-- {: .fs-9 } -->
-
-Asociaciones con atributos propios y multiplicidad
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-07-clase-asociacion-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 Estudiantes(estudianteId, nombre, email, fechaNacimiento)
     PK(estudianteId)
@@ -39,7 +31,7 @@ Inscripciones(inscripcionId, estudianteId, cursoId, fechaInscripcion, calificaci
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-07-clase-asociacion-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 Estudiantes = {
     (e1, 'Ana García', 'ana@universidad.edu', 2000-05-15),

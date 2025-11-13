@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 1
+title: "Composición y 1:N"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,19 +9,9 @@ sidebar:
   nav: mc2mr
 ---
 
-# Ejercicio 1: Universidad-Centro-Estudiante
-
-
-Composición básica con agregación y asociaciones 1:N
-
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 
 ![Diagrama de Clases](/mc2mr/ejercicio-01-universidad-clases.png)
-
----
 
 ## Intensión (Esquema Relacional)
 
@@ -75,8 +65,6 @@ Estudiantes = {
   (e8, f5, '2023008', 'Diego', 19, 8.3)  
 }
 ```
-
----
 
 ## Álgebra Relacional
 

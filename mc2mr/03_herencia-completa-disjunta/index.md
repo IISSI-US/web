@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 3
+title: "Especialización completa y disjunta"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,10 @@ sidebar:
   nav: mc2mr
 ---
 
-# Ejercicio 3: Herencia Completa Disjunta
-<!-- {: .fs-9 } -->
-
-Especialización completa y disjunta: Persona → Empleado | Estudiante
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 Empleados(personaId, nombre, fechaNacimiento, numeroEmpleado, salario)
     PK(personaId)
@@ -34,7 +26,7 @@ Estudiantes(personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso)
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-03-herencia-completa-disjunta-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 Empleados = {
     (p1, 'Juan Pérez', 1985-03-15, 'E001', 50000.0),
@@ -50,8 +42,6 @@ Estudiantes = {
     (p8, 'Elena Vázquez', 2000-12-03, 'M2024002', 2024)
 }
 ```
-
----
 
 ## Álgebra Relacional
 

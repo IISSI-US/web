@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 4
+title: "Herencia completa y solapada"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,11 @@ sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 4: Herencia completa y solapada (Contenido → Artículo | Video)
-<!-- {: .fs-9 } -->
 
-Especialización completa con solapamiento permitido
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 Contenidos(
     contenidoId, título, fechaPublicación, 
@@ -33,7 +26,7 @@ Contenidos(
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-04-herencia-completa-solapada-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 Contenidos = {
     (c1, 'Tutorial de Java', 2023-01-15, true, 'Introducción básica a Java...', 1200, false, null, null, null),
@@ -48,8 +41,6 @@ Contenidos = {
     (c10, 'Curso Completo Full Stack', 2023-05-15, true, 'Desarrollo web full stack...', 4800, true, 'https://fullstack.mp4', 7200, '1080p')
 }
 ```
-
----
 
 ## Álgebra relacional
 
@@ -74,6 +65,8 @@ Contenidos = {
 **9.** Obtener la duración promedio de todos los videos
 
 **10.** Obtener contenidos que son solo artículos (no videos)
+
+---
 
 ### Soluciones
 

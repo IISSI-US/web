@@ -1,24 +1,17 @@
 ---
 layout: single
-title: Ejercicio 6
+title: "Herencia incompleta y solapada"
 toc: true
 toc_label: "Contenido"
 sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 6: Herencia incompleta y solapada (RecursoHumano → Gerente | Ingeniero)
-<!-- {: .fs-9 } -->
 
-Especialización parcial con solapamiento permitido
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 RecursosHumanos(recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia)
     PK(recursoId)
@@ -27,7 +20,7 @@ RecursosHumanos(recursoId, nombre, email, fechaContratacion, esGerente, tamañoE
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-06-herencia-incompleta-solapada-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 RecursosHumanos = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
@@ -42,8 +35,6 @@ RecursosHumanos = {
     (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
 }
 ```
-
----
 
 ## Álgebra relacional
 

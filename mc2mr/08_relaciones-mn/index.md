@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 8
+title: "Relaciones M:N"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,10 @@ sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 8: Relaciones M:N: Autor ↔ Libro y Libro ↔ Categoría
-<!-- {: .fs-9 } -->
-
-Asociaciones muchos a muchos complejas
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-08-relaciones-mn-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 Autores(autorId, nombre, nacionalidad)
     PK(autorId)
@@ -48,7 +40,7 @@ LibrosCategorías(librosCategoríasId, libroId, categoríaId)
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-08-relaciones-mn-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 Autores = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),

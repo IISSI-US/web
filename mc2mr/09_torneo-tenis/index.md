@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 9
+title: "Modelo Complejo (tenis)"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,18 +9,10 @@ sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 9: Torneo de Tenis - Modelo Complejo Integrado
-<!-- {: .fs-9 } -->
-
-Sistema complejo de torneos con eliminatorias
-<!-- {: .fs-6 .fw-300 } -->
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-09-torneo-tenis-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 Personas(personaId, nombre, apellido, fechaNacimiento, nacionalidad)
     PK(personaId)
@@ -52,7 +44,7 @@ Sets(setId, partidoId, ganadorId, orden, resultado)
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-09-torneo-tenis-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 Personas = {
     (p1, 'Rafael', 'Nadal', 1986-06-03, 'España'),

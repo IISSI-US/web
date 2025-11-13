@@ -1,6 +1,6 @@
 ---
 layout: single
-title: Ejercicio 5
+title: " Herencia incompleta y disjunta"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -9,19 +9,11 @@ sidebar:
     nav: mc2mr
 ---
 
-# Ejercicio 5: Herencia incompleta y disjunta (Vehículo → Coche | Moto)
-<!-- {: .fs-9 } -->
 
-Especialización parcial con separación estricta
-<!-- {: .fs-6 .fw-300 } -->
-
-
----
-
-## Diagrama UML (Clases)
+## Modelo Conceptual
 ![Diagrama de Clases](/mc2mr/ejercicio-05-herencia-incompleta-disjunta-clases.png)
 
-## Intensión relacional
+## Modelo Relacional. Intensión
 ```
 ** Versión 1: Una relación con discriminante
 
@@ -48,7 +40,7 @@ Motos(vehículoId, cilindrada, tipoManillar)
 <!-- ## Diagrama de objetos
 ![Diagrama de Objetos](/mc2mr/ejercicio-05-herencia-incompleta-disjunta-objetos.png) -->
 
-## Extensión relacional
+## Modelo Relacional. Extensión
 ```text
 ** Versión 1:
 Vehículos = {
@@ -120,6 +112,8 @@ Motos = {
 **9.** Obtener todas las marcas que fabrican tanto coches como motos
 
 **10.** Obtener vehículos que no son especializados (solo vehículos genéricos)
+
+---
 
 ### Soluciones (versión 1)
 
