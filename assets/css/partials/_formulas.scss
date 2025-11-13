@@ -1,8 +1,6 @@
-// Math (MathJax v3): match Minimal Mistakes code highlight style exactly
-// Reference: div.highlighter-rouge, figure.highlight
+// Math (MathJax v3): theme-aware containers to match code highlight style
+// Structural styles
 .page__content mjx-container {
-  background: #263238; // same as highlight background
-  color: #eff;         // same as highlight text color
   border: none;        // highlight has no border
   border-radius: 4px;  // match highlight radius
   padding: .35rem .6rem;
@@ -25,4 +23,21 @@
   border-radius: 4px;
 }
 
-// No special dark override needed: highlight palette is already dark-themed
+// Palettes
+$mm-dark-bg: #263238;
+$mm-dark-fg: #eff;
+
+$mm-light-bg: #f6f8fa;
+$mm-light-fg: #24292e;
+
+// Dark theme
+[data-theme='dark'] .page__content mjx-container {
+  background: $mm-dark-bg;
+  color: $mm-dark-fg;
+}
+
+// Light theme
+[data-theme='light'] .page__content mjx-container {
+  background: $mm-light-bg;
+  color: $mm-light-fg;
+}

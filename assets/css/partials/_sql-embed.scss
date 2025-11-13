@@ -1,8 +1,7 @@
+// Theme-aware SQL embed styles. We keep structural rules at base, and color
+// palettes under [data-theme='light'|'dark'] wrappers.
 .sql-embed {
   margin: 1.25rem 0 2rem;
-  // Match Minimal Mistakes highlight palette (same values we use for formulas)
-  $mm-highlight-bg: #263238;
-  $mm-highlight-fg: #eff;
 
   .sql-embed__header {
     display: flex;
@@ -11,10 +10,7 @@
     font-size: 0.85rem;
     padding: 0.4rem 0.6rem;
     border: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
     border-radius: 4px 4px 0 0;
-    background: $mm-highlight-bg;
-    color: $mm-highlight-fg;
 
     .sql-embed__toggle {
       appearance: none;
@@ -43,10 +39,7 @@
 
     .sql-embed__copy {
       appearance: none;
-      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 4px;
-      background: rgba(255,255,255,0.05);
-      color: $mm-highlight-fg;
       font-size: 0.8rem;
       padding: 0.2rem 0.5rem;
       cursor: pointer;
@@ -54,10 +47,8 @@
   }
 
   .highlight {
-    // Reuse Minimal Mistakes code block styling
+    // Reuse Minimal Mistakes code block sizing
     border-radius: 0 0 4px 4px;
-    background: $mm-highlight-bg; // ensure identical look
-    color: $mm-highlight-fg;
     font-size: .7em; // match our custom code block sizing in _code.scss
     pre, code { line-height: 1.45; }
   }
@@ -65,5 +56,52 @@
   &.is-collapsed {
     .sql-embed__toggle::before { transform: rotate(-90deg); }
     .highlight { display: none; }
+  }
+}
+
+// Palettes
+$mm-dark-bg: #263238;
+$mm-dark-fg: #eff;
+$mm-dark-border: rgba(255,255,255,0.06);
+
+$mm-light-bg: #f6f8fa; // light code background (GitHub-like)
+$mm-light-fg: #24292e; // dark text for readability
+$mm-light-border: rgba(0,0,0,0.08);
+
+// Dark theme colors
+[data-theme='dark'] .sql-embed {
+  .sql-embed__header {
+    background: $mm-dark-bg;
+    color: $mm-dark-fg;
+    border-bottom: 1px solid $mm-dark-border;
+
+    .sql-embed__copy {
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: $mm-dark-fg;
+    }
+  }
+  .highlight {
+    background: $mm-dark-bg;
+    color: $mm-dark-fg;
+  }
+}
+
+// Light theme colors
+[data-theme='light'] .sql-embed {
+  .sql-embed__header {
+    background: $mm-light-bg;
+    color: $mm-light-fg;
+    border-bottom: 1px solid $mm-light-border;
+
+    .sql-embed__copy {
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #fff;
+      color: $mm-light-fg;
+    }
+  }
+  .highlight {
+    background: $mm-light-bg;
+    color: $mm-light-fg;
   }
 }
