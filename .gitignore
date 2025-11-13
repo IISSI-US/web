@@ -5,6 +5,10 @@ _site/
 .jekyll-metadata
 vendor/
 
+# Diagrams cache (not published)
+_diagrams/exports/
+_scripts/tools/*.jar
+
 # Bundler
 Gemfile.lock
 .bundle/

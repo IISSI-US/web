@@ -8,7 +8,7 @@ toc_sticky: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/mc2mr/ejercicio-09-torneo-tenis-clases.png)
+![Diagrama de Clases](/assets/images/mc2mr/ejercicio-09-torneo-tenis-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -40,7 +40,7 @@ Sets(setId, partidoId, ganadorId, orden, resultado)
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/mc2mr/ejercicio-09-torneo-tenis-objetos.png) -->
+![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-09-torneo-tenis-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text

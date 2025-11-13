@@ -9,7 +9,7 @@ sidebar:
 
 
 ## Modelo Conceptual
-![Diagrama de Clases](/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png)
+![Diagrama de Clases](/assets/images/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png)
 
 ## Modelo Relacional. Intensión
 RecursosHumanos(recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia)

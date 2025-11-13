@@ -29,6 +29,10 @@ sass:
   sass_dir: assets/css
   style: compressed
 
+# Exclude internal tooling from the generated site
+exclude:
+  - _diagrams/
+
 # Colecciones
 collections:
   test:

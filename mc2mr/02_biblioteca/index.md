@@ -8,7 +8,7 @@ toc_sticky: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/mc2mr/ejercicio-02-biblioteca-clases.png)
+![Diagrama de Clases](/assets/images/mc2mr/ejercicio-02-biblioteca-clases.png)
 
 ## Modelo Relacional. Intensión
 ```text
@@ -26,7 +26,7 @@ Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/mc2mr/ejercicio-02-biblioteca-objetos.png) -->
+![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-02-biblioteca-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```

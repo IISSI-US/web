@@ -8,7 +8,7 @@ toc_sticky: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/mc2mr/ejercicio-08-relaciones-mn-clases.png)
+![Diagrama de Clases](/assets/images/mc2mr/ejercicio-08-relaciones-mn-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -36,7 +36,7 @@ LibrosCategorías(librosCategoríasId, libroId, categoríaId)
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/mc2mr/ejercicio-08-relaciones-mn-objetos.png) -->
+![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-08-relaciones-mn-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text

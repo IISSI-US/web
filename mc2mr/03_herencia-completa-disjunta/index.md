@@ -8,7 +8,7 @@ toc_sticky: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png)
+![Diagrama de Clases](/assets/images/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -22,7 +22,7 @@ Estudiantes(personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso)
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/mc2mr/ejercicio-03-herencia-completa-disjunta-objetos.png) -->
+![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-03-herencia-completa-disjunta-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text
