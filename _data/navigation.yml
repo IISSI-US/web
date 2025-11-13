@@ -76,11 +76,11 @@ laboratorios:
         url: /laboratorios/AN-B-scripts/
 
 mc2mr:
-  - title: "MC2MR"
+  - title: "MC → MR"
     children:
-      - title: "1. Universidad"
+      - title: "1. Composición y 1:N"
         url: /mc2mr/01_universidad/
-      - title: "2. Biblioteca"
+      - title: "2. Agregación y 1:N"
         url: /mc2mr/02_biblioteca/
       - title: "3. Herencia completa disjunta"
         url: /mc2mr/03_herencia-completa-disjunta/
@@ -94,7 +94,7 @@ mc2mr:
         url: /mc2mr/07_clase-asociacion/
       - title: "8. Relaciones M:N"
         url: /mc2mr/08_relaciones-mn/
-      - title: "9. Torneo de tenis"
+      - title: "9. Modelo complejo (tenis)"
         url: /mc2mr/09_torneo-tenis/
 
 
