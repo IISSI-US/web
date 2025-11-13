@@ -10,15 +10,15 @@ nav_order: 4
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/createDB.sql' label='Empleados/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/populateDB.sql' label='Empleados/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/queries.sql' label='Empleados/queries.sql' collapsed=true %}
 
 ## SQL Avanzado
 
@@ -26,48 +26,48 @@ nav_order: 4
 
 Realice procedimientos para insertar en las tablas Departments y Employees:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/pInsertDepartment.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/pInsertDepartment.sql' label='Empleados/pInsertDepartment.sql' collapsed=true %}
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/pInsertEmployee.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/pInsertEmployee.sql' label='Empleados/pInsertEmployee.sql' collapsed=true %}
 
 Realice un procedimiento para igualar las comisiones de todos los empleados al valor de la comisión media:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/pEquateFees.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/pEquateFees.sql' label='Empleados/pEquateFees.sql' collapsed=true %}
 
 Implemente un procedimiento que aplique un aumento a la comisión de un empleado en particular:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/pRaiseFee.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/pRaiseFee.sql' label='Empleados/pRaiseFee.sql' collapsed=true %}
 
 ### Funciones
 
 Implemente una función que devuelva el número de empleados de una localidad concreta:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/fNumEmployees.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/fNumEmployees.sql' label='Empleados/fNumEmployees.sql' collapsed=true %}
 
 Implemente una función que calcule la media de las comisiones de los empleados y use esa función dentro de un procedimiento almacenado para igualar las comisiones de todos los empleados al valor de la comisión media:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/fAvgFee.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/fAvgFee.sql' label='Empleados/fAvgFee.sql' collapsed=true %}
 
 ### Cursores
 
 Utilice un cursor para recorrer todos los empleados y calcular el valor acumulado de los salarios:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/fSumSalaries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/fSumSalaries.sql' label='Empleados/fSumSalaries.sql' collapsed=true %}
 
 ### Triggers (disparadores)
 
 Implemente un disparador para evitar que un empleado sea su propio jefe:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/tSelfBoss.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/tSelfBoss.sql' label='Empleados/tSelfBoss.sql' collapsed=true %}
 
 Implemente un disparador que evite que modifique la comisión de un empleado en más de un 20%:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/tChangeFee.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/tChangeFee.sql' label='Empleados/tChangeFee.sql' collapsed=true %}
 
 Implemente un disparador que evite que un departamento tenga más de cinco empleados:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/tMaxEmployeesDepartment.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/tMaxEmployeesDepartment.sql' label='Empleados/tMaxEmployeesDepartment.sql' collapsed=true %}
 
 Implemente un disparador que en caso de insertar un empleado sin fecha de inicio, le ponga como fecha de inicio la fecha actual:
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Empleados/tDefaultStartDate.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Empleados/tDefaultStartDate.sql' label='Empleados/tDefaultStartDate.sql' collapsed=true %}

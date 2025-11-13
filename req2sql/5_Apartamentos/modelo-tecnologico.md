@@ -10,12 +10,12 @@ nav_order: 4
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Apartamentos/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Apartamentos/createDB.sql' label='Apartamentos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Apartamentos/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Apartamentos/populateDB.sql' label='Apartamentos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Apartamentos/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Apartamentos/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}

@@ -16,4 +16,4 @@ nav_order: 5
 
 Para hacer esta prueba crearemos un procedimiento para insertar un único Usuario, después usamos este procedimiento para insertar los datos de la prueba, teniendo en cuenta que antes hay que hacer la carga inicial de datos.
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/AficionesDin/pTestUsuario.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/AficionesEst/createDB.sql' label='AficionesEst/createDB.sql' collapsed=true %}

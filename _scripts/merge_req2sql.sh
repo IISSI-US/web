@@ -66,12 +66,12 @@ process_exercise(){
 
   local tmp="${dir}/.index.merge.tmp"
   {
-    printf "---\n"
+  printf -- "---\n"
     printf "title: %s\n" "$title"
     printf "layout: single\n"
     printf "sidebar:\n  nav: req2sql\n"
     printf "toc: true\n"
-    printf "---\n\n"
+  printf -- "---\n\n"
     printf "# %s\n\n" "$title"
   } > "$tmp"
 

@@ -13,6 +13,24 @@
     background: var(--mm-gray-050, #fafafa);
     color: inherit;
 
+    .sql-embed__toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-right: 0.35rem;
+      padding: 0.1rem;
+      line-height: 1;
+      color: inherit;
+      opacity: 0.8;
+
+      &::before {
+        content: '▾';
+        display: inline-block;
+        transition: transform 0.15s ease-in-out;
+      }
+    }
+
     .sql-embed__label {
       font-weight: 600;
       overflow: hidden;
@@ -34,5 +52,10 @@
   .highlight {
     // Reuse Minimal Mistakes code block styling
     border-radius: 0 0 6px 6px;
+  }
+
+  &.is-collapsed {
+    .sql-embed__toggle::before { transform: rotate(-90deg); }
+    .highlight { display: none; }
   }
 }

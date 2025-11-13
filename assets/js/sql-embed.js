@@ -16,18 +16,37 @@
     });
   }
 
+  function attachToggle(container){
+    const btn = container.querySelector('.sql-embed__toggle');
+    const header = container.querySelector('.sql-embed__header');
+    if(!btn || !header) return;
+    function setState(collapsed){
+      container.classList.toggle('is-collapsed', !!collapsed);
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    }
+    function toggle(){ setState(!container.classList.contains('is-collapsed')); }
+    btn.addEventListener('click', function(e){ e.stopPropagation(); toggle(); });
+    // Make the whole header clickable except the copy button
+    header.addEventListener('click', function(e){
+      if(e.target && e.target.closest && e.target.closest('.sql-embed__copy')) return;
+      toggle();
+    });
+  }
+
   function ensureStructure(container){
     // If it's a legacy .sql-file, inject expected children structure
     if(container.classList.contains('sql-file')){
       container.classList.add('sql-embed');
-      const label = document.createElement('div');
-      label.className = 'sql-embed__header';
-      label.innerHTML = '<span class="sql-embed__label"></span><button type="button" class="sql-embed__copy" aria-label="Copiar">Copiar</button>';
+      const header = document.createElement('div');
+      header.className = 'sql-embed__header';
+      header.innerHTML = '<button type="button" class="sql-embed__toggle" aria-expanded="true" aria-label="Plegar/Desplegar"></button>'+
+                         '<span class="sql-embed__label"></span>'+
+                         '<button type="button" class="sql-embed__copy" aria-label="Copiar">Copiar</button>';
       const block = document.createElement('div');
       block.className = 'highlight';
       block.innerHTML = '<pre><code class="language-sql"></code></pre>';
       container.innerHTML = '';
-      container.appendChild(label);
+      container.appendChild(header);
       container.appendChild(block);
     }
   }
@@ -55,7 +74,7 @@
       if(!res.ok) throw new Error('HTTP '+res.status);
       const text = await res.text();
       codeEl.textContent = text; // preserve whitespace, no HTML injection
-  if(copyBtn){ attachCopy(copyBtn, ()=>text); }
+      if(copyBtn){ attachCopy(copyBtn, ()=>text); }
       // Optional: scroll to top of code
       codeEl.scrollTop = 0;
     }catch(err){
@@ -63,6 +82,7 @@
       codeEl.textContent = '-- Error cargando '+src+': '+err;
       if(copyBtn){ copyBtn.disabled = true; }
     }
+    attachToggle(container);
   }
 
   ready(function(){

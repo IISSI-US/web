@@ -1,5 +1,6 @@
-<div class="sql-embed" data-src="{{ include.src }}">
+<div class="sql-embed{% if include.collapsed %} is-collapsed{% endif %}" data-src="{{ include.src }}"{% if include.label %} data-label="{{ include.label }}"{% endif %}>
   <div class="sql-embed__header">
+    <button type="button" class="sql-embed__toggle" aria-expanded="{% if include.collapsed %}false{% else %}true{% endif %}" aria-label="Plegar/Desplegar"></button>
     <span class="sql-embed__label">{{ include.label | default: include.src }}</span>
     <button type="button" class="sql-embed__copy" aria-label="Copiar">Copiar</button>
   </div>
@@ -10,3 +11,14 @@
     <p>JavaScript deshabilitado. Puedes abrir el archivo: <a href="{{ include.src }}">{{ include.src }}</a></p>
   </noscript>
 </div>
+
+<script>
+  (function(){
+    if (window.__SQL_EMBED_LOADED) return;
+    window.__SQL_EMBED_LOADED = true;
+    var s = document.createElement('script');
+    s.src = '{{ "/assets/js/sql-embed.js" | relative_url }}';
+    s.defer = true;
+    document.head.appendChild(s);
+  })();
+</script>

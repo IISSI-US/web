@@ -10,21 +10,21 @@ nav_order: 4
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Pedidos/createDB.sql' label='Pedidos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Pedidos/populateDB.sql' label='Pedidos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Pedidos/queries.sql' label='Pedidos/queries.sql' collapsed=true %}
 
 ## Procedimientos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/procedures.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Pedidos/procedures.sql' label='Pedidos/procedures.sql' collapsed=true %}
 
 ## Tests
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Pedidos/tests.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Pedidos/tests.sql' label='Pedidos/tests.sql' collapsed=true %}
 

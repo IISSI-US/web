@@ -10,12 +10,12 @@ nav_order: 4
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Proyectos/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Proyectos/createDB.sql' label='Proyectos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Proyectos/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Proyectos/populateDB.sql' label='Proyectos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Proyectos/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Proyectos/queries.sql' label='Proyectos/queries.sql' collapsed=true %}

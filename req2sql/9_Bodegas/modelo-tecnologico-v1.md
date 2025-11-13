@@ -10,13 +10,13 @@ nav_order: 5
 
 ## Script SQL para crear la base de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Bodegas/createDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Bodegas/createDB.sql' label='Bodegas/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Bodegas/populateDB.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Bodegas/populateDB.sql' label='Bodegas/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-<div class="sql-file" data-src="{{ '/silence-db/sql/Bodegas/queries.sql' | relative_url }}"></div>
+{% include sql-embed.html src='/assets/sql/Bodegas/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
 
