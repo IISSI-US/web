@@ -72,6 +72,51 @@
   }
 }
 
+#let include-pattern = regex("\\{\\%\\s*include\\s+sql-embed\\.html([^%]*)\\%\\}")
+#let liquid-asset-pattern = regex("\\{\\{\\s*['\\\"]([^'\\\"]+)['\\\"]\\s*\\|\\s*relative_url\\s*\\}\\}")
+
+#let extract-attr(attrs, name) = {
+  let pat = regex(name + "\\s*=\\s*['\\\"]([^'\\\"]+)['\\\"]")
+  let match = attrs.match(pat)
+  if match == none {
+    none
+  } else {
+    match.captures.at(0)
+  }
+}
+
+#let expand-sql-embeds(text) = {
+  if type(text) != str {
+    return text
+  }
+  text.replace(include-pattern, m => {
+    let attrs = m.captures.at(0)
+    let raw-src = extract-attr(attrs, "src")
+    if raw-src == none {
+      return ""
+    }
+    let label = extract-attr(attrs, "label")
+    let rel = if raw-src.starts-with("/") { raw-src.slice(1) } else { raw-src }
+    let sql = read(rel)
+    let title = if label != none { "**" + label + "**\n\n" } else { "" }
+    title + "```sql\n" + sql + "\n```\n"
+  })
+}
+
+#let expand-liquid-paths(text) = {
+  if type(text) != str {
+    return text
+  }
+  text.replace(liquid-asset-pattern, m => {
+    let path = m.captures.at(0)
+    if path.starts-with("/") {
+      path.slice(1)
+    } else {
+      path
+    }
+  })
+}
+
 // Reescribe macros de álgebra relacional para mejor renderizado en LaTeX
 #let rewrite-math(src) = {
   src
@@ -110,6 +155,7 @@
 
 // separar meta y contenido
 #let (meta, clean) = extract-meta(raw)
+#let clean = expand-liquid-paths(expand-sql-embeds(clean))
 
 // renderizar markdown
 #let body = cmarker.render(
@@ -145,19 +191,18 @@
 #set heading(numbering: "1.")
 
 // cabecera tipo artículo
-#context[
-  #set text(size: 20pt, weight: "bold")
-  #doc-title
+#align(center)[
+  #context[
+    #set text(size: 20pt, weight: "bold")
+    #doc-title
+  ]
+  #v(0.15cm)
+  #context[
+    #set text(size: 12pt)
+    #doc-author
+  ]
 ]
-#v(0.15cm)
-#context[
-  #set text(size: 12pt)
-  #doc-author
-]
-#context[
-  #set text(size: 10pt, weight: "medium")
-  Compilado el #compiled-at
-]
+
 
 #v(0.8cm)
 #context[

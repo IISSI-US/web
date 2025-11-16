@@ -1,5 +1,6 @@
 ---
-title: Usuarios
+title: "Usuarios"
+author: "Daniel Ayala, Inma Hernández, David Ruiz, ..."
 layout: single
 sidebar:
   nav: req2sql
@@ -8,11 +9,7 @@ head_scripts:
   - /assets/js/sql-embed.js
 ---
 
-# Usuarios
-
-
 ## Requisitos
-
 
 # Catálogo de Requisitos 
 
@@ -74,9 +71,7 @@ head_scripts:
 ## Modelo Conceptual
 
 
-# Modelo conceptual
-
-## Diagrama de clases
+### Diagrama de clases
 
 El modelo conceptual presenta la entidad Usuario como única clase del dominio, con atributos básicos de identificación y descripción personal.
 
@@ -86,7 +81,7 @@ El modelo conceptual presenta la entidad Usuario como única clase del dominio, 
 
 ![Diagrama de clases]({{ '/assets/images/req2sql/Usuarios/usuarios-dc.png' | relative_url }})
 
-## Diagrama de objetos
+### Diagrama de objetos
 
 El diagrama de objetos ilustra instancias concretas de usuarios con diferentes combinaciones de valores en los atributos.
 
@@ -98,10 +93,7 @@ El diagrama de objetos ilustra instancias concretas de usuarios con diferentes c
 
 ## Modelo Relacional
 
-
-# Modelo relacional
-
-## Intensión
+### Intensión
 
 ```
 Usuarios(usuarioId, nombre, género, edad, email)
@@ -109,7 +101,7 @@ Usuarios(usuarioId, nombre, género, edad, email)
 	AK(email)
 ```
 
-## Extensión
+### Extensión
 
 ```
 Usuarios = {
@@ -193,9 +185,6 @@ $$
 
 ## Pruebas HTTP
 
-
-# Pruebas de aceptación
-
 Para llevar a cabo las pruebas HTTP usaremos silence, que nos facilitará la labor. Hay que tener en cuenta los siguientes aspectos:
 
 - Configurar el proyecto para trabajar con la BD de Usuarios. En el archivo `settings.py` hay que proporcionar los datos de la conexión a la BD y los archivos SQL para crear la BD.
@@ -214,28 +203,25 @@ La respuesta que se obtendría para cada petición es la siguiente:
 
 ## Modelo Tecnológico (MariaDB)
 
-
-# Modelo tecnológico (MariaDB)
-
 Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente script:
 
-## Script SQL para crear la base de datos
+### Script SQL para crear la base de datos
 
 {% include sql-embed.html src='/assets/sql/Usuarios/createDB.sql' label='Usuarios/createDB.sql'  collapsed=true %}
 
-## Script SQL para la carga inicial de datos
+### Script SQL para la carga inicial de datos
 
 Para cargar los datos de prueba se puede usar el siguiente script:
 
 {% include sql-embed.html src='/assets/sql/Usuarios/populateDB.sql' label='Usuarios/populateDB.sql'  collapsed=true %}
 
-## Consultas
+### Consultas
 
 Para crear las consultas que implementan los requisitos funcionales se puede usar el siguiente script:
 
 {% include sql-embed.html src='/assets/sql/Usuarios/queries.sql' label='Usuarios/queries.sql'  collapsed=true %}
 
-## SQL Avanzado
+### SQL Avanzado
 
 Tenemos que implementar una función que calcula la edad de un usuario a partir de su fecha de nacimiento, y un trigger que comprueba que la fecha de nacimiento es anterior a la fecha actual y, además el usuario es mayor de edad.
 
@@ -247,7 +233,7 @@ El script para el trigger es el siguiente:
 
 {% include sql-embed.html src='/assets/sql/Usuarios/tCheckAge.sql' label='Usuarios/tCheckAge.sql'  collapsed=true %}
 
-## Fecha de nacimiento en lugar de la edad
+### Fecha de nacimiento en lugar de la edad
 
 En la creación de la tabla ahora hay que añadir que sustituir la edad por la fecha de nacimiento, pero ya no se puede comprobar que el Usuario es mayor de edad con un simple CHECK, y es necesario usar un TRIGGER, además para calcular la edad definiremos una función:
 
