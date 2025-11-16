@@ -15,7 +15,7 @@ images: mc2mr-images req2sql-images
 
 # Generate PDF versions from markdown indexes (requires pdf_version: true)
 pdfs:
-	bash _scripts/build_pdfs.sh
+	python3 _scripts/build_pdfs.py
 
 # Remove generated PNGs from public assets
 clean-mc2mr-images:

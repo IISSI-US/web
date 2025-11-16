@@ -5,7 +5,10 @@ toc: true
 toc_label: "Contenido"
 sidebar:
     nav: mc2mr
+pdf_version: true
 ---
+> [Versión PDF disponible](./index.pdf)
+
 
 
 ## Modelo Conceptual

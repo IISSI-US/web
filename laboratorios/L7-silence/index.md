@@ -5,7 +5,10 @@ toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
+pdf_version: true
 ---
+> [Versión PDF disponible](./index.pdf)
+
 
 <!-- # APIs REST y Silence -->
 

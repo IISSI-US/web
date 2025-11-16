@@ -4,7 +4,11 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_sticky: true
+pdf_version: true
 ---
+> [Versión PDF disponible](./index.pdf)
+
 
 # Espectáculos
 

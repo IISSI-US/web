@@ -1,5 +1,5 @@
 #import "@preview/cmarker:0.1.6"
-#import "@preview/mitex:0.2.4": mitex
+#import "typst-packages/mitex/0.2.5/mitex.typ": mitex
 
 #let strip-quotes(value) = {
   if type(value) != str {
@@ -117,6 +117,14 @@
   })
 }
 
+#let strip-local-anchors(text) = {
+  if type(text) != str {
+    return text
+  }
+  let anchor-pattern = regex("\\[([^\\]]+)\\]\\(\\s*#([^\\)]+)\\)")
+  text.replace(anchor-pattern, m => m.captures.at(0))
+}
+
 // Reescribe macros de álgebra relacional para mejor renderizado en LaTeX
 #let rewrite-math(src) = {
   src
@@ -130,10 +138,17 @@
     .replace("\\Group{", "\\Large \\displaystyle \\gamma\\limits^{")
     // agrupación (gamma con superíndice) II
     .replace("\\GroupUp{", "\\Large \\displaystyle \\gamma\\limits^{")
-    // natural join
+    // operadores estándar
     .replace("\\NatJoin", "\\Large \\displaystyle \\Join")
-    // cierre genérico }{
-    .replace("}{", "}_{")
+    .replace("\\JoinR{", "\\Large \\displaystyle \\Join\\limits_{")
+    .replace("\\GroupDown{", "\\Large \\displaystyle \\gamma\\limits_{")
+    .replace("\\Inter", "\\Large \\displaystyle \\cap")
+    .replace("\\Union", "\\Large \\displaystyle \\cup")
+    .replace("\\Diff", "\\Large \\displaystyle \\setminus")
+    .replace("\\Div", "\\Large \\displaystyle \\div")
+    .replace("\\LeftJoin", "\\Large \\displaystyle \\ltimes")
+    .replace("\\RightJoin", "\\Large \\displaystyle \\rtimes")
+    .replace("\\OuterJoin", "\\Large \\displaystyle \\bowtie")
 }
 
 // Handler de matemáticas: reescribe macros y pasa por MiTeX
@@ -146,7 +161,7 @@
 
 // separar meta y contenido
 #let (meta, clean) = extract-meta(raw)
-#let clean = expand-liquid-paths(expand-sql-embeds(clean))
+#let clean = strip-local-anchors(expand-liquid-paths(expand-sql-embeds(clean)))
 
 // renderizar markdown
 #let body = cmarker.render(
@@ -158,7 +173,7 @@
 
 // título y autor desde YAML
 #let doc-title  = or-default(get-field(meta, "title"),  "Documento")
-#let DEFAULT_AUTHORS = "Daniel Ayala, Inma Hernández, David Ruiz, Margarita Cruz, Carlos Arévalo"
+#let DEFAULT_AUTHORS = "Pepe Calderón, Fernando Sola, Daniel Ayala, Inma Hernández, Margarita Cruz, Carlos Arévalo, David Ruiz"
 #let doc-author = or-default(get-field(meta, "author"), DEFAULT_AUTHORS)
 #let compiled-at = datetime.today().display("[day]/[month]/[year]")
 

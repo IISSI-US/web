@@ -32,6 +32,8 @@ sass:
 # Exclude internal tooling from the generated site
 exclude:
   - _diagrams/
+  - _scripts/
+  - typst-packages/
 
 # Colecciones
 collections:
