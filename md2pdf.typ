@@ -1,62 +1,78 @@
 #import "@preview/cmarker:0.1.6"
 #import "@preview/mitex:0.2.4": mitex
 
-// Ruta del markdown actual
-#let md_dir = "mc2mr/01_universidad/"
-#let raw = read(md_dir + "index.md")
-
-// ---------- 1. Extraer front-matter + cuerpo ----------
-
-// Devuelve (meta-lines, body-text)
-#let extract-meta(text) = {
-  let lines = text.split("\n")
-  if lines.len() > 0 and lines.at(0).trim() == "---" {
-    // buscar el cierre ---
-    let idx = 1
-    while idx < lines.len() and lines.at(idx).trim() != "---" {
-      idx += 1
-    }
-    if idx < lines.len() {
-      let meta-lines = lines.slice(1, idx)
-      let body = lines.slice(idx + 1).join("\n")
-      (meta-lines, body)
-    } else {
-      ((), text)
-    }
+#let strip-quotes(value) = {
+  if type(value) != str {
+    return value
+  }
+  let trimmed = value.trim()
+  if trimmed.len() >= 2 and (
+    (trimmed.starts-with("\"") and trimmed.ends-with("\"")) or
+    (trimmed.starts-with("'") and trimmed.ends-with("'"))
+  ) {
+    trimmed.slice(1, -1)
   } else {
-    ((), text)
+    trimmed
   }
 }
 
-// Busca una clave tipo "title:" o "author:" en las líneas de meta
-#let get-field(meta, key) = {
-  for line in meta {
+#let parse-meta-lines(lines) = {
+  let meta = (:)
+  for line in lines {
     let trimmed = line.trim()
-    if trimmed.starts-with(key + ":") {
-      // todo lo que hay después de "key:"
-      let value = trimmed.slice(key.len() + 1).trim()
-
-      // si empieza y acaba con comillas, se las quitamos
-      if value.len() >= 2 and value.starts-with("\"") and value.ends-with("\"") {
-        value = value.slice(1, value.len() - 1)
-      }
-
-      return value
+    if trimmed == "" or trimmed.starts-with("#") {
+      continue
     }
+    let parts = trimmed.split(":")
+    if parts.len() < 2 {
+      continue
+    }
+    let key = parts.at(0).trim()
+    if key == "" {
+      continue
+    }
+    let value = parts.slice(1).join(":").trim()
+    meta.insert(key, strip-quotes(value))
   }
-  none
+  meta
 }
 
-// Valor por defecto si el campo es none
+#let extract-meta(text) = {
+  if type(text) != str or not text.starts-with("---") {
+    return ((:), text)
+  }
+  let lines = text.split("\n")
+  if lines.len() == 0 or lines.at(0).trim() != "---" {
+    return ((:), text)
+  }
+  let rest = lines.slice(1)
+  let closing = rest.position(line => line.trim() == "---")
+  if closing == none {
+    return ((:), text)
+  }
+  let meta-lines = rest.slice(0, closing)
+  let content = rest.slice(closing + 1).join("\n")
+  (parse-meta-lines(meta-lines), content)
+}
+
+#let get-field(meta, key) = {
+  if type(meta) != dictionary {
+    return none
+  }
+  meta.at(key, default: none)
+}
+
 #let or-default(value, fallback) = {
-  if value == none { fallback } else { value }
+  if value == none {
+    fallback
+  } else if type(value) == str and value.trim() == "" {
+    fallback
+  } else {
+    value
+  }
 }
 
-// Separar meta y cuerpo
-#let (meta, clean) = extract-meta(raw)
-
-// ---------- 2. Traducción de macros de Álgebra Relacional ----------
-
+// Reescribe macros de álgebra relacional para mejor renderizado en LaTeX
 #let rewrite-math(src) = {
   src
     // selección
@@ -67,6 +83,8 @@
     .replace("\\Ren{", "\\Large \\displaystyle \\rho\\limits_{")
     // agrupación (gamma con superíndice)
     .replace("\\Group{", "\\Large \\displaystyle \\gamma\\limits^{")
+    // agrupación (gamma con superíndice) II
+    .replace("\\GroupUp{", "\\Large \\displaystyle \\gamma\\limits^{")
     // natural join
     .replace("\\NatJoin", "\\Large \\displaystyle \\Join")
     // cierre genérico }{
@@ -78,42 +96,84 @@
   mitex(rewrite-math(src), block: block)
 }
 
-// ---------- 3. Renderizar Markdown con cmarker ----------
+// prueba con index simple
+// #let md_dir = "laboratorios/L0-requisitos/"
 
+// prueba con index complejo 1
+// #let md_dir = "mc2mr/01_universidad/"
+ 
+// // prueba con index complejo 2
+#let md_dir = "req2sql/1_Usuarios/"
+
+
+#let raw = read(md_dir + "index.md")
+
+// separar meta y contenido
+#let (meta, clean) = extract-meta(raw)
+
+// renderizar markdown
 #let body = cmarker.render(
   clean,
+  h1-level: 0,
   math: algebra-math,
-  scope: (
-    image: (path, alt: none) => image(path, alt: alt),
-  ),
+  scope: (image: (path, alt: none) => image(path, alt: alt)),
 )
 
-// ---------- 4. Estética del documento ----------
+// título y autor desde YAML
+#let doc-title  = or-default(get-field(meta, "title"),  "Documento")
+#let doc-author = or-default(get-field(meta, "author"), "IISSI")
+#let compiled-at = datetime.today().display("[day]/[month]/[year]")
 
-// Fuente Roboto (debe existir en el sistema)
-#set text(font: "Roboto")
-
-// Título y autores desde el front-matter
-#let doc-title  = or-default(get-field(meta, "title"),  "IISSI")
-#let doc-author = or-default(get-field(meta, "author"), "David Ruiz")
-
-#set document(
-  title: doc-title,
-  author: doc-author,
+// estética global
+#set text(font: "Roboto", size: 11pt)
+#set page(
+  margin: (top: 2.5cm, bottom: 2.5cm, left: 3cm, right: 2.5cm),
+  header: context[
+    #block[
+      #set text(size: 9pt, weight: "medium")
+      #block(width: 100%)[#doc-title #h(1fr) Compilado el #compiled-at]
+      #line(length: 100%, stroke: 0.4pt)
+    ]
+  ],
+  footer: context[
+    #block[
+      #line(length: 100%, stroke: 0.4pt)
+      #align(center)[#set text(size: 9pt); Página #counter(page).display()]
+    ]
+  ],
 )
+#set heading(numbering: "1.")
 
-// ---------- 5. Volcar contenido ----------
-
-#align(center)[
-  #set text(size: 2.2em, weight: "bold")
+// cabecera tipo artículo
+#context[
+  #set text(size: 20pt, weight: "bold")
   #doc-title
-
-  #set text(size: 1.3em)
+]
+#v(0.15cm)
+#context[
+  #set text(size: 12pt)
   #doc-author
-
-  #set text(size: 0.9em)
-  Documento generado automáticamente el #datetime.today().display("[year]-[month]-[day]")
+]
+#context[
+  #set text(size: 10pt, weight: "medium")
+  Compilado el #compiled-at
 ]
 
+#v(0.8cm)
+#context[
+  #set text(size: 16pt, weight: "bold")
+  Contenido
+]
+#context[
+  #set text(size: 11pt)
+  #outline(
+    title: none,
+    target: heading,
+    indent: 1em,
+  )
+]
 
+#pagebreak()
+
+// --- contenido del markdown ---
 #body
