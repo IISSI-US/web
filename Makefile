@@ -1,6 +1,21 @@
 # Simple Makefile for image exports and related tooling
 
-.PHONY: mc2mr-images req2sql-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images
+.PHONY: help mc2mr-images req2sql-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images
+
+.POSIX:
+
+help:
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  help              Mostrar esta ayuda."
+	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR."
+	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL."
+	@echo "  images            Renderiza todos los diagramas (alias de las dos anteriores)."
+	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true."
+	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR."
+	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL."
+	@echo "  clean-images         Ejecuta ambos clean."
 
 # Render PlantUML diagrams and update public PNGs for MC2MR
 mc2mr-images:

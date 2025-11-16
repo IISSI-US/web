@@ -17,6 +17,8 @@ Este sitio utiliza **colecciones de Jekyll** para organizar la documentación en
 
 - Ruby (versión 2.7 o superior)
 - Bundler: `gem install bundler`
+- Typst instalado (para generar PDFs)
+- Python 3 (para el script `_scripts/build_pdfs.py`)
 
 ### Instalación
 
@@ -37,6 +39,14 @@ Este sitio utiliza **colecciones de Jekyll** para organizar la documentación en
    ```
 
 4. Abre tu navegador en `http://localhost:4000/hub/`
+
+### Tareas automatizadas
+
+Utiliza `make help` para ver los objetivos disponibles.
+
+- `make images` renderiza todos los diagramas PlantUML (usa `make mc2mr-images` o `make req2sql-images` para colecciones concretas).
+- `make pdfs` genera un PDF por cada `index.md` que tenga `pdf_version: true` en su cabecera y añade un aviso con el enlace.
+- `make clean-images` elimina los PNG generados.
 
 ## Estructura del proyecto
 

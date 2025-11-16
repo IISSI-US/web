@@ -1,13 +1,13 @@
 ---
 title: "Usuarios"
-author: "Daniel Ayala, Inma Hernández, David Ruiz, Margarita Cruz, Carlos Arévalo"
+author: "José Calderón, Fernando Sola, Daniel Ayala, Inma Hernández, Margarita Cruz, Carlos Arévalo y David Ruiz"
 layout: single
-pdf_version: true
 sidebar:
   nav: req2sql
-toc: true
 head_scripts:
   - /assets/js/sql-embed.js
+toc_sticky: true
+pdf_version: true
 ---
 > [Versión PDF disponible](./index.pdf)
 
