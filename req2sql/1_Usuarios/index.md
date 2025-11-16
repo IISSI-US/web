@@ -1,13 +1,15 @@
 ---
 title: "Usuarios"
-author: "Daniel Ayala, Inma Hernández, David Ruiz, ..."
+author: "Daniel Ayala, Inma Hernández, David Ruiz, Margarita Cruz, Carlos Arévalo"
 layout: single
+pdf_version: true
 sidebar:
   nav: req2sql
 toc: true
 head_scripts:
   - /assets/js/sql-embed.js
 ---
+> [Versión PDF disponible](./index.pdf)
 
 ## Requisitos
 

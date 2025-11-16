@@ -1,11 +1,13 @@
 ---
 layout: single
 title: "Lab0 - Requisitos"
+pdf_version: true
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 ---
+> [Versión PDF disponible](./index.pdf)
 
 <!-- # Requisitos -->
 

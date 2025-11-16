@@ -1,6 +1,6 @@
 # Simple Makefile for image exports and related tooling
 
-.PHONY: mc2mr-images req2sql-images images clean-images clean-mc2mr-images clean-req2sql-images
+.PHONY: mc2mr-images req2sql-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images
 
 # Render PlantUML diagrams and update public PNGs for MC2MR
 mc2mr-images:
@@ -12,6 +12,10 @@ req2sql-images:
 
 # Alias to render all images
 images: mc2mr-images req2sql-images
+
+# Generate PDF versions from markdown indexes (requires pdf_version: true)
+pdfs:
+	bash _scripts/build_pdfs.sh
 
 # Remove generated PNGs from public assets
 clean-mc2mr-images:

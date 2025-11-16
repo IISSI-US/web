@@ -141,17 +141,8 @@
   mitex(rewrite-math(src), block: block)
 }
 
-// prueba con index simple
-// #let md_dir = "laboratorios/L0-requisitos/"
-
-// prueba con index complejo 1
-// #let md_dir = "mc2mr/01_universidad/"
- 
-// // prueba con index complejo 2
-#let md_dir = "req2sql/1_Usuarios/"
-
-
-#let raw = read(md_dir + "index.md")
+#let md_path = sys.inputs.at("md", default: "mc2mr/01_universidad/index.md")
+#let raw = read(md_path)
 
 // separar meta y contenido
 #let (meta, clean) = extract-meta(raw)
@@ -167,7 +158,8 @@
 
 // título y autor desde YAML
 #let doc-title  = or-default(get-field(meta, "title"),  "Documento")
-#let doc-author = or-default(get-field(meta, "author"), "IISSI")
+#let DEFAULT_AUTHORS = "Daniel Ayala, Inma Hernández, David Ruiz, Margarita Cruz, Carlos Arévalo"
+#let doc-author = or-default(get-field(meta, "author"), DEFAULT_AUTHORS)
 #let compiled-at = datetime.today().display("[day]/[month]/[year]")
 
 // estética global
