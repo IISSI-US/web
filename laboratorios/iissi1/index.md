@@ -3,7 +3,7 @@ title: Laboratorios
 layout: single
 permalink: /laboratorios/iissi1/
 sidebar:
-  nav: laboratorios
+  nav: labs-iissi-1
 ---
 
 Bienvenido a la sección de Laboratorios.

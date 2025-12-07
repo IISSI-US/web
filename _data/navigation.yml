@@ -8,7 +8,7 @@ main:
   
 
 # Navegación lateral por colección
-laboratorios:
+labs-iissi-1:
   - title: "Laboratorios"
     children:
       - title: "Lab0 - Requisitos"
@@ -67,20 +67,20 @@ req2sql:
         url: /req2sql/3_Pedidos/
       - title: "4. Empleados"
         url: /req2sql/4_Empleados/
-      - title: "5. Apartamentos"
-        url: /req2sql/5_Apartamentos/
-      - title: "6. Animales"
-        url: /req2sql/6_Animales/
-      - title: "7. Proyectos"
-        url: /req2sql/7_Proyectos/
-      - title: "8. Espectáculos"
-        url: /req2sql/8_Espectaculos/
+      # - title: "5. Apartamentos"
+      #   url: /req2sql/5_Apartamentos/
+      # - title: "6. Animales"
+      #   url: /req2sql/6_Animales/
+      # - title: "7. Proyectos"
+      #   url: /req2sql/7_Proyectos/
+      # - title: "8. Espectáculos"
+      #   url: /req2sql/8_Espectaculos/
       - title: "9. Bodegas"
         url: /req2sql/9_Bodegas/
-      - title: "10. Grados"
-        url: /req2sql/10_Grados/
+      # - title: "10. Grados"
+      #   url: /req2sql/10_Grados/
 
-laboratorios-frontend:
+labs-iissi-2:
   - title: "Frontend"
     children:
       - title: "Introducción"

@@ -3,7 +3,7 @@ layout: single
 # title: IISSI-1 (Backend)
 permalink: /iissi1/
 sidebar:
-  nav: iissi1
+  nav: labs-iissi-1
 ---
 
 

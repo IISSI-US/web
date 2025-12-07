@@ -3,7 +3,7 @@ layout: single
 title: Laboratorios Frontend
 permalink: /laboratorios/iissi2/
 sidebar:
-  nav: laboratorios-frontend
+  nav: labs-iissi-2
 ---
 
 # IISSI-2 — Boletines de laboratorio

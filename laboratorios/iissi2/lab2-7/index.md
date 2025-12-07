@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-2
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
