@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-1
 title: "Lab8 - Transacciones"
 toc: true
 toc_label: "Contenido"

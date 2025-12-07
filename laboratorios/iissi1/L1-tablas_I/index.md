@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-1
 title: "Lab1 - Creación de tablas"
 toc: true
 toc_label: "Contenido"

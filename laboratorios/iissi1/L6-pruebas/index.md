@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-1
 title: "Lab6 - Pruebas SQL"
 toc: true
 toc_label: "Contenido"

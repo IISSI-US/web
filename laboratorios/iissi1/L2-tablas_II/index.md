@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-1
 title: "Lab2 - Restricciones en tablas"
 toc: true
 toc_label: "Contenido"

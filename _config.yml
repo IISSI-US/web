@@ -1,5 +1,6 @@
 title: IISSI (2026/27)
 description: Sitio de documentación con colecciones de Jekyll
+locale: "es-ES"
 
 # Usa Minimal Mistakes como remote theme (recomendado para GitHub Pages)
 remote_theme: "mmistakes/minimal-mistakes@4.27.3"

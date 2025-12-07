@@ -1,5 +1,7 @@
 ---
 layout: single
+sidebar:
+  nav: labs-iissi-1
 title: Anexo A · Entorno de trabajo
 toc: true
 toc_label: "Contenido"

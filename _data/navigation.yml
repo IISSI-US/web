@@ -9,7 +9,7 @@ main:
 
 # Navegación lateral por colección
 labs-iissi-1:
-  - title: "Laboratorios"
+  - title: "Labs IISSI-1"
     children:
       - title: "Lab0 - Requisitos"
         url: /laboratorios/iissi1/L0-requisitos/
@@ -81,7 +81,7 @@ req2sql:
       #   url: /req2sql/10_Grados/
 
 labs-iissi-2:
-  - title: "Frontend"
+  - title: "Labs IISSI-2"
     children:
       - title: "Introducción"
         url: /laboratorios/iissi2/
