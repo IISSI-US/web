@@ -233,9 +233,9 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ## Modelo conceptual
 
-![Diagrama de clases]({{ '/assets/images/req2sql/Grados/grados-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Grados/grados-dc.png' | relative_url }})
 
-![Diagrama de objetos]({{ '/assets/images/req2sql/Grados/grados-do.png' | relative_url }})
+![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Grados/grados-do.png' | relative_url }})
 
 ### Comentario del diagrama de clases
 

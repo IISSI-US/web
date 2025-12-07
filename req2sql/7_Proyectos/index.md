@@ -78,7 +78,7 @@ sistema de información para ayudarle en la gestión de sus proyectos.
 - **PeriodoCargo** añade las fechas de vigencia del cargo (con `fFin` opcional). 
 - El tipo de rol se restringe mediante el enumerado **Cargo** (Director, Analista, ResponsablePruebas, etc.).
 
-![Diagrama de clases]({{ '/assets/images/req2sql/Proyectos/proyectos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Proyectos/proyectos-dc.png' | relative_url }})
 
 ## Diagrama de objetos
 
@@ -92,7 +92,7 @@ sistema de información para ayudarle en la gestión de sus proyectos.
 - Los empleados están vinculados a roles (por ejemplo, **juan**–**director**, **maría**–**analista**). 
 - Se observa que un empleado puede ejercer varios roles en el tiempo (por ejemplo, **maría** puede asumir también **tester**) y que cada tarea tiene un único responsable vigente, respetando las cardinalidades.
 
-![Diagrama de objetos]({{ '/assets/images/req2sql/Proyectos/proyectos-do.png' | relative_url }})
+![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Proyectos/proyectos-do.png' | relative_url }})
 
 ## Modelo Relacional
 

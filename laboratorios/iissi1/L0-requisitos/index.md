@@ -120,13 +120,13 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ### Diagrama de clases
 
-![Diagrama de clases y asociaciones](/assets/images/laboratorios/fig/req/d_conceptual.svg)
+![Diagrama de clases y asociaciones](/assets/images/iissi1/laboratorios/fig/req/d_conceptual.svg)
 
-![Diagrama de clases (enumerados)](/assets/images/laboratorios/fig/req/enum.svg)
+![Diagrama de clases (enumerados)](/assets/images/iissi1/laboratorios/fig/req/enum.svg)
 
 ### Diagrama de objetos
 
-![Diagrama de objetos](/assets/images/laboratorios/fig/req/d_objetos.svg)
+![Diagrama de objetos](/assets/images/iissi1/laboratorios/fig/req/d_objetos.svg)
 
 ## Modelo Relacional
 

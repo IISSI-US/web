@@ -31,7 +31,7 @@ Si se ha instalado MariaDB siguiendo el procedimiento mostrado en el anexo de es
 
 Iniciamos HeidiSQL y nos conectamos con el usuario iissi_user mediante la conexión creada en el laboratorio anterior. Seleccionamos la base de datos grados y abrimos la pestaña de Consulta. En esa pestaña podemos escribir código SQL para que se ejecute en la base de datos seleccionada. El contenido de la pestaña puede escribirse manualmente o ser un archivo .sql cargado:
 
-![HeidiSQL](/assets/images/laboratorios/fig/lab1-2/heidisql.png)
+![HeidiSQL](/assets/images/iissi1/laboratorios/fig/lab1-2/heidisql.png)
 
 ## Consideraciones de estilo
 

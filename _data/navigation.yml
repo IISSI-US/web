@@ -4,7 +4,7 @@ main:
     url: /iissi1/
   
   - title: "IISSI-2 (Frontend)"
-    url: /laboratorios/iissi2/
+    url: /iissi2/
   
 
 # Navegación lateral por colección
@@ -85,6 +85,24 @@ laboratorios-frontend:
     children:
       - title: "Introducción"
         url: /laboratorios/iissi2/
+      - title: "Lab1 - Configuración y HTML"
+        url: /laboratorios/iissi2/lab2-1/
+      - title: "Lab2 - HTML y CSS básico"
+        url: /laboratorios/iissi2/lab2-2/
+      - title: "Lab3 - CSS avanzado (Bootstrap)"
+        url: /laboratorios/iissi2/lab2-3/
+      - title: "Lab4 - JS, DOM y renderizadores"
+        url: /laboratorios/iissi2/lab2-4/
+      - title: "Lab5 - Eventos y formularios"
+        url: /laboratorios/iissi2/lab2-5/
+      - title: "Lab6 - Peticiones AJAX GET"
+        url: /laboratorios/iissi2/lab2-6/
+      - title: "Lab7 - AJAX POST, PUT, DELETE"
+        url: /laboratorios/iissi2/lab2-7/
+      - title: "Lab9 - Gestión de sesiones"
+        url: /laboratorios/iissi2/lab2-8/
+      - title: "Anexo - Entorno"
+        url: /laboratorios/iissi2/anexo-entorno/
 
 
 

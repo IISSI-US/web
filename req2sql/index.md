@@ -11,7 +11,7 @@ toc: true
 
 En esta sección encontrarás 10 ejercicios completos que recorren el ciclo: Requisitos → Modelo Conceptual → Modelo Relacional → SQL.
 
-- Las imágenes de los diagramas se generan desde PlantUML y están en `/assets/images/req2sql/`.
+- Las imágenes de los diagramas se generan desde PlantUML y están en `/assets/images/iissi1/req2sql/`.
 - Los scripts SQL están disponibles en `/assets/sql/`.
 
 Usa la navegación lateral para acceder a cada ejercicio.

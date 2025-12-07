@@ -31,7 +31,7 @@ Un procedimiento es un conjunto de sentencias SQL a las que se les asigna un nom
 
 Generalmente, se emplean para definir un conjunto de instrucciones reutilizable que se espera emplear a menudo. Por ejemplo, para implementar el requisito funcional RF-002, por el cual se pide borrar las notas de un alumno con un DNI dado:
 
-<!-- ![procedures-1](/assets/images/laboratorios/fig/lab1-7/procedures-1.PNG) -->
+<!-- ![procedures-1](/assets/images/iissi1/laboratorios/fig/lab1-7/procedures-1.PNG) -->
 
 ```sql
 -- RF-002: Borrar las notas de un alumno con un DNI dado
@@ -56,7 +56,7 @@ Observe lo siguiente:
 
 Los procedimientos almacenados pueden ser llamados mediante `CALL`, por ejemplo:
 
-<!-- ![call-1](/assets/images/laboratorios/fig/lab1-7/call-1.PNG) -->
+<!-- ![call-1](/assets/images/iissi1/laboratorios/fig/lab1-7/call-1.PNG) -->
 
 ```sql
 CALL procDeleteGrades('12345678A');
@@ -64,7 +64,7 @@ CALL procDeleteGrades('12345678A');
 
 A continuación, crearemos un procedimiento que borre todos los datos de la base de datos:
 
-<!-- ![procedures-2](/assets/images/laboratorios/fig/lab1-7/procedures-2.PNG) -->
+<!-- ![procedures-2](/assets/images/iissi1/laboratorios/fig/lab1-7/procedures-2.PNG) -->
 
 ```sql
 DELIMITER //
@@ -88,7 +88,7 @@ Las funciones son muy parecidas a los procedimientos, pero se diferencian de ell
 
 Mediante una función SQL podemos implementar el requisito funcional RF-007 para obtener la nota media de un alumno:
 
-<!-- ![functions-1](/assets/images/laboratorios/fig/lab1-7/functions-1.PNG) -->
+<!-- ![functions-1](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-1.PNG) -->
 
 ```sql
 DELIMITER //
@@ -111,17 +111,17 @@ Observe lo siguiente:
 
 Al contrario que los procedimientos, las funciones se pueden usar en cualquier lugar en el que se podría usar una variable, como consultas, o el cuerpo de procedimientos/funciones/disparadores. Para consultar el valor de una función, en lugar de usar `CALL`, podemos hacer una consulta `SELECT`:
 
-<!-- ![functions-3](/assets/images/laboratorios/fig/lab1-7/functions-3.PNG) -->
+<!-- ![functions-3](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-3.PNG) -->
 
 ```sql
 SELECT avgGrade(2);
 ```
 
-![functions-4](/assets/images/laboratorios/fig/lab1-7/functions-4.png)
+![functions-4](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-4.png)
 
 También podemos consultarla como si fuera una columna más, por ejemplo, para obtener el nombre y los apellidos de un alumno junto con su nota media:
 
-<!-- ![functions-2](/assets/images/laboratorios/fig/lab1-7/functions-2.PNG) -->
+<!-- ![functions-2](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-2.PNG) -->
 
 ```sql
 SELECT s.firstName, s.surname, avgGrade(s.studentId) FROM Students s;
@@ -140,7 +140,7 @@ Mediante los disparadores (triggers) podemos asociar la ejecución de código a 
 
 Como ejemplo, implementamos la regla de negocio RN-001, según la cual, para obtener matrícula de honor la nota debe ser mayor o igual a 9:
 
-<!-- ![triggers-1](/assets/images/laboratorios/fig/lab1-7/triggers-1.PNG) -->
+<!-- ![triggers-1](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-1.PNG) -->
 
 ```sql
 DELIMITER //
@@ -201,7 +201,7 @@ DELIMITER ;
 
 El disparador anterior es simple, ya que solo contiene la comprobación de un valor y el lanzamiento de un error. Implementemos ahora un disparador que implementa la regla de negocio RN-004, por la que no se puede poner a un alumno una nota en un grupo al que no pertenece:
 
-<!-- ![triggers-2](/assets/images/laboratorios/fig/lab1-7/triggers-2.PNG) -->
+<!-- ![triggers-2](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-2.PNG) -->
 
 ```sql
 DELIMITER //
@@ -230,7 +230,7 @@ Como ejercicio, modifique el disparador anterior para que use un procedimiento y
 
 A continuación creamos un disparador que implementa la regla de negocio RN-005: cada vez que se actualice una nota, comprueba si ésta se ha subido en más de 4 puntos. En ese caso, se muestra un error con el nombre del estudiante y la diferencia de la nota nueva con respecto a la antigua:
 
-<!-- ![triggers-3](/assets/images/laboratorios/fig/lab1-7/triggers-3.PNG) -->
+<!-- ![triggers-3](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-3.PNG) -->
 
 ```sql
 DELIMITER //
@@ -264,11 +264,11 @@ Observe lo siguiente:
 
 Podemos probar el disparador intentando subir una nota más de 4 puntos:
 
-<!-- ![triggers-error-1](/assets/images/laboratorios/fig/lab1-7/triggers-error-1.PNG) -->
+<!-- ![triggers-error-1](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-error-1.PNG) -->
 
 A continuación, modificaremos el último disparador para que, en vez de lanzarse un error, la nota sólo sea aumentada en 4 puntos:
 
-<!-- ![triggers-4](/assets/images/laboratorios/fig/lab1-7/triggers-4.PNG) -->
+<!-- ![triggers-4](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-4.PNG) -->
 
 ```sql
 DELIMITER //

@@ -55,7 +55,7 @@ En la versión estática, las aficiones se modelan como un dominio cerrado (enum
 - Multiplicidades: Un Usuario puede tener 0..* aficiones; cada valor de la enumeración puede estar asociado a 0..* usuarios. Al ser enumeración, «Afición» no se representa como entidad independiente, sino como tipo.
 - Reglas implícitas: No debe haber duplicados de una misma afición para un usuario; sólo se permiten valores del dominio definido.
 
-![Diagrama de clases (estático)]({{ '/assets/images/req2sql/Aficiones/aficiones-est-dc.png' | relative_url }})
+![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-est-dc.png' | relative_url }})
 
 ## Diagrama de objetos 
 
@@ -66,7 +66,7 @@ El diagrama de objetos ejemplifica varios usuarios con colecciones de aficiones 
 - Usuario sin aficiones (conjunto vacío).
 - Usuarios con el mismo nombre pero con emails distintos (u1, u9)
 
-![Diagrama de objetos (estático)]({{ '/assets/images/req2sql/Aficiones/aficiones-est-do.png' | relative_url }})
+![Diagrama de objetos (estático)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-est-do.png' | relative_url }})
 
 # Modelo conceptual (Versión dinámica)
 
@@ -78,7 +78,7 @@ En la versión dinámica, las aficiones se convierten en entidad propia para per
 - Multiplicidades: Un Usuario puede estar asociado a 0..* aficiones y una Afición puede estar asociada a 0..* usuarios, en el modelo relacional se resolverá a través de una relación/entidad/tabla UsuarioAfición.
 - Reglas implícitas: Unicidad del par (Usuario, Afición) para evitar duplicados. Posibilidad de CRUD sobre el catálogo de aficiones.
 
-![Diagrama de clases (dinámico)]({{ '/assets/images/req2sql/Aficiones/aficiones-din-dc.png' | relative_url }})
+![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-din-dc.png' | relative_url }})
 
 ## Diagrama de objetos
 
@@ -89,7 +89,7 @@ El diagrama de objetos muestra instancias de Usuario enlazadas a instancias de A
 
 Estos ejemplos ponen de relieve la diferencia clave respecto a la versión estática: el conjunto de aficiones no está cerrado y puede crecer.
 
-![Diagrama de objetos (dinámico)]({{ '/assets/images/req2sql/Aficiones/aficiones-din-do.png' | relative_url }})
+![Diagrama de objetos (dinámico)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-din-do.png' | relative_url }})
 
 ## Modelo Relacional
 

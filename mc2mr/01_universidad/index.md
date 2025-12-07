@@ -11,7 +11,7 @@ toc_sticky: true
 
 ## Modelo Conceptual
 
-![Diagrama de Clases](/assets/images/mc2mr/ejercicio-01-universidad-clases.png)
+![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-01-universidad-clases.png)
 
 ## Intensión (Esquema Relacional)
 
@@ -34,7 +34,7 @@ Estudiantes(estudianteId, centroId, matrícula, nombre, edad, promedio)
 ---
 
 <!-- ## Diagrama UML (Objetos)
-![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-01-universidad-objetos.png)
+![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-01-universidad-objetos.png)
 
 --- -->
 

@@ -105,7 +105,7 @@ pdf_version: true
 - Crianza–Cosecha: composición 1..* que modela las cosechas de un vino de crianza.
 - Vino–Uva: relación M:N (elaboradoCon) entre Vino y Uva: un vino puede mezclar varias uvas y una uva intervenir en múltiples vinos.
 
-![Diagrama de clases]({{ '/assets/images/req2sql/Bodegas/bodegas-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc.png' | relative_url }})
 
 ## Diagrama de objetos
 
@@ -116,7 +116,7 @@ Las instancias muestran dos bodegas (b1, b2) y cuatro vinos: j1, j2 (jóvenes) y
 - Mezclas de uva: j1 → u3; j2 → u1; c1 → u1+u2; c2 → u1+u2, ilustrando la M:N Vino–Uva.
 - El diagrama de objetos ejemplifica las cardinalidades y la especialización sin violar las RN indicadas en el diagrama de clases.
 
-![Diagrama de objetos]({{ '/assets/images/req2sql/Bodegas/bodegas-do.png' | relative_url }})
+![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-do.png' | relative_url }})
 
 
 ## Posible extensión
@@ -126,7 +126,7 @@ Las instancias muestran dos bodegas (b1, b2) y cuatro vinos: j1, j2 (jóvenes) y
 - Se mantienen Bodega–Vino (1..*), Crianza–Cosecha (1..*), y Vino–Uva (M:N) como en el modelo base.
 - RN‑5: Reserva 36 meses (12–24 en barrica; resto en botella). Además, se mantienen RN‑1..RN‑4.
 
-![Diagrama de clases (examen)]({{ '/assets/images/req2sql/Bodegas/bodegas-dc-examen.png' | relative_url }})
+![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc-examen.png' | relative_url }})
 
 ## Modelo Relacional (v1)
 

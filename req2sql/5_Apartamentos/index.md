@@ -81,7 +81,7 @@ El modelo gestiona el alquiler de apartamentos turísticos con propietarios, hu�
 - **Atributos importantes**: Apartamento (dirección, capacidad, precio/noche), Reserva (fechas inicio/fin, precio total), Propietario/Huésped (datos personales).
 - **Restricciones temporales**: Las reservas no pueden solaparse para un mismo apartamento; fechas de inicio < fechas fin.
 
-![Diagrama de clases]({{ '/assets/images/req2sql/Apartamentos/apartamentos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Apartamentos/apartamentos-dc.png' | relative_url }})
 
 ## Diagrama de objetos
 
@@ -89,7 +89,7 @@ Los objetos ilustran escenarios reales de gestión de alquileres con diferentes 
 
 Marta es propietaria de un alojamiento que es reservado por Juan. El alojamiento tiene WIFI y PISCINA, está en la Costa del Sol y dispone de 2 fotos. Las fechas de compra y de reserva son coherentes.
 
-![Diagrama de objetos]({{ '/assets/images/req2sql/Apartamentos/apartamentos-do.png' | relative_url }})
+![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Apartamentos/apartamentos-do.png' | relative_url }})
 
 ## Modelo Relacional
 

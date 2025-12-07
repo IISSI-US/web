@@ -11,7 +11,7 @@ pdf_version: true
 
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/mc2mr/ejercicio-05-herencia-incompleta-disjunta-clases.png)
+![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-05-herencia-incompleta-disjunta-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -38,7 +38,7 @@ Motos(vehículoId, cilindrada, tipoManillar)
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-05-herencia-incompleta-disjunta-objetos.png) -->
+![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-05-herencia-incompleta-disjunta-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text

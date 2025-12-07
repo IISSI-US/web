@@ -11,7 +11,7 @@ pdf_version: true
 
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/mc2mr/ejercicio-07-clase-asociacion-clases.png)
+![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -30,7 +30,7 @@ Inscripciones(inscripcionId, estudianteId, cursoId, fechaInscripcion, calificaci
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-07-clase-asociacion-objetos.png) -->
+![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text

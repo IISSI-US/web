@@ -83,6 +83,10 @@ defaults:
       share: false
       sidebar:
         nav: laboratorios-frontend
+      toc: true
+      toc_sticky: true
+      toc_label: "Contenido"
+      toc_icon: "fa-solid fa-list-ul"
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar

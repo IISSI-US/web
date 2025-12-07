@@ -11,7 +11,7 @@ pdf_version: true
 
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png)
+![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png)
 
 ## Modelo Relacional. Intensión
 ```
@@ -24,7 +24,7 @@ Contenidos(
 ```
 
 <!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/mc2mr/ejercicio-04-herencia-completa-solapada-objetos.png) -->
+![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-objetos.png) -->
 
 ## Modelo Relacional. Extensión
 ```text

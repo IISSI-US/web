@@ -24,7 +24,7 @@ El objetivo de esta práctica es implementar transacciones en SQL. El alumno apr
 ## AUTOCOMMIT
 En primer lugar vamos a ilustrar el concepto de transacción como Unidad Lógica de Trabajo. MariaDB, por defecto, fuerza un COMMIT automático después de cada instrucción. Esto está controlado por la variable de entorno `AUTOCOMMIT`, que por defecto está en `ON` (`AUTOCOMMIT=1`).
 
-![AUTOCOMMIT](/assets/images/laboratorios/fig/lab1-8/autocommit.png)
+![AUTOCOMMIT](/assets/images/iissi1/laboratorios/fig/lab1-8/autocommit.png)
 
 Para manejar transacciones que agrupan modificaciones sobre la BD emitiendo varias sentencias es necesario desactivar esta opción, con el comando `SET AUTOCOMMIT=0`, además de controlar el inicio de la transacción, con la instrucción `START TRANSACTION`, y la terminación confirmando (`COMMIT` o `COMMIT WORK`) o cancelando (`ROLLBACK` o `ROLLBACK WORK`). Hay que tener en cuenta que, estando en una transacción activa, si se produce una excepción grave (`SQLEXCEPTION`) y no se controla mediante código, entonces la transacción abortaría (`ROLLBACK` implícito).
 
@@ -142,7 +142,7 @@ SELECT * FROM Grades;
 
 Observe que los resultados obtenidos por la consulta incluyen las notas añadidas justo antes:
 
-![Resultados](/assets/images/laboratorios/fig/lab1-8/resultados.png)
+![Resultados](/assets/images/iissi1/laboratorios/fig/lab1-8/resultados.png)
 
 Sin realizar commit, use Silence para pedir un listado de las notas mediante la consulta `GET {{BASE}}/grades`. Observe cómo las notas nuevas no aparecen en el listado. Ya que no se ha hecho commit, los cambios son solo visibles dentro de la transacción, mientras que fuera de ella (es decir, en otras transacciones) la base de datos permanece igual que antes de comenzar la transacción.
 

@@ -58,7 +58,7 @@ El modelo representa una estructura organizacional con empleados distribuidos en
 - **Roles**: Los empleados puedes ser Jefes o Subordinados, de forma que un Subordinado tiene 0..1 Jefes y un Jefe tiene 0..* Subordinados
 - **Restricciones**: un empleado no puede ser su propio jefe, la comisión es un porcentaje, los nombres de los empleados son únicos, las fechas de inicio y fin de contrato deben ser coherentes, la tupla (nombre, localidad) de un departamento no puede repetirse, y los departamentos no pueden tener más de 5 empleados.
 
-![Diagrama de clases]({{ '/assets/images/req2sql/Empleados/empleados-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Empleados/empleados-dc.png' | relative_url }})
 
 ## Diagrama de objetos
 
@@ -67,7 +67,7 @@ Las instancias muestran la diversidad de empleados y la organización departamen
 - **Departamentos**: Diferentes departamentos múltiples empleados asignados (d1, d2, d3).
 - **Empleados**: Cinco empleados, Juan es Jefe de Luis y Ana, José y Lola no tiene jeje, y el departamento d3 no tiene ningún empleado.
 
-![Diagrama de objetos]({{ '/assets/images/req2sql/Empleados/empleados-do.png' | relative_url }})
+![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Empleados/empleados-do.png' | relative_url }})
 
 ## Modelo Relacional
 
