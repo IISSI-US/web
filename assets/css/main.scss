@@ -13,3 +13,7 @@
 @import "partials/formulas";
 @import "partials/sql-embed";
 
+// Hide footer globally
+.page__footer {
+  display: none !important;
+}

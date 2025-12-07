@@ -1,74 +1,10 @@
 # Navegación principal para Minimal Mistakes
 main:
-  - title: "Laboratorios"
-    url: /laboratorios/
-    children:
-      - title: "Lab0 - Requisitos"
-        url: /laboratorios/L0-requisitos/
-      - title: "Lab1 - Creación de tablas"
-        url: /laboratorios/L1-tablas_I/
-      - title: "Lab2 - Restricciones en tablas"
-        url: /laboratorios/L2-tablas_II/
-      - title: "Lab3 - Datos y consultas simples"
-        url: /laboratorios/L3-sql_I/
-      - title: "Lab4 - Consultas avanzadas"
-        url: /laboratorios/L4-sql_II/
-      - title: "Lab5 - Procedimientos, funciones y disparadores"
-        url: /laboratorios/L5-proc_func_trig/
-      - title: "Lab6 - Pruebas SQL"
-        url: /laboratorios/L6-pruebas/
-      - title: "Lab7 - APIs REST y Silence"
-        url: /laboratorios/L7-silence/
-      - title: "Lab8 - Transacciones"
-        url: /laboratorios/L8-transacciones/
-      - title: "Anexo A · Entorno de trabajo"
-        url: /laboratorios/AN-A-entorno/
-      - title: "Anexo B - Scripts"
-        url: /laboratorios/AN-B-scripts/
-  - title: "MC → MR"
-    url: /mc2mr/
-    children:
-      - title: "1. Universidad"
-        url: /mc2mr/01_universidad/
-      - title: "2. Biblioteca"
-        url: /mc2mr/02_biblioteca/
-      - title: "3. Herencia completa disjunta"
-        url: /mc2mr/03_herencia-completa-disjunta/
-      - title: "4. Herencia completa solapada"
-        url: /mc2mr/04_herencia-completa-solapada/
-      - title: "5. Herencia incompleta disjunta"
-        url: /mc2mr/05_herencia-incompleta-disjunta/
-      - title: "6. Herencia incompleta solapada"
-        url: /mc2mr/06_herencia-incompleta-solapada/
-      - title: "7. Clase asociación"
-        url: /mc2mr/07_clase-asociacion/
-      - title: "8. Relaciones M:N"
-        url: /mc2mr/08_relaciones-mn/
-      - title: "9. Torneo de tenis"
-        url: /mc2mr/09_torneo-tenis/
-  - title: "Req → SQL"
-    url: /req2sql/
-    children:
-      - title: "1. Usuarios"
-        url: /req2sql/1_Usuarios/
-      - title: "2. Aficiones"
-        url: /req2sql/2_Aficiones/
-      - title: "3. Pedidos"
-        url: /req2sql/3_Pedidos/
-      - title: "4. Empleados"
-        url: /req2sql/4_Empleados/
-      - title: "5. Apartamentos"
-        url: /req2sql/5_Apartamentos/
-      - title: "6. Animales"
-        url: /req2sql/6_Animales/
-      - title: "7. Proyectos"
-        url: /req2sql/7_Proyectos/
-      - title: "8. Espectáculos"
-        url: /req2sql/8_Espectaculos/
-      - title: "9. Bodegas"
-        url: /req2sql/9_Bodegas/
-      - title: "10. Grados"
-        url: /req2sql/10_Grados/
+  - title: "IISSI-1 (Backend)"
+    url: /iissi1/
+  
+  - title: "IISSI-2 (Frontend)"
+    url: /laboratorios/iissi2/
   
 
 # Navegación lateral por colección
@@ -76,27 +12,27 @@ laboratorios:
   - title: "Laboratorios"
     children:
       - title: "Lab0 - Requisitos"
-        url: /laboratorios/L0-requisitos/
+        url: /laboratorios/iissi1/L0-requisitos/
       - title: "Lab1 - Creación de tablas"
-        url: /laboratorios/L1-tablas_I/
+        url: /laboratorios/iissi1/L1-tablas_I/
       - title: "Lab2 - Restricciones en tablas"
-        url: /laboratorios/L2-tablas_II/
+        url: /laboratorios/iissi1/L2-tablas_II/
       - title: "Lab3 - Datos y consultas simples"
-        url: /laboratorios/L3-sql_I/
+        url: /laboratorios/iissi1/L3-sql_I/
       - title: "Lab4 - Consultas avanzadas"
-        url: /laboratorios/L4-sql_II/
+        url: /laboratorios/iissi1/L4-sql_II/
       - title: "Lab5 - Procedimientos, funciones y disparadores"
-        url: /laboratorios/L5-proc_func_trig/
+        url: /laboratorios/iissi1/L5-proc_func_trig/
       - title: "Lab6 - Pruebas SQL"
-        url: /laboratorios/L6-pruebas/
+        url: /laboratorios/iissi1/L6-pruebas/
       - title: "Lab7 - APIs REST y Silence"
-        url: /laboratorios/L7-silence/
+        url: /laboratorios/iissi1/L7-silence/
       - title: "Lab8 - Transacciones"
-        url: /laboratorios/L8-transacciones/
+        url: /laboratorios/iissi1/L8-transacciones/
       - title: "Anexo A · Entorno de trabajo"
-        url: /laboratorios/AN-A-entorno/
+        url: /laboratorios/iissi1/AN-A-entorno/
       - title: "Anexo B - Scripts"
-        url: /laboratorios/AN-B-scripts/
+        url: /laboratorios/iissi1/AN-B-scripts/
 
 mc2mr:
   - title: "MC → MR"
@@ -143,5 +79,12 @@ req2sql:
         url: /req2sql/9_Bodegas/
       - title: "10. Grados"
         url: /req2sql/10_Grados/
+
+laboratorios-frontend:
+  - title: "Frontend"
+    children:
+      - title: "Introducción"
+        url: /laboratorios/iissi2/
+
 
 

@@ -48,7 +48,7 @@ collections:
 # Valores por defecto para documentos de colecciones
 defaults:
   - scope:
-      path: "laboratorios"
+      path: "laboratorios/iissi1"
     values:
       layout: single
       # Ancho por defecto del tema (sin "wide")
@@ -75,6 +75,14 @@ defaults:
       toc: true
       footer_scripts:
         - /assets/js/sql-embed.js
+  - scope:
+      path: "laboratorios/iissi2"
+    values:
+      layout: single
+      author_profile: false
+      share: false
+      sidebar:
+        nav: laboratorios-frontend
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar

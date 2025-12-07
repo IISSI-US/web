@@ -1,7 +1,7 @@
 ---
 title: Laboratorios
 layout: single
-permalink: /laboratorios/
+permalink: /laboratorios/iissi1/
 sidebar:
   nav: laboratorios
 ---
