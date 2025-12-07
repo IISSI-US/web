@@ -2,6 +2,11 @@
 Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 {% endcomment %}
 
+<!-- Google Fonts: Roboto -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <!-- Dark theme stylesheet -->
 <link rel="preload" as="style" href="/assets/css/theme-dark.css">
 <link id="mm-dark-css" rel="stylesheet" href="/assets/css/theme-dark.css" disabled>
@@ -52,23 +57,28 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     .initial-content {
       margin-left: 0 !important;
       margin-right: 0 !important;
-      padding-left: 10px !important;
-      padding-right: 10px !important;
+      padding-left: 2rem !important;
+      /* Margin on left */
+      padding-right: 2rem !important;
+      /* Margin on right */
       max-width: 100% !important;
       width: 100% !important;
     }
 
     .sidebar {
-      margin-left: 0 !important;
+      margin-left: 1rem !important;
+      /* Small margin from edge */
       float: left !important;
     }
 
     .page {
-      width: calc(100% - 320px) !important;
+      width: calc(100% - 320px - 4rem) !important;
+      /* Subtract sidebars + margins */
       padding-right: 350px !important;
       /* More space for TOC */
       float: right !important;
-      margin-right: 0 !important;
+      margin-right: 1rem !important;
+      /* Small margin from edge */
     }
 
     .page__inner-wrap {
@@ -85,13 +95,15 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     .sidebar__right {
       width: 320px !important;
       /* Wider TOC */
-      margin-right: 0 !important;
+      margin-right: 1rem !important;
+      /* Small margin from edge */
       right: 0 !important;
       top: 1em !important;
     }
 
     .sidebar__right.sticky {
-      right: 0 !important;
+      right: 1rem !important;
+      /* Maintain margin when sticky */
       position: fixed !important;
       top: 4em !important;
       /* Below masthead and toggle */
