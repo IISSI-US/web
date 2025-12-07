@@ -34,6 +34,11 @@ exclude:
   - _diagrams/
   - _scripts/
   - typst-packages/
+  - vendor/
+  - .bundle/
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
 
 # Colecciones
 collections:
