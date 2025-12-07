@@ -25,6 +25,11 @@ $right-sidebar-width: 300px !default; // Fixed Right TOC
   display: none !important;
 }
 
+// Add spacing between masthead and content
+.initial-content {
+  margin-top: 2rem !important;
+}
+
 // NUCLEAR CSS OPTION: FORCE EDGE-TO-EDGE
 @media (min-width: 64em) {
 
@@ -37,6 +42,11 @@ $right-sidebar-width: 300px !default; // Fixed Right TOC
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
+  }
+  
+  // Re-apply top margin for desktop
+  .initial-content {
+    margin-top: 2rem !important;
   }
 
   // 2. Left Sidebar: Float Left, pinned to edge

@@ -59,7 +59,7 @@ defaults:
       toc: true
       toc_sticky: true
       toc_label: "Contenido"
-      toc_icon: "fa-solid fa-list-ul"
+      toc_icon: "list-ul"
   - scope:
       path: "mc2mr"
     values:
@@ -90,7 +90,7 @@ defaults:
       toc: true
       toc_sticky: true
       toc_label: "Contenido"
-      toc_icon: "fa-solid fa-list-ul"
+      toc_icon: "list-ul"
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar

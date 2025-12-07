@@ -1,20 +1,35 @@
 ---
-title: Laboratorios
 layout: single
 permalink: /laboratorios/iissi1/
+title: "Contenido:"
 sidebar:
   nav: labs-iissi-1
+toc: false
 ---
 
-Bienvenido a la sección de Laboratorios.
+- **[Lab0 - Requisitos previos](./L0-requisitos/)**: Instalación y configuración del entorno de desarrollo para bases de datos
+- **[Lab1 - Creación de tablas I](./L1-tablas_I/)**: Fundamentos de SQL para crear tablas, definir tipos de datos y claves
+- **[Lab2 - Creación de tablas II](./L2-tablas_II/)**: Relaciones entre tablas, claves ajenas y restricciones avanzadas
+- **[Lab3 - Datos y consultas simples](./L3-sql_I/)**: Inserción, actualización, borrado y consulta básica de datos con SQL
+- **[Lab4 - Consultas avanzadas](./L4-sql_II/)**: Joins, subconsultas, agregaciones y consultas complejas en SQL
+- **[Lab5 - Procedimientos, funciones y disparadores](./L5-proc_func_trig/)**: Programación en SQL con stored procedures, funciones y triggers
+- **[Lab6 - Pruebas y validación](./L6-pruebas/)**: Testing de bases de datos y validación de restricciones
+- **[Lab7 - Framework Silence](./L7-silence/)**: Introducción al framework Python para APIs REST sobre bases de datos
+- **[Lab8 - Transacciones](./L8-transacciones/)**: Control de transacciones, concurrencia y propiedades ACID
 
-Seleccione un laboratorio en la barra lateral para comenzar.
+La primera parte de la asignatura se centra en el diseño, implementación y gestión de **bases de datos relacionales**. Los estudiantes aprenderán a:
 
-## Lista de laboratorios
+- Diseñar esquemas de bases de datos relacionales normalizadas
+- Implementar bases de datos usando SQL y MariaDB/MySQL
+- Crear y manipular tablas con diferentes tipos de datos y restricciones
+- Escribir consultas SQL complejas para extraer información
+- Desarrollar procedimientos almacenados, funciones y disparadores
+- Gestionar transacciones y garantizar la integridad de los datos
+- Aplicar buenas prácticas de diseño y optimización de bases de datos
 
-{% assign lab_nav = site.data.navigation.laboratorios[0].children %}
-<ul>
-{% for item in lab_nav %}
-  <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
-{% endfor %}
-</ul>
+## Tecnologías utilizadas
+
+- **MariaDB**: Sistema gestor de bases de datos relacional
+- **HeidiSQL**: Cliente visual para gestión de bases de datos
+- **SQL**: creación de esquemas, consultas, procedimientos, funciones y disparadores
+- **Python + Silence**: Framework para APIs REST (backend)

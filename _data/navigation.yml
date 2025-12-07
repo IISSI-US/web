@@ -1,12 +1,14 @@
 # Navegación principal para Minimal Mistakes
 main:
-  - title: "IISSI-1 (Backend)"
+  - title: "Profesores"
+    url: /profesores/
+    
+  - title: "IISSI-1"
     url: /iissi1/
   
-  - title: "IISSI-2 (Frontend)"
+  - title: "IISSI-2"
     url: /iissi2/
   
-
 # Navegación lateral por colección
 labs-iissi-1:
   - title: "Labs IISSI-1"
