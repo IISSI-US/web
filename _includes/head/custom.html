@@ -1,29 +1,132 @@
 {% comment %}
-  Custom head additions: dark theme alt stylesheet and theme toggle logic.
-  Minimal Mistakes loads /assets/css/main.css by default (light skin).
-  We add an alternate dark stylesheet and toggle it via JS, with persistence.
+Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 {% endcomment %}
 
-<!-- Preload hoja de estilos dark para evitar retrasos en el primer uso -->
-<link rel="preload" as="style" href="{{ "/assets/css/theme-dark.css" | relative_url }}">
-
-<link id="mm-dark-css"
-      rel="stylesheet"
-      href="{{ "/assets/css/theme-dark.css" | relative_url }}"
-      disabled>
+<!-- Dark theme stylesheet -->
+<link rel="preload" as="style" href="/assets/css/theme-dark.css">
+<link id="mm-dark-css" rel="stylesheet" href="/assets/css/theme-dark.css" disabled>
 
 <!-- Favicons -->
-<link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/images/iissi.png" | relative_url }}">
-<link rel="apple-touch-icon" href="{{ "/assets/images/iissi.png" | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/iissi.png">
+<link rel="apple-touch-icon" href="/assets/images/iissi.png">
 
-<!-- Roboto font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
+<!-- MathJax for formulas -->
 <script>
-  (function() {
-    var STORAGE_KEY = 'mm-theme-mode'; // 'light' | 'dark' | 'auto'
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      tags: 'ams',
+      packages: { '[+]': ['textmacros'] },
+
+      macros: {
+        Proj: ["\\mathop{\\mathchoice{\\Huge\\Pi}{\\Large\\Pi}{\\large\\Pi}{\\normalsize\\Pi}}\\limits_{#1}", 1],
+        Sel: ["\\mathop{\\mathchoice{\\Huge\\sigma}{\\Large\\sigma}{\\large\\sigma}{\\normalsize\\sigma}}\\limits_{#1}", 1],
+        Ren: ["\\mathop{\\mathchoice{\\Huge\\rho}{\\Large\\rho}{\\large\\rho}{\\normalsize\\rho}}\\limits_{#1}", 1],
+        Group: ["\\mathop{\\mathchoice{\\Huge\\Upsilon}{\\Large\\Upsilon}{\\large\\Upsilon}{\\normalsize\\Upsilon}}\\limits^{#1}_{#2}", 2],
+        GroupUp: ["\\mathop{\\mathchoice{\\Huge\\Upsilon}{\\Large\\Upsilon}{\\large\\Upsilon}{\\normalsize\\Upsilon}}\\limits^{#1}", 1],
+        GroupDown: ["\\mathop{\\mathchoice{\\Huge\\Upsilon}{\\Large\\Upsilon}{\\large\\Upsilon}{\\normalsize\\Upsilon}}\\limits_{#1}", 1],
+        JoinR: ["\\mathbin{\\mathop{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}\\limits_{#1}}", 1],
+        NatJoin: ["\\mathbin{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}", 0],
+        Diff: ["\\mathbin{\\mathchoice{\\Huge\\setminus}{\\Large\\setminus}{\\large\\setminus}{\\normalsize\\setminus}}", 0],
+        Union: ["\\mathbin{\\mathchoice{\\Huge\\cup}{\\Large\\cup}{\\large\\cup}{\\normalsize\\cup}}", 0],
+        Inter: ["\\mathbin{\\mathchoice{\\Huge\\cap}{\\Large\\cap}{\\large\\cap}{\\normalsize\\cap}}", 0]
+      }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    svg: {
+      fontCache: 'global',
+      font: undefined
+    },
+    loader: { load: ['[tex]/textmacros'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Wide layout CSS -->
+<style>
+  @media (min-width: 64em) {
+    .initial-content {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
+    .sidebar {
+      margin-left: 0 !important;
+      float: left !important;
+    }
+
+    .page {
+      width: calc(100% - 320px) !important;
+      padding-right: 350px !important;
+      /* More space for TOC */
+      float: right !important;
+      margin-right: 0 !important;
+    }
+
+    .page__inner-wrap {
+      width: 100% !important;
+      padding-right: 0 !important;
+    }
+
+    .page__content {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 1em;
+    }
+
+    .sidebar__right {
+      width: 320px !important;
+      /* Wider TOC */
+      margin-right: 0 !important;
+      right: 0 !important;
+      top: 1em !important;
+    }
+
+    .sidebar__right.sticky {
+      right: 0 !important;
+      position: fixed !important;
+      top: 4em !important;
+      /* Below masthead and toggle */
+    }
+  }
+
+  /* Masthead stability - prevent height changes on theme switch */
+  .masthead,
+  [data-theme="dark"] .masthead,
+  [data-theme="light"] .masthead {
+    min-height: 3em !important;
+    padding: 0 !important;
+  }
+
+  .masthead__inner-wrap,
+  [data-theme="dark"] .masthead__inner-wrap,
+  [data-theme="light"] .masthead__inner-wrap {
+    padding: 0.5em 1em !important;
+    max-width: 100% !important;
+  }
+
+  /* Theme toggle in masthead - consistent positioning */
+  .theme-toggle,
+  [data-theme="dark"] .theme-toggle,
+  [data-theme="light"] .theme-toggle {
+    margin-left: 0.5rem !important;
+    vertical-align: middle !important;
+    display: inline-flex !important;
+  }
+</style>
+
+<!-- Theme toggle script -->
+<script>
+  (function () {
+    var STORAGE_KEY = 'mm-theme-mode';
     var darkLink = null;
     var mq = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -36,8 +139,8 @@
       } else if (mode === 'light') {
         darkLink.disabled = true;
         document.documentElement.setAttribute('data-theme', 'light');
-      } else { // auto
-        darkLink.disabled = !mq.matches ? true : false;
+      } else {
+        darkLink.disabled = !mq.matches;
         document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light');
       }
       updateIcon(mode);
@@ -48,23 +151,19 @@
     }
 
     function writeMode(mode) {
-      try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) {}
+      try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) { }
     }
 
     function cycle() {
       var curr = readMode();
       var effective = curr === 'auto' ? (mq.matches ? 'dark' : 'light') : curr;
-      // Si estamos en 'auto', al hacer clic alterna directamente al contrario del efectivo
-      // Luego el siguiente clic alternará a 'auto' desde el modo fijo.
-      var next = (curr === 'auto')
-        ? (effective === 'dark' ? 'light' : 'dark')
-        : (curr === 'dark' ? 'light' : 'auto');
+      var next = (curr === 'auto') ? (effective === 'dark' ? 'light' : 'dark') : (curr === 'dark' ? 'light' : 'auto');
       writeMode(next);
       apply(next);
     }
 
-    function sunSVG(){return '<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 14.32l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zM20.45 4.46l-1.41-1.41-1.8 1.79 1.41 1.41 1.8-1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"></path></svg>';}
-    function moonSVG(){return '<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"></path></svg>';}
+    function sunSVG() { return '<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zm10.48 14.32l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM12 4V1h-0v3h0zm0 19v-3h0v3h0zM4 12H1v0h3v0zm19 0h-3v0h3v0zM6.76 19.16l-1.42 1.42-1.79-1.8 1.41-1.41 1.8 1.79zM20.45 4.46l-1.41-1.41-1.8 1.79 1.41 1.41 1.8-1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"></path></svg>'; }
+    function moonSVG() { return '<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"></path></svg>'; }
 
     function updateIcon(mode) {
       var btn = document.getElementById('mm-theme-toggle');
@@ -79,8 +178,15 @@
 
     function ensureToggleButton() {
       if (document.getElementById('mm-theme-toggle')) return;
-      var container = document.querySelector('.masthead__inner-wrap .greedy-nav');
+
+      // Insert in masthead - try greedy-nav first, then masthead itself
+      var container = document.querySelector('.greedy-nav__links') ||
+        document.querySelector('.greedy-nav') ||
+        document.querySelector('.masthead__inner-wrap') ||
+        document.querySelector('.masthead');
+
       if (!container) return;
+
       var btn = document.createElement('button');
       btn.id = 'mm-theme-toggle';
       btn.className = 'theme-toggle';
@@ -90,55 +196,13 @@
       updateIcon(readMode());
     }
 
-    // Init
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       apply(readMode());
       ensureToggleButton();
     });
-    mq.addEventListener('change', function() {
+
+    mq.addEventListener('change', function () {
       if (readMode() === 'auto') apply('auto');
     });
   })();
 </script>
-
-<script>
-  // Copiado de código: se usa la funcionalidad nativa del tema (enable_copy_code_button)
-</script>
-
-<!-- MathJax + macros para álgebra relacional (MC2MR) -->
-<script>
-  window.MathJax = window.MathJax || {};
-  window.MathJax.tex = Object.assign({
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true,
-    tags: 'ams',
-    packages: {'[+]': ['textmacros']},
-    macros: {
-      Proj: ["\\mathop{\\mathchoice{\\Huge\\Pi}{\\Large\\Pi}{\\large\\Pi}{\\normalsize\\Pi}}\\limits_{#1}", 1],
-      Sel: ["\\mathop{\\mathchoice{\\Huge\\sigma}{\\Large\\sigma}{\\large\\sigma}{\\normalsize\\sigma}}\\limits_{#1}", 1],
-      Ren: ["\\mathop{\\mathchoice{\\Huge\\rho}{\\Large\\rho}{\\large\\rho}{\\normalsize\\rho}}_{#1}", 1],
-      Group: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits^{#1}_{#2}", 2],
-      GroupUp: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits^{#1}", 1],
-      GroupDown: ["\\mathop{\\mathchoice{\\Huge\\gamma}{\\Large\\gamma}{\\large\\gamma}{\\normalsize\\gamma}}\\limits_{#1}", 1],
-      JoinR: ["\\mathbin{\\mathop{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}\\limits_{#1}}", 1],
-      NatJoin: ["\\mathbin{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}", 0],
-      Diff: ["\\mathbin{\\mathchoice{\\Huge\\setminus}{\\Large\\setminus}{\\large\\setminus}{\\normalsize\\setminus}}", 0],
-      Union: ["\\mathbin{\\mathchoice{\\Huge\\cup}{\\Large\\cup}{\\large\\cup}{\\normalsize\\cup}}", 0],
-      Inter: ["\\mathbin{\\mathchoice{\\Huge\\cap}{\\Large\\cap}{\\large\\cap}{\\normalsize\\cap}}", 0],
-      Div: ["\\mathbin{\\mathchoice{\\Huge\\div}{\\Large\\div}{\\large\\div}{\\normalsize\\div}}", 0],
-      LeftJoin: ["\\mathbin{\\mathchoice{\\Large\\ltimes}{\\large\\ltimes}{\\normalsize\\ltimes}{\\small\\ltimes}}", 0],
-      RightJoin: ["\\mathbin{\\mathchoice{\\Large\\rtimes}{\\large\\rtimes}{\\normalsize\\rtimes}{\\small\\rtimes}}", 0],
-      OuterJoin: ["\\mathbin{\\mathchoice{\\Large\\bowtie}{\\large\\bowtie}{\\normalsize\\bowtie}{\\small\\bowtie}}", 0]
-    }
-  }, window.MathJax.tex || {});
-  window.MathJax.options = Object.assign({
-    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  }, window.MathJax.options || {});
-  window.MathJax.svg = Object.assign({ fontCache: 'global' }, window.MathJax.svg || {});
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js"></script>
-{%- comment -%}
-  Estilos y JS específicos de MC2MR desactivados para unificar con Laboratorios.
-  MathJax queda con estilos por defecto del tema; bloques de código usan assets/css/main.scss.
-{%- endcomment -%}

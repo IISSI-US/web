@@ -3,9 +3,10 @@
 --- 
 
 // Custom overrides (must be before imports)
-$max-width: 95vw !default;
-$right-sidebar-width: 300px !default;
-$sidebar-width: 300px !default;
+$max-width: 100% !default; // FORCE FULL WIDTH
+$margin: 0 !default; // NO MARGINS
+$sidebar-width: 300px !default; // Fixed Left Sidebar
+$right-sidebar-width: 300px !default; // Fixed Right TOC
 
 // Import Minimal Mistakes core
 @import "minimal-mistakes/skins/default"; // skin
@@ -24,35 +25,65 @@ $sidebar-width: 300px !default;
   display: none !important;
 }
 
-// FORCE WIDE LAYOUT
+// NUCLEAR CSS OPTION: FORCE EDGE-TO-EDGE
 @media (min-width: 64em) {
 
-  /* Expand main container */
+  // 1. Kill all global centering on main wrappers
+  body,
   .initial-content,
-  .page__inner-wrap {
+  #main {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 0 !important;
   }
 
-  /* Make the main page content take available space */
-  .page {
-    width: calc(100% - 350px) !important;
-    /* Sidebar width + gap */
-    float: right;
-    padding-right: 2em !important;
-  }
-
-  /* Ensure sidebar sticks correctly */
+  // 2. Left Sidebar: Float Left, pinned to edge
   .sidebar {
     width: 300px !important;
-    float: left;
+    margin-left: 0 !important;
+    float: left !important;
+    padding-left: 10px; // Cosmetic space
   }
 
-  /* Remove internal constraints on text width */
+  // 3. Page Container: Fills the rest
+  .page {
+    width: calc(100% - 300px) !important; // Subtract Left Sidebar
+    float: right !important;
+    /* Push against right edge */
+    margin: 0 !important;
+    padding: 0 !important;
+
+    // Create room for Sticky TOC on the right
+    padding-right: 320px !important;
+  }
+
+  // 4. Content Text: Fills the .page container
+  .page__inner-wrap {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 20px !important; // Breathing room for text
+  }
+
   .page__content {
     width: 100% !important;
     max-width: 100% !important;
+  }
+
+  // 5. Right Sidebar (TOC): Pinned to right inside .page
+  .sidebar__right {
+    width: 300px !important;
+    right: 0 !important;
+    margin-right: 0 !important;
+    position: absolute !important; // Take out of flow to stick to right padding
+    top: 0 !important;
+  }
+
+  // Extra: Ensure sticky works
+  .sidebar__right.sticky {
+    position: fixed !important;
+    top: 2em !important;
+    right: 0 !important;
   }
 }

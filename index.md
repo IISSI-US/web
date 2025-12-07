@@ -1,8 +1,6 @@
 ---
 layout: single
 title: Inicio
-excerpt: "Documentación unificada de requisitos, modelado conceptual, relacional y SQL."
-classes: wide
 ---
 
 Contacto con los profesores de la asignatura:

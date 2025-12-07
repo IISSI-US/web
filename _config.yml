@@ -52,11 +52,14 @@ defaults:
       path: "laboratorios/iissi1"
     values:
       layout: single
-      # Ancho por defecto del tema (sin "wide")
       author_profile: false
       share: false
       sidebar:
         nav: labs-iissi-1
+      toc: true
+      toc_sticky: true
+      toc_label: "Contenido"
+      toc_icon: "fa-solid fa-list-ul"
   - scope:
       path: "mc2mr"
     values:
