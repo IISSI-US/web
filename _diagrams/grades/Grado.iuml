@@ -1,0 +1,4 @@
+class Grado {
+    nombre: String
+    años: Natural
+}

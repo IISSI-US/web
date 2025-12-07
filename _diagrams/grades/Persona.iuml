@@ -1,0 +1,7 @@
+class Persona{
+    dni: String
+    nombre: String
+    apellidos: String
+    edad: Integer
+    email: String
+}

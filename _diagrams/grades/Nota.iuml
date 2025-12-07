@@ -1,0 +1,5 @@
+class Nota {
+    valor: Double
+    convocatoria: Convocatoria
+    esMH: Boolean
+}

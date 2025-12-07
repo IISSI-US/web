@@ -1,0 +1,146 @@
+@startuml grados-dc-jerarquia
+
+title Diagrama de clases - Jerarquía de personas
+hide circle
+hide empty members
+
+skinparam linetype ortho
+
+!include Persona.iuml
+!include Alumno.iuml
+!include Profesor.iuml
+
+Persona <|-- Alumno
+Persona <|-- Profesor: {Completa, Disjunta}
+
+note as RN_Jerarquia
+  **Restricciones:**
+  - RN09: Todos los atributos son obligatorios.
+  - RN12: La edad de las personas es mayor o 
+    igual a 16 años y menor o igual a 70 años.
+  - RN14: El dni está formado por 8 números y 
+    una letra.
+end note
+
+@enduml
+
+@startuml grados-dc-academico
+
+title Diagrama de clases - Estructura académica y profesores
+hide circle
+hide empty members
+
+skinparam linetype ortho
+left to right direction
+
+!include Grado.iuml
+!include Asignatura.iuml
+!include Grupo.iuml
+!include Profesor.iuml
+!include Carga.iuml
+
+Grado "1" -- "*" Asignatura : < impartidaEn
+Asignatura *-- "1..*" Grupo 
+Profesor "*" -- "*" Grupo : imparteDocencia >
+(Profesor,Grupo) .. Carga : cargaDocente
+
+note as RN_Academico
+  **Restricciones:**
+  - RN03: Un grupo no puede tener más de 2 profesores
+  - RN06: De cada asignatura, no puede haber 
+    más de un grupo de teoría y dos de laboratorio.
+  - RN10: Los créditos de una asignatura pueden
+    ser 6 o 12.
+  - RN13: Los años de un grado están entre 3 y 6.
+  - RN15: El año académico es un valor 
+    comprendido entre 2000 y 2100.
+  - RN16: El curso de una asignatura está 
+    comprendido entre 1 y 6.
+end note
+
+@enduml
+
+@startuml grados-dc-alumnos
+
+title Diagrama de clases - Alumnos, matrículas y evaluación
+hide circle
+hide empty members
+
+skinparam linetype ortho
+'left to right direction
+
+!include Alumno.iuml
+!include Asignatura.iuml
+!include Grupo.iuml
+!include Nota.iuml
+
+Asignatura *-- "1..*" Grupo 
+Alumno "*" -- "*" Asignatura : seMatricula
+Alumno "*" -- "*" Grupo : perteneceA
+Alumno "1" -- "*" Nota : obtiene
+Grupo "1" -- "*" Nota : < obtenidaEn
+
+note as RN_Alumnos
+  **Restricciones:**
+  - RN01: Un alumno no puede tener más de una
+    nota para la misma asignatura, convocatoria 
+    y año académico.
+  - RN02: Un alumno no puede tener notas 
+    en grupos a los que no pertenece.
+  - RN04: Un alumno no puede pertenecer a más de 
+    un grupo de teoría y a más de un grupo de 
+    laboratorio de cada asignatura
+  - RN05: Una nota no puede alterarse en más 
+    de 4 puntos (aumentada o disminuida)
+  - RN07: Un alumno sólo puede pertenecer a grupos
+    de las asignaturas en las que está matriculado.
+  - RN08: Un alumno no puede acceder por 
+    selectividad teniendo menos de 16 años.
+  - RN01 (parte 2): Para obtener MH el valor de la nota 
+    debe ser superior o igual a 9.
+  - RN11: El valor de la nota está comprendido 
+    entre 0 y 10.
+end note
+
+@enduml
+
+@startuml grados-enum
+
+title Enumerados
+hide circle
+hide empty members
+
+enum TipoAsignatura <<Enumerado>>{
+    FormaciónBasicá
+    Obligatoria
+    Optativa
+}
+
+enum TipoActividad <<Enumerado>>{
+    Teoría
+    Laboratorio
+}
+
+enum Convocatoria <<Enumerado>>{
+    Primera
+    Segunda
+    Tercera
+    Extraordinaria
+}
+
+enum MétodoAcceso <<Enumerado>>{
+    Selectividad
+    Ciclo
+    Mayor
+    Titulado
+    Extranjero
+}
+
+enum CategoríaProfesor <<Enumerado>>{
+    Ayudante
+    AyudanteDoctor
+    Titular
+    Catedrático 
+}
+
+@enduml

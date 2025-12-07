@@ -1,0 +1,7 @@
+class Asignatura {
+    nombre: String
+    acrónimo: String
+    créditos: Integer
+    curso: Integer
+    tipo: TipoAsignatura
+}

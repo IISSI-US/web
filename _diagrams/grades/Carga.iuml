@@ -1,0 +1,3 @@
+class Carga {
+    créditos: Double
+}

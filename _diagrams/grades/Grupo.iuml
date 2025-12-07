@@ -1,0 +1,5 @@
+class Grupo {
+    nombre: String
+    actividad: TipoActividad
+    añoAcadémico: Integer
+}
