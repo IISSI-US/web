@@ -13,8 +13,8 @@ help:
 	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL."
 	@echo "  images            Renderiza todos los diagramas (alias de las dos anteriores)."
 	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true."
-	@echo "  build_site        Construye el sitio web estático."
-	@echo "  serve_site        Lanza un servidor de desarrollo con livereload."
+	@echo "  build             Construye el sitio web estático."
+	@echo "  serve             Lanza un servidor de desarrollo con livereload."
 	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR."
 	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL."
 	@echo "  clean-images         Ejecuta ambos clean."
@@ -44,9 +44,9 @@ clean-req2sql-images:
 clean-images: clean-mc2mr-images clean-req2sql-images
 
 # Build the static website
-build_site:
+build:
 	bundle exec jekyll build
 
 # Serve the website with livereload
-serve_site:
+serve:
 	bundle exec jekyll serve --livereload

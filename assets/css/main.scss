@@ -1,9 +1,15 @@
----
----
+--- 
+# Front Matter for Jekyll processing layout: null 
+--- 
+
+// Custom overrides (must be before imports)
+$max-width: 95vw !default;
+$right-sidebar-width: 300px !default;
+$sidebar-width: 300px !default;
 
 // Import Minimal Mistakes core
 @import "minimal-mistakes/skins/default"; // skin
-@import "minimal-mistakes";               // main partials
+@import "minimal-mistakes"; // main partials
 
 // Overrides o estilos propios — importados por temática
 @import "partials/typography";
@@ -16,4 +22,37 @@
 // Hide footer globally
 .page__footer {
   display: none !important;
+}
+
+// FORCE WIDE LAYOUT
+@media (min-width: 64em) {
+
+  /* Expand main container */
+  .initial-content,
+  .page__inner-wrap {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  /* Make the main page content take available space */
+  .page {
+    width: calc(100% - 350px) !important;
+    /* Sidebar width + gap */
+    float: right;
+    padding-right: 2em !important;
+  }
+
+  /* Ensure sidebar sticks correctly */
+  .sidebar {
+    width: 300px !important;
+    float: left;
+  }
+
+  /* Remove internal constraints on text width */
+  .page__content {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 }
