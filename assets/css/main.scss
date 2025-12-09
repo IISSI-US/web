@@ -30,12 +30,10 @@ layout: null
 
 // Custom partials (orden alfabético para claridad)
 @import "partials/code";           // Estilos de bloques de código
-@import "partials/feature-row";    // Cards responsivas para profesores y colecciones
 @import "partials/formulas";       // MathJax containerss
 @import "partials/images";         // Imágenes centradas y redondeadas
 @import "partials/sql-embed";      // Componente custom para embeds SQL
 @import "partials/theme-toggle";   // Botón de cambio de tema
-@import "partials/toc";            // Table of contents adaptado a tema claro/oscuro
 @import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)
 @import "partials/custom-colors";  // ÚLTIMO: CSS custom properties para theme toggle
 
