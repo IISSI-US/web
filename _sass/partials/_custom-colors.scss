@@ -1,0 +1,224 @@
+/*
+ * Sistema de colores dinámicos para theme toggle (dark/light)
+ * 
+ * PROBLEMA: Minimal Mistakes compila variables SASS en build-time, por lo que
+ * no podemos cambiar colores dinámicamente con JavaScript.
+ * 
+ * SOLUCIÓN: CSS Custom Properties (--variables) que SÍ se pueden cambiar en runtime
+ * mediante el atributo data-theme='dark'/'light' en <html>.
+ * 
+ * ARQUITECTURA:
+ * 1. :root - Define variables CSS para tema claro (default)
+ * 2. [data-theme='dark'] - Override de variables para tema oscuro
+ * 3. Selectores específicos - Fuerzan la aplicación de las variables
+ * 
+ * PALETAS:
+ * - Tema claro: GitHub Light (alta legibilidad con fondos claros)
+ * - Tema oscuro: Tomorrow Night Base16 (colores suaves para fondos oscuros)
+ * 
+ * Este archivo se importa ÚLTIMO en main.scss para tener máxima prioridad.
+ */
+
+:root {
+  // Light theme (default MM)
+  --bg-color: #fff;
+  --text-color: #3b4252;
+  --link-color: #0066cc;
+  --border-color: #e9ecef;
+  --code-bg: #f6f8fa;
+  --code-text: #24292e;
+  --inline-code-bg: #f6f8fa;
+  
+  // Syntax highlighting para tema claro (colores más oscuros y legibles)
+  .highlight {
+    .c, .cm, .c1, .cs { color: #6a737d; } // Comments - gris medio
+    .err { color: #d73a49; } // Error - rojo
+    .k, .kc, .kd, .kn, .kp, .kr, .kt { color: #d73a49; } // Keywords - rojo
+    .l { color: #005cc5; } // Literal - azul
+    .m, .mf, .mh, .mi, .mo, .il { color: #005cc5; } // Numbers - azul
+    .n { color: #24292e; } // Name - negro
+    .o, .ow { color: #d73a49; } // Operator - rojo
+    .p { color: #24292e; } // Punctuation - negro
+    .s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: #032f62; } // Strings - azul oscuro
+    .na { color: #6f42c1; } // Name.Attribute - morado
+    .nb, .bp { color: #005cc5; } // Name.Builtin - azul
+    .nc { color: #6f42c1; } // Name.Class - morado
+    .no { color: #005cc5; } // Name.Constant - azul
+    .nd { color: #6f42c1; } // Name.Decorator - morado
+    .ne { color: #d73a49; } // Name.Exception - rojo
+    .nf { color: #6f42c1; } // Name.Function - morado
+    .nn { color: #24292e; } // Name.Namespace - negro
+    .nt { color: #22863a; } // Name.Tag - verde
+    .nv, .vc, .vg, .vi { color: #e36209; } // Variables - naranja
+    .gd { color: #d73a49; } // Generic.Deleted - rojo
+    .gi { color: #22863a; } // Generic.Inserted - verde
+    .gh { color: #005cc5; font-weight: bold; } // Generic.Heading - azul bold
+    .gp { color: #6a737d; font-weight: bold; } // Generic.Prompt - gris bold
+    .gu { color: #6f42c1; font-weight: bold; } // Generic.Subheading - morado bold
+  }
+}
+
+[data-theme='dark'] {
+  // Dark theme (similar to MM dark skin)
+  --bg-color: #252a34;
+  --text-color: #eaeaea;
+  --link-color: #58a6ff;
+  --border-color: #3b4252;
+  --code-bg: #1d1f21;
+  --code-text: #c5c8c6;
+  --inline-code-bg: #1d1f21;
+  
+  // Syntax highlighting colors (Base16 Tomorrow Night)
+  .highlight {
+    .c, .cm, .c1, .cs { color: #969896; } // Comments
+    .err { color: #cc6666; } // Error
+    .k, .kc, .kd, .kn, .kp, .kr, .kt { color: #b294bb; } // Keywords
+    .l { color: #de935f; } // Literal
+    .m, .mf, .mh, .mi, .mo, .il { color: #de935f; } // Numbers
+    .n { color: #c5c8c6; } // Name
+    .o, .ow { color: #8abeb7; } // Operator
+    .p { color: #c5c8c6; } // Punctuation
+    .s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: #b5bd68; } // Strings
+    .na { color: #81a2be; } // Name.Attribute
+    .nb, .bp { color: #c5c8c6; } // Name.Builtin
+    .nc { color: #f0c674; } // Name.Class
+    .no { color: #cc6666; } // Name.Constant
+    .nd { color: #8abeb7; } // Name.Decorator
+    .ne { color: #cc6666; } // Name.Exception
+    .nf { color: #81a2be; } // Name.Function
+    .nn { color: #f0c674; } // Name.Namespace
+    .nt { color: #8abeb7; } // Name.Tag
+    .nv, .vc, .vg, .vi { color: #cc6666; } // Variables
+    .gd { color: #cc6666; } // Generic.Deleted
+    .gi { color: #b5bd68; } // Generic.Inserted
+    .gh { color: #c5c8c6; font-weight: bold; } // Generic.Heading
+    .gp { color: #969896; font-weight: bold; } // Generic.Prompt
+    .gu { color: #8abeb7; font-weight: bold; } // Generic.Subheading
+  }
+}
+
+// === Core overrides ===
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+// Links
+a {
+  color: var(--link-color);
+}
+
+// === Code (inline y bloques) ===
+// Forzar estilos de código inline en tema oscuro
+[data-theme='dark'] {
+  code {
+    background-color: var(--inline-code-bg);
+    color: var(--code-text);
+  }
+  
+  p code,
+  li code,
+  td code,
+  h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+  .page__content code {
+    background-color: var(--inline-code-bg);
+    color: var(--code-text);
+  }
+}
+
+code {
+  background-color: var(--inline-code-bg);
+  color: var(--code-text);
+}
+
+// Code blocks
+div.highlighter-rouge,
+figure.highlight {
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  
+  // Asegurar que pre y code heredan
+  pre, code {
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+// Forzar inline code en todos los contextos
+p code,
+li code,
+td code,
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+.page__content code {
+  background-color: var(--inline-code-bg);
+  color: var(--code-text);
+}
+
+// === Masthead ===
+body .masthead,
+body .masthead__inner-wrap,
+body .greedy-nav {
+  background-color: var(--bg-color) !important;
+  border-color: var(--border-color);
+}
+
+[data-theme='dark'] .masthead,
+[data-theme='dark'] .masthead__inner-wrap,
+[data-theme='dark'] .greedy-nav {
+  background-color: var(--bg-color) !important;
+}
+
+[data-theme='dark'] .masthead a,
+[data-theme='dark'] .site-title,
+[data-theme='dark'] .greedy-nav a {
+  color: #f5f5f5 !important;
+}
+
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] .page__title,
+[data-theme='dark'] .archive__item-title,
+[data-theme='dark'] header h1,
+[data-theme='dark'] #page-title,
+[data-theme='dark'] .page__title a,
+[data-theme='dark'] h1 a {
+  color: #f0f0f0 !important;
+}
+
+[data-theme='light'] .masthead,
+[data-theme='light'] .masthead__inner-wrap,
+[data-theme='light'] .greedy-nav {
+  background-color: var(--bg-color) !important;
+}
+
+// === Borders ===
+hr,
+.toc,
+.list__item,
+.archive__item {
+  border-color: var(--border-color);
+}
+
+table {
+  border-color: var(--border-color);
+  
+  th, td {
+    border-color: var(--border-color);
+  }
+}
+
+// === Transitions ===
+body,
+a,
+code,
+div.highlighter-rouge,
+figure.highlight,
+.highlight * {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+// === Footer ===
+.page__footer {
+  display: none !important;
+}

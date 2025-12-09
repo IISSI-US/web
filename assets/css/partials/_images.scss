@@ -1,7 +1,0 @@
-// Images: centered and rounded corners within page content
-// Avoid affecting emojis and explicit alignment classes
-.page__content img:not(.emoji):not(.align-left):not(.align-right) {
-	display: block;
-	margin: 1.25rem auto; // centered horizontally with some vertical spacing
-	border-radius: 8px;
-}

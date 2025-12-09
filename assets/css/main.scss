@@ -1,99 +1,103 @@
 --- 
-# Front Matter for Jekyll processing layout: null 
+# Front Matter para que Jekyll procese este archivo
+layout: null 
 --- 
 
-// Custom overrides (must be before imports)
-$max-width: 100% !default; // FORCE FULL WIDTH
-$margin: 0 !default; // NO MARGINS
-$sidebar-width: 300px !default; // Fixed Left Sidebar
-$right-sidebar-width: 300px !default; // Fixed Right TOC
+/*
+ * Arquitectura de estilos personalizados sobre Minimal Mistakes
+ * 
+ * ORDEN DE IMPORTS (CRÍTICO):
+ * 1. variables: Nuestras variables custom ANTES del tema para que MM las use
+ * 2. skin: El skin del tema (default, dark, etc.) para colores base
+ * 3. minimal-mistakes: Core del tema con toda la estructura
+ * 4. partials/*: Nuestros estilos custom por funcionalidad
+ * 5. custom-colors: AL FINAL para sobrescribir todo con CSS custom properties
+ * 
+ * Este orden asegura que:
+ * - MM recibe nuestras variables y las usa internamente
+ * - Nuestros partials extienden/modifican estilos de MM
+ * - custom-colors tiene prioridad final para el theme toggle
+ */
+
+// Import custom variables FIRST (before theme)
+@import "minimal-mistakes/variables";
+
+// Import Minimal Mistakes skin (allows changing via site.minimal_mistakes_skin)
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 
 // Import Minimal Mistakes core
-@import "minimal-mistakes/skins/default"; // skin
-@import "minimal-mistakes"; // main partials
+@import "minimal-mistakes";
 
-// Overrides o estilos propios — importados por temática
-@import "partials/typography";
-@import "partials/code";
-@import "partials/theme-toggle";
-@import "partials/images";
-@import "partials/formulas";
-@import "partials/sql-embed";
+// Custom partials (orden alfabético para claridad)
+@import "partials/code";           // Estilos de bloques de código
+@import "partials/formulas";       // MathJax containerss
+@import "partials/images";         // Imágenes centradas y redondeadas
+@import "partials/sql-embed";      // Componente custom para embeds SQL
+@import "partials/theme-toggle";   // Botón de cambio de tema
+@import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)
+@import "partials/custom-colors";  // ÚLTIMO: CSS custom properties para theme toggle
 
-// Hide footer globally
-.page__footer {
-  display: none !important;
-}
-
-// Add spacing between masthead and content
-.initial-content {
-  margin-top: 2rem !important;
-}
-
-// NUCLEAR CSS OPTION: FORCE EDGE-TO-EDGE
+// Layout customizations for 1920x1080
 @media (min-width: 64em) {
-
-  // 1. Kill all global centering on main wrappers
+  
+  // Full width layout
   body,
   .initial-content,
   #main {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 !important;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
   }
   
-  // Re-apply top margin for desktop
   .initial-content {
-    margin-top: 2rem !important;
+    margin-top: 2rem;
   }
 
-  // 2. Left Sidebar: Float Left, pinned to edge
+  // Left Sidebar
   .sidebar {
-    width: 300px !important;
-    margin-left: 0 !important;
-    float: left !important;
-    padding-left: 10px; // Cosmetic space
+    width: calc(#{$right-sidebar-width} - 1em);
+    margin-left: 0;
+    float: left;
+    padding-left: 10px;
   }
 
-  // 3. Page Container: Fills the rest
+  // Page container
   .page {
-    width: calc(100% - 300px) !important; // Subtract Left Sidebar
-    float: right !important;
-    /* Push against right edge */
-    margin: 0 !important;
-    padding: 0 !important;
-
-    // Create room for Sticky TOC on the right
-    padding-right: 320px !important;
+    width: calc(100% - #{$right-sidebar-width});
+    float: right;
+    margin: 0;
+    padding: 0;
+    padding-right: calc(#{$right-sidebar-width} + 20px);
   }
 
-  // 4. Content Text: Fills the .page container
+  // Content area
   .page__inner-wrap {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 20px !important; // Breathing room for text
+    width: 100%;
+    margin: 0;
+    padding: 0 20px;
   }
 
   .page__content {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 100%;
+    max-width: 100%;
   }
 
-  // 5. Right Sidebar (TOC): Pinned to right inside .page
+  // Right Sidebar (TOC)
   .sidebar__right {
-    width: 300px !important;
-    right: 0 !important;
-    margin-right: 0 !important;
-    position: absolute !important; // Take out of flow to stick to right padding
-    top: 0 !important;
+    width: $right-sidebar-width;
+    right: 0;
+    margin-right: 0;
+    position: absolute;
+    top: 0;
+    z-index: 10; // Below masthead
   }
 
-  // Extra: Ensure sticky works
   .sidebar__right.sticky {
-    position: fixed !important;
-    top: 2em !important;
-    right: 0 !important;
+    position: fixed;
+    top: 4em; // Below masthead
+    right: 0;
+    z-index: 10;
   }
 }

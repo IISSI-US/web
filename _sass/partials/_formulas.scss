@@ -1,5 +1,19 @@
-// Math (MathJax v3): theme-aware containers to match code highlight style
-// Structural styles
+/*
+ * Estilos para fórmulas matemáticas (MathJax v3)
+ * 
+ * OBJETIVO: Hacer que las fórmulas tengan el mismo look que los bloques de código
+ * 
+ * TIPOS:
+ * - Inline: mjx-container[display="false"] - Fórmulas dentro del texto
+ * - Block: mjx-container[display="true"] - Fórmulas centradas en bloque
+ * 
+ * COLORES:
+ * - Tema claro: #f6f8fa fondo, #24292e texto
+ * - Tema oscuro: #263238 fondo, #eff texto
+ * (Mismo esquema que bloques de código)
+ * 
+ * Configuración MathJax: Ver _includes/head/custom.html
+ */
 .page__content mjx-container {
   border: none;        // highlight has no border
   border-radius: 4px;  // match highlight radius

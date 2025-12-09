@@ -1,5 +1,22 @@
-// Theme-aware SQL embed styles. We keep structural rules at base, and color
-// palettes under [data-theme='light'|'dark'] wrappers.
+/*
+ * Componente SQL Embed - Bloques colapsables de código SQL cargado vía JS
+ * 
+ * ESTRUCTURA HTML (generada por _includes/sql-embed.html):
+ * .sql-embed
+ *   .sql-embed__header
+ *     .sql-embed__toggle (botón ▾ para colapsar)
+ *     .sql-embed__label (nombre del archivo)
+ *     .sql-embed__copy (botón "Copiar")
+ *   .highlight (bloque de código generado por Rouge)
+ * 
+ * CARACTERÍSTICAS:
+ * - Colapsable con animación
+ * - Botón de copiar integrado
+ * - Colores coordinados con bloques de código normales
+ * - Usa CSS custom properties para theme toggle
+ * 
+ * JavaScript asociado: /assets/js/sql-embed.js
+ */
 .sql-embed {
   margin: 1.25rem 0 2rem;
 
@@ -43,6 +60,12 @@
       font-size: 0.8rem;
       padding: 0.2rem 0.5rem;
       cursor: pointer;
+      color: inherit;
+      transition: opacity 0.2s ease;
+      
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
@@ -59,49 +82,40 @@
   }
 }
 
-// Palettes
-$mm-dark-bg: #263238;
-$mm-dark-fg: #eff;
-$mm-dark-border: rgba(255,255,255,0.06);
-
-$mm-light-bg: #f6f8fa; // light code background (GitHub-like)
-$mm-light-fg: #24292e; // dark text for readability
-$mm-light-border: rgba(0,0,0,0.08);
-
 // Dark theme colors
 [data-theme='dark'] .sql-embed {
   .sql-embed__header {
-    background: $mm-dark-bg;
-    color: $mm-dark-fg;
-    border-bottom: 1px solid $mm-dark-border;
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-bottom: 1px solid var(--border-color);
 
     .sql-embed__copy {
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid var(--border-color);
       background: rgba(255,255,255,0.05);
-      color: $mm-dark-fg;
+      color: var(--code-text);
     }
   }
   .highlight {
-    background: $mm-dark-bg;
-    color: $mm-dark-fg;
+    background: var(--code-bg);
+    color: var(--code-text);
   }
 }
 
 // Light theme colors
 [data-theme='light'] .sql-embed {
   .sql-embed__header {
-    background: $mm-light-bg;
-    color: $mm-light-fg;
-    border-bottom: 1px solid $mm-light-border;
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-bottom: 1px solid var(--border-color);
 
     .sql-embed__copy {
-      border: 1px solid rgba(0,0,0,0.12);
+      border: 1px solid var(--border-color);
       background: #fff;
-      color: $mm-light-fg;
+      color: var(--code-text);
     }
   }
   .highlight {
-    background: $mm-light-bg;
-    color: $mm-light-fg;
+    background: var(--code-bg);
+    color: var(--code-text);
   }
 }

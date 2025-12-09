@@ -1,0 +1,45 @@
+/* ==========================================================================
+   Variables - Sobrescribiendo defaults del tema Minimal Mistakes
+   ========================================================================== */
+
+/*
+ * Este archivo sobrescribe las variables del tema para optimizar la apariencia
+ * en pantallas 1920x1080. Los cambios principales son:
+ * 
+ * 1. Fuente base: Roboto (más moderna que la default del tema)
+ * 2. Tamaño base: 12px (vs 16px default) - más compacto
+ * 3. Sidebars: 180px (vs 200-300px default) - más espacio para contenido
+ * 4. Escala tipográfica: Ajustada proporcionalmente para legibilidad
+ * 
+ * IMPORTANTE: Variables SIN !default fuerzan el override, CON !default permiten
+ * que otros archivos las sobrescriban si es necesario.
+ */
+
+/* Typography - Tamaños de fuente personalizados para 1920x1080 */
+
+// Font families (para usar Roboto en todo) - CON !default para no romper el tema
+$sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif !default;
+$global-font-family: $sans-serif !default;
+$header-font-family: $sans-serif !default;
+
+// Base font sizes - SIN !default para forzar override
+$doc-font-size: 12;
+$doc-font-size-medium: 12;
+$doc-font-size-large: 12;
+$doc-font-size-x-large: 12;
+
+// Type scale - SIN !default para forzar override
+$type-size-1: 2em;      // ~24px - h1
+$type-size-2: 1.5em;    // ~18px - h2  
+$type-size-3: 1.25em;   // ~15px - h3
+$type-size-4: 1em;      // ~12px - h4, texto normal
+$type-size-5: 0.875em;  // ~10.5px - h5
+$type-size-6: 0.75em;   // ~9px - h6, títulos sidebar
+$type-size-7: 0.5625em; // ~6.75px - texto sidebar, toc (muy pequeño)
+$type-size-8: 0.5em;    // ~6px - meta, copyright
+
+/* Layout - SIN !default para forzar override */
+$right-sidebar-width-narrow: 180px;
+$right-sidebar-width: 180px;
+$right-sidebar-width-wide: 180px;
+

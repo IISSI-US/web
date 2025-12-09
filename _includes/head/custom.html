@@ -10,10 +10,6 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 <!-- Font Awesome 5 (compatible with Minimal Mistakes theme) -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
 
-<!-- Dark theme stylesheet -->
-<link rel="preload" as="style" href="/assets/css/theme-dark.css">
-<link id="mm-dark-css" rel="stylesheet" href="/assets/css/theme-dark.css" disabled>
-
 <!-- Favicons -->
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/iissi.png">
 <link rel="apple-touch-icon" href="/assets/images/iissi.png">
@@ -54,110 +50,16 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<!-- Wide layout CSS -->
-<style>
-  @media (min-width: 64em) {
-    .initial-content {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      padding-left: 2rem !important;
-      /* Margin on left */
-      padding-right: 2rem !important;
-      /* Margin on right */
-      max-width: 100% !important;
-      width: 100% !important;
-    }
-
-    .sidebar {
-      margin-left: 1rem !important;
-      /* Small margin from edge */
-      float: left !important;
-    }
-
-    .page {
-      width: calc(100% - 320px - 4rem) !important;
-      /* Subtract sidebars + margins */
-      padding-right: 350px !important;
-      /* More space for TOC */
-      float: right !important;
-      margin-right: 1rem !important;
-      /* Small margin from edge */
-    }
-
-    .page__inner-wrap {
-      width: 100% !important;
-      padding-right: 0 !important;
-    }
-
-    .page__content {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 0 1em;
-    }
-
-    .sidebar__right {
-      width: 320px !important;
-      /* Wider TOC */
-      margin-right: 1rem !important;
-      /* Small margin from edge */
-      right: 0 !important;
-      top: 1em !important;
-    }
-
-    .sidebar__right.sticky {
-      right: 1rem !important;
-      /* Maintain margin when sticky */
-      position: fixed !important;
-      top: 4em !important;
-      /* Below masthead and toggle */
-    }
-  }
-
-  /* Masthead stability - prevent height changes on theme switch */
-  .masthead,
-  [data-theme="dark"] .masthead,
-  [data-theme="light"] .masthead {
-    min-height: 3em !important;
-    padding: 0 !important;
-  }
-
-  .masthead__inner-wrap,
-  [data-theme="dark"] .masthead__inner-wrap,
-  [data-theme="light"] .masthead__inner-wrap {
-    padding: 0.5em 1em !important;
-    max-width: 100% !important;
-  }
-
-  /* Theme toggle in masthead - consistent positioning */
-  .theme-toggle,
-  [data-theme="dark"] .theme-toggle,
-  [data-theme="light"] .theme-toggle {
-    margin-left: 0.5rem !important;
-    vertical-align: middle !important;
-    display: inline-flex !important;
-  }
-</style>
-
 <!-- Theme toggle script -->
 <script>
   (function () {
     var STORAGE_KEY = 'mm-theme-mode';
-    var darkLink = null;
     var mq = window.matchMedia('(prefers-color-scheme: dark)');
 
     function apply(mode) {
-      if (!darkLink) darkLink = document.getElementById('mm-dark-css');
-      if (!darkLink) return;
-      if (mode === 'dark') {
-        darkLink.disabled = false;
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else if (mode === 'light') {
-        darkLink.disabled = true;
-        document.documentElement.setAttribute('data-theme', 'light');
-      } else {
-        darkLink.disabled = !mq.matches;
-        document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light');
-      }
+      var autoDark = mq.matches;
+      var effective = mode === 'auto' ? (autoDark ? 'dark' : 'light') : mode;
+      document.documentElement.setAttribute('data-theme', effective);
       updateIcon(mode);
     }
 
@@ -194,7 +96,6 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     function ensureToggleButton() {
       if (document.getElementById('mm-theme-toggle')) return;
 
-      // Insert in masthead - try greedy-nav first, then masthead itself
       var container = document.querySelector('.greedy-nav__links') ||
         document.querySelector('.greedy-nav') ||
         document.querySelector('.masthead__inner-wrap') ||
@@ -211,8 +112,10 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
       updateIcon(readMode());
     }
 
+    // Apply theme immediately to avoid flash
+    apply(readMode());
+
     document.addEventListener('DOMContentLoaded', function () {
-      apply(readMode());
       ensureToggleButton();
     });
 

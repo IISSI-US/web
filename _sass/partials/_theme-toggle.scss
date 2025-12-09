@@ -1,0 +1,33 @@
+/*
+ * Botón de cambio de tema (dark/light/auto)
+ * 
+ * FUNCIONALIDAD:
+ * - Cicla entre: auto → dark → light → auto
+ * - Se inserta en .greedy-nav__links vía JavaScript
+ * - Guarda preferencia en localStorage
+ * - Respeta prefers-color-scheme en modo auto
+ * 
+ * ESTILOS:
+ * - Botón discreto con borde suave
+ * - Hover feedback
+ * - Icono SVG dinámico (☀️ en claro, 🌙 en oscuro)
+ * 
+ * JavaScript: Ver _includes/head/custom.html (script inline)
+ * CSS variables: Ver _sass/partials/_custom-colors.scss
+ */
+.theme-toggle {
+	margin-left: .5rem;
+	background: transparent;
+	border: 1px solid rgba(0,0,0,.15);
+	border-radius: .5rem;
+	padding: .35rem .55rem;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+.theme-toggle:hover { background: rgba(0,0,0,.05); }
+
+// Smooth theme transition
+html { transition: color .2s ease, background-color .2s ease; }

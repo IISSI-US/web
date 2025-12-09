@@ -1,0 +1,18 @@
+/*
+ * Estilos de imágenes en contenido de página
+ * 
+ * COMPORTAMIENTO:
+ * - Centradas horizontalmente con márgenes verticales
+ * - Bordes redondeados (8px) para apariencia moderna
+ * 
+ * EXCEPCIONES (not selector):
+ * - .emoji - Emojis inline no deben centrarse
+ * - .align-left/.align-right - Respeta alineación explícita de MM
+ * 
+ * Solo afecta imágenes dentro de .page__content
+ */
+.page__content img:not(.emoji):not(.align-left):not(.align-right) {
+	display: block;
+	margin: 1.25rem auto; // centered horizontally with some vertical spacing
+	border-radius: 8px;
+}

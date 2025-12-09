@@ -26,9 +26,11 @@ kramdown:
 markdown_ext: "md,markdown"
 
 # Compilación de SASS/SCSS
+# sass_dir: Apunta a _sass/ (no assets/css) para que Jekyll encuentre los partials custom
+# style: expanded para desarrollo (más legible), cambiar a compressed para producción
 sass:
-  sass_dir: assets/css
-  style: compressed
+  sass_dir: _sass
+  style: expanded
 
 # Exclude internal tooling from the generated site
 exclude:
@@ -48,6 +50,11 @@ collections:
 
 # Valores por defecto para documentos de colecciones
 defaults:
+  # Global defaults - hide footer on all pages
+  - scope:
+      path: ""
+    values:
+      page_footer: false
   - scope:
       path: "laboratorios/iissi1"
     values:

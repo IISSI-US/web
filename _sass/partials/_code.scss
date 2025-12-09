@@ -1,0 +1,46 @@
+/*
+ * Estilos de bloques de código y código inline
+ * 
+ * OBJETIVOS:
+ * - Mayor densidad vertical (line-height 1.45 vs 1.8 default)
+ * - Tamaño más compacto (0.7em vs 0.75em default)
+ * - Colores consistentes con sistema de theme toggle
+ * - Inline code más visible con borde
+ * 
+ * INTEGRACIÓN CON THEME TOGGLE:
+ * Usa CSS custom properties (--code-bg, --code-text, etc.) definidas en
+ * _custom-colors.scss para cambiar colores según el tema activo.
+ */
+div.highlighter-rouge,
+figure.highlight {
+  line-height: 1.45;
+  font-size: .7em; // slightly smaller than theme default (.75em)
+  background-color: var(--code-bg);
+  color: var(--code-text);
+  
+  // Ensure pre and code inside inherit the same background
+  pre, code {
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+div.highlighter-rouge pre,
+figure.highlight pre,
+div.highlighter-rouge code,
+figure.highlight code {
+  line-height: 1.45;
+}
+
+// Inline code - better visibility with border and proper colors
+p code,
+li code,
+td code,
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+  background-color: var(--inline-code-bg);
+  color: var(--code-text);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.1em 0.3em;
+  font-size: 0.85em;
+}
