@@ -90,9 +90,6 @@ Los objetos ejemplifican escenarios típicos de uso del sistema de pedidos con d
 
 ![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Pedidos/pedidos-do.png' | relative_url }})
 
-## Modelo Relacional
-
-
 # Modelo relacional
 
 ## Intensión
@@ -153,65 +150,77 @@ Pedidos = {
 Renombrado:
 
 $$
-U(uId,n,p,fa) \leftarrow Usuarios(usuarioId,nombre,provincia,fechaAlta)\\
+\Ren{U(uId,n,p,fa)}{Usuarios(usuarioId,nombre,provincia,fechaAlta)}
 $$
 
 $$
-P(pId,d,p,s) \leftarrow Productos(productoId,descripcion,precio,stock)\\
+\Ren{P(pId,d,p,s)}{Productos(productoId,descripcion,precio,stock)}
 $$
 
 $$
-Ped(pedId,uId,pId,fc,c) \leftarrow Pedidos(pedidoId,usuarioId,productoId,fechaCompra,cantidad)
+\Ren{Ped(pedId,uId,pId,fc,c)}{Pedidos(pedidoId,usuarioId,productoId,fechaCompra,cantidad)}
 $$
 
 Listados y consultas:
 
-- Todos los pedidos con sus usuarios y productos:
+- **Todos los pedidos con sus usuarios y productos**: Join natural entre las tres tablas para obtener información completa de cada pedido.
 
 $$
 UPP \leftarrow U \NatJoin Ped \NatJoin P
 $$
 
-- Pedidos de usuarios de Málaga:
+- **Pedidos de usuarios de Málaga**: Filtramos los pedidos completos (UPP) seleccionando solo aquellos cuyo usuario tiene provincia Málaga.
 
 $$
 \Sel{U.p=\text{Málaga}}(UPP)
 $$
 
-- Descripción y stock de productos con stock < 100:
+- **Descripción y stock de productos con stock < 100**: Proyectamos solo la descripción y stock de aquellos productos cuyo stock es inferior a 100 unidades.
 
 $$
 \Proj{P.d,P.s}(\Sel{P.s<100}(P))
 $$
 
-- Número de pedidos por usuario:
+- **Número de pedidos por usuario**: Agrupamos por usuario (uId) y contamos cuántos pedidos tiene cada uno. El join con U asegura incluir a todos los usuarios que han hecho pedido.
 
 $$
-\Group{\operatorname{COUNT}(pedId)}{uId}(U \NatJoin Ped)
+\Group{uId, \operatorname{COUNT}(pedId)}{uId}(U \NatJoin Ped)
 $$
 
-- Importe total por usuario:
+- **Importe total por usuario**: Agrupamos por usuario y sumamos el importe de todos sus pedidos (precio × cantidad). Solo incluye usuarios con pedidos.
 
 $$
-\Group{\operatorname{SUM}(P.p\cdot Ped.c)}{uId}(P \NatJoin Ped)
+\Group{uId, \operatorname{SUM}(P.p\cdot Ped.c)}{uId}(P \NatJoin Ped)
 $$
 
-- Pedidos por mes:
+- **Pedidos por mes**: Agrupamos por mes (extrayendo el mes de la fecha de compra) y contamos cuántos pedidos hubo en cada mes.
 
 $$
-\Group{\operatorname{COUNT}(pedId)}{\operatorname{MES}(Ped.fc)}(Ped)
+\Group{\operatorname{MES}(Ped.fc), \operatorname{COUNT}(pedId)}{\operatorname{MES}(Ped.fc)}(Ped)
 $$
 
-- Usuario que más gasta cada mes:
+- **Usuario que más gasta cada mes**: Primero calculamos el gasto total de cada usuario por mes. Luego obtenemos el máximo gasto de cada mes. Finalmente, filtramos para quedarnos solo con los usuarios cuyo gasto coincide con el máximo de su mes.
 
 $$
-\Group{U.n,\;\operatorname{MAX}(P.p\cdot Ped.c)}{\operatorname{MES}(Ped.fc)}(U \NatJoin P \NatJoin Ped)
+GPUM(uId, mes, totalGasto) \leftarrow \Group{uId, \operatorname{MES}(Ped.fc), \operatorname{SUM}(P.p\cdot Ped.c)}{uId, \operatorname{MES}(Ped.fc)}(U \NatJoin P \NatJoin Ped)
 $$
 
-- Mes de máxima recaudación:
+$$
+MGPM(mes, maxGasto) \leftarrow \Group{mes, \operatorname{MAX}(totalGasto)}{mes}(GPUM)
+$$
 
 $$
-\GroupUp{\operatorname{MAX}(P.p\cdot Ped.c)}(P \NatJoin Ped)
+\Proj{U.n, GPUM.mes, GPUM.totalGasto}(\Sel{GPUM.totalGasto = MGPM.maxGasto}(GPUM \NatJoin MGPM \NatJoin U))
+$$
+
+- **Mes de máxima recaudación**: Primero calculamos la recaudación total de cada mes (sumando el importe de todos los pedidos). Luego obtenemos el mes con mayor recaudación.
+
+$$
+RPM(mes, recaudacion) \leftarrow \Group{\operatorname{MES}(Ped.fc), \operatorname{SUM}(P.p\cdot Ped.c)}{\operatorname{MES}(Ped.fc)}(P \NatJoin Ped)
+$$
+
+$$
+\Proj{RPM.mes, RPM.recaudacion}(\Sel{RPM.recaudacion = \operatorname{MAX}(RPM.recaudacion)}(RPM))
 $$
 
 ## Modelo Tecnológico (MariaDB)
