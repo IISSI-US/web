@@ -124,3 +124,124 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     });
   })();
 </script>
+
+<!-- 
+  =============================================================================
+  FEATURE ROW CUSTOMIZATION - Contact Cards Layout
+  =============================================================================
+  Estilos para cards de profesores usando feature_row de Minimal Mistakes.
+  Características:
+  - Grid responsivo: 5 columnas en desktop grande, 3 en desktop medio, 2 en tablet, 1 en móvil
+  - Cards compactas con sombra y efecto hover
+  - Fotos circulares (100px) con borde del color primario
+  - Botones redondeados con animación de escala
+  - Contenido centrado
+-->
+<style>
+  /* Layout: Grid de 5 columnas en pantallas grandes */
+  .page__content .feature__wrapper,
+  .feature__wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 1rem !important;
+  }
+  
+  .feature__item {
+    max-width: 100% !important;
+    width: 100% !important;
+    flex: none !important;
+    float: none !important;
+  }
+  
+  /* Card: Fondo, sombra y efecto hover */
+  .feature__item .archive__item {
+    background: var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+  }
+  
+  .feature__item .archive__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Foto: Circular 100px con borde del color primario */
+  .feature__item .archive__item-teaser {
+    margin-bottom: 0.75rem;
+  }
+  
+  .feature__item .archive__item-teaser img {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    margin: 0 auto !important;
+    display: block !important;
+    border: 3px solid var(--primary-color);
+  }
+  
+  /* Título: Centrado, 1rem */
+  .feature__item .archive__item-title {
+    text-align: center !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 1rem !important;
+  }
+  
+  /* Contenido: Centrado, compacto */
+  .feature__item .archive__item-excerpt {
+    text-align: center !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  /* Botón: Redondeado con animación de escala en hover */
+  .feature__item .btn {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 0.5rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+  }
+  
+  .feature__item .btn:hover {
+    background: var(--link-color-hover) !important;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Responsive: 1 columna (móvil) → 2 (tablet) → 3 (desktop medio) → 5 (desktop grande) */
+  @media (max-width: 48em) {
+    .page__content .feature__wrapper,
+    .feature__wrapper {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  
+  @media (min-width: 48em) and (max-width: 64em) {
+    .page__content .feature__wrapper,
+    .feature__wrapper {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  
+  @media (min-width: 64em) and (max-width: 80em) {
+    .page__content .feature__wrapper,
+    .feature__wrapper {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+</style>
