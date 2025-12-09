@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="#10b981" opacity="0.1"/>
+  
+  <!-- Documento de requisitos -->
+  <g fill="none" stroke="#10b981" stroke-width="3">
+    <path d="M 40 40 L 40 120 L 80 120 L 80 40 Z"/>
+    <path d="M 80 40 L 80 60 L 100 60 L 100 40 Z" fill="#10b981" opacity="0.2"/>
+  </g>
+  
+  <!-- Líneas de texto en documento -->
+  <g stroke="#10b981" stroke-width="2" opacity="0.4">
+    <line x1="48" y1="55" x2="72" y2="55"/>
+    <line x1="48" y1="65" x2="70" y2="65"/>
+    <line x1="48" y1="75" x2="75" y2="75"/>
+    <line x1="48" y1="85" x2="68" y2="85"/>
+    <line x1="48" y1="95" x2="72" y2="95"/>
+    <line x1="48" y1="105" x2="65" y2="105"/>
+  </g>
+  
+  <!-- Flecha de proceso -->
+  <g fill="#10b981" stroke="#10b981" stroke-width="2.5">
+    <line x1="105" y1="80" x2="135" y2="80" stroke-linecap="round"/>
+    <polygon points="135,75 145,80 135,85" fill="#10b981"/>
+  </g>
+  
+  <!-- Base de datos (cilindros) -->
+  <g fill="none" stroke="#10b981" stroke-width="3">
+    <!-- Cilindro superior -->
+    <ellipse cx="160" cy="60" rx="25" ry="8"/>
+    <line x1="135" y1="60" x2="135" y2="100"/>
+    <line x1="185" y1="60" x2="185" y2="100"/>
+    <ellipse cx="160" cy="100" rx="25" ry="8"/>
+    
+    <!-- Líneas interiores -->
+    <ellipse cx="160" cy="70" rx="25" ry="8" opacity="0.5"/>
+    <ellipse cx="160" cy="80" rx="25" ry="8" opacity="0.5"/>
+    <ellipse cx="160" cy="90" rx="25" ry="8" opacity="0.5"/>
+  </g>
+  
+  <!-- Texto SQL -->
+  <g fill="#10b981" opacity="0.7">
+    <text x="145" y="118" font-family="monospace" font-size="12" font-weight="bold">SQL</text>
+  </g>
+  
+  <!-- Engranajes (proceso) -->
+  <g fill="none" stroke="#10b981" stroke-width="2" opacity="0.5">
+    <circle cx="120" cy="65" r="8"/>
+    <circle cx="120" cy="95" r="8"/>
+    <line x1="124" y1="72" x2="124" y2="88"/>
+  </g>
+</svg>

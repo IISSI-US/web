@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="#4a9eff" opacity="0.1"/>
+  
+  <!-- Matraz de laboratorio -->
+  <g fill="none" stroke="#4a9eff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Cuerpo del matraz -->
+    <path d="M 70 60 L 70 100 L 50 140 Q 50 150 60 150 L 140 150 Q 150 150 150 140 L 130 100 L 130 60"/>
+    
+    <!-- Cuello del matraz -->
+    <rect x="70" y="40" width="60" height="20" rx="2"/>
+    
+    <!-- Líquido interior -->
+    <path d="M 70 110 L 55 140 Q 55 145 60 145 L 140 145 Q 145 145 145 140 L 130 110 Z" fill="#4a9eff" opacity="0.3"/>
+    
+    <!-- Burbujas -->
+    <circle cx="85" cy="125" r="4" fill="#4a9eff" opacity="0.5"/>
+    <circle cx="100" cy="130" r="3" fill="#4a9eff" opacity="0.5"/>
+    <circle cx="115" cy="120" r="3.5" fill="#4a9eff" opacity="0.5"/>
+  </g>
+  
+  <!-- Código/terminal -->
+  <g fill="#4a9eff" opacity="0.6">
+    <text x="75" y="80" font-family="monospace" font-size="16" font-weight="bold">&lt;/&gt;</text>
+  </g>
+</svg>

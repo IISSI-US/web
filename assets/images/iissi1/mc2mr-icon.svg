@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="#7c3aed" opacity="0.1"/>
+  
+  <!-- Diagrama UML (izquierda) -->
+  <g fill="none" stroke="#7c3aed" stroke-width="3">
+    <!-- Clase UML -->
+    <rect x="30" y="50" width="60" height="80" rx="4"/>
+    <line x1="30" y1="70" x2="90" y2="70"/>
+    <line x1="30" y1="100" x2="90" y2="100"/>
+  </g>
+  
+  <!-- Flecha de transformación -->
+  <g fill="#7c3aed" stroke="#7c3aed" stroke-width="2">
+    <line x1="95" y1="90" x2="105" y2="90" stroke-linecap="round"/>
+    <polygon points="105,85 115,90 105,95" fill="#7c3aed"/>
+  </g>
+  
+  <!-- Tabla relacional (derecha) -->
+  <g fill="none" stroke="#7c3aed" stroke-width="3">
+    <!-- Tabla -->
+    <rect x="120" y="50" width="60" height="80" rx="4"/>
+    <line x1="120" y1="70" x2="180" y2="70"/>
+    <line x1="120" y1="85" x2="180" y2="85"/>
+    <line x1="120" y1="100" x2="180" y2="100"/>
+    <line x1="120" y1="115" x2="180" y2="115"/>
+  </g>
+  
+  <!-- Llave primaria -->
+  <g fill="#7c3aed">
+    <circle cx="130" cy="60" r="3"/>
+    <rect x="128" y="62" width="4" height="6" rx="1"/>
+  </g>
+  
+  <!-- Líneas de datos (simuladas) -->
+  <g stroke="#7c3aed" stroke-width="1.5" opacity="0.4">
+    <line x1="40" y1="78" x2="80" y2="78"/>
+    <line x1="40" y1="108" x2="75" y2="108"/>
+    <line x1="40" y1="118" x2="70" y2="118"/>
+    
+    <line x1="130" y1="78" x2="170" y2="78"/>
+    <line x1="130" y1="93" x2="165" y2="93"/>
+    <line x1="130" y1="108" x2="175" y2="108"/>
+    <line x1="130" y1="123" x2="160" y2="123"/>
+  </g>
+</svg>

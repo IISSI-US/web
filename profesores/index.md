@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Profesores"
+#title: "Profesores"
 profesores:
   - image_path: /assets/images/profesores/inmahernandez.jpg
     alt: "Inma Hernández"
@@ -56,9 +56,31 @@ profesores:
     url: "mailto:druiz@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
+
+  - image_path: /assets/images/profesores/fsola.jpg
+    alt: "Fernando Sola"
+    title: "Fernando Sola"
+    excerpt: |
+      **Email:** fsola@us.es  
+      **Asignaturas:** IISSI-1, IISSI-2  
+      **Tutorías:** Pendiente
+    url: "mailto:fsola@us.es"
+    btn_label: "Contactar"
+    btn_class: "btn--primary"
+
+  - image_path: /assets/images/profesores/pepe.jpg
+    alt: "Pepe Calderón"
+    title: "Pepe Calderón"
+    excerpt: |
+      **Email:** pepecalderon@us.es  
+      **Asignaturas:** IISSI-1, IISSI-2  
+      **Tutorías:** Pendiente
+    url: "mailto:pepecalderon@us.es"
+    btn_label: "Contactar"
+    btn_class: "btn--primary"
 ---
 
-## Contacto con los profesores de la asignatura
+<!-- ## Contacto con los profesores de la asignatura -->
 
 {% include feature_row id="profesores" %}
 

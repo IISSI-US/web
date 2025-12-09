@@ -127,15 +127,28 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 
 <!-- 
   =============================================================================
-  FEATURE ROW CUSTOMIZATION - Contact Cards Layout
+  FEATURE ROW CUSTOMIZATION - Cards responsivas para profesores y colecciones
   =============================================================================
-  Estilos para cards de profesores usando feature_row de Minimal Mistakes.
-  Características:
-  - Grid responsivo: 5 columnas en desktop grande, 3 en desktop medio, 2 en tablet, 1 en móvil
-  - Cards compactas con sombra y efecto hover
-  - Fotos circulares (100px) con borde del color primario
-  - Botones redondeados con animación de escala
-  - Contenido centrado
+  Personalización del componente feature_row de Minimal Mistakes para mostrar
+  tarjetas de profesores (página /profesores/) y colecciones de materiales 
+  (páginas /iissi1/ e /iissi2/).
+  
+  CARACTERÍSTICAS:
+  - Grid responsivo CSS con breakpoints en 48em, 64em y 80em
+  - Layout adaptativo: 5 columnas (desktop XL) → 3 (desktop) → 2 (tablet) → 1 (móvil)
+  - Auto-centrado para 1 o 3 cards usando :has() selector
+  - Cards con fondo, sombra y efecto hover (elevación)
+  - Imágenes circulares de 100px con borde del color primario
+  - Botones redondeados (border-radius: 20px) con animación scale
+  - Tipografía compacta: título 1rem, excerpt 0.85rem
+  - Padding 1rem, gap 1rem entre cards
+  
+  USO:
+  En front matter YAML definir array con: image_path, alt, title, excerpt, 
+  url, btn_label, btn_class. Luego incluir: {% include feature_row id="nombre" %}
+  
+  NOTA: CSS cargado aquí (custom.html) en vez de main.scss para evitar errores
+  de variables Sass no definidas. Se usan !important para override del theme.
 -->
 <style>
   /* Layout: Grid de 5 columnas en pantallas grandes */
@@ -148,6 +161,21 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     display: grid !important;
     grid-template-columns: repeat(5, 1fr) !important;
     gap: 1rem !important;
+    justify-items: center !important;
+  }
+  
+  /* Centrar cuando hay menos de 5 items */
+  .feature__wrapper:has(.feature__item:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, 1fr) !important;
+    justify-content: center !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+  }
+  
+  .feature__wrapper:has(.feature__item:nth-child(1):last-child) {
+    grid-template-columns: 1fr !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
   }
   
   .feature__item {
