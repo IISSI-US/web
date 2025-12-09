@@ -1,5 +1,5 @@
 /*
- * Sistema de colores dinámicos para theme toggle (dark/light)
+ * Sistema de colores dinámicos para theme toggle (dark/light) + TOC styling
  * 
  * PROBLEMA: Minimal Mistakes compila variables SASS en build-time, por lo que
  * no podemos cambiar colores dinámicamente con JavaScript.
@@ -11,6 +11,7 @@
  * 1. :root - Define variables CSS para tema claro (default)
  * 2. [data-theme='dark'] - Override de variables para tema oscuro
  * 3. Selectores específicos - Fuerzan la aplicación de las variables
+ * 4. TOC - Estilos adaptados a tema claro/oscuro
  * 
  * PALETAS:
  * - Tema claro: GitHub Light (alta legibilidad con fondos claros)
@@ -221,4 +222,30 @@ figure.highlight,
 // === Footer ===
 .page__footer {
   display: none !important;
+}
+
+// === Table of Contents (TOC) ===
+.toc {
+  background: var(--background-color) !important;
+  border: 1px solid rgba(128, 128, 128, 0.2) !important;
+  border-radius: 8px !important;
+}
+
+.toc .nav__title {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.toc__menu a {
+  color: var(--link-color) !important;
+}
+
+.toc__menu a:hover {
+  color: var(--link-color-hover) !important;
+}
+
+.toc__menu .active a {
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
 }

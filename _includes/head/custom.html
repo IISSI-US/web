@@ -1,5 +1,15 @@
 {% comment %}
-Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
+Custom head additions:
+- Favicons (SVG + PNG fallback)
+- Google Fonts (Roboto)
+- Font Awesome 5
+- MathJax 3 para fórmulas matemáticas con macros LaTeX personalizados
+- Theme toggle script (dark/light/auto modes)
+- Feature row overrides (estilos de tarjetas para profesores y colecciones)
+
+NOTA: Los estilos de feature_row están aquí (no en SASS) porque requieren
+!important para sobrescribir las reglas específicas de Minimal Mistakes y
+necesitan cargarse DESPUÉS del CSS compilado del tema.
 {% endcomment %}
 
 <!-- Google Fonts: Roboto -->
@@ -127,15 +137,11 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
 
 <!-- 
   =============================================================================
-  FEATURE ROW CUSTOMIZATION - Contact Cards Layout
+  FEATURE ROW OVERRIDES - Cards responsivas (requiere !important)
   =============================================================================
-  Estilos para cards de profesores usando feature_row de Minimal Mistakes.
-  Características:
-  - Grid responsivo: 5 columnas en desktop grande, 3 en desktop medio, 2 en tablet, 1 en móvil
-  - Cards compactas con sombra y efecto hover
-  - Fotos circulares (100px) con borde del color primario
-  - Botones redondeados con animación de escala
-  - Contenido centrado
+  Estilos para sobrescribir las reglas específicas de Minimal Mistakes.
+  Se mantiene aquí en custom.html porque necesita cargarse después del CSS
+  compilado del tema para tener prioridad.
 -->
 <style>
   /* Layout: Grid de 5 columnas en pantallas grandes */
@@ -148,6 +154,21 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     display: grid !important;
     grid-template-columns: repeat(5, 1fr) !important;
     gap: 1rem !important;
+    justify-items: center !important;
+  }
+  
+  /* Centrar cuando hay menos de 5 items */
+  .feature__wrapper:has(.feature__item:nth-child(3):last-child) {
+    grid-template-columns: repeat(3, 1fr) !important;
+    justify-content: center !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+  }
+  
+  .feature__wrapper:has(.feature__item:nth-child(1):last-child) {
+    grid-template-columns: 1fr !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
   }
   
   .feature__item {
@@ -243,35 +264,5 @@ Custom head additions: dark theme, theme toggle, wide layout, and MathJax.
     .feature__wrapper {
       grid-template-columns: repeat(3, 1fr) !important;
     }
-  }
-  
-  /* 
-    =============================================================================
-    TABLE OF CONTENTS (TOC) - Estilos adaptados a tema claro/oscuro
-    =============================================================================
-  */
-  .toc {
-    background: var(--background-color) !important;
-    border: 1px solid rgba(128, 128, 128, 0.2) !important;
-    border-radius: 8px !important;
-  }
-  
-  .toc .nav__title {
-    background: var(--primary-color) !important;
-    color: white !important;
-    border-radius: 8px 8px 0 0 !important;
-  }
-  
-  .toc__menu a {
-    color: var(--link-color) !important;
-  }
-  
-  .toc__menu a:hover {
-    color: var(--link-color-hover) !important;
-  }
-  
-  .toc__menu .active a {
-    color: var(--primary-color) !important;
-    font-weight: 600 !important;
   }
 </style>

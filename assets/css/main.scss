@@ -11,12 +11,15 @@ layout: null
  * 2. skin: El skin del tema (default, dark, etc.) para colores base
  * 3. minimal-mistakes: Core del tema con toda la estructura
  * 4. partials/*: Nuestros estilos custom por funcionalidad
- * 5. custom-colors: AL FINAL para sobrescribir todo con CSS custom properties
+ * 5. custom-colors: AL FINAL para sobrescribir con CSS custom properties (theme toggle + TOC)
+ * 
+ * NOTA: Los estilos de feature_row están en _includes/head/custom.html (no aquí)
+ * porque requieren !important y necesitan cargarse DESPUÉS del CSS compilado.
  * 
  * Este orden asegura que:
  * - MM recibe nuestras variables y las usa internamente
  * - Nuestros partials extienden/modifican estilos de MM
- * - custom-colors tiene prioridad final para el theme toggle
+ * - custom-colors tiene prioridad final para theme toggle y TOC
  */
 
 // Import custom variables FIRST (before theme)
@@ -35,7 +38,7 @@ layout: null
 @import "partials/sql-embed";      // Componente custom para embeds SQL
 @import "partials/theme-toggle";   // Botón de cambio de tema
 @import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)
-@import "partials/custom-colors";  // ÚLTIMO: CSS custom properties para theme toggle
+@import "partials/custom-colors";  // ÚLTIMO: CSS custom properties + TOC
 
 // Layout customizations for 1920x1080
 @media (min-width: 64em) {
