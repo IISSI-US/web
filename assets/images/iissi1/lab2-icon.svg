@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" rx="22" fill="#e9f5ff"/>
+  <path d="M40 52 L160 52 L160 148 L40 148 Z" fill="#4a9eff"/>
+  <circle cx="100" cy="100" r="26" fill="#ffffff"/>
+  <path d="M76 100 L124 100" stroke="#4a9eff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 76 L100 124" stroke="#4a9eff" stroke-width="4" stroke-linecap="round"/>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#2b2b2b">Tablas II</text>
+</svg>

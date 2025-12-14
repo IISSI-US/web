@@ -6,6 +6,9 @@ main:
   - title: "Evaluación"
     url: /evaluacion/
 
+  - title: "Planificación"
+    url: /planificacion/
+
   - title: "Exámenes"
     url: /examenes/
   

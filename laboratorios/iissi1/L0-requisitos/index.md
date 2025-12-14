@@ -1,7 +1,5 @@
 ---
 layout: single
-sidebar:
-  nav: labs-iissi-1
 title: "Lab0 - Requisitos"
 pdf_version: true
 toc: true

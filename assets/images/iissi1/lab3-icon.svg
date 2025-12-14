@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" rx="20" fill="#fff8e7"/>
+  <g transform="translate(30,50)" fill="#4a9eff">
+    <rect x="0" y="0" width="140" height="18" rx="6"/>
+    <rect x="0" y="28" width="140" height="18" rx="6"/>
+    <rect x="0" y="56" width="140" height="18" rx="6"/>
+  </g>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#2b2b2b">Consultas I</text>
+</svg>

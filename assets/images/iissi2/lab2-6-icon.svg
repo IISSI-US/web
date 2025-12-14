@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="96" fill="#fff"/>
+  <g fill="#4a9eff" stroke="#4a9eff" stroke-width="4">
+    <line x1="100" y1="70" x2="100" y2="120"/>
+    <polygon points="95,115 100,125 105,115"/>
+  </g>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#2b2b2b">AJAX</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="96" fill="#fff"/>
+  <g fill="none" stroke="#4a9eff" stroke-width="4">
+    <path d="M50 70 L150 70 L150 130 L50 130 Z"/>
+    <text x="100" y="105" font-family="monospace" font-size="24" text-anchor="middle" fill="#4a9eff">&lt;/&gt;</text>
+  </g>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#2b2b2b">HTML</text>
+</svg>

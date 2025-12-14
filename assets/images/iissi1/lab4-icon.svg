@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect x="0" y="0" width="200" height="200" rx="20" fill="#edf7ff"/>
+  <g fill="#4a9eff">
+    <path d="M50 60 L150 60 L150 72 L50 72 Z"/>
+    <path d="M65 86 L135 86 L135 98 L65 98 Z"/>
+    <path d="M80 112 L120 112 L120 124 L80 124 Z"/>
+  </g>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#2b2b2b">Consultas II</text>
+</svg>

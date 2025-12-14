@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="20" fill="#fff5f0"/>
+  <path d="M50 92 L80 68 L110 92 L140 68 L170 92" fill="none" stroke="#4a9eff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="90" cy="102" r="10" fill="#4a9eff" />
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#2b2b2b">Transacciones</text>
+</svg>

@@ -44,11 +44,6 @@ exclude:
   - Gemfile.lock
   - Makefile
 
-# Colecciones
-collections:
-  test:
-    output: true
-
 # Valores por defecto para documentos de colecciones
 defaults:
   # Global defaults - hide footer on all pages
@@ -64,10 +59,6 @@ defaults:
       share: false
       sidebar:
         nav: labs-iissi-1
-      toc: true
-      toc_sticky: true
-      toc_label: "Contenido"
-      toc_icon: "list-ul"
   - scope:
       path: "mc2mr"
     values:
@@ -84,7 +75,6 @@ defaults:
       share: false
       sidebar:
         nav: req2sql
-      toc: true
       footer_scripts:
         - /assets/js/sql-embed.js
   - scope:
@@ -95,10 +85,6 @@ defaults:
       share: false
       sidebar:
         nav: labs-iissi-2
-      toc: true
-      toc_sticky: true
-      toc_label: "Contenido"
-      toc_icon: "list-ul"
 
 # Navegación superior (se gestiona mejor vía _data/navigation.yml)
 # Nota: no incluimos directorios con guion bajo aquí para evitar copiar ficheros sin procesar

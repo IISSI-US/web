@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="96" fill="#fff"/>
+  <rect x="50" y="40" width="100" height="120" rx="5" ry="5" fill="none" stroke="#4a9eff" stroke-width="4"/>
+  <rect x="60" y="50" width="80" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="65" width="60" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="80" width="70" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="95" width="50" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="110" width="65" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="125" width="55" height="8" rx="2" fill="#4a9eff"/>
+  <rect x="60" y="140" width="75" height="8" rx="2" fill="#4a9eff"/>
+  <text x="100" y="170" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#2b2b2b">Scripts</text>
+</svg></content>
+<parameter name="filePath">/home/druiz/IISSI-26/assets/images/iissi1/lab10-icon.svg
