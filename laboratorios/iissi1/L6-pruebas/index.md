@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 
 <!-- # Pruebas de aceptación SQL -->
@@ -840,3 +838,5 @@ Como ejercicio se propone diseñar e implementar las pruebas de aceptación de l
 - Grupos (Groups).
 - Grupos-alumnos (GroupsStudents).
 - Notas (Grades).
+
+> [Versión PDF disponible](./index.pdf)

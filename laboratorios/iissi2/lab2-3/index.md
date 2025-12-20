@@ -11,8 +11,6 @@ title: "Lab3 - CSS avanzado (Bootstrap)"
 nav_order: 4
 ---
 
-> [Versión PDF disponible](./index.pdf)
-
 
 
 # CSS avanzado: Bootstrap
@@ -672,3 +670,5 @@ Donde `*` es el código del icono a incluir. Por ejemplo, si incluimos un icono 
 
 Los iconos Font Awesome son vectoriales, por lo que mantienen su calidad al hacer zoom y se pueden mostrar a cualquier tamaño.
 
+
+> [Versión PDF disponible](./index.pdf)

@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Manejo de datos y consultas simples -->
 
@@ -387,3 +385,5 @@ Puede practicar las consultas implementando las siguientes:
 - Cantidad de nombres de grupo diferentes.
 - Notas entre 4 y 6, inclusive.
 - Notas con valor igual o superior a 9, pero que no son matrícula de honor. Cree una vista para las notas que son matrícula de honor.
+
+> [Versión PDF disponible](./index.pdf)

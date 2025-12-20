@@ -11,8 +11,6 @@ title: "Anexo - Entorno de trabajo"
 nav_order: 10
 ---
 
-> [Versión PDF disponible](./index.pdf)
-
 
 
 # Anexo. Entorno de trabajo
@@ -177,3 +175,5 @@ Git es un sistema de control de versiones que usaremos a lo largo de IISSI-1 y 2
 Para instalar Git, por favor, consulte el [boletín auxiliar de Git y GitHub](https://github.eii.us.es/IISSI-2223/IISSI1-ArchivosAuxiliares/blob/main/laboratorio/Git.pdf) que está publicado. 
 
 Si desea consultar las nociones básicas sobre el funcionamiento de repositorios GitHub, en el boletín [Flujo de trabajo con GitHub](https://github.eii.us.es/IISSI-2223/IISSI1-ArchivosAuxiliares/blob/main/laboratorio/FlujoGitHub.pdf) se describe cómo crear una cuenta y gestionar un repositorio. En este boletín se utiliza una versión de GitHub de la escuela, que puede encontrarse en [https://github.eii.us.es](https://github.eii.us.es)
+
+> [Versión PDF disponible](./index.pdf)

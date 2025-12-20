@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-clases.png)
@@ -235,3 +233,5 @@ Resultado: {
     (i8, e5, c1, 2023-08-15, 9.8, 'Completado')
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

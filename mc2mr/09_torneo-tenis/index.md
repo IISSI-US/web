@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-09-torneo-tenis-clases.png)
@@ -286,3 +284,5 @@ Resultado: {
     (par2, 'Wimbledon 2025', 'Semifinal')
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

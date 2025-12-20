@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Procedimientos, funciones y disparadores -->
 
@@ -293,3 +291,5 @@ Finalmente, implemente las reglas de negocio:
 - RN-003, que evita que un alumno que accede por selectividad tenga menos de 16 años.
 - RN-006, que evita que un grupo de teoría tenga mas de 75 alumnos y uno de laboratorio más de 25.
 - RN-007, que evita que un alumno pertenezca a más de un grupo de teoría y a más de un grupo de laboratorio de la misma asignatura.
+
+> [Versión PDF disponible](./index.pdf)

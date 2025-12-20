@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Grados
 
@@ -299,3 +298,5 @@ $$
 ## Consultas
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Grados/sql/queries.sql' label='Grados/queries.sql' collapsed=true %}
+
+> [Versión PDF disponible](./index.pdf)

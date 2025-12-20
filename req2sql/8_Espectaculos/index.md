@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Espectáculos
 
@@ -182,3 +181,5 @@ Para crear las consultas SQL de las expresiones en Álgebra relacional se puede 
 Para comprobar que la fecha de compra de una entrada es anterior a la fecha de la representación tenemos que usar triggers. El siguiente script muestra cómo se implementa un procedimiento almacenado que hace la comprobación y después se crean dos triggers, uno que hace la comprobación al insertar y otro al actualizar:
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Espectaculos/sql/tFechaCompra.sql' label='Espectaculos/tFechaCompra.sql' collapsed=true %}
+
+> [Versión PDF disponible](./index.pdf)

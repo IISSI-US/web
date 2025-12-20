@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Consultas avanzadas -->
 
@@ -298,3 +296,5 @@ Puede practicar las consultas implementando las siguientes:
 - Número de métodos de acceso diferentes de los alumnos de cada grupo, dando el id del grupo.
 - Nota ponderada por créditos de cada alumno, dando nombre y apellidos, del curso 2019 en la primera convocatoria. Pista: modifique la vista ViewSubjectGrades añadiendo el atributo que falta. La nota ponderada es igual a la suma de cada nota multiplicada por los créditos de su asignatura, dividida entre la suma de todos los créditos de las asignaturas.
 
+
+> [Versión PDF disponible](./index.pdf)

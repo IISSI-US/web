@@ -7,8 +7,6 @@ toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 ## Modelo Conceptual
 
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-01-universidad-clases.png)
@@ -198,3 +196,5 @@ Resultado: {
   (u1, 9.5), (u2, 9.1)
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

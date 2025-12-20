@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Apartamentos
 
@@ -231,3 +230,5 @@ $$
 ## Consultas
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Apartamentos/sql/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}
+
+> [Versión PDF disponible](./index.pdf)

@@ -7,11 +7,10 @@ sidebar:
 head_scripts:
   - /assets/js/sql-embed.js
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 ## Requisitos
 
 # Catálogo de Requisitos 
@@ -242,3 +241,5 @@ Para las consultas podemos usar la función definida para calcular la edad o cre
 El trigger quedaría de la siguiente forma:
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/_sql/_Usuarios2/tCheckAge.sql' label='Usuarios2/tCheckAge.sql'  collapsed=true %} -->
+
+> [Versión PDF disponible](./index.pdf)

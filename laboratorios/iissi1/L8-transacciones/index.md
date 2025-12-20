@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Transacciones -->
 
@@ -150,3 +148,5 @@ Sin realizar commit, use Silence para pedir un listado de las notas mediante la 
 
 Por último, ejecute la instrucción `COMMIT` en SQL y vuelva a realizar la petición http. Observe que ahora sí aparecen las nuevas notas al haberse realizado los cambios de la transacción.
 
+
+> [Versión PDF disponible](./index.pdf)

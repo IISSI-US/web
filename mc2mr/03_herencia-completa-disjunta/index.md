@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png)
@@ -188,3 +186,5 @@ Resultado: {
   ('David Torres', 'E004', 72000.0)
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

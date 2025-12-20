@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Aficiones
 
@@ -301,3 +300,5 @@ Realice un procedimiento para insertar una afición a un usuario nuevo, es decir
 Realice el mismo procedimiento pero de forma transaccional:
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
+
+> [Versión PDF disponible](./index.pdf)

@@ -11,8 +11,6 @@ title: "Lab7 - Peticiones AJAX POST, PUT y DELETE"
 nav_order: 8
 ---
 
-> [Versión PDF disponible](./index.pdf)
-
 
 
 # Peticiones AJAX: POST, PUT y DELETE
@@ -281,3 +279,5 @@ Actualice su proyecto en GitHub con los cambios hechos durante esta sesión. Rec
 - `git add .` añade los cambios efectuados en todos los archivos al próximo `commit` a efectuar.
 - `git commit -m "mensaje"` crea un nuevo `commit` con los cambios efectuados a los archivos añadidos con el comando anterior, y con el mensaje indicado.
 - `git push` actualiza el repositorio remoto con los cambios efectuados.
+
+> [Versión PDF disponible](./index.pdf)

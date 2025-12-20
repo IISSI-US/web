@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Creación de tablas SQL -->
 
@@ -527,3 +525,4 @@ INSERT INTO teaching_loads (professor_id, group_id, credits) VALUES
 Fijese que en esta caso también es necesario que la paraja de claves ajenas sea también clave primaria para evitar asignar carga docente repetida, es decir, el mismo profesor con distintas cargas para un mismo grupo.
 
 En este caso lo datos reflejan que el profesores 1 y 2 impareten 3 créditos en el grupo de teoría, el profesor 3 imparte 3 créditos en el grupo 1 de laboratorio, y los profesores 4 y 5 imparten 1.5 créditos en el grupo 2 de laboratorio.
+> [Versión PDF disponible](./index.pdf)

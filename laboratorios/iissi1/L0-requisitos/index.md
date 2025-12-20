@@ -7,8 +7,6 @@ toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 <!-- # Requisitos -->
 
 ## Introducción
@@ -244,3 +242,5 @@ Las siguientes pruebas verifican que el sistema rechaza correctamente operacione
 - ❌ **Nota fuera de rango**: Intentar insertar una nota con valor 11.0 o -1.0 (debe estar entre 0 y 10)
 
 
+
+> [Versión PDF disponible](./index.pdf)

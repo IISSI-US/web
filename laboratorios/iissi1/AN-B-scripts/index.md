@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Anexo B: Scripts de creación y poblado -->
 
@@ -247,3 +245,4 @@ DELIMITER ;
 
 CALL pPopulateDB();
 ```
+> [Versión PDF disponible](./index.pdf)

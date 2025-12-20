@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png)
@@ -203,3 +201,5 @@ Resultado: {
     (c7, 'Documentación API', 2023-04-20, true, 'Especificación completa de la API...', 3200, false, null, null, null)
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

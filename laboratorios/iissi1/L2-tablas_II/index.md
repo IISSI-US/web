@@ -9,8 +9,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 <!-- # Restricciones en tablas SQL -->
 
@@ -182,3 +180,5 @@ Observe cómo se ha añadido la instrucción `ON DELETE CASCADE` a la declaraci�
 Guardar los cambios del archivo `tables.sql` para utilizarlo en próximos laboratorios.
 
 
+
+> [Versión PDF disponible](./index.pdf)

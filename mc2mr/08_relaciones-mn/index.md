@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-clases.png)
@@ -322,3 +320,5 @@ Resultado: {
     (a6, 'Octavio Paz', 'Mexicana')
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)

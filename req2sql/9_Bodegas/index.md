@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Bodegas
 
@@ -512,3 +511,5 @@ Realice un disparador que compruebe que en la tabla VinosUvas no se insertan tup
 <div class="http-file" data-src="{{ '/silence-db/tests/Bodegas/bodegas.http' | relative_url }}"></div>
 
 <div class="http-file" data-src="{{ '/silence-db/tests/Bodegas/vinos.http' | relative_url }}"></div>
+
+> [Versión PDF disponible](./index.pdf)

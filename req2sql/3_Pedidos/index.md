@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Pedidos
 
@@ -231,3 +230,5 @@ $$
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/tests.sql' label='Pedidos/tests.sql' collapsed=true %}
 
+
+> [Versión PDF disponible](./index.pdf)

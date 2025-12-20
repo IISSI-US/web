@@ -4,11 +4,10 @@ layout: single
 sidebar:
   nav: req2sql
 toc: true
+toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 # Empleados
 
@@ -230,3 +229,5 @@ Implemente un disparador que evite que un departamento tenga más de cinco emple
 Implemente un disparador que en caso de insertar un empleado sin fecha de inicio, le ponga como fecha de inicio la fecha actual:
 
 {% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Empleados/sql/tDefaultStartDate.sql' label='Empleados/tDefaultStartDate.sql' collapsed=true %}
+
+> [Versión PDF disponible](./index.pdf)

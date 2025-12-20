@@ -11,8 +11,6 @@ title: "Lab1 - Configuración del proyecto e introducción a HTML"
 nav_order: 2
 ---
 
-> [Versión PDF disponible](./index.pdf)
-
 
 
 # Configuración del proyecto e introducción a HTML
@@ -319,3 +317,5 @@ Actualice su proyecto en GitHub con los cambios hechos durante esta sesión. Rec
 - `git push` actualiza el repositorio remoto con los cambios efectuados.
 
 
+
+> [Versión PDF disponible](./index.pdf)

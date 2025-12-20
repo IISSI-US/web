@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-05-herencia-incompleta-disjunta-clases.png)
@@ -297,3 +295,5 @@ $$\Proj{mar}(V \Join C \Join M) $$
 **10. Obtener vehículos que no son especializados (solo vehículos genéricos)**
 
 $$ V $$
+
+> [Versión PDF disponible](./index.pdf)

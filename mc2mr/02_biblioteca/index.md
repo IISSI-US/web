@@ -7,8 +7,6 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
-
 
 ## Modelo Conceptual
 ![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-02-biblioteca-clases.png)
@@ -240,3 +238,5 @@ Resultado: {
   ('Norte') // Biblioteca que tiene "Machine Learning" (75.80€)
 }
 ```
+
+> [Versión PDF disponible](./index.pdf)
