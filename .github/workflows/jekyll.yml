@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true  # Inicializar submódulos
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -41,6 +43,11 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+
+      - name: Copy submodule files to _site
+        run: |
+          mkdir -p _site/assets/DB-Silence-IISSI-1
+          cp -r assets/DB-Silence-IISSI-1/* _site/assets/DB-Silence-IISSI-1/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
