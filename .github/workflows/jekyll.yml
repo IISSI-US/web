@@ -47,6 +47,15 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+      - name: Ensure SQL files are in _site
+        run: |
+          echo "Copying DB-Silence-IISSI-1 to _site/assets/"
+          mkdir -p _site/assets/DB-Silence-IISSI-1
+          cp -r assets/DB-Silence-IISSI-1/* _site/assets/DB-Silence-IISSI-1/
+          echo "Verifying files were copied:"
+          ls -la _site/assets/DB-Silence-IISSI-1/Usuarios/sql/ || echo "ERROR: Usuarios/sql not found"
+          test -f _site/assets/DB-Silence-IISSI-1/Usuarios/sql/createDB.sql && echo "SUCCESS: createDB.sql exists" || echo "ERROR: createDB.sql not found"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

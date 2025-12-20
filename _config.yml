@@ -44,6 +44,10 @@ exclude:
   - Gemfile.lock
   - Makefile
 
+# Include directories that would normally be excluded
+include:
+  - assets/DB-Silence-IISSI-1
+
 # Valores por defecto para documentos de colecciones
 defaults:
   # Global defaults - hide footer on all pages
