@@ -31,13 +31,6 @@ Estudiantes(estudianteId, centroId, matrícula, nombre, edad, promedio)
     FK(centroId)/Centros
 ```
 
----
-
-<!-- ## Diagrama UML (Objetos)
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-01-universidad-objetos.png)
-
---- -->
-
 ## Extensión (Datos de ejemplo)
 
 ```

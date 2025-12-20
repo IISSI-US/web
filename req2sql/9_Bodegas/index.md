@@ -100,24 +100,7 @@ pdf_version: true
 
 ## Diagrama de clases
 
-- Producción: cada Bodega produce 1..* Vino; cada Vino pertenece a 1 Bodega.
-- Generalización: Vino se especializa en Joven y Crianza con partición {completa, disjunta}.
-- Crianza–Cosecha: composición 1..* que modela las cosechas de un vino de crianza.
-- Vino–Uva: relación M:N (elaboradoCon) entre Vino y Uva: un vino puede mezclar varias uvas y una uva intervenir en múltiples vinos.
-
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc.png' | relative_url }})
-
-## Diagrama de objetos
-
-Las instancias muestran dos bodegas (b1, b2) y cuatro vinos: j1, j2 (jóvenes) y c1, c2 (crianza), con sus cosechas y uvas.
-
-- Producción: b1 produce j1 y c1; b2 produce j2 y c2.
-- Composición de crianza: c1 tiene cosechas a1 y a2; c2 tiene a3 (respeta 1..*).
-- Mezclas de uva: j1 → u3; j2 → u1; c1 → u1+u2; c2 → u1+u2, ilustrando la M:N Vino–Uva.
-- El diagrama de objetos ejemplifica las cardinalidades y la especialización sin violar las RN indicadas en el diagrama de clases.
-
-![Diagrama de objetos]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-do.png' | relative_url }})
-
 
 ## Posible extensión
 

@@ -29,9 +29,6 @@ Inscripciones(inscripcionId, estudianteId, cursoId, fechaInscripcion, calificaci
     AK(estudianteId,cursoId) -- el modelo no lo indica, pero parece lógico
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 Estudiantes = {

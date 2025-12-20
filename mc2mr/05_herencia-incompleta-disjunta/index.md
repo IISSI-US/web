@@ -37,9 +37,6 @@ Motos(vehículoId, cilindrada, tipoManillar)
 ** Al ser disjunta los IDs de Coches y Motos tienes que ser disjuntos
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-05-herencia-incompleta-disjunta-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 ** Versión 1:

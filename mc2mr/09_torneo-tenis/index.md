@@ -42,9 +42,6 @@ Sets(setId, partidoId, ganadorId, orden, resultado)
     FK(ganadorId)/Tenistas
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-09-torneo-tenis-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 Personas = {

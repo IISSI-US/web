@@ -23,9 +23,6 @@ Contenidos(
     PK(contenidoId)
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 Contenidos = {

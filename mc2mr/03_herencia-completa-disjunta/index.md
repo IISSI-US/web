@@ -24,9 +24,6 @@ Estudiantes(personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso)
     AK(numeroMatricula)
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 Empleados = {

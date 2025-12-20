@@ -38,9 +38,6 @@ LibrosCategorías(librosCategoríasId, libroId, categoríaId)
     FK(categoríaId)/Categorías
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```text
 Autores = {

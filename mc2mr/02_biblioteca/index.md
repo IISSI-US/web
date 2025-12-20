@@ -28,9 +28,6 @@ Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
     FK(autorId)/Autores
 ```
 
-<!-- ## Diagrama de objetos
-![Diagrama de Objetos](/assets/images/iissi1/mc2mr/ejercicio-02-biblioteca-objetos.png) -->
-
 ## Modelo Relacional. Extensión
 ```
 Bibliotecas = {
