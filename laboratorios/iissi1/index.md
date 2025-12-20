@@ -6,8 +6,8 @@ sidebar: false
 labs:
   - image_path: /assets/images/iissi1/lab0-icon.svg
     alt: "Lab0"
-    title: "Lab0 - Requisitos previos"
-    excerpt: "Instalación y configuración del entorno de desarrollo para bases de datos"
+    title: "Lab0 - Catálogo de requisitos"
+    excerpt: "Requisitos, diagramas de clases y  pruebas de aceptación"
     url: "/laboratorios/iissi1/L0-requisitos/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"

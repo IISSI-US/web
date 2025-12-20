@@ -19,12 +19,10 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ### Requisitos de información
 
-| | |
-|------|------|
-| **RI001** | **Información sobre grados** |
-| **Como** | Secretario |
-| **Quiero** | Disponer de la información correspondiente a los grados impartidos en el Centro: nombre y número de años. Varias asignaturas forman parte de un grado y una asignatura pertenece a un único grado |
-| **Para** | Poder realizar los planes de gestión docente |
+**RI001 - Información sobre grados** 
+- **Como**: Secretario 
+- **Quiero**: Disponer de la información correspondiente a los grados impartidos en el Centro: nombre y número de años. Varias asignaturas forman parte de un grado y una asignatura pertenece a un único grado 
+- **Para**:  Poder realizar los planes de gestión docente 
 
 **RI002 - Información sobre asignaturas**
 - **Como**: Responsable docente
