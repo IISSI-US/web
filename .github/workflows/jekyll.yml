@@ -26,8 +26,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: true  # Inicializar submódulos
+
+      - name: Clone DB-Silence-IISSI-1 submodule
+        run: |
+          git clone https://github.eii.us.es/druiz/DB-Silence-IISSI-1.git assets/DB-Silence-IISSI-1
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
