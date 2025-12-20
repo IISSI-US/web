@@ -314,12 +314,12 @@ $$
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Grados/createDB.sql' label='Grados/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Grados/sql/createDB.sql' label='Grados/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Grados/populateDB.sql' label='Grados/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Grados/sql/populateDB.sql' label='Grados/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Grados/queries.sql' label='Grados/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Grados/sql/queries.sql' label='Grados/queries.sql' collapsed=true %}

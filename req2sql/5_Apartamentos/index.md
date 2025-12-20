@@ -240,12 +240,12 @@ $$
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Apartamentos/createDB.sql' label='Apartamentos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Apartamentos/sql/createDB.sql' label='Apartamentos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Apartamentos/populateDB.sql' label='Apartamentos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Apartamentos/sql/populateDB.sql' label='Apartamentos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Apartamentos/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Apartamentos/sql/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}

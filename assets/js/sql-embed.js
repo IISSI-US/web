@@ -54,7 +54,7 @@
   function normalizeSrc(src){
     if(!src) return src;
     if(src.indexOf('/silence-db/sql/') === 0){
-      return src.replace('/silence-db/sql/', '/assets/sql/');
+      return src.replace('/silence-db/sql/', '/assets/DB-Silence-IISSI-1/');
     }
     return src;
   }

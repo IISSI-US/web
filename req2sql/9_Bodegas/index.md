@@ -475,15 +475,15 @@ VinosUvas = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Bodegas/createDB.sql' label='Bodegas/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas/sql/createDB.sql' label='Bodegas/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Bodegas/populateDB.sql' label='Bodegas/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas/sql/populateDB.sql' label='Bodegas/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Bodegas/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas/sql/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
 
 
 ## Modelo Tecnológico (v2)
@@ -493,21 +493,21 @@ VinosUvas = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Bodegas2/createDB.sql' label='Bodegas2/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas2/sql/createDB.sql' label='Bodegas2/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Bodegas2/populateDB.sql' label='Bodegas2/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas2/sql/populateDB.sql' label='Bodegas2/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Bodegas2/queries.sql' label='Bodegas2/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas2/sql/queries.sql' label='Bodegas2/queries.sql' collapsed=true %}
 
 ## SQL Avanzado
 
 Realice un disparador que compruebe que en la tabla VinosUvas no se insertan tuplas con valores para jovenId y crianzaId simultáneamente:
 
-{% include sql-embed.html src='/assets/sql/Bodegas2/triggers.sql' label='Bodegas2/triggers.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas2/sql/triggers.sql' label='Bodegas2/triggers.sql' collapsed=true %}
 
 
 
@@ -517,7 +517,7 @@ Realice un disparador que compruebe que en la tabla VinosUvas no se insertan tup
 
 # Pruebas SQL
 
-{% include sql-embed.html src='/assets/sql/Bodegas2/tests.sql' label='Bodegas2/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Bodegas2/sql/tests.sql' label='Bodegas2/tests.sql' collapsed=true %}
 
 
 ## Pruebas HTTP

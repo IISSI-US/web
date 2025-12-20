@@ -163,12 +163,12 @@ $$
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Animales/createDB.sql' label='Animales/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Animales/sql/createDB.sql' label='Animales/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Animales/populateDB.sql' label='Animales/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Animales/sql/populateDB.sql' label='Animales/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Animales/queries.sql' label='Animales/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Animales/sql/queries.sql' label='Animales/queries.sql' collapsed=true %}

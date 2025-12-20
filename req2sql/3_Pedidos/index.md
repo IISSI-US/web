@@ -230,21 +230,21 @@ $$
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/sql/Pedidos/createDB.sql' label='Pedidos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/createDB.sql' label='Pedidos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/sql/Pedidos/populateDB.sql' label='Pedidos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/populateDB.sql' label='Pedidos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/sql/Pedidos/queries.sql' label='Pedidos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/queries.sql' label='Pedidos/queries.sql' collapsed=true %}
 
 ## Procedimientos
 
-{% include sql-embed.html src='/assets/sql/Pedidos/procedures.sql' label='Pedidos/procedures.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/procedures.sql' label='Pedidos/procedures.sql' collapsed=true %}
 
 ## Tests
 
-{% include sql-embed.html src='/assets/sql/Pedidos/tests.sql' label='Pedidos/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Pedidos/sql/tests.sql' label='Pedidos/tests.sql' collapsed=true %}
 

@@ -6,7 +6,7 @@ root = Path('req2sql')
 # Match legacy div blocks and capture the relative sql path
 pattern_div = re.compile(r"<div\s+class=\"sql-file\"\s+data-src=\"\{\{\s*'/(?:silence-db/sql|assets/sql)/([^']+)'\s*\|\s*relative_url\s*\}\}\">\s*</div>")
 # Match placeholder include lines produced by a failed conversion
-pattern_placeholder = re.compile(r"\{\%\s*include\s+sql-embed\.html\s+src='/assets/sql/'\s+label=''(?P<rest>\s+(?:collapsed|collapsible)=true)?\s*\%\}")
+pattern_placeholder = re.compile(r"\{\%\s*include\s+sql-embed\.html\s+src='/assets/DB-Silence-IISSI-1/'\s+label=''(?P<rest>\s+(?:collapsed|collapsible)=true)?\s*\%\}")
 
 
 def extract_paths(text: str):
@@ -26,7 +26,7 @@ def main():
             # Convert any remaining legacy divs
             def repl_div(m):
                 p = m.group(1)
-                return f"{{% include sql-embed.html src='/assets/sql/{p}' label='{p}' %}}"
+                return f"{{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/{p}' label='{p}' %}}"
             new_txt = pattern_div.sub(repl_div, txt)
             if new_txt != txt:
                 txt = new_txt
@@ -42,7 +42,7 @@ def main():
                 rest = m.group('rest') or ''
                 # normalize legacy 'collapsible=true' to 'collapsed=true'
                 norm = ' collapsed=true' if rest.strip() else ''
-                return f"{{% include sql-embed.html src='/assets/sql/{p}' label='{p}'{norm} %}}"
+                return f"{{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/{p}' label='{p}'{norm} %}}"
             new_txt = pattern_placeholder.sub(repl_ph, txt)
             if new_txt != txt:
                 txt = new_txt
@@ -53,7 +53,7 @@ def main():
     # As a final pass, convert any leftover legacy divs anywhere
     for md in root.rglob('*.md'):
         txt = md.read_text(encoding='utf-8')
-        new_txt = pattern_div.sub(lambda m: f"{{% include sql-embed.html src='/assets/sql/{m.group(1)}' label='{m.group(1)}' %}}", txt)
+        new_txt = pattern_div.sub(lambda m: f"{{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/{m.group(1)}' label='{m.group(1)}' %}}", txt)
         if new_txt != txt:
             md.write_text(new_txt, encoding='utf-8')
 
