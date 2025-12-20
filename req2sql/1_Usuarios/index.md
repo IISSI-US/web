@@ -6,6 +6,7 @@ sidebar:
   nav: req2sql
 head_scripts:
   - /assets/js/sql-embed.js
+toc: true
 toc_sticky: true
 pdf_version: true
 ---
