@@ -14,9 +14,11 @@
  * - Botón de copiar integrado
  * - Colores coordinados con bloques de código normales
  * - Usa CSS custom properties para theme toggle
+ * - Resaltado de sintaxis usando clases de Rouge (.k, .s, .c, .m)
  * 
  * JavaScript asociado: /assets/js/sql-embed.js
  */
+
 .sql-embed {
   margin: 1.25rem 0 2rem;
 

@@ -1,6 +1,61 @@
 (function(){
   function ready(fn){ if(document.readyState !== 'loading'){ fn(); } else { document.addEventListener('DOMContentLoaded', fn); } }
 
+  function highlightSQL(code){
+    // Escape HTML
+    code = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    
+    // Regex patterns for comments and strings
+    const patterns = [
+      { type: 'comment', regex: /--[^\n]*/g },
+      { type: 'comment', regex: /\/\*[\s\S]*?\*\//g },
+      { type: 'string', regex: /'(?:[^'\\]|\\.)*'/g },
+      { type: 'string', regex: /"(?:[^"\\]|\\.)*"/g }
+    ];
+    
+    // Find all comments and strings
+    const protected = [];
+    patterns.forEach(pattern => {
+      let match;
+      pattern.regex.lastIndex = 0;
+      while((match = pattern.regex.exec(code)) !== null){
+        protected.push({ start: match.index, end: match.index + match[0].length, type: pattern.type, text: match[0] });
+      }
+    });
+    protected.sort((a, b) => a.start - b.start);
+    
+    // Build result with highlighted keywords
+    let result = '';
+    let lastPos = 0;
+    
+    protected.forEach(p => {
+      // Process text before protected region
+      if(lastPos < p.start){
+        result += highlightKeywords(code.substring(lastPos, p.start));
+      }
+      // Add protected region with its highlighting
+      result += `<span class="${p.type === 'comment' ? 'c' : 's'}">${p.text}</span>`;
+      lastPos = p.end;
+    });
+    
+    // Process remaining text
+    if(lastPos < code.length){
+      result += highlightKeywords(code.substring(lastPos));
+    }
+    
+    return result;
+  }
+  
+  function highlightKeywords(text){
+    const keywords = /\b(SELECT|FROM|WHERE|INSERT|UPDATE|DELETE|CREATE|DROP|ALTER|TABLE|DATABASE|INDEX|VIEW|JOIN|LEFT|RIGHT|INNER|OUTER|ON|AS|AND|OR|NOT|NULL|IS|IN|BETWEEN|LIKE|ORDER|BY|GROUP|HAVING|LIMIT|OFFSET|SET|VALUES|INTO|PRIMARY|KEY|FOREIGN|REFERENCES|CONSTRAINT|CHECK|DEFAULT|AUTO_INCREMENT|UNIQUE|IF|EXISTS|USE|SHOW|DESCRIBE|INT|VARCHAR|TEXT|DATE|DATETIME|TIMESTAMP|BOOLEAN|ENUM|TINYINT|DECIMAL|FLOAT|DOUBLE)\b/gi;
+    const numbers = /\b(\d+)\b/g;
+    
+    text = text.replace(keywords, '<span class="k">$1</span>');
+    text = text.replace(numbers, '<span class="m">$1</span>');
+    
+    return text;
+  }
+
   function attachCopy(btn, getText){
     btn.addEventListener('click', async function(){
       try{
@@ -64,15 +119,11 @@
       const res = await fetch(src, { cache: 'no-store' });
       if(!res.ok) throw new Error('HTTP '+res.status);
       const text = await res.text();
-      codeEl.textContent = text; // preserve whitespace, no HTML injection
       
-      // Apply syntax highlighting if Prism is available
-      if(window.Prism && window.Prism.highlightElement){
-        window.Prism.highlightElement(codeEl);
-      }
+      // Apply syntax highlighting and set innerHTML
+      codeEl.innerHTML = highlightSQL(text);
       
       if(copyBtn){ attachCopy(copyBtn, ()=>text); }
-      // Optional: scroll to top of code
       codeEl.scrollTop = 0;
     }catch(err){
       console.error('SQL embed failed for', src, err);
