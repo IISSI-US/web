@@ -172,14 +172,14 @@ $$
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Proyectos/sql/createDB.sql' label='Proyectos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/createDB.sql' label='Proyectos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Proyectos/sql/populateDB.sql' label='Proyectos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/populateDB.sql' label='Proyectos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/Proyectos/sql/queries.sql' label='Proyectos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/queries.sql' label='Proyectos/queries.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

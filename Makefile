@@ -55,8 +55,6 @@ clean-images: clean-mc2mr-images clean-req2sql-images clean-grades-images
 # Build the static website
 build:
 	bundle exec jekyll build
-	mkdir -p _site/assets/DB-Silence-IISSI-1
-	cp -r assets/DB-Silence-IISSI-1/* _site/assets/DB-Silence-IISSI-1/
 
 # Serve the website with livereload
 serve:

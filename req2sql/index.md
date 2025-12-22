@@ -83,6 +83,6 @@ req2sql:
 En esta sección encontrarás 10 ejercicios completos que recorren el ciclo: Requisitos → Modelo Conceptual → Modelo Relacional → SQL.
 
 - Las imágenes de los diagramas se generan desde PlantUML y están en `/assets/images/iissi1/req2sql/`.
-- Los scripts SQL están disponibles en `/assets/DB-Silence-IISSI-1/`.
+- Los scripts SQL están disponibles en `https://raw.githubusercontent.com/IISSI-US/silence-db/main/`.
 
 Usa la navegación lateral para acceder a cada ejercicio.

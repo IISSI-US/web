@@ -224,29 +224,29 @@ $$
 
 ### Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesEst/sql/createDB.sql' label='AficionesEst/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/createDB.sql' label='AficionesEst/createDB.sql' collapsed=true %}
 
 ### Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesEst/sql/populateDB.sql' label='AficionesEst/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/populateDB.sql' label='AficionesEst/populateDB.sql' collapsed=true %}
 
 ### Consultas
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesEst/sql/queries.sql' label='AficionesEst/queries.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/queries.sql' label='AficionesEst/queries.sql' collapsed=true %}
 
 ## Versión Dinámica
 
 ### Script SQL para crear la base de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/createDB.sql' label='AficionesDin/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/createDB.sql' label='AficionesDin/createDB.sql' collapsed=true %}
 
 ### Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/populateDB.sql' label='AficionesDin/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/populateDB.sql' label='AficionesDin/populateDB.sql' collapsed=true %}
 
 ### Consultas
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/queries.sql' label='AficionesDin/queries.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/queries.sql' label='AficionesDin/queries.sql' collapsed=true %}
 
 ### SQL Avanzado
 
@@ -260,18 +260,18 @@ Realice un procedimiento para insertar en la tabla de usuarios e implemente la s
 3. ❌ Insertar un usuario con un email repetido.
 4. ❌ Insertar un usuario menor de edad.
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
 
 
 # Transacciones
 
 Realice un procedimiento para insertar una afición a un usuario nuevo, es decir, que inserte en las tres tablas:
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
 
 Realice el mismo procedimiento pero de forma transaccional:
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
 
 ## Pruebas SQL
 
@@ -286,7 +286,7 @@ Realice el mismo procedimiento pero de forma transaccional:
 
 Para hacer esta prueba crearemos un procedimiento para insertar un único Usuario, después usamos este procedimiento para insertar los datos de la prueba, teniendo en cuenta que antes hay que hacer la carga inicial de datos.
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
 
 ## Transacciones
 
@@ -295,10 +295,10 @@ Para hacer esta prueba crearemos un procedimiento para insertar un único Usuari
 
 Realice un procedimiento para insertar una afición a un usuario nuevo, es decir, que inserte en las tres tablas:
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
 
 Realice el mismo procedimiento pero de forma transaccional:
 
-{% include sql-embed.html src='/assets/DB-Silence-IISSI-1/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

@@ -1,4 +1,9 @@
-<div class="sql-embed{% if include.collapsed %} is-collapsed{% endif %}" data-src="{{ include.src | relative_url }}"{% if include.label %} data-label="{{ include.label }}"{% endif %}>
+{% if include.src contains 'http' %}
+  {% assign sql_url = include.src %}
+{% else %}
+  {% assign sql_url = include.src | relative_url %}
+{% endif %}
+<div class="sql-embed{% if include.collapsed %} is-collapsed{% endif %}" data-src="{{ sql_url }}"{% if include.label %} data-label="{{ include.label }}"{% endif %}>
   <div class="sql-embed__header">
     <button type="button" class="sql-embed__toggle" aria-expanded="{% if include.collapsed %}false{% else %}true{% endif %}" aria-label="Plegar/Desplegar"></button>
     <span class="sql-embed__label">{{ include.label | default: include.src }}</span>
@@ -8,7 +13,7 @@
     <pre><code class="language-sql"></code></pre>
   </div>
   <noscript>
-    <p>JavaScript deshabilitado. Puedes abrir el archivo: <a href="{{ include.src | relative_url }}">{{ include.src }}</a></p>
+    <p>JavaScript deshabilitado. Puedes abrir el archivo: <a href="{{ sql_url }}">{{ include.src }}</a></p>
   </noscript>
 </div>
 
