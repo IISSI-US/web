@@ -10,6 +10,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
+<!-- TODO: Actualizar enlaces de github.eii.us.es a repositorios públicos -->
 <!-- # Anexo A: Entorno de trabajo -->
 
 ## Objetivo
