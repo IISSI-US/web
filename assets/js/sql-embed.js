@@ -51,18 +51,9 @@
     }
   }
 
-  function normalizeSrc(src){
-    if(!src) return src;
-    if(src.indexOf('/silence-db/sql/') === 0){
-      return src.replace('/silence-db/sql/', '/assets/DB-Silence-IISSI-1/');
-    }
-    return src;
-  }
-
   async function loadEmbed(container){
     ensureStructure(container);
-    const rawSrc = container.getAttribute('data-src');
-    const src = normalizeSrc(rawSrc);
+    const src = container.getAttribute('data-src');
     const codeEl = container.querySelector('pre code');
     const copyBtn = container.querySelector('.sql-embed__copy');
     const labelEl = container.querySelector('.sql-embed__label');
