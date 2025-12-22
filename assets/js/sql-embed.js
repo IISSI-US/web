@@ -65,6 +65,12 @@
       if(!res.ok) throw new Error('HTTP '+res.status);
       const text = await res.text();
       codeEl.textContent = text; // preserve whitespace, no HTML injection
+      
+      // Apply syntax highlighting if Prism is available
+      if(window.Prism && window.Prism.highlightElement){
+        window.Prism.highlightElement(codeEl);
+      }
+      
       if(copyBtn){ attachCopy(copyBtn, ()=>text); }
       // Optional: scroll to top of code
       codeEl.scrollTop = 0;
