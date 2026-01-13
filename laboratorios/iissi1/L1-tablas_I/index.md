@@ -30,6 +30,25 @@ Iniciamos HeidiSQL y nos conectamos con el usuario iissi_user mediante la conexi
 
 ![HeidiSQL]({{ '/assets/images/iissi1/laboratorios/fig/lab1-2/heidisql.png' | relative_url }})
 
+## Control de versiones (GradesDB)
+
+Para realizar el trabajo, crearemos un repositorio llamado `GradesDB` y haremos commits tras cada paso importante.
+
+1. En tu carpeta de trabajo añade los dos scripts del laboratorio, inicialmente en blanco:
+   - `createdb.sql`
+   - `populatedb.sql`
+2. Inicializa el repositorio y haz un primer commit:
+   - `git init`
+    - `git add createdb.sql populatedb.sql` o `git add -A`
+   - `git commit -m "Primer commit, inicializa scripts de base de datos"`
+3. A partir de aquí, tras completar cada tabla, haz commit:
+     - `git add -A`  
+     `git commit -m "Añadida tabla *****"`
+4. Al finalizar, crea el repositorio remoto `GradesDB` en tu plataforma GitHub (github.com p github.eii.us.es) y haz el push:
+   - `git remote add origin <URL_DEL_REPO>`
+   - `git branch -M main`
+   - `git push -u origin main`
+
 ## Consideraciones de estilo
 
 SQL no distingue entre mayúsculas y minúsculas, por lo que es posible que código de diferentes fuentes las usen de forma diferente. Nosotros seguiremos las siguientes normas para unificar el estilo del código:
@@ -253,6 +272,9 @@ INSERT INTO people (person_id, dni, first_name, last_name, age, email) VALUES
 
 ```
 
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla people"`).
+{: .notice--info}
+
 ## Creación de tabla `professors` (Profesores)
 
 Ahora escribiremos en `createdb.sql`el siguiente código:
@@ -298,6 +320,9 @@ INSERT INTO professors (professor_id, category) VALUES
 		... ;
 ```
 
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla professors"`).
+{: .notice--info}
+
 ## Creación de tabla `students` (Alumnos)
 
 Continuemos con el archivo `createdb.sql`:
@@ -327,6 +352,9 @@ INSERT INTO students (student_id, access_method) VALUES
         (7, 'Selectividad'),
         (8, 'Selectividad'),
 ```
+
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla students"`).
+{: .notice--info}
 
 ## Creación de la tabla `degrees` y `subjects`  (Grados y Asignaturas) 
 
@@ -375,8 +403,10 @@ INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, cou
 Tenga cuenta las siguiente consideraciones:
 
 - La relación en `people` y `professors` o `students` es una relación 1:1 que implementamos haciendo que la clave primaria de `professors`o `students` también sea clave ajena que apunta a `people`, de estaa forma conseguimos que los profesores y estudiantes sean personas desde el punto de vista del modelo relacional.
-
 - La asociación entre `degrees`y `subjects`es 1:N, es decir, un grado tiene varias asignaturas, pero uuna asignatura pertenece a un único grado, en este caso la tabla que juega el rol N debe contener como clave ajena la clave primaria de la tabla que juega el rol 1.
+
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadidas tablas degrees y subjects"`).
+{: .notice--info}
 
 
 ## Creación de tabla `groups` y `groups_enrollments` (Grupos y AlumnoGrupo)
@@ -434,6 +464,9 @@ INSERT INTO group_enrollments (student_id, group_id) VALUES
         (21, 3), (22, 3), (23, 3), (24, 3), (25, 3);
 ```
 
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadidas tablas groups y group_enrollments"`).
+{: .notice--info}
+
 ## Creación de la tabla `grades` (Notas)
 
 Escribimos el siguiente código SQL en `createdb.sql`:
@@ -474,6 +507,9 @@ INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with
         (35, 25, 1, 5.7, 'Tercera', 0);
 ```
 
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla grades"`).
+{: .notice--info}
+
 ## Creación de tabla `subject_enrollments`
 
 Para implementar la relación N:_M entre alomnos y las asignaturas en las que se matriculan, escribiremos la siguiente tabla:
@@ -497,6 +533,9 @@ INSERT INTO subject_enrollments (student_id, subject_id) VALUES
         (16, 11), (17, 11), (18, 11), (19, 11), (20, 11),
         (21, 11), (22, 11), (23, 11), (24, 11), (25, 11);
 ```
+
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla subject_enrollments"`).
+{: .notice--info}
 
 ## Creación de la tabla `teaching_loads`
 
@@ -522,7 +561,11 @@ INSERT INTO teaching_loads (professor_id, group_id, credits) VALUES
 	(4, 3, 1.5);
 ```
 
-Fijese que en esta caso también es necesario que la paraja de claves ajenas sea también clave primaria para evitar asignar carga docente repetida, es decir, el mismo profesor con distintas cargas para un mismo grupo.
+Fijese que en este caso también es necesario que la pareja de claves ajenas sea también clave primaria para evitar asignar carga docente repetida, es decir, el mismo profesor con distintas cargas para un mismo grupo.
 
 En este caso lo datos reflejan que el profesores 1 y 2 impareten 3 créditos en el grupo de teoría, el profesor 3 imparte 3 créditos en el grupo 1 de laboratorio, y los profesores 4 y 5 imparten 1.5 créditos en el grupo 2 de laboratorio.
+
+Recuerda: al finalizar este apartado, haz commit (por ejemplo: `git add -A && git commit -m "Añadida tabla teaching_loads"`).
+{: .notice--info}
+
 > [Versión PDF disponible](./index.pdf)
