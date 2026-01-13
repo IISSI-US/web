@@ -103,7 +103,7 @@ CREATE TABLE groups (
     activity VARCHAR(15) NOT NULL,
     academic_year YEAR NOT NULL,
     PRIMARY KEY (group_id),
-    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE CASCADE
 );
 
 -- ============================================================================

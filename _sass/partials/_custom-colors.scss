@@ -209,6 +209,102 @@ table {
   }
 }
 
+// === Tables - Estilos base ===
+table {
+  margin-left: auto;
+  margin-right: auto;
+  width: auto !important;
+  max-width: 100%;
+  display: table;
+}
+
+// === Tables - Estilos específicos para tema oscuro ===
+[data-theme='dark'] {
+  table {
+    background-color: #1d1f21;
+    border-color: #3b4252;
+    
+    thead {
+      background-color: #2d313a;
+      border-bottom: 2px solid #3b4252;
+      
+      th {
+        background-color: #2d313a;
+        color: #f0f0f0;
+        border-color: #3b4252;
+      }
+    }
+    
+    tbody {
+      background-color: #1d1f21;
+      
+      tr {
+        background-color: #252a34;
+        
+        &:nth-child(even) {
+          background-color: #2a2f3a;
+        }
+        
+        &:hover {
+          background-color: #2d313a;
+        }
+      }
+      
+      td {
+        color: #eaeaea;
+        border-color: #3b4252;
+        background-color: inherit;
+        
+        code {
+          background-color: #1d1f21;
+          color: #c5c8c6;
+          border: 1px solid #3b4252;
+        }
+      }
+    }
+  }
+}
+
+// === Tables - Estilos para tema claro ===
+[data-theme='light'] {
+  table {
+    background-color: #fff;
+    
+    thead {
+      background-color: #f6f8fa;
+      
+      th {
+        background-color: #f6f8fa;
+        color: #24292e;
+      }
+    }
+    
+    tbody {
+      background-color: #fff;
+      
+      tr {
+        &:nth-child(even) {
+          background-color: #f6f8fa;
+        }
+        
+        &:hover {
+          background-color: #f1f3f5;
+        }
+      }
+      
+      td {
+        color: #24292e;
+        background-color: inherit;
+        
+        code {
+          background-color: #f6f8fa;
+          color: #24292e;
+        }
+      }
+    }
+  }
+}
+
 // === Transitions ===
 body,
 a,

@@ -256,51 +256,6 @@ VALUES (102, '88888888A', 'Pedro', 'Test', 30, 'pedro@test.es');
 
 **Error esperado**: `Duplicate entry '88888888A' for key 'rn_uq_people_dni'`
 
-## Resumen de restricciones implementadas
-
-En este laboratorio hemos implementado las siguientes restricciones:
-
-### Restricciones CHECK (rangos y valores permitidos)
-
-| Constraint | Tabla | RN | Descripción |
-|---|---|---|---|
-| `rn12_people_age` | people | RN12 | Edad entre 16 y 70 años |
-| `rn14_people_dni` | people | RN14 | DNI con formato 8 dígitos + letra |
-| `rn20_professors_category` | professors | RN20 | Categoría válida |
-| `rn19_students_access_method` | students | RN19 | Método de acceso válido |
-| `rn13_degree_duration` | degrees | RN13 | Duración entre 3 y 6 años |
-| `rn10_subjects_credits` | subjects | RN10 | Créditos 6 o 12 |
-| `rn16_subjects_course` | subjects | RN16 | Curso entre 1 y 6 |
-| `ck_subjects_type` | subjects | - | Tipo de asignatura válido |
-| `rn15_groups_year` | groups | RN15 | Año académico 2000-2100 |
-| `ck_groups_activity` | groups | - | Actividad Teoría/Laboratorio |
-| `rn21_teaching_loads_credits` | teaching_loads | RN21 | Créditos > 0 |
-| `rn11_grades_value` | grades | RN11 | Nota entre 0 y 10 |
-| `rn08_grades_with_honors` | grades | RN01 | MH requiere nota ≥ 9 |
-| `rn18_grades_exam_call` | grades | RN18 | Convocatoria válida |
-
-### Restricciones UNIQUE (claves alternativas)
-
-| Constraint | Tabla | Atributos | Descripción |
-|---|---|---|---|
-| `rn_uq_people_dni` | people | dni | DNI único |
-| `rn_uq_people_email` | people | email | Email único |
-| `rn_uq_degrees_name` | degrees | degree_name | Nombre de grado único |
-| `rn_uq_subjects_name` | subjects | subject_name | Nombre de asignatura único |
-| `rn_uq_subjects_acronym` | subjects | acronym | Acrónimo único |
-| `rn_uq_groups_name` | groups | subject_id, group_name, academic_year | Combinación única |
-
-## Conclusión
-
-En este laboratorio hemos completado el diseño de la base de datos GradesDB añadiendo restricciones de integridad que:
-
-1. Validan los datos antes de ser insertados o actualizados.
-2. Implementan las reglas de negocio documentadas en L0.
-3. Garantizan la calidad y consistencia de los datos.
-4. Proporcionan mensajes de error descriptivos cuando se violan las reglas.
-
-## Push final
-
 Una vez completado todo el laboratorio, haz el push de los cambios:
 
 ```bash
@@ -308,5 +263,161 @@ git add -A
 git commit -m "Completado L2: restricciones CHECK y UNIQUE"
 git push
 ```
+
+## Modificación y borrado de datos: UPDATE y DELETE
+
+Hasta ahora hemos trabajado con `INSERT` para añadir datos. SQL también proporciona `UPDATE` para modifica filas existentes y `DELETE` para eliminar filas.
+
+### Actualizar datos con UPDATE
+
+La sintaxis básica es:
+
+```sql
+UPDATE nombre_tabla
+SET columna1 = valor1, columna2 = valor2, ...
+WHERE condición;
+```
+
+Si omites la cláusula `WHERE`, se modificarán **TODAS** las filas de la tabla.
+
+**Ejemplo 1: Cambiar el email de una persona**
+
+```sql
+UPDATE people
+SET email = 'nuevo.email@us.es'
+WHERE person_id = 1;
+```
+
+**Ejemplo 2: Incrementar la duración de todos los grados en 1 año**
+
+```sql
+UPDATE degrees
+SET duration_years = duration_years + 1;
+```
+
+**Ejemplo 3: Cambiar la categoría de varios profesores**
+
+```sql
+UPDATE professors
+SET category = 'Titular'
+WHERE category = 'AyudanteDoctor';
+```
+
+### Eliminar datos con DELETE
+
+La sintaxis básica es:
+
+```sql
+DELETE FROM nombre_tabla
+WHERE condición;
+```
+
+Si omites la cláusula `WHERE`, se borrarán **TODAS** las filas de la tabla.
+
+
+**Ejemplo 1: Borrar una persona específica**
+
+```sql
+DELETE FROM people
+WHERE person_id = 100;
+```
+
+**Ejemplo 2: Borrar todos los grupos de teoría**
+
+```sql
+DELETE FROM groups
+WHERE activity = 'Teoría';
+```
+
+**Ejemplo 3: Borrar notas de suspenso**
+
+```sql
+DELETE FROM grades
+WHERE grade_value < 5;
+```
+
+## Comportamiento de borrado en claves ajenas
+
+Cuando intentamos borrar una fila que es referenciada por claves ajenas en otras tablas, pueden surgir conflictos. Por ejemplo, si intentamos borrar una asignatura que tiene grupos asociados, ¿qué debe suceder con esos grupos?
+
+SQL proporciona varias opciones para manejar este comportamiento mediante la cláusula `ON DELETE`:
+
+| Opción | Comportamiento |
+|--------|----------------|
+| `RESTRICT` | **Impide el borrado** si existen referencias no se permite el borrado. |
+| `CASCADE` | **Borra en cascada**: elimina automáticamente las filas que referencian la fila borrada. |
+| `SET NULL` | **Establece a NULL** la clave ajena. Solo posible si la columna permite `NULL`. |
+| `SET DEFAULT` | **Establece al valor por defecto** especificado con `DEFAULT`. |
+
+### Ejemplo práctico: Borrado en cascada para subjects → groups
+
+En nuestro modelo, existe una relación de **composición** entre `subjects` y `groups`: cuando se elimina una asignatura, también deben eliminarse todos sus grupos (no tiene sentido mantener grupos sin asignatura).
+
+Para implementar esto, modificamos la declaración de la clave ajena en `groups`:
+
+```sql
+FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE CASCADE
+```
+
+**Comportamiento resultante:**
+
+- Si borramos una asignatura: `DELETE FROM subjects WHERE subject_id = 5;`
+- Automáticamente se borrarán todos los grupos asociados: `groups.subject_id = 5`
+- También se borrarán las matrículas en esos grupos (`group_enrollments`)
+- Y las cargas docentes (`teaching_loads`)
+- Y las notas (`grades`)
+
+### Ejemplo: RESTRICT (comportamiento por defecto)
+
+Si intentamos borrar un grado que tiene asignaturas:
+
+```sql
+DELETE FROM degrees WHERE degree_id = 1;
+```
+
+**Error**: `Cannot delete or update a parent row: a foreign key constraint fails`
+
+Para poder borrarlo, primero habría que borrar todas las asignaturas de ese grado, o cambiar la clave ajena a `ON DELETE CASCADE`.
+
+### Ejemplo: SET NULL
+
+Si una relación es opcional (multiplicidad 0..1), podemos usar `SET NULL`:
+
+```sql
+FOREIGN KEY (degree_id) REFERENCES degrees(degree_id) ON DELETE SET NULL
+```
+
+En este caso, si se borra el grado, las asignaturas quedarían con `degree_id = NULL` (sin grado asignado). En nuestro modelo, `degree_id` es `NOT NULL`, por lo que no podemos usar `SET NULL`. Solo `RESTRICT` o `CASCADE` son válidos.
+
+### Modificar createDB.sql para añadir ON DELETE CASCADE
+
+Actualiza la tabla `groups` en tu archivo `createDB.sql`:
+
+**Cambio a realizar:**
+
+```sql
+-- ANTES
+FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+
+-- DESPUÉS
+FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE CASCADE
+```
+
+Guarda los cambios y ejecuta nuevamente el script completo para recrear la base de datos con la nueva configuración.
+
+```bash
+git add -A
+git commit -m "Añadido ON DELETE CASCADE para subjects->groups"
+```
+
+## Push final
+
+Una vez completado todo el laboratorio, incluyendo todas las restricciones y comportamientos de borrado, realiza el push final al repositorio remoto:
+
+```bash
+git push
+```
+
+Verifica que todos los cambios se han subido correctamente accediendo a GitHub y comprobando que el archivo `createDB.sql` está actualizado con:
 
 > [Versión PDF disponible](./index.pdf)
