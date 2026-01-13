@@ -7,22 +7,30 @@
 help:
 	@echo "Usage: make <target>"
 	@echo ""
-	@echo "Available targets:"
-	@echo "  help              Mostrar esta ayuda."
-	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR."
-	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL."
-	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)."
-	@echo "  images            Renderiza todos los diagramas."
-	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true."
-	@echo "  build             Construye el sitio web estático (config por defecto)."
-	@echo "  build-prod        Construye el sitio con baseurl de producción."
-	@echo "  serve             Lanza servidor con livereload (config por defecto)."
-	@echo "  serve-prod        Lanza servidor en /IISSI-26 (como en GitHub Pages)."
-	@echo "  serve-dev         Lanza servidor en raíz / (baseurl vacía)."
-	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR."
-	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL."
-	@echo "  clean-grades-images  Elimina los SVG generados para grades."
-	@echo "  clean-images         Ejecuta todos los clean."
+	@echo "=== Desarrollo local ==="
+	@echo "  serve-dev         Servidor local en raíz / (recomendado para desarrollo)"
+	@echo "  serve-prod        Servidor local en /IISSI-26 (prueba antes de push)"
+	@echo "  serve             Servidor con baseurl de producción (= serve-prod)"
+	@echo ""
+	@echo "=== Construcción ==="
+	@echo "  build             Construye el sitio web estático"
+	@echo "  build-prod        Build con JEKYLL_ENV=production y baseurl correcto"
+	@echo ""
+	@echo "=== Diagramas ==="
+	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR"
+	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL"
+	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)"
+	@echo "  images            Renderiza todos los diagramas"
+	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true"
+	@echo ""
+	@echo "=== Limpieza ==="
+	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR"
+	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL"
+	@echo "  clean-grades-images  Elimina los SVG generados para grades"
+	@echo "  clean-images         Ejecuta todos los clean"
+	@echo ""
+	@echo "=== Ayuda ==="
+	@echo "  help              Mostrar esta ayuda"
 
 # Render PlantUML diagrams and update public PNGs for MC2MR
 mc2mr-images:
@@ -59,18 +67,20 @@ clean-images: clean-mc2mr-images clean-req2sql-images clean-grades-images
 build:
 	bundle exec jekyll build
 
-# Serve the website with livereload
+# Serve con baseurl de producción (alias de serve-prod)
 serve:
-	bundle exec jekyll serve --livereload
+	bundle exec jekyll serve --livereload --baseurl "/IISSI-26"
 
-# Build with production baseurl (matches GitHub Pages)
+# Build con JEKYLL_ENV=production y baseurl de producción
 build-prod:
 	JEKYLL_ENV=production bundle exec jekyll build --baseurl "/IISSI-26"
 
-# Serve as in production, site will be under /IISSI-26
+# Serve local simulando GitHub Pages (baseurl = /IISSI-26)
+# Útil para probar rutas antes de push
 serve-prod:
 	bundle exec jekyll serve --livereload --baseurl "/IISSI-26"
 
-# Serve at site root (baseurl = "") for simpler local dev
+# Serve en raíz / (sin baseurl) - RECOMENDADO para desarrollo
+# Usa _config.dev.yml que sobrescribe url y baseurl
 serve-dev:
 	bundle exec jekyll serve --livereload --config _config.yml,_config.dev.yml
