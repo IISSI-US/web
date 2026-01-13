@@ -253,3 +253,35 @@ figure.highlight,
   color: var(--primary-color) !important;
   font-weight: 600 !important;
 }
+
+// === Botones (btn--primary) ===
+// Fix para que los botones se vean correctamente en ambos temas
+:root {
+  --btn-primary-bg: #0066cc;
+  --btn-primary-text: #ffffff;
+  --btn-primary-bg-hover: #0052a3;
+}
+
+[data-theme='dark'] {
+  --btn-primary-bg: #58a6ff;
+  --btn-primary-text: #1d1f21;
+  --btn-primary-bg-hover: #79b8ff;
+}
+
+// Forzar estilos de botones primarios
+.btn--primary,
+a.btn--primary {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border: none !important;
+  
+  &:hover,
+  &:focus {
+    background-color: var(--btn-primary-bg-hover) !important;
+    color: var(--btn-primary-text) !important;
+  }
+  
+  &:visited {
+    color: var(--btn-primary-text) !important;
+  }
+}

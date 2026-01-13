@@ -222,9 +222,12 @@ necesitan cargarse DESPUÉS del CSS compilado del tema.
   }
   
   /* Botón: Redondeado con animación de escala en hover */
-  .feature__item .btn {
-    background: var(--primary-color) !important;
-    color: white !important;
+  .feature__item .btn,
+  .feature__item .btn--primary,
+  .feature__item a.btn,
+  .feature__item a.btn--primary {
+    background: #0066cc !important;
+    color: #ffffff !important;
     border: none !important;
     border-radius: 20px !important;
     padding: 0.5rem 1.5rem !important;
@@ -235,10 +238,45 @@ necesitan cargarse DESPUÉS del CSS compilado del tema.
     display: inline-block !important;
   }
   
-  .feature__item .btn:hover {
-    background: var(--link-color-hover) !important;
+  .feature__item .btn:hover,
+  .feature__item .btn--primary:hover,
+  .feature__item a.btn:hover,
+  .feature__item a.btn--primary:hover {
+    background: #0052a3 !important;
+    color: #ffffff !important;
     transform: scale(1.05);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .feature__item .btn:visited,
+  .feature__item .btn--primary:visited,
+  .feature__item a.btn:visited,
+  .feature__item a.btn--primary:visited {
+    color: #ffffff !important;
+  }
+  
+  /* Botones en tema oscuro */
+  [data-theme='dark'] .feature__item .btn,
+  [data-theme='dark'] .feature__item .btn--primary,
+  [data-theme='dark'] .feature__item a.btn,
+  [data-theme='dark'] .feature__item a.btn--primary {
+    background: #58a6ff !important;
+    color: #1d1f21 !important;
+  }
+  
+  [data-theme='dark'] .feature__item .btn:hover,
+  [data-theme='dark'] .feature__item .btn--primary:hover,
+  [data-theme='dark'] .feature__item a.btn:hover,
+  [data-theme='dark'] .feature__item a.btn--primary:hover {
+    background: #79b8ff !important;
+    color: #1d1f21 !important;
+  }
+  
+  [data-theme='dark'] .feature__item .btn:visited,
+  [data-theme='dark'] .feature__item .btn--primary:visited,
+  [data-theme='dark'] .feature__item a.btn:visited,
+  [data-theme='dark'] .feature__item a.btn--primary:visited {
+    color: #1d1f21 !important;
   }
   
   /* Responsive: 1 columna (móvil) → 2 (tablet) → 3 (desktop medio) → 5 (desktop grande) */
