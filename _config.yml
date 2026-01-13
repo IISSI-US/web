@@ -7,9 +7,9 @@ logo: "/assets/images/iissi-icon.svg"
 remote_theme: "mmistakes/minimal-mistakes@4.27.3"
 
 # Configuración GitHub Pages / despliegue
-url: ""
-baseurl: ""
-repository: ""
+url: "https://druizcortes.github.io"
+baseurl: "/IISSI-26"
+repository: "druizcortes/IISSI-26"
 
 # Plugins necesarios
 plugins:
