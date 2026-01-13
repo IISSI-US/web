@@ -1,0 +1,49 @@
+### Tests para rol TEACHER
+@BASE = http://127.0.0.1:8888/api/v1
+
+### Registrar teacher (Inma Hernández)
+# @name registerTeacher
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "inmahernandez@us.es",
+	"password_hash": "inmahernandez",
+	"role": "teacher"
+}
+
+### Login teacher
+# @name loginTeacher
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "inmahernandez@us.es",
+	"password_hash": "inmahernandez"
+}
+
+###
+@teacherToken = {{loginTeacher.response.body.sessionToken}}
+
+### Intento de crear grado (debe fallar con 401/403)
+POST {{BASE}}/degrees
+Content-Type: application/json
+Token: {{teacherToken}}
+
+{
+	"degree_name": "Grado Bloqueado",
+	"duration_years": 4
+}
+
+### Modificación permitida de una nota existente (ID=1 existe tras populate.sql)
+PUT {{BASE}}/grades/1
+Content-Type: application/json
+Token: {{teacherToken}}
+
+{
+	"student_id": 6,
+	"group_id": 1,
+	"grade_value": 9.0,
+	"exam_call": "Segunda",
+	"with_honors": false
+}

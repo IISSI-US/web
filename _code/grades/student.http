@@ -1,0 +1,49 @@
+### Tests para rol STUDENT
+@BASE = http://127.0.0.1:8888/api/v1
+
+### Registrar student (David Romero)
+# @name registerStudent
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "david.romero@alum.us.es",
+	"password_hash": "david.romero",
+	"role": "student"
+}
+
+### Login student
+# @name loginStudent
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "david.romero@alum.us.es",
+	"password_hash": "david.romero"
+}
+
+###
+@studentToken = {{loginStudent.response.body.sessionToken}}
+
+### Intento de crear grado (espera error 401/403)
+POST {{BASE}}/degrees
+Content-Type: application/json
+Token: {{studentToken}}
+
+{
+	"degree_name": "Grado No Permitido",
+	"duration_years": 4
+}
+
+### Intento de modificar nota existente (ID=1) - también debe fallar
+PUT {{BASE}}/grades/1
+Content-Type: application/json
+Token: {{studentToken}}
+
+{
+	"student_id": 6,
+	"group_id": 1,
+	"grade_value": 8.0,
+	"exam_call": "Primera",
+	"with_honors": false
+}

@@ -1,0 +1,36 @@
+### Tests para rol ADMIN (puede crear grados)
+@BASE = http://127.0.0.1:8888/api/v1
+
+### Registrar admin (datos consistentes con populate.sql)
+# @name registerAdmin
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "druiz@us.es",
+	"password_hash": "druiz",
+	"role": "admin"
+}
+
+### Login admin
+# @name loginAdmin
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "druiz@us.es",
+	"password_hash": "druiz"
+}
+
+###
+@adminToken = {{loginAdmin.response.body.sessionToken}}
+
+### Crear nuevo grado (nombre único)
+POST {{BASE}}/degrees
+Content-Type: application/json
+Token: {{adminToken}}
+
+{
+	"degree_name": "Ingeniería de Datos",
+	"duration_years": 4
+}

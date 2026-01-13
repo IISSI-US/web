@@ -1,0 +1,116 @@
+
+### Tests de acceso al endpoint /grades
+@BASE = http://127.0.0.1:8888/api/v1
+
+### Admin/Teacher/Student se registran (datos coherentes con populate.sql)
+# @name registerAdmin
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "druiz@us.es",
+	"password_hash": "druiz",
+	"role": "admin"
+}
+
+###
+# @name registerTeacher
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "inmahernandez@us.es",
+	"password_hash": "inmahernandez",
+	"role": "teacher"
+}
+
+###
+# @name registerStudent
+POST {{BASE}}/register
+Content-Type: application/json
+
+{
+	"email": "david.romero@alum.us.es",
+	"password_hash": "david.romero",
+	"role": "student"
+}
+
+### Login admin y creación de una nueva nota (student_id=6, group_id=1 vienen de populate.sql)
+# @name loginAdmin
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "druiz@us.es",
+	"password_hash": "druiz"
+}
+
+###
+@adminToken = {{loginAdmin.response.body.sessionToken}}
+
+###
+# @name createGrade
+POST {{BASE}}/grades
+Content-Type: application/json 
+Token: {{adminToken}}
+
+{ 
+	"student_id": 6,
+	"group_id": 1,
+	"grade_value": 6.0,
+	"exam_call": "Extraordinaria",
+	"with_honors": false
+}
+
+###
+@newGradeId = {{createGrade.response.body.grade_id}}
+
+### Login teacher y actualización permitida
+# @name loginTeacher
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "inmahernandez@us.es",
+	"password_hash": "inmahernandez"
+}
+
+###
+@teacherToken = {{loginTeacher.response.body.sessionToken}}
+
+PUT {{BASE}}/grades/37
+Content-Type: application/json
+Token: {{teacherToken}}
+
+{
+	"student_id": 6,
+	"group_id": 1,
+	"grade_value": 7.5,
+	"exam_call": "Extraordinaria",
+	"with_honors": false
+}
+
+### Login student e intento rechazado
+# @name loginStudent
+POST {{BASE}}/login
+Content-Type: application/json
+
+{
+	"email": "david.romero@alum.us.es",
+	"password_hash": "david.romero"
+}
+
+###
+@studentToken = {{loginStudent.response.body.sessionToken}}
+
+PUT {{BASE}}/grades/{{newGradeId}}
+Content-Type: application/json
+Token: {{studentToken}}
+
+{
+	"student_id": 6,
+	"group_id": 1,
+	"grade_value": 9.0,
+	"exam_call": "Extraordinaria",
+	"with_honors": false
+}
