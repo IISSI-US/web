@@ -68,6 +68,37 @@ Observaciones:
   - `$` fin de cadena
 - El nombre de la constraint (`rn12_people_age`) facilita identificar qué regla de negocio se viola si ocurre un error.
 
+Validación:
+
+Ejecuta el script `createdb.sql` completo en HeidiSQL (F9) para aplicar estas restricciones. Luego prueba a violarlas:
+
+**Prueba 1: Edad fuera de rango**
+
+```sql
+INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
+VALUES ('99999999Z', 'Juan', 'Test', 15, 'juan@test.es', 'student', 'hash123');
+```
+
+**Error esperado**: `Check constraint 'rn12_people_age' is violated`
+
+**Prueba 2: DNI duplicado**
+
+Primero inserta una persona válida:
+
+```sql
+INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
+VALUES ('88888888A', 'Ana', 'Test', 25, 'ana@test.es', 'student', 'hash456');
+```
+
+Ahora intenta insertar otra con el mismo DNI:
+
+```sql
+INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
+VALUES ('88888888A', 'Pedro', 'Test', 30, 'pedro@test.es', 'student', 'hash789');
+```
+
+**Error esperado**: `Duplicate entry '88888888A' for key 'rn_uq_people_dni'`
+
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla people"`.
 {: .notice--info}
 
@@ -86,6 +117,22 @@ Observaciones:
 - Implementa el tipo enumerado `CategoríaProfesor` del modelo conceptual.
 - Si se intenta insertar un valor no válido, se rechazará la operación.
 
+Validación:
+
+Prueba a insertar un profesor con una categoría no válida:
+
+```sql
+-- Primero necesitamos una persona en la tabla people
+INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
+VALUES (1000, '11111111A', 'Carlos', 'Profesor', 45, 'carlos@us.es', 'professor', 'hash');
+
+-- Ahora intentamos crear el profesor con categoría inválida
+INSERT INTO professors (professor_id, category)
+VALUES (1000, 'Adjunto');
+```
+
+**Error esperado**: `Check constraint 'rn20_professors_category' is violated`
+
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla professors"`.
 {: .notice--info}
 
@@ -103,6 +150,22 @@ Observaciones:
 - Implementa el tipo enumerado `MétodoAcceso` del modelo conceptual.
 - Define los cinco métodos de acceso válidos al centro universitario.
 
+Validación:
+
+Prueba a insertar un estudiante con método de acceso no válido:
+
+```sql
+-- Primero necesitamos una persona
+INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
+VALUES (2000, '22222222B', 'María', 'Estudiante', 20, 'maria@us.es', 'student', 'hash');
+
+-- Intentamos crear estudiante con método inválido
+INSERT INTO students (student_id, access_method)
+VALUES (2000, 'Erasmus');
+```
+
+**Error esperado**: `Check constraint 'rn19_students_access_method' is violated`
+
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla students"`.
 {: .notice--info}
 
@@ -119,6 +182,17 @@ Observaciones:
 - RN13 valida que la duración esté entre 3 y 6 años según la normativa universitaria.
 - No puede haber dos grados con el mismo nombre.
 - Evita duplicados accidentales.
+
+Validación:
+
+Prueba a insertar un grado con duración inválida:
+
+```sql
+INSERT INTO degrees (degree_name, duration_years)
+VALUES ('Grado en Pruebas', 2);
+```
+
+**Error esperado**: `Check constraint 'rn13_degree_duration' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla degrees"`.
 {: .notice--info}
@@ -142,6 +216,17 @@ Observaciones:
 - RN16 valida que el curso esté entre 1 y 6 (máxima duración de un grado).
 - El constraint del tipo implementa el enumerado `TipoAsignatura` del diagrama conceptual.
 - Tanto el nombre completo como el acrónimo deben ser únicos.
+
+Validación:
+
+Prueba a insertar una asignatura con créditos inválidos:
+
+```sql
+INSERT INTO subjects (degree_id, subject_name, acronym, credits, course, subject_type)
+VALUES (1, 'Asignatura Test', 'TST', 8, 1, 'Obligatoria');
+```
+
+**Error esperado**: `Check constraint 'rn10_subjects_credits' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla subjects"`.
 {: .notice--info}
@@ -167,6 +252,17 @@ Observaciones:
   - ✅ ADDA, T1, 2024 (mismo nombre, diferente asignatura)
   - ❌ IISSI-1, T1, 2024 (duplicado exacto)
 
+Validación:
+
+Prueba a insertar un grupo con año académico fuera de rango:
+
+```sql
+INSERT INTO groups (subject_id, group_name, activity, academic_year)
+VALUES (1, 'T1', 'Teoría', 1999);
+```
+
+**Error esperado**: `Check constraint 'rn15_groups_year' is violated`
+
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla groups"`.
 {: .notice--info}
 
@@ -181,6 +277,17 @@ Observaciones:
 
 - RN21 garantiza que las cargas docentes sean positivas.
 - Un profesor debe impartir al menos algún crédito en un grupo.
+
+Validación:
+
+Prueba a insertar una carga docente con créditos cero o negativos:
+
+```sql
+INSERT INTO teaching_loads (professor_id, group_id, credits)
+VALUES (1, 1, 0);
+```
+
+**Error esperado**: `Check constraint 'rn21_teaching_loads_credits' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla teaching_loads"`.
 {: .notice--info}
@@ -207,62 +314,19 @@ Observaciones:
     - Si es matrícula de honor, la nota es >= 9
 - RN18 implementa el enumerado `Convocatoria` del modelo conceptual.
 
+Validación:
+
+Prueba a insertar una nota con matrícula de honor pero valor inferior a 9:
+
+```sql
+INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
+VALUES (1, 1, 8.5, 'Primera', 1);
+```
+
+**Error esperado**: `Check constraint 'rn08_grades_with_honors' is violated`
+
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla grades"`.
 {: .notice--info}
-
-## Verificación de restricciones
-
-Para verificar que las restricciones funcionan correctamente, ejecuta el script `createdb.sql` completo:
-
-1. En HeidiSQL, abre el archivo `createdb.sql`.
-2. Ejecuta todo el script (F9 o botón "Ejecutar").
-3. Si hay errores, revisa el mensaje y corrige el código.
-
-Una vez creada la base de datos con todas las restricciones, prueba a violar alguna de ellas para verificar que funcionan:
-
-**Ejemplo 1: Intentar insertar una persona con edad fuera de rango**
-
-```sql
-INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-VALUES (100, '99999999Z', 'Juan', 'Test', 15, 'juan@test.es');
-```
-
-**Error esperado**: `Check constraint 'rn12_people_age' is violated`
-
-**Ejemplo 2: Intentar insertar una asignatura con créditos inválidos**
-
-```sql
-INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, course, subject_type)
-VALUES (100, 1, 'Test', 'TST', 8, 1, 'Obligatoria');
-```
-
-**Error esperado**: `Check constraint 'rn10_subjects_credits' is violated`
-
-**Ejemplo 3: Intentar insertar un DNI duplicado**
-
-Primero inserta una persona válida:
-
-```sql
-INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-VALUES (101, '88888888A', 'Ana', 'Test', 25, 'ana@test.es');
-```
-
-Ahora intenta insertar otra con el mismo DNI:
-
-```sql
-INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-VALUES (102, '88888888A', 'Pedro', 'Test', 30, 'pedro@test.es');
-```
-
-**Error esperado**: `Duplicate entry '88888888A' for key 'rn_uq_people_dni'`
-
-Una vez completado todo el laboratorio, haz el push de los cambios:
-
-```bash
-git add -A
-git commit -m "Completado L2: restricciones CHECK y UNIQUE"
-git push
-```
 
 ## Modificación y borrado de datos: UPDATE y DELETE
 
