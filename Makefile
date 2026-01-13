@@ -1,6 +1,6 @@
 # Simple Makefile for image exports and related tooling
 
-.PHONY: help mc2mr-images req2sql-images grades-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images clean-grades-images build_site serve_site
+.PHONY: help mc2mr-images req2sql-images grades-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images clean-grades-images build serve serve-prod serve-dev build-prod
 
 .POSIX:
 
@@ -14,8 +14,11 @@ help:
 	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)."
 	@echo "  images            Renderiza todos los diagramas."
 	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true."
-	@echo "  build             Construye el sitio web estático."
-	@echo "  serve             Lanza un servidor de desarrollo con livereload."
+	@echo "  build             Construye el sitio web estático (config por defecto)."
+	@echo "  build-prod        Construye el sitio con baseurl de producción."
+	@echo "  serve             Lanza servidor con livereload (config por defecto)."
+	@echo "  serve-prod        Lanza servidor en /IISSI-26 (como en GitHub Pages)."
+	@echo "  serve-dev         Lanza servidor en raíz / (baseurl vacía)."
 	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR."
 	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL."
 	@echo "  clean-grades-images  Elimina los SVG generados para grades."
@@ -59,3 +62,15 @@ build:
 # Serve the website with livereload
 serve:
 	bundle exec jekyll serve --livereload
+
+# Build with production baseurl (matches GitHub Pages)
+build-prod:
+	JEKYLL_ENV=production bundle exec jekyll build --baseurl "/IISSI-26"
+
+# Serve as in production, site will be under /IISSI-26
+serve-prod:
+	bundle exec jekyll serve --livereload --baseurl "/IISSI-26"
+
+# Serve at site root (baseurl = "") for simpler local dev
+serve-dev:
+	bundle exec jekyll serve --livereload --config _config.yml,_config.dev.yml
