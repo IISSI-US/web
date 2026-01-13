@@ -34,6 +34,14 @@ Hasta ahora hemos creado la estructura de la base de datos y establecido las res
 
 Abre HeidiSQL y conéctate con el usuario `iissi_user` a la base de datos `GradesDB`. Asegúrate de haber ejecutado previamente los scripts `createDB.sql` y `populateDB.sql` de los laboratorios anteriores para tener el esquema completo y datos de prueba.
 
+**Para este laboratorio necesitarás datos adicionales**. Ejecuta también el script `populateDB2.sql` que añade más grupos, notas y asignaturas para cubrir todos los ejemplos de consultas:
+
+```sql
+-- En HeidiSQL, ejecuta:
+SOURCE /ruta/a/tu/repositorio/populateDB2.sql;
+-- O simplemente abre el archivo y ejecútalo (F9)
+```
+
 Crea un nuevo archivo `queries.sql` en tu repositorio donde irás escribiendo las consultas de este laboratorio.
 
 ## Control de versiones
@@ -243,12 +251,12 @@ Observe lo siguiente:
 
 ### Consulta 8: Suma de créditos
 
-Suma todos los créditos de las asignaturas del grado con ID 1.
+Suma todos los créditos de las asignaturas del grado con ID 3 (Tecnologías Informáticas).
 
 ```sql
 SELECT SUM(s.credits) AS total_credits
 FROM subjects s 
-WHERE s.degree_id = 1;
+WHERE s.degree_id = 3;
 ```
 
 Observe lo siguiente:
@@ -417,12 +425,12 @@ Una subconsulta es una consulta dentro de otra consulta. Permite usar el resulta
 
 ### Consulta 20: Agregado filtrado
 
-Encuentra la nota más alta del estudiante con ID 1.
+Encuentra la nota más alta del estudiante con ID 6.
 
 ```sql
 SELECT MAX(g.grade_value) AS max_grade
 FROM grades g
-WHERE g.student_id = 1;
+WHERE g.student_id = 6;
 ```
 
 ### Consulta 21: IN con subconsulta
@@ -1051,7 +1059,7 @@ Observe lo siguiente:
 
 ### Consulta 52: Conteo con umbral
 
-Filtra asignaturas que tienen más de 5 grupos creados.
+Filtra asignaturas que tienen más de 3 grupos creados.
 
 ```sql
 SELECT 
@@ -1060,12 +1068,12 @@ SELECT
 FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
 GROUP BY s.subject_id, s.subject_name
-HAVING COUNT(*) > 5;
+HAVING COUNT(*) > 3;
 ```
 
 ### Consulta 53: Filtro de tamaño de grupo
 
-Identifica grupos con más de 10 estudiantes matriculados.
+Identifica grupos con más de 15 estudiantes matriculados.
 
 ```sql
 SELECT 
@@ -1075,12 +1083,12 @@ SELECT
 FROM groups gr
 JOIN group_enrollments ge ON gr.group_id = ge.group_id
 GROUP BY gr.group_id, gr.group_name, gr.activity
-HAVING COUNT(*) > 10;
+HAVING COUNT(*) > 15;
 ```
 
 ### Consulta 54: Promedio con filtro
 
-Filtra asignaturas cuya nota media es superior a 6.
+Filtra asignaturas cuya nota media es superior a 5.5.
 
 ```sql
 SELECT 
@@ -1091,7 +1099,7 @@ FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
 JOIN grades g ON gr.group_id = g.group_id
 GROUP BY s.subject_id, s.subject_name
-HAVING AVG(g.grade_value) > 6;
+HAVING AVG(g.grade_value) > 5.5;
 ```
 
 ## Consultas complejas combinadas
@@ -1124,7 +1132,7 @@ Observe lo siguiente:
 
 ### Consulta 56: Condición especial con agregado
 
-Identifica estudiantes con más de 3 matrículas de honor.
+Identifica estudiantes con más de 1 matrícula de honor.
 
 ```sql
 SELECT 
@@ -1135,7 +1143,7 @@ FROM v_students st
 JOIN grades g ON st.student_id = g.student_id
 WHERE g.with_honors = 1
 GROUP BY st.student_id, st.first_name, st.last_name
-HAVING COUNT(*) > 3;
+HAVING COUNT(*) > 1;
 ```
 
 ### Consulta 57: Ranking con múltiples JOIN
@@ -1172,7 +1180,7 @@ ORDER BY MAX(g.grade_value) DESC;
 
 ### Consulta 59: Análisis de carga docente
 
-Identifica profesores que imparten en más de 2 grupos.
+Identifica profesores que imparten en más de 1 grupo.
 
 ```sql
 SELECT 
@@ -1182,12 +1190,12 @@ SELECT
 FROM v_professors pr
 JOIN teaching_loads tl ON pr.professor_id = tl.professor_id
 GROUP BY pr.professor_id, pr.first_name, pr.last_name
-HAVING COUNT(DISTINCT tl.group_id) > 2;
+HAVING COUNT(DISTINCT tl.group_id) > 1;
 ```
 
 ### Consulta 60: Subconsulta con GROUP BY
 
-Muestra asignaturas que pertenecen a grados con más de 10 asignaturas.
+Muestra asignaturas que pertenecen a grados con más de 15 asignaturas.
 
 ```sql
 SELECT DISTINCT s.subject_name, d.degree_name
@@ -1197,7 +1205,7 @@ WHERE d.degree_id IN (
     SELECT degree_id
     FROM subjects
     GROUP BY degree_id
-    HAVING COUNT(*) > 10
+    HAVING COUNT(*) > 15
 );
 ```
 

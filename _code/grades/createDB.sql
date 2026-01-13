@@ -376,6 +376,7 @@ END//
 CREATE OR REPLACE FUNCTION f_count_subject_groups(
     p_subject_id INT,
     p_activity VARCHAR(15),
+    p_academic_year YEAR,
     p_excluded_group INT
 )
 RETURNS BOOLEAN
@@ -389,6 +390,7 @@ BEGIN
         FROM groups
         WHERE subject_id = p_subject_id
           AND activity = 'Teoría'
+          AND academic_year = p_academic_year
           AND (p_excluded_group IS NULL OR group_id <> p_excluded_group);
         SET v_result = (v_count >= 1);
     ELSEIF p_activity = 'Laboratorio' THEN
@@ -396,6 +398,7 @@ BEGIN
         FROM groups
         WHERE subject_id = p_subject_id
           AND activity = 'Laboratorio'
+          AND academic_year = p_academic_year
           AND (p_excluded_group IS NULL OR group_id <> p_excluded_group);
         SET v_result = (v_count >= 2);
     END IF;
@@ -459,13 +462,13 @@ CREATE OR REPLACE TRIGGER t_bi_groups_rn06
 BEFORE INSERT ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NULL) THEN
+    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, NULL) THEN
         IF NEW.activity = 'Teoría' THEN
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura';
+                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
         ELSE
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura';
+                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
         END IF;
     END IF;
 END//
@@ -474,13 +477,13 @@ CREATE OR REPLACE TRIGGER t_bu_groups_rn06
 BEFORE UPDATE ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, OLD.group_id) THEN
+    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, OLD.group_id) THEN
         IF NEW.activity = 'Teoría' THEN
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura';
+                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
         ELSE
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura';
+                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
         END IF;
     END IF;
 END//
