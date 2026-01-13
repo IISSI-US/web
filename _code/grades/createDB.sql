@@ -214,9 +214,9 @@ ALTER TABLE groups
 
 -- Primero añadimos los atributos role y password_hash que son necesarios
 -- para el control de acceso (RNF001) pero no forman parte del modelo relacional básico
-ALTER TABLE people
-    ADD COLUMN role ENUM('student','professor') NOT NULL AFTER email,
-    ADD COLUMN password_hash VARCHAR(255) NOT NULL AFTER role;
+-- ALTER TABLE people
+--     ADD COLUMN role ENUM('student','professor') NOT NULL AFTER email,
+--     ADD COLUMN password_hash VARCHAR(255) NOT NULL AFTER role;
 
 -- ============================================================================
 -- TRIGGERS PARA LAS RN COMPLEJAS
