@@ -175,19 +175,19 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ### Jerarquía de personas
 
-![Diagrama de jerarquía de personas](/assets/images/iissi1/laboratorios/fig/req/d_jerarquia.svg)
+![Diagrama de jerarquía de personas]({{ '/assets/images/iissi1/laboratorios/fig/req/d_jerarquia.svg' | relative_url }})
 
 ### Estructura académica y profesores
 
-![Diagrama de estructura académica](/assets/images/iissi1/laboratorios/fig/req/d_academico.svg)
+![Diagrama de estructura académica]({{ '/assets/images/iissi1/laboratorios/fig/req/d_academico.svg' | relative_url }})
 
 ### Alumnos, matrículas y evaluación
 
-![Diagrama de alumnos y evaluación](/assets/images/iissi1/laboratorios/fig/req/d_alumnos.svg)
+![Diagrama de alumnos y evaluación]({{ '/assets/images/iissi1/laboratorios/fig/req/d_alumnos.svg' | relative_url }})
 
 ### Tipos enumerados
 
-![Diagrama de tipos enumerados](/assets/images/iissi1/laboratorios/fig/req/d_enum.svg)
+![Diagrama de tipos enumerados]({{ '/assets/images/iissi1/laboratorios/fig/req/d_enum.svg' | relative_url }})
 
 
 

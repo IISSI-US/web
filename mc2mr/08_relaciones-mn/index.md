@@ -9,7 +9,7 @@ pdf_version: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-clases.png)
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
 ```

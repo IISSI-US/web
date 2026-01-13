@@ -52,7 +52,7 @@ El `use strict";` al principio del fichero activa el modo estricto de JavaScript
 
 Más abajo, usamos la función `console.log` para imprimir una línea en la consola de depuración. Si actualizamos nuestra página, no veremos ningún cambio en ella. Para ver el mensaje impreso, debemos acceder a la consola del navegador pulsando  y seleccionando la pestaña "Consola":
 
-![Screenshot](/assets/images/iissi2/lab2-4/helloworld.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/helloworld.png' | relative_url }})
 
 Además de nuestro mensaje, aparecen advertencias producidas por otras librerías usadas, que pueden ser ignoradas o deshabilitadas en la configuración de la consola de depuración.
 
@@ -97,7 +97,7 @@ if(goodStudent) {
 
 Lo que imprimirá por consola:
 
-![Screenshot](/assets/images/iissi2/lab2-4/helloworld2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/helloworld2.png' | relative_url }})
 
 Otros tipos básicos son los arrays y los objects. Un array es una lista ordenada de elementos, que no tienen por qué ser del mismo tipo (aunque se recomienda que lo sean, por consistencia). Un Object es similar a un diccionario en otros lenguajes, asociando valores de cualquier tipo a claves textuales.
 
@@ -216,7 +216,7 @@ Observe lo siguiente:
 
 Pese a que el elemento `<div>` que hemos insertado en el HTML estaba vacío, se le ha dado un contenido de texto mediante JS:
 
-![Screenshot](/assets/images/iissi2/lab2-4/modificado.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/modificado.png' | relative_url }})
 
 Al elemento añadido dinámicamente se le añaden todos los estilos aplicables de las hojas de estilo de la página. Si deseamos modificar el estilo de un elemento en el árbol DOM, otro atributo de interés que tienen los nodos HTML en JS es `style`, que permite modificar de forma dinámica el estilo de un elemento alterando sus propiedades CSS:
 
@@ -226,7 +226,7 @@ myDiv.style.color = "black";
 myDiv.style.fontFamily = "monospace";
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-4/styled.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/styled.png' | relative_url }})
 
 Observará que los atributos accesibles mediante `style` tienen el mismo nombre que las propiedades CSS que se modifican mediante las hojas de estilo.
 
@@ -267,7 +267,7 @@ myDiv.appendChild(newImage);
 
 Los atributos del elemento creado, como `src` o `title`, pueden establecerse modificando los atributos del nodo en JS. El resultado final es:
 
-![Screenshot](/assets/images/iissi2/lab2-4/mod3.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/mod3.png' | relative_url }})
 
 ### Selectores avanzados
 En la sección anterior usamos la función `getElementById` para obtener un elemento contenido dentro de otro, según su atributo `id`. Sin embargo, en ocasiones puede ser útil seleccionar elementos según otros criterios. Una función relacionada es `querySelector`, que permite seleccionar nodos HTML usando los mismos selectores que se usan en CSS. Por ejemplo, podemos seleccionar el elemento `<div>` con atributo `class="container` para cambiar su fondo:
@@ -302,7 +302,7 @@ Observe las siguientes consideraciones:
 
 El código anterior modifica de forma dinámica el estilo de la galería, con este resultado:
 
-![Screenshot](/assets/images/iissi2/lab2-4/shadow.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/shadow.png' | relative_url }})
 
 ### Creación de nodos avanzada
 En la Sección  aprendimos a crear e introducir manualmente nodos HTML en el documento a través del DOM. Sin embargo, este método es poco escalable para nodos complejos. Tomemos por ejemplo una tarjeta de la galería:
@@ -561,7 +561,7 @@ function main() {
 
 Observe que ya no es necesario crear la galería manualmente mediante HTML, sino que es generada automáticamente a partir de un array de fotos. Además, la abstracción en la creación de la galería permite insertarla en cualquier lugar de nuestra aplicación (por ejemplo, podemos mostrar una galería con las fotos subidas por un usuario en la página de su perfil). El resultado es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-4/gal_auto.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-4/gal_auto.png' | relative_url }})
 
 ### Renderizador de detalles de foto
 El renderizador de fotos, por el momento, puede recibir una foto y mostrarla en formato tarjeta para la galería. Pero existe una vista en la que deseamos mostrar una imagen individual en un formato diferente: la de detalles de foto. En ese caso, querremos mostrar la misma foto no en formato miniatura como hasta ahora, sino a tamaño completo.

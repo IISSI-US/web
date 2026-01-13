@@ -42,11 +42,11 @@ pip install silence
 
 \* Los permisos de administrador son necesarios para instalar Silence a nivel de sistema y poder usar el comando `silence` en cualquier lugar (el equivalente en Linux es usar `sudo pip install silence`). Se puede realizar una instalación sin permisos especiales usando un [entorno virtual de Python](https://docs.python-guide.org/dev/virtualenvs/#lower-level-virtualenv), pero esta operación no está cubierta por este boletín.
 
-![Instalación Silence](/assets/images/iissi1/laboratorios/fig/lab1-6/pip_install_silence.png)
+![Instalación Silence]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/pip_install_silence.png' | relative_url }})
 
 Esto instalará Silence y todas sus dependencias. Si el proceso es correcto, se nos informará de que todo ha quedado instalado:
 
-![Instalación OK](/assets/images/iissi1/laboratorios/fig/lab1-6/pip_install_ok.png)
+![Instalación OK]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/pip_install_ok.png' | relative_url }})
 
 Podemos comprobar que tenemos acceso al comando `silence` usándolo en la consola, por ejemplo, comprobando la versión que se ha instalado con el comando:
 
@@ -54,7 +54,7 @@ Podemos comprobar que tenemos acceso al comando `silence` usándolo en la consol
 silence --version
 ```
 
-![Comprobar versión](/assets/images/iissi1/laboratorios/fig/lab1-6/version.png)
+![Comprobar versión]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/version.png' | relative_url }})
 
 Si se desea actualizar el framework Silence para estar al día con una actualización publicada basta con ejecutar el comando de instalación, pero introduciendo `--upgrade` antes del paquete a actualizar:
 
@@ -79,7 +79,7 @@ En Windows, se reconoce una aplicación como comando cuando su archivo ejecutabl
 
 `Silence.exe` se crea al instalar Silence en la carpeta `<instalación de Python>\Scripts`. Puede encontrar esta ruta fácilmente si se fija en los mensajes de la consola durante la instalación de Silence.
 
-![Ruta Silence](/assets/images/iissi1/laboratorios/fig/lab1-6/silence_path.png)
+![Ruta Silence]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/silence_path.png' | relative_url }})
 
 Siga estos pasos para añadir la ruta al directorio donde se encuentra `silence.exe` a la variable de entorno `PATH`:
 
@@ -90,10 +90,10 @@ Siga estos pasos para añadir la ruta al directorio donde se encuentra `silence.
 5. Acepte los cambios y cierre las ventanas.
 6. Reinicie la consola y pruebe a ejecutar el comando `silence --version` de nuevo. Si sigue obteniendo el error, reinicie el equipo y pruebe de nuevo.
 
-![Buscar Windows](/assets/images/iissi1/laboratorios/fig/lab1-6/buscar_windows.png)
-![Propiedades sistema](/assets/images/iissi1/laboratorios/fig/lab1-6/propiedades_sistema.png)
-![Variables entorno](/assets/images/iissi1/laboratorios/fig/lab1-6/variables_entorno.png)
-![Editar variable entorno](/assets/images/iissi1/laboratorios/fig/lab1-6/editar_variable_entorno.png)
+![Buscar Windows]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/buscar_windows.png' | relative_url }})
+![Propiedades sistema]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/propiedades_sistema.png' | relative_url }})
+![Variables entorno]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/variables_entorno.png' | relative_url }})
+![Editar variable entorno]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/editar_variable_entorno.png' | relative_url }})
 
 ---
 
@@ -108,7 +108,7 @@ silence new <nombre> --template blank
 
 Donde `<nombre>` es el nombre que le daremos a este proyecto. La opción `--template blank` indica que se creará un proyecto con una estructura de base de datos vacía, por lo que podemos usar la base de datos en la que hemos trabajado en los anteriores laboratorios:
 
-![Crear proyecto Silence](/assets/images/iissi1/laboratorios/fig/lab1-6/silence_new_1.png)
+![Crear proyecto Silence]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/silence_new_1.png' | relative_url }})
 
 ---
 
@@ -185,7 +185,7 @@ Cada proyecto Silence tiene asociada una estructura de base de datos y una carga
 
 Una vez hemos configurado en la sección anterior los datos de acceso a la BD, añadiremos a nuestro proyecto los scripts de creación de la BD y de la carga inicial de datos, en la carpeta `sql/`. Usaremos para ello los scripts proporcionados en conjunto con este boletín:
 
-![Scripts SQL](/assets/images/iissi1/laboratorios/fig/lab1-6/scripts.png)
+![Scripts SQL]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/scripts.png' | relative_url }})
 
 Una vez estos scripts se encuentran en la carpeta adecuada, y su orden de ejecución ha sido definido en el parámetro `SQL_SCRIPTS` del archivo `settings.py`, podemos inicializar automáticamente la base de datos usando el comando:
 
@@ -195,7 +195,7 @@ silence createdb
 
 Si el proceso es correcto, se mostrará todo el código SQL que se está ejecutando:
 
-![Silence createdb](/assets/images/iissi1/laboratorios/fig/lab1-6/silence_createdb.png)
+![Silence createdb]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/silence_createdb.png' | relative_url }})
 
 Tener la estructura de la BD y sus datos almacenados en el proyecto favorecen un despliegue de las mismas más sencillo, y permite devolverla a un estado controlado en cualquier momento simplemente ejecutando el comando `silence createdb`.
 
@@ -223,7 +223,7 @@ Silence es capaz de analizar la estructura de una base de datos, y generar autom
 silence createapi
 ```
 
-![Silence createapi](/assets/images/iissi1/laboratorios/fig/lab1-6/silence_createapi.png)
+![Silence createapi]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/silence_createapi.png' | relative_url }})
 
 Si el proceso finaliza correctamente, se muestra una lista de las entidades para las que se han generado endpoints. Es importante recordar que este proceso se realiza en base a **la estructura de la BD**, por lo que es necesario tener definida en ella las tablas antes de ejecutar el comando.
 
@@ -254,7 +254,7 @@ Una vez está la base de datos inicializada y los endpoints definidos, podemos l
 silence run
 ```
 
-![Silence run](/assets/images/iissi1/laboratorios/fig/lab1-6/silence_run.png)
+![Silence run]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/silence_run.png' | relative_url }})
 
 Para hacer uso de los endpoints utilizaremos la extensión [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) para VSCode, cuyo uso explicamos a continuación.
 
@@ -269,27 +269,27 @@ En primer lugar, definiremos la URL base, a partir de la cual se construirán to
 
 A continuación, podemos usarla para realizar consultas GET al endpoint `/degrees`. Para hacer una petición HTTP basta con indicar el verbo y la URL, y pulsar en el botón "Send request" que aparece en la parte superior. Se pueden usar las variables definidas anteriormente usando dobles llaves:
 
-![Petición 1](/assets/images/iissi1/laboratorios/fig/lab1-6/peticion1.png)
+![Petición 1]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/peticion1.png' | relative_url }})
 
 El servidor ejecutará la consulta SQL asociada a la ruta y método, y devolverá una respuesta en formato JSON:
 
-![Respuesta 1](/assets/images/iissi1/laboratorios/fig/lab1-6/resp1.png)
+![Respuesta 1]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/resp1.png' | relative_url }})
 
 Además de una consulta a todas las entradas de la tabla Degrees, los endpoints generados automáticamente permiten consultar una de ellas por su ID, mediante la ruta `/degrees/id`. Para ello, basta con indicar el ID en la URL, y pulsar en el botón "Send request":
 
-![Petición 2](/assets/images/iissi1/laboratorios/fig/lab1-6/peticion2.png)
+![Petición 2]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/peticion2.png' | relative_url }})
 
 A lo que el servidor responde:
 
-![Respuesta 2](/assets/images/iissi1/laboratorios/fig/lab1-6/resp2.png)
+![Respuesta 2]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/resp2.png' | relative_url }})
 
 Es importante destacar que, para tener **varias consultas en el mismo archivo**, éstas deben **separarse mediante una línea con tres almohadillas** (`###`).
 
 Intentemos ahora, por ejemplo, borrar el grado con ID 2 mediante el endpoint asociado al verbo DELETE:
 
-![Petición 3](/assets/images/iissi1/laboratorios/fig/lab1-6/peticion3.png)
+![Petición 3]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/peticion3.png' | relative_url }})
 
-![Respuesta 3](/assets/images/iissi1/laboratorios/fig/lab1-6/resp3.png)
+![Respuesta 3]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/resp3.png' | relative_url }})
 
 En este caso, el servidor responde con un código de error HTTP 401 (no autorizado). Esto se debe a que el endpoint correspondiente está protegido, y sólo los usuarios autenticados pueden acceder a él. En la siguiente sección registraremos un nuevo usuario, y aprenderemos a hacer login con uno de los usuarios ya existentes para tener acceso a los endpoints protegidos.
 
@@ -317,23 +317,23 @@ Content-Type: application/json
 }
 ```
 
-![Registro](/assets/images/iissi1/laboratorios/fig/lab1-6/register.png)
+![Registro]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/register.png' | relative_url }})
 
 Si el registro es exitoso, el servidor devolverá los datos del usuario creado, y un token de sesión. Este token es necesario para acceder a los endpoints protegidos, ya que contiene la información del usuario que ha iniciado sesión:
 
-![Respuesta registro](/assets/images/iissi1/laboratorios/fig/lab1-6/reg_resp.png)
+![Respuesta registro]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/reg_resp.png' | relative_url }})
 
 Por defecto, los tokens de sesión son válidos durante 24 horas. Pasado ese tiempo, caducan y no son considerados tokens válidos.
 
 Si se intentara registrar de nuevo el mismo usuario, el servidor devolverá un error:
 
-![Error registro](/assets/images/iissi1/laboratorios/fig/lab1-6/reg_error.png)
+![Error registro]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/reg_error.png' | relative_url }})
 
 ### Login
 Como se ha mostrado en la sección anterior, una manera de obtener un token de sesión es registrar un usuario. Otra manera es iniciar sesión con un usuario ya existente. Para ello, se debe enviar una petición POST a la ruta `/login`, con los datos de inicio de sesión del usuario en formato JSON. El servidor emitirá una respuesta idéntica a la del registro, con los datos del usuario que ha iniciado sesión (excepto su contraseña) y un token de sesión:
 
-![Login](/assets/images/iissi1/laboratorios/fig/lab1-6/login.png)
-![Respuesta login](/assets/images/iissi1/laboratorios/fig/lab1-6/reg_resp.png)
+![Login]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/login.png' | relative_url }})
+![Respuesta login]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/reg_resp.png' | relative_url }})
 
 ---
 
@@ -345,23 +345,23 @@ Dada la longitud de estos tokens, y el hecho de que expiran a las 24h de ser cre
 
 Como ejemplo, en el siguiente fragmento de código creamos un nuevo grado (Degree) mediante una petición POST a la ruta `/degrees`. Para que el servidor nos permita realizar la operación, antes realizaremos un login, y referenciaremos el token de sesión obtenido:
 
-![Crear grado](/assets/images/iissi1/laboratorios/fig/lab1-6/create.png)
+![Crear grado]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/create.png' | relative_url }})
 
 Ahora sí, el servidor aceptará la operación y nos devolverá el ID del nuevo recurso creado:
 
-![Respuesta creación](/assets/images/iissi1/laboratorios/fig/lab1-6/create_resp.png)
+![Respuesta creación]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/create_resp.png' | relative_url }})
 
 Para modificar un recurso, usaremos el método HTTP PUT. Para ello, en la petición HTTP, indicaremos el ID del recurso que queremos modificar, y en el cuerpo de la petición, los nuevos atributos del recurso. Es importante descacar que, en una petición de tipo PUT, se deben enviar todos los atributos del recurso, y no sólo los que se desean modificar:
 
-![Petición PUT](/assets/images/iissi1/laboratorios/fig/lab1-6/put.png)
+![Petición PUT]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/put.png' | relative_url }})
 
 Podemos comprobar que los cambios se han efectuado en la base de datos:
 
-![Filas modificadas](/assets/images/iissi1/laboratorios/fig/lab1-6/put_rows.png)
+![Filas modificadas]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/put_rows.png' | relative_url }})
 
 Finalmente, podemos eliminar un recurso mediante una petición DELETE. Al igual que en las peticiones anteriores, los endpoints generados automáticamente requieren el token de sesión para modificar el estado de la base de datos. Para eliminar el grado que acabamos de crear, en la petición HTTP, indicaremos el ID del recurso que queremos eliminar:
 
-![Petición DELETE](/assets/images/iissi1/laboratorios/fig/lab1-6/delete.png)
+![Petición DELETE]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/delete.png' | relative_url }})
 
 En el caso de las peticiones DELETE, no es necesario enviar contenido de ningún tipo en el cuerpo de la petición.
 
@@ -404,11 +404,11 @@ Este archivo contendrá una lista de endpoints, con el mismo formato que los gen
 
 Si ejecutamos de nuevo el servidor con `silence run`, podremos ver que el endpoint definido se ha cargado correctamente. Podemos probarlo haciendo una petición GET:
 
-![Petición endpoint personalizado](/assets/images/iissi1/laboratorios/fig/lab1-6/endp1.png)
+![Petición endpoint personalizado]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/endp1.png' | relative_url }})
 
 A lo que el servidor responde con las asignaturas de dicho grado:
 
-![Respuesta endpoint personalizado](/assets/images/iissi1/laboratorios/fig/lab1-6/endp2.png)
+![Respuesta endpoint personalizado]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/endp2.png' | relative_url }})
 
 ---
 

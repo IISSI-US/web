@@ -9,7 +9,7 @@ toc_sticky: true
 ---
 ## Modelo Conceptual
 
-![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-01-universidad-clases.png)
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-01-universidad-clases.png' | relative_url }})
 
 ## Intensión (Esquema Relacional)
 

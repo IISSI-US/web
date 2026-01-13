@@ -122,7 +122,7 @@ async function sendRegister(formData) {
 
 Si creamos un nuevo usuario mediante el formulario, aparecerá la respuesta del servidor en la consola:
 
-![Screenshot](/assets/images/iissi2/lab2-8/resp_reg.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-8/resp_reg.png' | relative_url }})
 
 Como se explicó en la Sección , esta respuesta tiene dos atributos: "sessionToken", que contiene el token de sesión, y "user", que contiene los datos del usuario. Estos dos parámetros son los requeridos por el método `login()` del módulo de gestión de sesiones, explicado en la Sección . Así, podemos guardarlos como variables y usarlos para iniciar sesión:
 
@@ -329,7 +329,7 @@ function hideActionsColumn() {
 
 Observe que, si se elimina esta columna, la anterior pasa a tener todo el ancho de la página, optimizando así el uso de la vista:
 
-![Screenshot](/assets/images/iissi2/lab2-8/dog.png) 
+![Screenshot]({{ '/assets/images/iissi2/lab2-8/dog.png' | relative_url }}) 
 
 ## Subida de fotos
 En la práctica anterior, dejamos un elemento pendiente en la gestión del formulario de subida de fotos: las nuevas fotos se asignaban al ID de un usuario prestablecido, en lugar de aquel que tenía la sesión iniciada. Ahora que tenemos control sobre las sesiones de los usuarios, podemos usar el módulo de sesiones para acceder al ID del usuario actual.

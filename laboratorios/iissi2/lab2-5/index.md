@@ -75,7 +75,7 @@ function clickHandler(event) {
 
 En este caso, cuando pulsemos el botón se nos mostrará el texto del propio botón, ya que es éste el elemento causante del evento:
 
-![Screenshot](/assets/images/iissi2/lab2-5/alertbtn.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-5/alertbtn.png' | relative_url }})
 
 ## Otros eventos relevantes
 Pese a que `click` suele ser el evento más usado, hay muchos otros que merece la pena comentar. A continuación se detallan algunos de ellos:
@@ -231,7 +231,7 @@ Además, en el caso de que existan errores, deshabilitaremos el envío del formu
 
 El renderizador de mensajes, a diferencia de los demás, no devuelve un nodo HTML sino que coloca directamente el mensaje en el `<div id="errors">` que exista en la página. Es importante limpiar los mensajes de error anteriores, para evitar que se acumulen entre diferentes envíos:
 
-![Screenshot](/assets/images/iissi2/lab2-5/errors.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-5/errors.png' | relative_url }})
 
 Si no existen errores, no se mostrará ningún mensaje de error y se enviará el formulario. En posteriores prácticas, veremos cómo realizar este envío mediante una petición POST con AJAX a la API del proyecto.
 

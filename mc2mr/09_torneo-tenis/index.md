@@ -9,7 +9,7 @@ pdf_version: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-09-torneo-tenis-clases.png)
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-09-torneo-tenis-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
 ```

@@ -35,11 +35,11 @@ En Linux, puede instalarse el paquete `mariadb-server` usando `apt` o el gestor 
 
 Accederemos a la [página de descargas de MariaDB](https://mariadb.org/download/) y descargaremos e iniciaremos el instalador para Windows. Cuando se nos pregunte, dejaremos marcadas todas las características a instalar:
 
-![Instalación MariaDB 1](/assets/images/iissi1/laboratorios/fig/lab1-0/mariadb_install_1.png)
+![Instalación MariaDB 1]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/mariadb_install_1.png' | relative_url }})
 
 A continuación se nos preguntará por la contraseña del usuario *root* (administrador). Para nuestra BD usaremos la contraseña `iissi$root`:
 
-![Instalación MariaDB 2](/assets/images/iissi1/laboratorios/fig/lab1-0/mariadb_install_2.png)
+![Instalación MariaDB 2]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/mariadb_install_2.png' | relative_url }})
 
 > Por favor verifique que introduce la contraseña iissi$root correctamente para evitar problemas más adelante.
 
@@ -51,11 +51,11 @@ Aceptaremos las opciones por defecto a partir de este diálogo y esperaremos a q
 
 Para trabajar con MariaDB usaremos el cliente HeidiSQL, que debería estar instalado si se han seguido adecuadamente las pautas de la sección anterior. Ejecutamos HeidiSQL y creamos una nueva sessión, a la que llamaremos `IISSI_ROOT`, en la que indicaremos los datos de acceso del usuario root que hemos configurado anteriormente:
 
-![HeidiSQL sesión 2](/assets/images/iissi1/laboratorios/fig/lab1-0/hs-2.png)
+![HeidiSQL sesión 2]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/hs-2.png' | relative_url }})
 
 Tendremos acceso a todas las BD que tiene el SGBD. Las que aparecen por defecto (information_schema, mysql y performance_schema) son propias del SGBD y no deben ser modificadas manualmente.
 
-![HeidiSQL sesión 3](/assets/images/iissi1/laboratorios/fig/lab1-0/hs-3.png)
+![HeidiSQL sesión 3]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/hs-3.png' | relative_url }})
 
 ---
 
@@ -65,11 +65,11 @@ Una "base de datos" o "database" en MariaDB (también llamada "schema") es un co
 
 Como ejemplo, crearemos la base de datos "grados". Para ello, usando el usuario *root*, accederemos a la pestaña "Consulta" y ejecutaremos `CREATE DATABASE grados;`, tras ello, pulsaremos **F9** para ejecutar nuestra consulta:
 
-![Crear database](/assets/images/iissi1/laboratorios/fig/lab1-0/crearDatabase.png)
+![Crear database]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/crearDatabase.png' | relative_url }})
 
 Si pulsamos sobre la conexión y la actualizamos mediante **F5**, podremos ver que se ha creado la base de datos "grados":
 
-![Grados creada](/assets/images/iissi1/laboratorios/fig/lab1-0/grados.png)
+![Grados creada]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/grados.png' | relative_url }})
 
 Sin embargo, realizar todas las operaciones con el usuario *root* no es aconsejable. En la siguiente sección, crearemos un nuevo usuario para operar con la base de datos recién creada.
 
@@ -81,13 +81,13 @@ Operar directamente con el usuario *root* está altamente desaconsejado, ya que 
 
 Crearemos un usuario usando Herramientas → Administrador de usuarios:
 
-![Administrador de usuarios](/assets/images/iissi1/laboratorios/fig/lab1-0/adminUsuarios.png)
+![Administrador de usuarios]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/adminUsuarios.png' | relative_url }})
 
-Pulsamos en ![Agregar usuario](/assets/images/iissi1/laboratorios/fig/lab1-0/agregarUsuario.png) y creamos un nuevo usuario con nombre `iissi_user` y clave `iissi$user`. En "Desde el host" se deja marcado "localhost", lo cual indica que el usuario a crear sólo podrá ser accedido desde nuestra máquina, no por conexiones remotas.
+Pulsamos en ![Agregar usuario]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/agregarUsuario.png' | relative_url }}) y creamos un nuevo usuario con nombre `iissi_user` y clave `iissi$user`. En "Desde el host" se deja marcado "localhost", lo cual indica que el usuario a crear sólo podrá ser accedido desde nuestra máquina, no por conexiones remotas.
 
-En la parte inferior podremos asignarle permisos al usuario que vamos a crear. Es aconsejable otorgar los mínimos permisos imprescindibles, por lo que el nuevo usuario sólo tendrá permisos para modificar la base de datos "grados". Para otorgarle permisos en la BD que acabamos de crear, la seleccionamos en ![Agregar objeto](/assets/images/iissi1/laboratorios/fig/lab1-0/agregarObjeto.png) y marcamos todos los permisos.
+En la parte inferior podremos asignarle permisos al usuario que vamos a crear. Es aconsejable otorgar los mínimos permisos imprescindibles, por lo que el nuevo usuario sólo tendrá permisos para modificar la base de datos "grados". Para otorgarle permisos en la BD que acabamos de crear, la seleccionamos en ![Agregar objeto]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/agregarObjeto.png' | relative_url }}) y marcamos todos los permisos.
 
-![Crear usuario](/assets/images/iissi1/laboratorios/fig/lab1-0/crearUsuario.png)
+![Crear usuario]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/crearUsuario.png' | relative_url }})
 
 Finalmente, pulsaremos en "Guardar" para registrar el nuevo usuario.
 
@@ -99,11 +99,11 @@ Finalmente, pulsaremos en "Guardar" para registrar el nuevo usuario.
 
 Crearemos una nueva conexión “IISSI_USER” para el usuario que acabamos de crear, que será la que usaremos para trabajar con nuestras bases de datos:
 
-![HeidiSQL sesión 6](/assets/images/iissi1/laboratorios/fig/lab1-0/hs-6.png)
+![HeidiSQL sesión 6]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/hs-6.png' | relative_url }})
 
 En esta sesión sólo se tiene acceso a las BD del usuario, no a las del sistema:
 
-![HeidiSQL sesión 7](/assets/images/iissi1/laboratorios/fig/lab1-0/hs-7.png)
+![HeidiSQL sesión 7]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/hs-7.png' | relative_url }})
 
 ---
 
@@ -122,7 +122,7 @@ FROM Asignaturas
 WHERE departamento = "LENGUAJES Y SISTEMAS INFORMÁTICOS";
 ```
 
-![Consulta asignaturas](/assets/images/iissi1/laboratorios/fig/lab1-0/hs-8.png)
+![Consulta asignaturas]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/hs-8.png' | relative_url }})
 
 ---
 
@@ -131,23 +131,23 @@ WHERE departamento = "LENGUAJES Y SISTEMAS INFORMÁTICOS";
 
 Python es necesario para usar el framework Silence, que se empleará al final de IISSI-1 y durante IISSI-2. Descargamos e instalamos la versión 3.X más reciente de [Python](https://www.python.org/downloads/). Seleccionamos personalizar instalación ("customize installation"). **Es importante marcar antes la opción "Add Python 3.X to PATH":**
 
-![Instalación Python](/assets/images/iissi1/laboratorios/fig/lab1-0/python.png)
+![Instalación Python]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/python.png' | relative_url }})
 
 Entre las opciones de instalación opcionales, **dejamos marcadas todas las opciones**:
 
-![Opciones Python](/assets/images/iissi1/laboratorios/fig/lab1-0/python-opt.png)
+![Opciones Python]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/python-opt.png' | relative_url }})
 
 Marcamos las siguientes opciones avanzadas:
 
-![Opciones avanzadas Python](/assets/images/iissi1/laboratorios/fig/lab1-0/python-opt-2.png)
+![Opciones avanzadas Python]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/python-opt-2.png' | relative_url }})
 
 Una vez concluya la instalación, podemos comprobar que ésta ha sido correcta abriendo una consola y consultando la versión de Python instalada mediante `python --version`:
 
-![Comprobar Python](/assets/images/iissi1/laboratorios/fig/lab1-0/pycheck.png)
+![Comprobar Python]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/pycheck.png' | relative_url }})
 
 Igualmente, comprobaremos que pip, el gestor de paquetes de Python, está correctamente instalado, ya que lo necesitaremos más adelante. Para ello podemos ejecutar `pip --version`:
 
-![Comprobar pip](/assets/images/iissi1/laboratorios/fig/lab1-0/pipcheck.png)
+![Comprobar pip]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/pipcheck.png' | relative_url }})
 
 ---
 
@@ -155,15 +155,15 @@ Igualmente, comprobaremos que pip, el gestor de paquetes de Python, está correc
 
 Como editor de código se usará [Visual Studio Code](https://code.visualstudio.com/). Descargamos el instalador y lo ejecutamos. Mantenemos las opciones en sus valores por defecto e iniciamos Visual Studio Code una vez finalice la instalación:
 
-![VS Code](/assets/images/iissi1/laboratorios/fig/lab1-0/VSC.png)
+![VS Code]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/VSC.png' | relative_url }})
 
 Accedemos a File → Preferences → Extensions, seleccionamos la [extensión de Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) y la instalamos:
 
-![VS Code Python](/assets/images/iissi1/laboratorios/fig/lab1-0/VSC-python.png)
+![VS Code Python]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/VSC-python.png' | relative_url }})
 
 Asimismo, instalaremos también la [extensión REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client):
 
-![VS Code REST Client](/assets/images/iissi1/laboratorios/fig/lab1-0/VSC-REST.png)
+![VS Code REST Client]({{ '/assets/images/iissi1/laboratorios/fig/lab1-0/VSC-REST.png' | relative_url }})
 
 ---
 

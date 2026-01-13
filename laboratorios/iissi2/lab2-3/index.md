@@ -77,7 +77,7 @@ Finalmente, dentro de una fila podemos definir tantas columnas como deseemos, ha
 
 El resultado del código anterior es:
 
-![Screenshot](/assets/images/iissi2/lab2-3/cols1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/cols1.png' | relative_url }})
 
 Como se aprecia, el contenido aparece en dos columnas. Además, Bootstrap añade márgenes automáticos entre el elemento raíz () y su contenido. Estos márgenes varían automáticamente según el tamaño de la ventana, por lo que se recomienda no modificarlos.
 
@@ -96,7 +96,7 @@ Sin embargo, dentro de cada columna, el texto aparece alineado a la izquierda. S
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/colscentradas.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/colscentradas.png' | relative_url }})
 
 Observe como la clase `text-center`, aplicada a toda la fila, centra los elementos de todas las columnas de dicha fila. Si se desea un ajuste más fino, se puede aplicar la clase de alineamiento de texto deseada a cada columna.
 
@@ -127,13 +127,13 @@ Podemos añadir más filas, cada una con sus propias columnas. No es necesario q
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/cols2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/cols2.png' | relative_url }})
 
 Como se aprecia, el número de columnas es diferente en las dos filas, aunque la separación entre filas puede ser insuficiente. Para ello, podemos aplicar código CSS personalizado para adaptar el margen inferior y superior de cada elemento `div.row` si así lo deseamos.
 
 Como se explicó anteriormente, una de las principales ventajas de Bootstrap es que la adaptación a dispositivos móviles no requiere un esfuerzo adicional. Si se reduce el ancho de la ventana lo suficiente, las columnas pasan a apilarse verticalmente para adaptarse a pantallas más estrechas:
 
-![Screenshot](/assets/images/iissi2/lab2-3/colsvert.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/colsvert.png' | relative_url }})
 
 Las columas definidas mediante la clase `col-md` se apilan verticalmente cuando la anchura del elemento padre es menor de 768px. Existen otras clases para definir columnas, como `col-sm` y `col-lg`, que requieren una anchura mínima menor y mayor respectivamente para pasar a apilar verticalmente los elementos.
 
@@ -152,7 +152,7 @@ También se pueden hacer columnas de tamaño asimétrico, para lo que se debe in
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/colsasim.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/colsasim.png' | relative_url }})
 
 Existe una gran cantidad de opciones adicionales que permiten mucha más flexibilidad y que, por brevedad, no se incluyen en este boletín, pero que pueden consultarse en la página relevante de la [documentación de Bootstrap.](https://getbootstrap.com/docs/5.0/layout/grid/)
 
@@ -195,9 +195,9 @@ Como suele ser habitual al usar este tipo de frameworks, la estructura del códi
 
 Sin embargo, este esfuerzo se ve recompensado con una barra de navegación de un estilo más uniforme y que, además, se colapsa automáticamente al hacer más estrecha la ventana, para adaptarse a móviles:
 
-![Screenshot](/assets/images/iissi2/lab2-3/navbar.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/navbar.png' | relative_url }})
 
-![Screenshot](/assets/images/iissi2/lab2-3/navbarcolap.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/navbarcolap.png' | relative_url }})
 
 Además, se pueden añadir elementos colapsables, para agrupar varios elementos de la barra en uno sólo. Para ello, en lugar de añadir un `<li class="nav-item">` como los anteriores, añadiremos el siguiente elemento:
 
@@ -216,7 +216,7 @@ Además, se pueden añadir elementos colapsables, para agrupar varios elementos 
 
 En cada caso, deberemos adaptar los ID para que sean únicos, y modificar los enlaces de las etiquetas `<a>` para que referencien a los archivos HTML adecuados dentro de nuestra aplicación. Al igual que antes, la mayor complejidad en el código HTML se recompensa con un elemento de mayor calidad visual. Así, la nueva barra de navegación tras añadir este elemento resulta:
 
-![Screenshot](/assets/images/iissi2/lab2-3/dropdownav.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/dropdownav.png' | relative_url }})
 
 Existe una gran cantidad de opciones adicionales de personalización de la Navbar, que se pueden encontrar en la [documentación correspondiente](https://getbootstrap.com/docs/5.0/components/navbar/).
 
@@ -240,13 +240,13 @@ Bootstrap también da formato a formularios siempre que éstos tengan un formato
 </form>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/form1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/form1.png' | relative_url }})
 
 Los grupos de `<label>` e `<input>` deben ser agrupados mediante un `<div>` con clase `form-group`. Además, los `<input>` pueden contener un atributo `placeholder` para mostrar un texto por defecto a modo de ayuda cuando éstos esten vacíos. La clase `form-control` les da a los elementos de entrada el estilo propio de Bootstrap, mientras que el resto de atributos son los propios de cualquier elemento `<input>` que ya conocemos.
 
 Observe que el formato de colores de los `<input>` no es oscuro, ya que Bootstrap define sus propios estilos para ellos que toman preferencia sobre los que definimos nosotros previamente. Podemos hacer que pasen a un tema oscuro añadiéndole las clases `bg-dark text-light` a los `<input>`:
 
-![Screenshot](/assets/images/iissi2/lab2-3/form1dark.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/form1dark.png' | relative_url }})
 
 El color del botón puede ser modificado mediante su clase (ver la documentación de Bootstrap respecto a [colores](https://getbootstrap.com/docs/5.0/utilities/colors)). Además, los campos del formulario pueden mostrarse en cualquier estructura deseada usando el sistema de filas y columnas de Bootstrap, siempre que todos los elementos se encuentren dentro de la etiqueta `<form>`.
 
@@ -308,7 +308,7 @@ Con Bootstrap se le puede dar formato de manera muy sencilla a cualquier botón,
 <button type="button" class="btn btn-primary">Press me!</button>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/boton1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/boton1.png' | relative_url }})
 
 Al igual que la mayoría de elementos Bootstrap, se puede cambiar el estilo de color del botón mediante las clases apropiadas. Los estilos disponibles son los siguientes:
 
@@ -323,7 +323,7 @@ Al igual que la mayoría de elementos Bootstrap, se puede cambiar el estilo de c
 <button type="button" class="btn btn-dark">Dark</button>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/listabotones.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/listabotones.png' | relative_url }})
 
 Se puede establecer un botón como desactivado añadiéndole el atributo `disabled`. Esto modificará su aspecto visual e impedirá que se pulse:
 
@@ -332,7 +332,7 @@ Se puede establecer un botón como desactivado añadiéndole el atributo `disabl
 <button type="button" class="btn btn-primary" disabled>Disabled</button>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/botonoff.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/botonoff.png' | relative_url }})
 
 El resto de opciones relevantes se encuentran en la [documentación del componente](https://getbootstrap.com/docs/5.0/components/buttons/).
 
@@ -345,7 +345,7 @@ This photo has the following categories:
 <span class="badge bg-primary">Nature</span>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/badge.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/badge.png' | relative_url }})
 
 Note que las etiquetas `<span>` sirven para contener texto, al igual que las etiquetas `<p>`. Sin embargo, a diferencia de las últimas, las primeras muestran el texto en la misma línea en lugar de separarlo en párrafos con saltos de línea.
 
@@ -362,7 +362,7 @@ Las listas también se pueden formatear con Bootstrap añadiendo algunas clases 
   <li class="list-group-item">Element 4</li> 
 </ul>
 ```
-![Screenshot](/assets/images/iissi2/lab2-3/lista.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/lista.png' | relative_url }})
 
 Para darle un mayor grado de personalización, a los elementos de la lista se les puede añadir la clase `list-group-item-*` donde `*` es `primary`, `secondary`, `success`, etc.
 
@@ -374,7 +374,7 @@ Para darle un mayor grado de personalización, a los elementos de la lista se le
   <li class="list-group-item list-group-item-danger">Element 4</li> 
 </ul>
 ```
-![Screenshot](/assets/images/iissi2/lab2-3/lista2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/lista2.png' | relative_url }})
 
 El resto de opciones relevantes se encuentran en la [documentación del componente](https://getbootstrap.com/docs/5.0/components/list-group).
 
@@ -406,7 +406,7 @@ Por defecto, como casi todos los elementos HTML, la tarjeta tenderá a ocupar to
 
 Así, resulta:
 
-![Screenshot](/assets/images/iissi2/lab2-3/card1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/card1.png' | relative_url }})
 
 El estilo oscuro es, al igual que para los componentes anteriores, aportado mediante las clases `bg-dark text-light`. Si se quisiera usar un color específico diferente, se puede usar CSS personalizado en su lugar.
 
@@ -431,7 +431,7 @@ En todas las vistas, se debe partir de un elemento raíz  que contendrá el rest
 
 Podremos comprobar que la combinación de una única columna y texto centrado hace que el título quede centrado en la ventana:
 
-![Screenshot](/assets/images/iissi2/lab2-3/index1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/index1.png' | relative_url }})
 
 A continuación, podemos añadir las fotos por filas. Es conveniente decidir de antemano cuantas fotos deseamos mostrar en cada fila, a fin de establecer la clase necesaria para que cada columna ocupe el porcentaje de ancho correspondiente (esto es especialmente útil en el caso de que una fila no quede completamente llena, ya que por defecto las columnas que contenga intentarán ocupar todo el ancho disponible).
 
@@ -453,7 +453,7 @@ En este caso mostraremos tres fotos por fila, por lo que cada `row` tendrá tres
 
 Añadir esta fila al interior del , tras el título, mostrará el contenido en tres columnas bajo el mismo:
 
-![Screenshot](/assets/images/iissi2/lab2-3/index2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/index2.png' | relative_url }})
 
 Una vez establecida la estructura, podemos trabajar en el código HTML que emplearemos para mostrar cada foto. Por ejemplo, para cada una de ellas podríamos mostrar su título, su descripción y su autor. Haciendo click en ella accederíamos a la vista de detalle de foto, donde se mostrarían el resto de atributos de la foto con más detalle.
 
@@ -473,7 +473,7 @@ Para mostrar cada una de las fotos de la galería podemos usar el componente tar
 
 Si reemplazamos el texto que hemos puesto en las columnas como relleno con el código HTML anterior, podremos ver el resultado:
 
-![Screenshot](/assets/images/iissi2/lab2-3/index4.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/index4.png' | relative_url }})
 
 Para hacer que hacer click en la foto nos lleve a la página correspondiente de detalle de foto, podemos convertirla en un enlace envolviéndola en una etiqueta `<a>`:
 
@@ -485,11 +485,11 @@ Para hacer que hacer click en la foto nos lleve a la página correspondiente de 
 
 En clases posteriores, se mostrará cómo hacer una única página de detalle de fotos que sea capaz de mostrar la información de cualquier foto de la galería. Finalmente, podemos repetir el proceso hasta completar la fila, modificando los datos necesarios en cada foto:
 
-![Screenshot](/assets/images/iissi2/lab2-3/index5.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/index5.png' | relative_url }})
 
 Por defecto, las tarjetas ocupan el ancho de cada columna. Combinado con la capacidad que nos da Bootstap de organizar las columnas verticalmente cuando la ventana del navegador se estrecha, habremos conseguido que la galería se adapte automáticamente a móviles, mostrando en ese caso las fotos una encima de otra:
 
-![Screenshot](/assets/images/iissi2/lab2-3/indexresp.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/indexresp.png' | relative_url }})
 
 ### Detalle de foto
 Una opción común es mostrar en la página principal de galería la información básica de cada foto, y luego tener una vista dedicada a mostrar todos los detalles de una foto concreta. La manera habitual de hacer esto es pasar el ID de la foto en cuestión a la vista de detalle usando un parámetro URL, y mediante JavaScript capturar este parámetro y cargar los datos de la foto en cuestión. Sin embargo, dado que JavaScript se introducirá en los próximos laboratorios, nos limitaremos a crear una vista con datos HTML estáticos. En el futuro, será fácil modificarla para que cargue de manera dinámica los datos de cualquier foto aprovechando la estructura de la vista ya creada.
@@ -534,7 +534,7 @@ En la primera columna, incluiremos los datos relevantes que queramos mostrar de 
 
 Nótese cómo se ha añadido a la imagen la clase `img-fluid`. Esto hace que Bootstrap le aplique automáticamente los estilos necesarios para que escale automáticamente con el ancho y alto de la página, haciéndola responsiva. El resultado es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-3/detalles1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/detalles1.png' | relative_url }})
 
 En la columna de la derecha, añadiremos dos botones para eliminar y editar la foto. En prácticas posteriores daremos funcionalidad a estos botones mediante JavaScript:
 
@@ -565,7 +565,7 @@ Además, añadiremos un formulario con un `<select>` para que el usuario pueda v
 
 El resultado es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-3/detalles2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/detalles2.png' | relative_url }})
 
 Por último, podemos opcionalmente añadir un enlace con estilo de botón en una fila nueva al final de la vista, para facilitar la navegación y poder volver a la página principal:
 
@@ -594,7 +594,7 @@ En la vista de registro de usuario podemos incluir un formulario Bootstrap para 
 </form>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/reg1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/reg1.png' | relative_url }})
 
 Podemos entonces introducir en cada columna un elemento input, tal y como se explicó en la Sección :
 
@@ -616,15 +616,15 @@ Podemos entonces introducir en cada columna un elemento input, tal y como se exp
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/reg2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/reg2.png' | relative_url }})
 
 Podemos repetir tantas filas como sean necesarias para implementar todos los campos del formulario. Además, podemos crear filas con un número diferente de columnas, y Bootstrap las adapta automáticamente:
 
-![Screenshot](/assets/images/iissi2/lab2-3/reg3.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/reg3.png' | relative_url }})
 
 Por supuesto, Bootstrap se encarga de que la adaptación a dispositivos móviles sea inmediata y no requiera mayor esfuerzo por nuestra parte:
 
-![Screenshot](/assets/images/iissi2/lab2-3/regmob.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/regmob.png' | relative_url }})
 
 Finalmente, añadiremos una fila con una única columna, que contendrá el botón de enviar centrado horizontalmente:
 
@@ -636,7 +636,7 @@ Finalmente, añadiremos una fila con una única columna, que contendrá el botó
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/reg4.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/reg4.png' | relative_url }})
 
 ## Actualización en GitHub
 Actualice su proyecto en GitHub con los cambios hechos durante esta sesión. Recuerde los comandos relevantes:
@@ -666,7 +666,7 @@ Donde `*` es el código del icono a incluir. Por ejemplo, si incluimos un icono 
 <h1 id="title">Photo Gallery <i class="fa fa-file-image-o" aria-hidden="true"></i></h1>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-3/iconheader.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-3/iconheader.png' | relative_url }})
 
 Los iconos Font Awesome son vectoriales, por lo que mantienen su calidad al hacer zoom y se pueden mostrar a cualquier tamaño.
 

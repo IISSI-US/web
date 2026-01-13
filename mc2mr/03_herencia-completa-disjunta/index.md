@@ -9,7 +9,7 @@ pdf_version: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png)
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
 ```

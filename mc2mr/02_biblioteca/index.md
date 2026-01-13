@@ -9,7 +9,7 @@ pdf_version: true
 ---
 
 ## Modelo Conceptual
-![Diagrama de Clases](/assets/images/iissi1/mc2mr/ejercicio-02-biblioteca-clases.png)
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-02-biblioteca-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
 ```text

@@ -117,7 +117,7 @@ Al contrario que los procedimientos, las funciones se pueden usar en cualquier l
 SELECT avgGrade(2);
 ```
 
-![functions-4](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-4.png)
+![functions-4]({{ '/assets/images/iissi1/laboratorios/fig/lab1-7/functions-4.png' | relative_url }})
 
 También podemos consultarla como si fuera una columna más, por ejemplo, para obtener el nombre y los apellidos de un alumno junto con su nota media:
 

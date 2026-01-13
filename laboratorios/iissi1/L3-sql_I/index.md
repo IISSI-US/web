@@ -146,7 +146,7 @@ La consulta de datos de una base de datos es fundamental. El resultado de este t
 
 Por ejemplo, podríamos seleccionar los nombres y apellidos de alumnos de acceso por selectividad de la siguiente manera:
 
-![SELECT ejemplo](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-7-2.PNG)
+![SELECT ejemplo]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-7-2.PNG' | relative_url }})
 
 Observe lo siguiente:
 
@@ -167,21 +167,21 @@ En ese caso, el valor devuelto será un boolean, indicando si en cada fila el n�
 
 También podemos pedir valores agregados (sumas, medias, etc.). Pedir estos valores implica que solo se devolverá una fila. Si además solo se pide una columna, se devolverá un valor único:
 
-![SELECT agregados](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-9-2.PNG)
+![SELECT agregados]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-9-2.PNG' | relative_url }})
 
 Observe lo que ocurre cuando se piden como columnas valores agregados junto con una columna de la tabla:
 
-![SELECT agregados y columna](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-10-2.PNG)
+![SELECT agregados y columna]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-10-2.PNG' | relative_url }})
 
 Al pedirse valores agregados, solo se devuelve una fila, que corresponde al valor en cuestión calculado para toda la tabla. El nombre devuelto es simplemente el de la primera de las filas. No tiene sentido pedir valores agregados junto con atributos que cambian de fila a fila.
 
 Uno de los valores agregados más útiles es `COUNT`. En su variante más común, cuenta el número de filas devueltas:
 
-![SELECT COUNT](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-11-2.PNG)
+![SELECT COUNT]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-11-2.PNG' | relative_url }})
 
 Sin embargo, podemos incluir una expresión que limite las filas que se están contando:
 
-![SELECT COUNT con condición](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-12-2.PNG)
+![SELECT COUNT con condición]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-12-2.PNG' | relative_url }})
 
 ## Vistas
 

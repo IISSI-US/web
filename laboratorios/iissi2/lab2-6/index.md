@@ -148,7 +148,7 @@ console.log("The photo ID to load is: " + photoId);
 
 El objeto `URLSearchParams` sirve para acceder más fácilmente a los parámetros de URL, que se encuentran en `window.location.search`. Con este objeto, podemos acceder a un parámetro determinado usando `urlParams.get()`. Esto hará que se muestre por consola el ID de la foto que debemos mostrar:
 
-![Screenshot](/assets/images/iissi2/lab2-6/photoid.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-6/photoid.png' | relative_url }})
 
 Teniendo el ID de la foto, podemos hacer una consulta a la API para obtener los datos de la misma, y proporcionárselos al renderizador para que muestre la foto en cuestión, de manera muy similar a la usada para la galería:
 
@@ -255,7 +255,7 @@ img.photo-user-avatar {
 
 El resultado es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-6/users.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-6/users.png' | relative_url }})
 
 ## Actualización en GitHub
 Actualice su proyecto en GitHub con los cambios hechos durante esta sesión. Recuerde los comandos relevantes:

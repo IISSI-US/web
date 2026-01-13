@@ -67,7 +67,7 @@ A continuación, crearemos un bloque lógico para mostrar una imagen junto con a
 
 Es buena idea agrupar elementos similares dentro de bloques `<div>` y establecer clases para cada uno de ellos. Las etiquetas `<div>`, por defecto, no tienen un impacto visual directo, sino que se usan para agrupar elementos que, juntos, forman conjuntos lógicos en nuestras vistas. Así, podremos aplicarles estilos conjuntos a todos ellos simplemente referenciando el `<div>` correspondiente, en lugar de repetir el mismo estilo CSS para cada uno de ellos. El resultado visual de este código HTML es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-2/fotovista.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/fotovista.png' | relative_url }})
 
 Ahora, con una única foto en nuestra galería, es buen momento para afinar el estilo de cada bloque de imagen mediante CSS. Para ello, crearemos un archivo `style.css` en la carpeta `css/`, y lo enlazaremos a la vista incluyendo la siguiente etiqueta dentro de la cabecera `<head>`:
 
@@ -103,7 +103,7 @@ img.photo-image {
 
 Así, resulta:
 
-![Screenshot](/assets/images/iissi2/lab2-2/foto2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/foto2.png' | relative_url }})
 
 Adicionalmente, podemos hacer cambios en el estilo que afecten a toda la página. Como ejemplo, desarrollaremos nuestra galería con un tema oscuro (texto claro, fondo oscuro) para reducir la fatiga visual. Para ello, añadiremos una clase `dark` a la etiqueta `<body>` y aplicaremos el estilo CSS correspondiente:
 
@@ -123,7 +123,7 @@ body.dark {
 
 Donde `background-color` y `color` son los atributos CSS que definen el color de fondo y el color del texto, respectivamente. El resultado visual es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-2/darkmode.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/darkmode.png' | relative_url }})
 
 Dado que la etiqueta  contiene todas las demás, los estilos aplicados a ella también a todo el contenido de la página. Sin embargo, cualquier etiqueta interior que defina su propio estilo tendrá prioridad sobre el estilo de la etiqueta . Por ejemplo, los enlaces  siguen siendo azules, pese a que el color de texto de  ha sido cambiado a blanco.
 
@@ -150,15 +150,15 @@ style.css:
 
 Podemos mover el `<div>` que contiene toda la información de nuestra imagen dentro de este contenedor, y el resultado será el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-2/fotoengrid.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/fotoengrid.png' | relative_url }})
 
 Ahora, nuestro bloque de imagen ocupa la primera posición en esta tabla virtual con un ancho del 33% del total. Podemos replicar el `<div class="photo-block">`y su interior para seguir poblando nuestra galería, con datos diferentes en cada uno de ellos. Observaremos que, gracias al grid CSS, cada bloque se coloca en su lugar sin necesidad de indicarlo en el código HTML:
 
-![Screenshot](/assets/images/iissi2/lab2-2/fotos.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/fotos.png' | relative_url }})
 
 Si siguiéramos añadiendo fotos, dado que ya se ha rellenado una fila de 3 fotos, la siguiente se colocaría debajo de la primera en una nueva fila. Además, si redimensionamos la página, la anchura de cada columna cambia para adaptarse. Sin embargo, las fotos no se redimensionan automáticamente:
 
-![Screenshot](/assets/images/iissi2/lab2-2/fotos_estrujadas.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/fotos_estrujadas.png' | relative_url }})
 
 Podemos solucionar este problema añadiendo un ancho dinámico a las imágenes en cada columna: si establecemos su ancho al 100%, ésta ocupará todo el ancho de la columna, haciéndose más pequeña si es necesario. El alto se redimensionará automáticamente para mantener la proporción de aspecto:
 
@@ -225,7 +225,7 @@ Nótese cómo se añaden a los elementos de entrada el atributo "required", que 
 
 Cada entrada se acompaña de una etiqueta `<label>`, que muestra al usuario lo que debe introducir en cada campo. Las label deben ser vinculadas al input correspondiente por razones de accesibilidad, lo cual se consigue haciendo que coincidan el atributo `for` del `<label>` con el `id` del `<input>`. Finalmente, se agrupan las parejas label-input en `<div>`s para su formateado posterior con CSS. El resultado visual es:
 
-![Screenshot](/assets/images/iissi2/lab2-2/form.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/form.png' | relative_url }})
 
 Claramente, el resultado puede mejorar. Por ejemplo, los campos `<input>` y `<select>` no concuerdan visualmente con el estilo oscuro. Podemos usar CSS para modificar su color de fondo y de texto, así como el color de su borde:
 
@@ -237,7 +237,7 @@ input, select {
 }
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-2/form_dark.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/form_dark.png' | relative_url }})
 
 Otra posible mejora es alinear todas las etiquetas de los campos del formulario a la derecha y las entradas de texto a la izquierda para darle un aspecto más uniforme. Para ello, haremos que los `<label>` tengan un ancho fijo. Además, gracias a los `<divs>` que hemos definido para separar los grupos del formulario, podemos aumentar la separación vertical entre ellos. Para efectuar estos cambios, enlace el archivo `style.css` en el documento `register.html` de la misma manera mostrada anteriormente. Podemos entonces añadir nuevos estilos destinados a los formularios:
 
@@ -255,7 +255,7 @@ Otra posible mejora es alinear todas las etiquetas de los campos del formulario 
 
 El resultado es:
 
-![Screenshot](/assets/images/iissi2/lab2-2/form2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/form2.png' | relative_url }})
 
 Los pasos a seguir para implementar la vista de login serían muy similares, empleando un formulario con los campos relevantes. Además, se pueden reutilizar los estilos CSS ya definidos para que todos los formularios presentados en la aplicación tengan un estilo uniforme.
 
@@ -326,7 +326,7 @@ Mediante la etiqueta `<div>` que hemos definido podemos aplicar estilos comunes 
 
 El resultado visual es el siguiente:
 
-![Screenshot](/assets/images/iissi2/lab2-2/headerview.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/headerview.png' | relative_url }})
 
 Nótese que, por defecto, las etiquetas `<h1>` tienen subrayado (`text-decoration: underline`), pero este estilo no aplica al título. Dado que existe un selector más específico (por ID) aplicando un estilo que desactiva el subrayado (`text-decoration: none`), es este último el que prevalece.
 
@@ -346,7 +346,7 @@ La cabecera de la aplicación es común a todas las vistas, por que es un lugar 
 </div>
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-2/nav1.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/nav1.png' | relative_url }})
 
 Ya que se encuentra en el bloque definido anteriormente, se beneficia de su centrado horizontal. Podemos ajustar el estilo mediante CSS, para que se asemeje más a una barra de navegación clásica:
 
@@ -362,7 +362,7 @@ div.navigation > a {
 }
 ```
 
-![Screenshot](/assets/images/iissi2/lab2-2/nav2.png)
+![Screenshot]({{ '/assets/images/iissi2/lab2-2/nav2.png' | relative_url }})
 
 En la siguiente práctica, aprenderemos a usar la librería CSS Bootstrap para dar un acabado visual más profesional a los elementos implementados en ésta.
 
