@@ -34,9 +34,7 @@ CREATE TABLE people (
     last_name VARCHAR(150) NOT NULL,
     age TINYINT NOT NULL,
     email VARCHAR(255) NOT NULL,
-    PRIMARY KEY (person_id),
-    CONSTRAINT rn_uq_people_dni UNIQUE (dni),
-    CONSTRAINT rn_uq_people_email UNIQUE (email)
+    PRIMARY KEY (person_id)
 );
 
 -- ============================================================================
@@ -66,8 +64,7 @@ CREATE TABLE degrees (
     degree_id INT AUTO_INCREMENT,
     degree_name VARCHAR(80) NOT NULL,
     duration_years TINYINT NOT NULL,
-    PRIMARY KEY (degree_id),
-    CONSTRAINT rn_uq_degrees_name UNIQUE (degree_name)
+    PRIMARY KEY (degree_id)
 );
 
 -- ============================================================================
@@ -82,8 +79,6 @@ CREATE TABLE subjects (
     course TINYINT NOT NULL,
     subject_type VARCHAR(30) NOT NULL,
     PRIMARY KEY (subject_id),
-    CONSTRAINT rn_uq_subjects_name UNIQUE (subject_name),
-    CONSTRAINT rn_uq_subjects_acronym UNIQUE (acronym),
     FOREIGN KEY (degree_id) REFERENCES degrees(degree_id)
 );
 
@@ -108,7 +103,6 @@ CREATE TABLE groups (
     activity VARCHAR(15) NOT NULL,
     academic_year YEAR NOT NULL,
     PRIMARY KEY (group_id),
-    CONSTRAINT rn_uq_groups_name UNIQUE (subject_id, group_name, academic_year),
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
 );
 
@@ -153,6 +147,8 @@ CREATE TABLE grades (
 -- ============================================================================
 -- RESTRICCIONES (CHECK) SEGÚN EL MODELO
 -- ============================================================================
+
+
 ALTER TABLE people
     ADD CONSTRAINT rn12_people_age CHECK (age BETWEEN 16 AND 70),
     ADD CONSTRAINT rn14_people_dni CHECK (dni REGEXP '^[0-9]{8}[A-Za-z]$');
@@ -194,6 +190,33 @@ ALTER TABLE grades
     ADD CONSTRAINT rn18_grades_exam_call CHECK (
         exam_call IN ('Primera','Segunda','Tercera','Extraordinaria')
     );
+
+-- ============================================================================
+-- RESTRICCIONES DE UNICIDAD (UNIQUE)
+-- ============================================================================
+ALTER TABLE people
+    ADD CONSTRAINT rn_uq_people_dni UNIQUE (dni),
+    ADD CONSTRAINT rn_uq_people_email UNIQUE (email);
+
+ALTER TABLE degrees
+    ADD CONSTRAINT rn_uq_degrees_name UNIQUE (degree_name);
+
+ALTER TABLE subjects
+    ADD CONSTRAINT rn_uq_subjects_name UNIQUE (subject_name),
+    ADD CONSTRAINT rn_uq_subjects_acronym UNIQUE (acronym);
+
+ALTER TABLE groups
+    ADD CONSTRAINT rn_uq_groups_name UNIQUE (subject_id, group_name, academic_year);
+
+-- ============================================================================
+-- RNF01 - Control de acceso: Añadir atributos role y password_hash a people
+-- ============================================================================
+
+-- Primero añadimos los atributos role y password_hash que son necesarios
+-- para el control de acceso (RNF001) pero no forman parte del modelo relacional básico
+ALTER TABLE people
+    ADD COLUMN role ENUM('student','professor') NOT NULL AFTER email,
+    ADD COLUMN password_hash VARCHAR(255) NOT NULL AFTER role;
 
 -- ============================================================================
 -- TRIGGERS PARA LAS RN COMPLEJAS
