@@ -2,7 +2,7 @@
 layout: single
 sidebar:
   nav: labs-iissi-1
-title: "Lab3 - Datos y consultas simples"
+title: "Lab3 - Consultas SQL"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -10,380 +10,1232 @@ toc_sticky: true
 pdf_version: true
 ---
 
-<!-- # Manejo de datos y consultas simples -->
+<!-- # Consultas SQL -->
 
 ## Objetivo
 
-El objetivo de esta práctica es manejar los datos almacenados en la base de datos mediante scripts SQL. El alumno aprenderá a:
+El objetivo de esta práctica es aprender a realizar consultas SQL para extraer y analizar información de una base de datos relacional. El alumno aprenderá a:
 
-- Usar `INSERT` para insertar filas.
-- Usar `UPDATE` para actualizar filas.
-- Usar `DELETE` para borrar filas.
-- Usar `SELECT` para consultar filas.
+- Realizar consultas básicas con `SELECT` y `WHERE`.
+- Utilizar funciones agregadas (`AVG`, `SUM`, `COUNT`, `MAX`, `MIN`).
+- Aplicar filtros con condiciones múltiples.
+- Usar `DISTINCT` para eliminar duplicados.
+- Implementar subconsultas.
+- Aplicar patrones de texto con `LIKE`.
+- Ordenar y paginar resultados con `ORDER BY`, `LIMIT` y `OFFSET`.
+- Realizar consultas con `JOIN` (INNER y LEFT).
+- Agrupar resultados con `GROUP BY`.
+- Filtrar grupos con `HAVING`.
+- Crear y utilizar vistas (`VIEW`).
 
-Hasta ahora hemos creado las tablas que darán soporte a los datos, pero no hemos introducido datos en ellas, ni los hemos manejado. En esta práctica usaremos instrucciones para insertar, alterar, borrar y consultar las filas de cada tabla.
+Hasta ahora hemos creado la estructura de la base de datos y establecido las restricciones de integridad. En esta práctica aprenderemos a extraer información útil mediante consultas SQL, desde las más simples hasta consultas complejas que combinan datos de múltiples tablas.
 
 ## Preparación del entorno
 
-Conéctese a la base de datos y ejecute el archivo `tables.sql` contra la base de datos `grados`. Cree un archivo `queries.sql` en el que se escribirán las instrucciones que se irán desarrollando en esta práctica. Antes de cada ejecución de sus consultas, se recomienda ejecutar el script de creación de tablas, para que éstas se encuentren en un estado controlado antes de la consulta o modificación.
+Abre HeidiSQL y conéctate con el usuario `iissi_user` a la base de datos `GradesDB`. Asegúrate de haber ejecutado previamente los scripts `createDB.sql` y `populateDB.sql` de los laboratorios anteriores para tener el esquema completo y datos de prueba.
 
-## INSERT
+Crea un nuevo archivo `queries.sql` en tu repositorio donde irás escribiendo las consultas de este laboratorio.
 
-Para insertar filas en una tabla, usamos `INSERT` de la siguiente manera:
+## Control de versiones
 
-<!-- ![INSERT ejemplo](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-1.PNG) -->
+Continuaremos trabajando con el repositorio `GradesDB` creado en L1. En este laboratorio no es necesario hacer commits tras cada consulta individual. Puedes hacer commits por secciones completas:
 
-```sql
-INSERT INTO Degrees VALUES (NULL, 'Tecnologías Informáticas', 4);
+```bash
+git add queries.sql
+git commit -m "Añadidas consultas básicas (SELECT, WHERE, funciones agregadas)"
+git commit -m "Añadidas consultas con JOIN y GROUP BY"
+git commit -m "Añadidas vistas y consultas complejas"
 ```
 
-Observe lo siguiente:
+O simplemente hacer un commit al finalizar el laboratorio completo:
 
-- Se indica primero el nombre de la tabla, y luego los valores de la fila separados por comas y entre paréntesis.
-- Por defecto, hay que introducir los valores en el orden que tienen en la tabla.
-- Al ID le damos valor `NULL`, para que se le de un valor automático con incremento. Si diéramos un número, se usaría ese en vez del generado automáticamente.
-- Al escribir cadenas de texto deben usarse comillas simples. Aunque MariaDB técnicamente permite usar comillas dobles, no están aconsejadas ya que en lenguajes y SGBD similares causan errores.
-
-Añadamos algunas filas a todas las tablas:
-
-<!-- ![INSERT varias filas](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-2.PNG) -->
-
-```sql
-INSERT INTO Degrees (name, years) VALUES
-	('Ingeniería del Software', 4),
-	('Ingeniería del Computadores', 4),
-	('Tecnologías Informáticas', 4);
-
-INSERT INTO Subjects (name, acronym, credits, year, type, degreeId) VALUES
-	('Fundamentos de Programación', 'FP', 12, 1, 'Formacion Básica', 3),
-	('Lógica Informática', 'LI', 6, 2, 'Optativa', 3);
-	
-INSERT INTO Groups (name, activity, year, subjectId) VALUES
-	('T1', 'Teoría', 2019, 1),
-	('L1', 'Laboratorio', 2019, 1),
-	('L2', 'Laboratorio', 2019, 1);
-	
-INSERT INTO Students (accessMethod, dni, firstname, surname, birthdate, email, password) VALUES
-	('Selectividad', '12345678A', 'Daniel', 'Pérez', '1991-01-01', 
-		'daniel@alum.us.es', 'password1'),
-	('Selectividad', '22345678A', 'Rafael', 'Ramírez', '1992-01-01', 
-		'rafael@alum.us.es', 'password2'),
-	('Selectividad', '32345678A', 'Gabriel', 'Hernández', '1993-01-01', 
-		'gabriel@alum.us.es', 'password3');
-
-INSERT INTO GroupsStudents (groupId, studentId) VALUES
-	(1, 1),
-	(3, 1);
-	
-INSERT INTO Grades (value, gradeCall, withHonours, studentId, groupId) VALUES
-	(4.50, 1, 0, 1, 1),
-	(5.00, 1, 0, 2, 1),
-	(6.00, 1, 0, 3, 1),
-	(7.00, 2, 0, 1, 1),
-	(9.00, 2, 1, 2, 1),
-	(9.00, 2, 0, 3, 1),
-	(10.00, 3, 0, 1, 3),
-	(5.50, 3, 0, 2, 3),
-	(6.00, 2, 1, 3, 3);
+```bash
+git add queries.sql
+git commit -m "Completado L3: Consultas SQL"
 ```
 
-Observe lo siguiente:
+## Estructura del archivo queries.sql
 
-- Hemos añadido a las sentencias `INSERT`, antes de los valores, las columnas a las que vamos a dar valor. A las columnas no indicadas se les da valor `NULL` (o el default). El orden de las columnas especificadas no tiene por qué coincidir con el que tienen en la tabla, pero sí debe ser coherente con los valores que se indiquen a continuación.
-- En un mismo `INSERT` a una tabla se pueden introducir varias filas separadas por comas.
-- Las fechas se introducen como cadenas, siguiendo el formato `YYYY-MM-DD`.
-- Los booleanos se introducen como valores numéricos 0 o 1.
-
-## UPDATE
-
-Para modificar una o varias filas, usamos `UPDATE` de la siguiente manera:
-
-<!-- ![UPDATE ejemplo](/assets/images/iissi1/laboratorios/fig/lab1-4/queries-3.PNG) -->
+Al inicio del archivo, añade la instrucción para usar la base de datos correcta:
 
 ```sql
-UPDATE Students 
-	SET birthdate = '1998-01-01', surname='Fernández' 
-	WHERE studentId = 3;
+-- 
+-- Autor: [Tu Nombre]
+-- Fecha: Enero 2026
+-- Descripción: Consultas SQL de ejemplo para GradesDB
+--              Cubre conceptos de consultas simples y avanzadas
+-- 
+
+USE GradesDB;
 ```
 
-Observe lo siguiente:
+## SELECT: La consulta básica
 
-- Se pueden actualizar varios atributos a la vez.
-- La query tiene tres partes: la tabla afectada, los atributos que van a ser modificados, y una condición limitando las filas afectadas.
-- Si omitimos la cláusula `WHERE`, todas las filas serán actualizadas. Cuidado.
+La consulta de datos es la operación fundamental en bases de datos. El resultado de una consulta es siempre una tabla con filas y columnas determinadas por la consulta. La estructura básica de una consulta es:
 
-Las actualizaciones también pueden usar los valores antiguos al dar nuevos valores, por ejemplo, la siguiente actualización reduce a la mitad los créditos de todas las asignaturas:
+## SELECT: La consulta básica
 
-<!-- ![UPDATE con cálculo](src/fig/lab1-4/queries-4.PNG) -->
+La consulta de datos es la operación fundamental en bases de datos. El resultado de una consulta es siempre una tabla con filas y columnas determinadas por la consulta. La estructura básica de una consulta es:
 
 ```sql
-UPDATE Subjects
-	SET credits = credits/2;
+SELECT columnas FROM tabla WHERE condiciones;
 ```
 
-## DELETE
+### Consulta 1: Todas las asignaturas
 
-Para borrar filas de una tabla se usa la instrucción `DELETE FROM`. Podemos borrar filas de la siguiente manera:
-
-<!-- ![DELETE ejemplo](src/fig/lab1-4/queries-5.PNG) -->
-
-```sql
-DELETE FROM Grades
-	WHERE gradeId = 1;
-```
-
-Observe lo siguiente:
-
-- La query tiene dos partes: la tabla afectada, y una condición limitando las filas borradas.
-- **¡Cuidado!** Si omitimos la cláusula `WHERE`, todas las filas de la tabla serán borradas.
-- Por defecto, no se puede borrar una fila que esté referenciada por otra mediante una clave ajena. Habría primero que eliminar la referencia.
-
-Si queremos que al borrar una fila se borren aquellas filas que la referencian mediante claves ajenas (en vez de producirse un error), tenemos que activar el borrado en cascada mediante `ON DELETE CASCADE`, como se explicó en el boletín anterior. Nótese que, en cualquier caso, se mantiene la integridad referencial de la base de datos, impidiéndose que existan referencias a filas que no existen.
-
-## SELECT
-
-La consulta de datos de una base de datos es fundamental. El resultado de este tipo de consultas es siempre una tabla con filas y columnas determinadas por la consulta.
-
-Por ejemplo, podríamos seleccionar los nombres y apellidos de alumnos de acceso por selectividad de la siguiente manera:
-
-![SELECT ejemplo]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-7-2.PNG' | relative_url }})
-
-Observe lo siguiente:
-
-- La query tiene tres partes: las columnas a obtener, las tablas implicadas (puede haber varias), y una condición (opcional) limitando las filas seleccionadas.
-- Si queremos obtener todas las columnas presentes en la tabla seleccionada, podemos usar `*`: `SELECT * FROM...`.
-- Fíjese en que hemos dado un alias "s" a la tabla Students, de manera que no es necesario repetir el nombre de la tabla al referirnos a sus columnas. Esto es especialmente útil cuando hay varias tablas implicadas en la consulta.
-
-Las columnas a seleccionar no tienen por qué ser sólo las ya existentes en las tablas. Podemos definir cálculos a devolver como columnas. Por ejemplo:
-
-<!-- ![SELECT con cálculo](src/fig/lab1-4/queries-8.PNG) -->
-
-```sql
-SELECT s.credits > 3
-	FROM Subjects s
-;
-```
-En ese caso, el valor devuelto será un boolean, indicando si en cada fila el número de créditos es mayor que 3.
-
-También podemos pedir valores agregados (sumas, medias, etc.). Pedir estos valores implica que solo se devolverá una fila. Si además solo se pide una columna, se devolverá un valor único:
-
-![SELECT agregados]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-9-2.PNG' | relative_url }})
-
-Observe lo que ocurre cuando se piden como columnas valores agregados junto con una columna de la tabla:
-
-![SELECT agregados y columna]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-10-2.PNG' | relative_url }})
-
-Al pedirse valores agregados, solo se devuelve una fila, que corresponde al valor en cuestión calculado para toda la tabla. El nombre devuelto es simplemente el de la primera de las filas. No tiene sentido pedir valores agregados junto con atributos que cambian de fila a fila.
-
-Uno de los valores agregados más útiles es `COUNT`. En su variante más común, cuenta el número de filas devueltas:
-
-![SELECT COUNT]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-11-2.PNG' | relative_url }})
-
-Sin embargo, podemos incluir una expresión que limite las filas que se están contando:
-
-![SELECT COUNT con condición]({{ '/assets/images/iissi1/laboratorios/fig/lab1-4/queries-12-2.PNG' | relative_url }})
-
-## Vistas
-
-En ocasiones, es útil guardar los resultados de una consulta para luego utilizarlos en otras consultas como si fueran una tabla más. De esta manera se simplifica en gran medida la creación de consultas anidadas complejas. Esto se puede hacer mediante vistas, en las que damos un nombre a una consulta `SELECT` que luego se puede usar como si fuera una tabla.
-
-Por ejemplo, podríamos crear una vista que contenga las notas del grupo con ID 1:
-
-<!-- ![Vista ejemplo](src/fig/lab1-4/vistas-1.png) -->
-
-```sql
-CREATE OR REPLACE VIEW vGradesGroup1 AS
-	SELECT * FROM Grades g WHERE g.groupId = 1
-;
-```
-
-Y a continuación usarla en diferentes consultas:
-
-<!-- ![Vista consultas](src/fig/lab1-4/vistas-2.png) -->
-
-```sql
-SELECT MAX(v.value) FROM vGradesGroup1 v;
-SELECT COUNT(*) FROM vGradesGroup1 v;
-SELECT * FROM vGradesGroup1 v WHERE v.gradeCall = 1;
-```
-
-También podemos usar una vista dentro de otra:
-
-<!-- ![Vista anidada](src/fig/lab1-4/vistas-3.png) -->
-
-```sql
-CREATE OR REPLACE VIEW vGradesGroup1Call1 AS
-	SELECT * FROM vGradesGroup1 v WHERE v.gradeCall = 1;
-	
-SELECT * FROM vGradesGroup1Call1 v;
-```
-
-## Consultas varias
-
-La posibilidades a la hora de realizar consultas son casi ilimitadas. A continuación se realizarán una serie de consultas que cubren muchos de los casos posibles. Antes de ejecutar las consultas, ejecute el script de introducción de datos de ejemplo del [anexo](#anexo-b-scripts-de-creación-y-poblado) que inserta una mayor cantidad de datos en las tablas.
-
-- Todas las asignaturas.
-
-<!-- ![Consulta todas las asignaturas](src/fig/lab1-4/consultas-1.png) -->
+Recupera todos los campos de todas las asignaturas en la base de datos.
 
 ```sql
 SELECT * 
-	FROM Subjects s
-;
+FROM subjects;
 ```
 
-- Asignatura con acrónimo `FP`.
+Observe lo siguiente:
 
-<!-- ![Consulta acrónimo FP](src/fig/lab1-4/consultas-2.png) -->
+- El operador `*` selecciona todas las columnas de la tabla.
+- Es útil para exploración inicial, pero en producción es mejor especificar las columnas necesarias.
+- La consulta devuelve una tabla con todas las filas y columnas de `subjects`.
+
+### Consulta 2: Asignatura con acrónimo específico
+
+Busca la asignatura con acrónimo 'IISSI-1'.
 
 ```sql
 SELECT * 
-	FROM Subjects s
-	WHERE s.acronym = 'FP'
-;
+FROM subjects s
+WHERE s.acronym = 'IISSI-1';
 ```
 
-- Nombres y acrónimos de todas las asignaturas.
+Observe lo siguiente:
 
-<!-- ![Consulta nombres y acrónimos](src/fig/lab1-4/consultas-3.png) -->
+- El alias `s` permite referirse a la tabla de forma más breve.
+- La cláusula `WHERE` filtra los resultados según una condición.
+- Solo se devuelven las filas que cumplan la condición.
+
+### Consulta 3: Columnas específicas
+
+Recupera solo las columnas de nombre y acrónimo de todas las asignaturas.
 
 ```sql
-SELECT s.name, s.acronym 
-	FROM Subjects s
-;
+SELECT s.subject_name, s.acronym 
+FROM subjects s;
 ```
 
-- Media de las notas del grupo con ID 18.
+Observe lo siguiente:
 
-<!-- ![Consulta media grupo 18](src/fig/lab1-4/consultas-4.png) -->
+- Seleccionar solo las columnas necesarias mejora el rendimiento.
+- Cada columna se separa por comas.
+- El prefijo `s.` indica explícitamente de qué tabla proviene cada columna.
+
+### Consulta 4: Filtrado por tipo
+
+Filtra las asignaturas que son de tipo 'Formación Básica'.
 
 ```sql
-SELECT AVG(g.value) 
-	FROM Grades g
-	WHERE g.groupId = 18
-;
+SELECT s.subject_name, s.acronym, s.subject_type
+FROM subjects s
+WHERE s.subject_type = 'Formación Básica';
 ```
 
-- Total de créditos de las asignaturas del grado de Tecnologías Informáticas (ID 3).
+## JOIN: Relacionando tablas
 
-<!-- ![Consulta créditos TI](src/fig/lab1-4/consultas-5.png) -->
+Muchas veces necesitamos combinar información de varias tablas relacionadas. Para ello usamos `JOIN`.
+
+### Consulta 5: Estudiantes con JOIN
+
+Recupera los estudiantes que accedieron por Selectividad, mostrando su información personal completa.
 
 ```sql
-SELECT SUM(s.credits) 
-	FROM Subjects s 
-	WHERE s.degreeId = 3
-;
+SELECT p.first_name, p.last_name, st.access_method
+FROM students st
+JOIN people p ON st.student_id = p.person_id
+WHERE st.access_method = 'Selectividad';
 ```
 
-- Notas con valor menor que 4 o mayor que 6.
+Observe lo siguiente:
 
-<!-- ![Consulta notas <4 o >6](src/fig/lab1-4/consultas-6.png) -->
+- `JOIN` combina dos tablas basándose en una condición de relación.
+- `ON` especifica cómo se relacionan las tablas (clave ajena = clave primaria).
+- Podemos acceder a columnas de ambas tablas en el `SELECT`.
+- La condición del `WHERE` se evalúa después de realizar el `JOIN`.
+
+### Consulta 6: Profesores por categoría
+
+Busca todos los profesores con categoría 'Catedrático'.
 
 ```sql
-SELECT * 
-	FROM Grades g
-	WHERE g.value < 4 OR g.value > 6
-;
+SELECT p.first_name, p.last_name, pr.category
+FROM professors pr
+JOIN people p ON pr.professor_id = p.person_id
+WHERE pr.category = 'Catedrático';
 ```
 
-- Nombres de grupos diferentes.
+## Vistas: Simplificando consultas complejas
 
-<!-- ![Consulta nombres grupos distintos](src/fig/lab1-4/consultas-7.png) -->
+En ocasiones, es útil guardar los resultados de una consulta para luego utilizarlos en otras consultas como si fueran una tabla más. Esto se logra mediante **vistas** (`VIEW`), que dan un nombre a una consulta `SELECT` reutilizable.
+
+### Vista v_professors
+
+Combina información de profesores con sus datos personales.
 
 ```sql
-SELECT DISTINCT g.name 
-	FROM Groups g
-;
+CREATE OR REPLACE VIEW v_professors AS
+SELECT 
+    pr.professor_id,
+    pr.category,
+    p.person_id,
+    p.dni,
+    p.first_name,
+    p.last_name,
+    p.age,
+    p.email
+FROM professors pr
+JOIN people p ON pr.professor_id = p.person_id;
 ```
 
-- Máxima nota del alumno con ID 1.
+Observe lo siguiente:
 
-<!-- ![Consulta máxima nota alumno 1](src/fig/lab1-4/consultas-8.png) -->
+- `CREATE OR REPLACE VIEW` crea una nueva vista o reemplaza una existente.
+- La vista ejecuta el `SELECT` cada vez que se consulta.
+- Una vez creada, podemos usar `v_professors` como si fuera una tabla normal.
+
+### Vista v_students
+
+Combina información de estudiantes con sus datos personales.
 
 ```sql
-SELECT MAX(g.value) 
-	FROM Grades g
-	WHERE g.studentId = 1
-;
+CREATE OR REPLACE VIEW v_students AS
+SELECT 
+    st.student_id,
+    st.access_method,
+    p.person_id,
+    p.dni,
+    p.first_name,
+    p.last_name,
+    p.age,
+    p.email
+FROM students st
+JOIN people p ON st.student_id = p.person_id;
 ```
 
-- Alumnos con un apellido igual al acrónimo de alguna asignatura.
+Estas vistas evitan tener que escribir el `JOIN` con `people` repetidamente en consultas posteriores.
 
-<!-- ![Consulta apellido igual acrónimo](src/fig/lab1-4/consultas-9.png) -->
+## Funciones agregadas
+
+Las funciones agregadas permiten calcular valores sobre conjuntos de filas: promedios, sumas, conteos, máximos y mínimos. Al usar estas funciones, normalmente se devuelve una sola fila con el resultado agregado.
+
+### Consulta 7: Media de notas
+
+Calcula la nota media del grupo con ID 1.
 
 ```sql
-SELECT * 
-	FROM Students st
-	WHERE st.surname IN (SELECT sb.acronym FROM Subjects sb)
-;
+SELECT AVG(g.grade_value) AS average_grade
+FROM grades g
+WHERE g.group_id = 1;
 ```
 
-- IDs de alumnos del curso 2019.
+Observe lo siguiente:
 
-<!-- ![Consulta IDs alumnos 2019](src/fig/lab1-4/consultas-10.png) -->
+- `AVG()` calcula el promedio aritmético de los valores.
+- El alias `AS average_grade` renombra la columna en el resultado.
+- La función agregada opera sobre todas las filas que cumplen el `WHERE`.
+- El resultado es una única fila con un único valor.
+
+### Consulta 8: Suma de créditos
+
+Suma todos los créditos de las asignaturas del grado con ID 1.
 
 ```sql
-SELECT DISTINCT(gs.studentId) 
-	FROM GroupsStudents gs
-	WHERE gs.groupId IN (SELECT g.groupId FROM Groups g WHERE g.year = 2019)
-;
+SELECT SUM(s.credits) AS total_credits
+FROM subjects s 
+WHERE s.degree_id = 1;
 ```
 
-- Alumnos con un DNI terminado en la letra C. Observe cómo `%` representa cualquier cantidad de caracteres.
+Observe lo siguiente:
 
-<!-- ![Consulta DNI termina en C](src/fig/lab1-4/consultas-11.png) -->
+- `SUM()` suma todos los valores numéricos de la columna especificada.
+- Útil para calcular totales.
+
+### Consulta 9: Contar registros
+
+Cuenta cuántos estudiantes hay en la base de datos.
 
 ```sql
-SELECT *
-	FROM Students s
-	WHERE s.dni LIKE('%C')
-;
+SELECT COUNT(*) AS total_students
+FROM students;
 ```
 
-- Alumnos con un nombre de 6 letras. Observe cómo `_` representa un caracter cualquiera.
+Observe lo siguiente:
 
-<!-- ![Consulta nombre 6 letras](src/fig/lab1-4/consultas-12.png) -->
+- `COUNT(*)` cuenta el número de filas.
+- `COUNT(columna)` contaría solo valores no nulos en esa columna.
+- Sin `WHERE`, cuenta todas las filas de la tabla.
+
+### Consulta 10: Contar con agrupación básica
+
+Cuenta cuántos grupos hay de cada tipo de actividad.
 
 ```sql
-SELECT *
-	FROM Students s
-	WHERE s.firstName LIKE('______') -- 6 guiones bajos	
-;
+SELECT activity, COUNT(*) AS total_groups
+FROM groups
+GROUP BY activity;
 ```
 
-- Alumnos nacidos antes de 1995.
+Observe lo siguiente:
 
-<!-- ![Consulta nacidos antes 1995](src/fig/lab1-4/consultas-13.png) -->
+- `GROUP BY` agrupa las filas por el valor de `activity`.
+- `COUNT(*)` cuenta filas en cada grupo.
+- El resultado tiene una fila por cada valor distinto de `activity`.
+- Las columnas en `SELECT` deben ser o agregadas o aparecer en `GROUP BY`.
+
+### Consulta 11: Valor máximo
+
+Encuentra la nota más alta registrada en la base de datos.
 
 ```sql
-SELECT *
-	FROM Students s
-	WHERE YEAR(s.birthdate) < 1995
-;
+SELECT MAX(g.grade_value) AS max_grade
+FROM grades g;
 ```
 
-- Alumnos nacidos entre enero y febrero.
+### Consulta 12: Valor mínimo
 
-<!-- ![Consulta nacidos enero-febrero](src/fig/lab1-4/consultas-14.png) -->
+Encuentra la nota más baja registrada.
 
 ```sql
-SELECT *
-	FROM Students s
-	WHERE (MONTH(s.birthdate) >= 1 AND MONTH(s.birthdate) <= 2)
-;
+SELECT MIN(g.grade_value) AS min_grade
+FROM grades g;
 ```
 
-Observe cómo en las dos últimas consultas es posible incluir otra consulta dentro de la condición de la primera, en lugar de usar valores establecidos a mano.
+## Condiciones múltiples
 
-## Ejercicios
+Las cláusulas `WHERE` pueden combinar múltiples condiciones con operadores lógicos (`AND`, `OR`) y operadores de rango (`BETWEEN`, `IN`).
 
-Puede practicar las consultas implementando las siguientes:
+### Consulta 13: OR lógico
 
-- Nombre de las asignaturas que son obligatorias.
-- Media de las notas del grupo con ID 19, usando el agregador `AVG`.
-- La misma consulta anterior, sin usar `AVG`.
-- Cantidad de nombres de grupo diferentes.
-- Notas entre 4 y 6, inclusive.
-- Notas con valor igual o superior a 9, pero que no son matrícula de honor. Cree una vista para las notas que son matrícula de honor.
+Busca notas que sean suspensos (< 5) o excelentes (> 9).
+
+```sql
+SELECT g.grade_id, g.grade_value, g.exam_call
+FROM grades g
+WHERE g.grade_value < 5 OR g.grade_value > 9;
+```
+
+Observe lo siguiente:
+
+- El operador `OR` devuelve filas que cumplan al menos una de las condiciones.
+- Se pueden combinar muchas condiciones con `AND` y `OR`.
+- Es recomendable usar paréntesis para mayor claridad cuando se mezclan ambos operadores.
+
+### Consulta 14: BETWEEN
+
+Busca notas entre 5 y 7 (aprobados y notables bajos).
+
+```sql
+SELECT g.grade_id, g.grade_value, g.exam_call
+FROM grades g
+WHERE g.grade_value BETWEEN 5 AND 7;
+```
+
+Observe lo siguiente:
+
+- `BETWEEN` incluye ambos extremos (5 y 7).
+- Equivalente a `grade_value >= 5 AND grade_value <= 7`.
+- Más legible para rangos numéricos o de fechas.
+
+### Consulta 15: IN
+
+Busca asignaturas que tengan exactamente 6 o 12 créditos.
+
+```sql
+SELECT s.subject_name, s.credits
+FROM subjects s
+WHERE s.credits IN (6, 12);
+```
+
+Observe lo siguiente:
+
+- `IN` comprueba si el valor está en una lista de valores.
+- Equivalente a `credits = 6 OR credits = 12`.
+- Más conciso cuando hay muchos valores posibles.
+
+### Consulta 16: Rango de edad
+
+Busca personas entre 20 y 30 años.
+
+```sql
+SELECT p.first_name, p.last_name, p.age
+FROM people p
+WHERE p.age BETWEEN 20 AND 30;
+```
+
+## DISTINCT: Eliminación de duplicados
+
+`DISTINCT` elimina filas duplicadas del resultado. Es útil cuando un `JOIN` o agrupación puede producir repeticiones.
+
+### Consulta 17: Nombres únicos de grupos
+
+Obtiene la lista de nombres de grupos sin repeticiones.
+
+```sql
+SELECT DISTINCT g.group_name 
+FROM groups g;
+```
+
+Observe lo siguiente:
+
+- Sin `DISTINCT`, si varios grupos tienen el mismo nombre (pero diferente año o actividad), aparecerían múltiples veces.
+- `DISTINCT` se aplica a toda la fila, no a columnas individuales.
+
+### Consulta 18: Tipos de asignatura
+
+Lista los diferentes tipos de asignatura existentes.
+
+```sql
+SELECT DISTINCT s.subject_type
+FROM subjects s;
+```
+
+### Consulta 19: Años académicos
+
+Lista los años académicos para los que hay grupos creados, ordenados descendentemente.
+
+```sql
+SELECT DISTINCT g.academic_year
+FROM groups g
+ORDER BY g.academic_year DESC;
+```
+
+Observe lo siguiente:
+
+- `ORDER BY` ordena los resultados.
+- `DESC` indica orden descendente (de mayor a menor).
+- `ASC` sería ascendente (por defecto si se omite).
+
+## Subconsultas
+
+Una subconsulta es una consulta dentro de otra consulta. Permite usar el resultado de una consulta como parte de la condición de otra.
+
+### Consulta 20: Agregado filtrado
+
+Encuentra la nota más alta del estudiante con ID 1.
+
+```sql
+SELECT MAX(g.grade_value) AS max_grade
+FROM grades g
+WHERE g.student_id = 1;
+```
+
+### Consulta 21: IN con subconsulta
+
+Encuentra qué estudiantes están matriculados en grupos del año 2024.
+
+```sql
+SELECT DISTINCT ge.student_id
+FROM group_enrollments ge
+WHERE ge.group_id IN (
+    SELECT g.group_id 
+    FROM groups g 
+    WHERE g.academic_year = 2024
+);
+```
+
+Observe lo siguiente:
+
+- La subconsulta (entre paréntesis) se ejecuta primero.
+- Devuelve una lista de IDs de grupos del 2024.
+- La consulta principal busca estudiantes en esos grupos.
+- El `DISTINCT` evita repetir estudiantes que estén en varios grupos.
+
+### Consulta 22: Comparación con agregado
+
+Encuentra asignaturas que tengan más créditos que el promedio.
+
+```sql
+SELECT s.subject_name, s.credits
+FROM subjects s
+WHERE s.credits > (SELECT AVG(credits) FROM subjects);
+```
+
+Observe lo siguiente:
+
+- La subconsulta calcula el promedio de créditos.
+- La consulta principal compara cada asignatura con ese promedio.
+- La subconsulta debe devolver un único valor para poder usarse con `>`.
+
+## Patrones con LIKE
+
+El operador `LIKE` permite buscar patrones de texto usando comodines:
+- `%` representa cualquier secuencia de caracteres (incluyendo ninguno).
+- `_` representa exactamente un carácter.
+
+### Consulta 23: Terminación de cadena
+
+Busca personas cuyo DNI termina en la letra A.
+
+```sql
+SELECT p.first_name, p.last_name, p.dni
+FROM people p
+WHERE p.dni LIKE '%A';
+```
+
+Observe lo siguiente:
+
+- `%A` significa "cualquier cosa seguida de A".
+- Es case-insensitive en MariaDB por defecto.
+
+### Consulta 24: Inicio de cadena
+
+Filtra asignaturas cuyo nombre empieza con la palabra "Fundamentos".
+
+```sql
+SELECT s.subject_name
+FROM subjects s
+WHERE s.subject_name LIKE 'Fundamentos%';
+```
+
+Observe lo siguiente:
+
+- `Fundamentos%` significa "Fundamentos seguido de cualquier cosa".
+
+### Consulta 25: Longitud exacta
+
+Busca personas cuyo nombre tiene exactamente 5 letras.
+
+```sql
+SELECT p.first_name, p.last_name
+FROM people p
+WHERE p.first_name LIKE '_____';
+```
+
+Observe lo siguiente:
+
+- Cada `_` representa exactamente un carácter.
+- `_____` (cinco guiones bajos) = exactamente 5 caracteres.
+
+## Filtrado por fechas y años
+
+Las consultas pueden filtrar valores numéricos que representan años o trabajar con fechas.
+
+### Consulta 26: Filtro por año
+
+Busca grupos del año académico 2024.
+
+```sql
+SELECT g.group_name, g.activity, g.academic_year
+FROM groups g
+WHERE g.academic_year = 2024;
+```
+
+### Consulta 27: Rango de años
+
+Busca grupos entre 2020 y 2023, ordenados por año.
+
+```sql
+SELECT g.group_name, g.activity, g.academic_year
+FROM groups g
+WHERE g.academic_year BETWEEN 2020 AND 2023
+ORDER BY g.academic_year;
+```
+
+## Vistas complejas
+
+Podemos crear vistas que combinan información de múltiples tablas para consultas frecuentes.
+
+### Vista v_grades_with_honors
+
+Filtra solo las notas con matrícula de honor.
+
+```sql
+CREATE OR REPLACE VIEW v_grades_with_honors AS
+SELECT g.grade_id, g.student_id, g.group_id, g.grade_value, g.exam_call
+FROM grades g
+WHERE g.with_honors = 1;
+```
+
+### Vista v_student_grades
+
+Información completa de notas de estudiantes.
+
+```sql
+CREATE OR REPLACE VIEW v_student_grades AS
+SELECT 
+    p.person_id,
+    p.first_name,
+    p.last_name,
+    p.dni,
+    g.grade_value,
+    g.exam_call,
+    g.with_honors,
+    gr.group_name,
+    gr.activity,
+    gr.academic_year,
+    s.subject_name,
+    s.acronym,
+    s.credits
+FROM people p
+JOIN students st ON p.person_id = st.student_id
+JOIN grades g ON st.student_id = g.student_id
+JOIN groups gr ON g.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id;
+```
+
+Observe lo siguiente:
+
+- Esta vista realiza múltiples `JOIN` en cascada.
+- Cada `JOIN` conecta dos tablas mediante su relación.
+- Una vez creada, podemos consultar `v_student_grades` como una tabla normal.
+- Simplifica enormemente consultas que necesiten esta información combinada.
+
+### Vista v_professor_loads
+
+Información de profesores con sus cargas docentes.
+
+```sql
+CREATE OR REPLACE VIEW v_professor_loads AS
+SELECT
+    p.person_id,
+    p.first_name,
+    p.last_name,
+    pr.category,
+    tl.credits AS teaching_credits,
+    gr.group_name,
+    gr.activity,
+    gr.academic_year,
+    s.subject_name,
+    s.acronym
+FROM people p
+JOIN professors pr ON p.person_id = pr.professor_id
+JOIN teaching_loads tl ON pr.professor_id = tl.professor_id
+JOIN groups gr ON tl.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id;
+```
+
+### Vista v_degree_students
+
+Estudiantes por grado con su información completa.
+
+```sql
+CREATE OR REPLACE VIEW v_degree_students AS
+SELECT DISTINCT
+    d.degree_id,
+    d.degree_name,
+    p.person_id,
+    p.first_name,
+    p.last_name,
+    st.access_method,
+    gr.academic_year
+FROM degrees d
+JOIN subjects s ON d.degree_id = s.degree_id
+JOIN groups gr ON s.subject_id = gr.subject_id
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+JOIN students st ON ge.student_id = st.student_id
+JOIN people p ON st.student_id = p.person_id;
+```
+
+### Consulta 28: Uso de vistas
+
+Cuenta cuántas matrículas de honor hay en total usando la vista creada.
+
+```sql
+SELECT COUNT(*) AS total_honors
+FROM v_grades_with_honors;
+```
+
+Observe lo siguiente:
+
+- Usar vistas simplifica las consultas.
+- No necesitamos recordar la condición `with_honors = 1`.
+- La vista se comporta como una tabla normal en las consultas.
+
+### Consulta 29: Agregación sobre vista
+
+Calcula la nota media de cada estudiante usando `v_student_grades`.
+
+```sql
+SELECT v.first_name, v.last_name, AVG(v.grade_value) AS average_grade
+FROM v_student_grades v
+GROUP BY v.person_id, v.first_name, v.last_name;
+```
+
+## ORDER BY, LIMIT y OFFSET: Control de resultados
+
+Estas cláusulas controlan el orden y paginación de los resultados.
+
+### Consulta 30: Ordenación ascendente
+
+Ordena todas las notas de menor a mayor valor.
+
+```sql
+SELECT g.grade_id, g.student_id, g.grade_value, g.exam_call
+FROM grades g
+ORDER BY g.grade_value ASC;
+```
+
+Observe lo siguiente:
+
+- `ORDER BY` ordena los resultados según una o más columnas.
+- `ASC` (ascending) es el orden por defecto.
+- Se escribe explícitamente por claridad.
+
+### Consulta 31: Ordenación descendente
+
+Ordena las notas de mayor a menor.
+
+```sql
+SELECT g.grade_id, g.student_id, g.grade_value, g.exam_call
+FROM grades g
+ORDER BY g.grade_value DESC;
+```
+
+### Consulta 32: Limitación de resultados
+
+Muestra solo las 5 notas más altas.
+
+```sql
+SELECT g.grade_id, g.student_id, g.grade_value, g.exam_call
+FROM grades g
+ORDER BY g.grade_value DESC
+LIMIT 5;
+```
+
+Observe lo siguiente:
+
+- `LIMIT` restringe el número de filas devueltas.
+- Muy útil para "top N" consultas.
+- Siempre se usa con `ORDER BY` para resultados consistentes.
+
+### Consulta 33: Ordenación múltiple
+
+Lista notas aprobadas ordenadas por apellido y nombre del estudiante.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    g.grade_value,
+    g.exam_call
+FROM grades g
+JOIN v_students st ON g.student_id = st.student_id
+WHERE g.grade_value >= 5
+ORDER BY st.last_name ASC, st.first_name ASC;
+```
+
+Observe lo siguiente:
+
+- Se puede ordenar por múltiples columnas separadas por comas.
+- Primero ordena por apellido; si hay empate, entonces por nombre.
+
+### Consulta 34: Paginación básica
+
+Implementa paginación mostrando las notas 6-10 (segunda página de 5 elementos).
+
+```sql
+SELECT g.grade_id, g.student_id, g.grade_value
+FROM grades g
+ORDER BY g.grade_value DESC
+LIMIT 5 OFFSET 5;
+```
+
+Observe lo siguiente:
+
+- `OFFSET 5` salta las primeras 5 filas.
+- `LIMIT 5` devuelve las siguientes 5 filas.
+- Para página N de tamaño P: `LIMIT P OFFSET (N-1)*P`.
+
+### Consulta 35: Tercera página
+
+Muestra las notas 11-15 (tercera página).
+
+```sql
+SELECT g.grade_id, g.student_id, g.grade_value
+FROM grades g
+ORDER BY g.grade_value DESC
+LIMIT 5 OFFSET 10;
+```
+
+### Consulta 36: Ordenación con criterios mixtos
+
+Ordena grupos por año (descendente) y luego por nombre (ascendente).
+
+```sql
+SELECT g.group_name, g.activity, g.academic_year
+FROM groups g
+ORDER BY g.academic_year DESC, g.group_name ASC;
+```
+
+## JOIN: Consultas avanzadas con múltiples tablas
+
+Los `JOIN` permiten combinar filas de diferentes tablas basándose en relaciones entre ellas.
+
+### Consulta 37: JOIN con tabla intermedia
+
+Lista estudiantes y los grupos en los que están matriculados.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    gr.group_name,
+    gr.activity,
+    gr.academic_year
+FROM v_students st
+JOIN group_enrollments ge ON st.student_id = ge.student_id
+JOIN groups gr ON ge.group_id = gr.group_id;
+```
+
+Observe lo siguiente:
+
+- Esta consulta realiza dos `JOIN` consecutivos.
+- Primero conecta estudiantes con la tabla intermedia de matrículas.
+- Luego conecta matrículas con grupos.
+- Esto es típico en relaciones N:M.
+
+### Consulta 38: JOIN uno a muchos
+
+Muestra asignaturas junto con el nombre de su grado.
+
+```sql
+SELECT 
+    d.degree_name,
+    s.subject_name,
+    s.acronym,
+    s.credits,
+    s.course,
+    s.subject_type
+FROM degrees d
+JOIN subjects s ON d.degree_id = s.degree_id
+ORDER BY d.degree_name, s.course;
+```
+
+### Consulta 39: JOIN múltiple
+
+Muestra notas con nombres de estudiante y asignatura.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    s.subject_name,
+    s.acronym,
+    g.grade_value,
+    g.exam_call,
+    gr.academic_year
+FROM grades g
+JOIN v_students st ON g.student_id = st.student_id
+JOIN groups gr ON g.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id;
+```
+
+### Consulta 40: JOIN con agregación
+
+Lista profesores y los grupos que enseñan.
+
+```sql
+SELECT 
+    pr.first_name,
+    pr.last_name,
+    pr.category,
+    s.subject_name,
+    gr.group_name,
+    gr.activity,
+    tl.credits AS teaching_credits
+FROM v_professors pr
+JOIN teaching_loads tl ON pr.professor_id = tl.professor_id
+JOIN groups gr ON tl.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id;
+```
+
+### Consulta 41: DISTINCT con JOIN
+
+Muestra qué estudiantes están matriculados en qué asignaturas.
+
+```sql
+SELECT DISTINCT
+    st.first_name,
+    st.last_name,
+    s.subject_name,
+    s.acronym,
+    gr.academic_year
+FROM v_students st
+JOIN group_enrollments ge ON st.student_id = ge.student_id
+JOIN groups gr ON ge.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id
+ORDER BY st.last_name, s.subject_name;
+```
+
+Observe lo siguiente:
+
+- `DISTINCT` elimina duplicados.
+- Un estudiante podría estar en múltiples grupos de la misma asignatura.
+- Sin `DISTINCT`, aparecería una fila por cada grupo.
+
+### Consulta 42: LEFT JOIN
+
+Muestra todos los estudiantes, incluso si no tienen notas registradas.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    g.grade_value,
+    g.exam_call
+FROM v_students st
+LEFT JOIN grades g ON st.student_id = g.student_id;
+```
+
+Observe lo siguiente:
+
+- `LEFT JOIN` incluye todas las filas de la tabla izquierda (`v_students`).
+- Aunque no haya coincidencias en la tabla derecha (`grades`).
+- Las columnas de `grades` serán `NULL` para estudiantes sin notas.
+- `INNER JOIN` (o simplemente `JOIN`) solo incluye filas con coincidencia en ambas tablas.
+
+## GROUP BY: Agrupación y agregación
+
+`GROUP BY` agrupa filas con valores iguales en columnas especificadas, permitiendo calcular agregados por grupo.
+
+### Consulta 43: Agregación por grupo
+
+Calcula la nota media y total de notas por estudiante.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    AVG(g.grade_value) AS average_grade,
+    COUNT(*) AS total_grades
+FROM v_students st
+JOIN grades g ON st.student_id = g.student_id
+GROUP BY st.student_id, st.first_name, st.last_name;
+```
+
+Observe lo siguiente:
+
+- Todas las columnas no agregadas deben estar en `GROUP BY`.
+- La consulta devuelve una fila por cada combinación única de valores en `GROUP BY`.
+- Las funciones agregadas calculan valores para cada grupo.
+
+### Consulta 44: Conteo por categoría
+
+Cuenta cuántos estudiantes hay por cada método de acceso.
+
+```sql
+SELECT 
+    st.access_method,
+    COUNT(*) AS total_students
+FROM students st
+GROUP BY st.access_method;
+```
+
+### Consulta 45: Agregación con JOIN
+
+Cuenta cuántas asignaturas tiene cada grado.
+
+```sql
+SELECT 
+    d.degree_name,
+    COUNT(*) AS total_subjects
+FROM degrees d
+JOIN subjects s ON d.degree_id = s.degree_id
+GROUP BY d.degree_id, d.degree_name;
+```
+
+### Consulta 46: Conteo por entidad
+
+Cuenta cuántos grupos tiene cada asignatura.
+
+```sql
+SELECT 
+    s.subject_name,
+    s.acronym,
+    COUNT(*) AS total_groups
+FROM subjects s
+JOIN groups gr ON s.subject_id = gr.subject_id
+GROUP BY s.subject_id, s.subject_name, s.acronym;
+```
+
+### Consulta 47: Promedio por categoría
+
+Calcula la nota media en cada convocatoria de examen.
+
+```sql
+SELECT 
+    g.exam_call,
+    AVG(g.grade_value) AS average_grade,
+    COUNT(*) AS total_grades
+FROM grades g
+GROUP BY g.exam_call;
+```
+
+### Consulta 48: Agrupación múltiple
+
+Desglosa la nota media por asignatura y convocatoria.
+
+```sql
+SELECT 
+    s.subject_name,
+    g.exam_call,
+    AVG(g.grade_value) AS average_grade,
+    COUNT(*) AS total_grades
+FROM grades g
+JOIN groups gr ON g.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id
+GROUP BY s.subject_id, s.subject_name, g.exam_call
+ORDER BY s.subject_name, g.exam_call;
+```
+
+Observe lo siguiente:
+
+- Agrupamos por dos dimensiones: asignatura y convocatoria.
+- Obtenemos estadísticas separadas para cada combinación.
+
+### Consulta 49: COUNT DISTINCT
+
+Cuenta cuántos estudiantes distintos hay en cada año académico.
+
+```sql
+SELECT 
+    gr.academic_year,
+    COUNT(DISTINCT ge.student_id) AS total_students
+FROM groups gr
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+GROUP BY gr.academic_year
+ORDER BY gr.academic_year DESC;
+```
+
+Observe lo siguiente:
+
+- `COUNT(DISTINCT ...)` cuenta valores únicos.
+- Evita contar dos veces un estudiante con múltiples grupos.
+- Sin `DISTINCT`, contaría matrículas, no estudiantes únicos.
+
+### Consulta 50: Suma por grupo
+
+Suma los créditos que imparte cada profesor.
+
+```sql
+SELECT 
+    pr.first_name,
+    pr.last_name,
+    pr.category,
+    SUM(tl.credits) AS total_credits
+FROM v_professors pr
+JOIN teaching_loads tl ON pr.professor_id = tl.professor_id
+GROUP BY pr.professor_id, pr.first_name, pr.last_name, pr.category;
+```
+
+## HAVING: Filtrado de grupos
+
+`HAVING` filtra grupos después de `GROUP BY`. A diferencia de `WHERE`, que filtra filas antes de agrupar, `HAVING` filtra grupos después de calcular agregados.
+
+### Consulta 51: Filtro por agregado
+
+Muestra solo estudiantes cuya nota media supera el 7.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    AVG(g.grade_value) AS average_grade
+FROM v_students st
+JOIN grades g ON st.student_id = g.student_id
+GROUP BY st.student_id, st.first_name, st.last_name
+HAVING AVG(g.grade_value) > 7;
+```
+
+Observe lo siguiente:
+
+- `HAVING` se evalúa después de calcular `AVG` para cada grupo.
+- Solo se devuelven grupos que cumplan la condición del `HAVING`.
+- No se puede usar `WHERE` para filtrar por agregados.
+
+### Consulta 52: Conteo con umbral
+
+Filtra asignaturas que tienen más de 5 grupos creados.
+
+```sql
+SELECT 
+    s.subject_name,
+    COUNT(*) AS total_groups
+FROM subjects s
+JOIN groups gr ON s.subject_id = gr.subject_id
+GROUP BY s.subject_id, s.subject_name
+HAVING COUNT(*) > 5;
+```
+
+### Consulta 53: Filtro de tamaño de grupo
+
+Identifica grupos con más de 10 estudiantes matriculados.
+
+```sql
+SELECT 
+    gr.group_name,
+    gr.activity,
+    COUNT(*) AS total_students
+FROM groups gr
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+GROUP BY gr.group_id, gr.group_name, gr.activity
+HAVING COUNT(*) > 10;
+```
+
+### Consulta 54: Promedio con filtro
+
+Filtra asignaturas cuya nota media es superior a 6.
+
+```sql
+SELECT 
+    s.subject_name,
+    AVG(g.grade_value) AS average_grade,
+    COUNT(*) AS total_grades
+FROM subjects s
+JOIN groups gr ON s.subject_id = gr.subject_id
+JOIN grades g ON gr.group_id = g.group_id
+GROUP BY s.subject_id, s.subject_name
+HAVING AVG(g.grade_value) > 6;
+```
+
+## Consultas complejas combinadas
+
+Estas consultas combinan múltiples conceptos vistos: `JOIN`, `GROUP BY`, `HAVING`, `ORDER BY`, `LIMIT`, subconsultas.
+
+### Consulta 55: Top N con filtros
+
+Encuentra las tres asignaturas con más grupos de teoría en el año 2024.
+
+```sql
+SELECT 
+    s.subject_name,
+    COUNT(*) AS total_theory_groups
+FROM subjects s
+JOIN groups gr ON s.subject_id = gr.subject_id
+WHERE gr.activity = 'Teoría' AND gr.academic_year = 2024
+GROUP BY s.subject_id, s.subject_name
+ORDER BY COUNT(*) DESC
+LIMIT 3;
+```
+
+Observe lo siguiente:
+
+- `WHERE` filtra antes de agrupar (solo grupos de teoría de 2024).
+- `GROUP BY` agrupa por asignatura.
+- `ORDER BY` ordena por el conteo.
+- `LIMIT` devuelve solo las 3 primeras.
+- Secuencia: FROM → WHERE → GROUP BY → ORDER BY → LIMIT.
+
+### Consulta 56: Condición especial con agregado
+
+Identifica estudiantes con más de 3 matrículas de honor.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    COUNT(*) AS total_honors
+FROM v_students st
+JOIN grades g ON st.student_id = g.student_id
+WHERE g.with_honors = 1
+GROUP BY st.student_id, st.first_name, st.last_name
+HAVING COUNT(*) > 3;
+```
+
+### Consulta 57: Ranking con múltiples JOIN
+
+Ordena grados por número de estudiantes matriculados en 2024.
+
+```sql
+SELECT 
+    d.degree_name,
+    COUNT(DISTINCT ge.student_id) AS total_students
+FROM degrees d
+JOIN subjects s ON d.degree_id = s.degree_id
+JOIN groups gr ON s.subject_id = gr.subject_id
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+WHERE gr.academic_year = 2024
+GROUP BY d.degree_id, d.degree_name
+ORDER BY COUNT(DISTINCT ge.student_id) DESC;
+```
+
+### Consulta 58: Máximo por grupo
+
+Muestra la nota más alta de cada estudiante, ordenada descendentemente.
+
+```sql
+SELECT 
+    st.first_name,
+    st.last_name,
+    MAX(g.grade_value) AS max_grade
+FROM v_students st
+JOIN grades g ON st.student_id = g.student_id
+GROUP BY st.student_id, st.first_name, st.last_name
+ORDER BY MAX(g.grade_value) DESC;
+```
+
+### Consulta 59: Análisis de carga docente
+
+Identifica profesores que imparten en más de 2 grupos.
+
+```sql
+SELECT 
+    pr.first_name,
+    pr.last_name,
+    COUNT(DISTINCT tl.group_id) AS total_groups
+FROM v_professors pr
+JOIN teaching_loads tl ON pr.professor_id = tl.professor_id
+GROUP BY pr.professor_id, pr.first_name, pr.last_name
+HAVING COUNT(DISTINCT tl.group_id) > 2;
+```
+
+### Consulta 60: Subconsulta con GROUP BY
+
+Muestra asignaturas que pertenecen a grados con más de 10 asignaturas.
+
+```sql
+SELECT DISTINCT s.subject_name, d.degree_name
+FROM subjects s
+JOIN degrees d ON s.degree_id = d.degree_id
+WHERE d.degree_id IN (
+    SELECT degree_id
+    FROM subjects
+    GROUP BY degree_id
+    HAVING COUNT(*) > 10
+);
+```
+
+Observe lo siguiente:
+
+- La subconsulta encuentra grados grandes usando `GROUP BY` y `HAVING`.
+- La consulta principal filtra asignaturas de esos grados.
+- Combina subconsultas con agregación.
+
+## Push final
+
+Antes de finalizar el laboratorio, verifica que tu archivo `queries.sql` esté completo y funcionando:
+
+1. **Ejecuta todas las consultas** en HeidiSQL para verificar que no hay errores de sintaxis
+2. **Revisa las vistas creadas**: Asegúrate de que todas las vistas se han creado correctamente
+3. **Prueba las consultas complejas**: Verifica que las consultas con múltiples JOIN devuelven resultados coherentes
+
+Una vez verificado todo:
+
+```bash
+git add -A
+git commit -m "Completado L3: Consultas SQL con vistas y agregaciones"
+git push
+```
+
+## Ejercicios propuestos
+
+Para practicar, intenta crear las siguientes consultas adicionales:
+
+1. Estudiantes que nunca han suspendido (todas sus notas ≥ 5).
+2. Profesores que solo imparten teoría (no laboratorios).
+3. Asignaturas sin grupos creados (usar LEFT JOIN).
+4. Nota media de cada grado en el año 2024.
+5. Estudiantes con la mejor nota de cada asignatura.
+6. Grupos ordenados por número de estudiantes matriculados.
+7. Profesores con carga docente superior a 15 créditos.
+8. Año académico con más matrículas de honor.
+9. Asignaturas con mayor dispersión de notas (usando STD o VARIANCE).
+10. Estudiantes matriculados en todas las asignaturas de primer curso.
 
 > [Versión PDF disponible](./index.pdf)
