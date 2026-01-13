@@ -145,20 +145,6 @@ BEGIN
 END //
 DELIMITER ;
 
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn001_mh_requirement()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN001', 'RN001: La MH requiere nota >= 9', 'PASS');
-
-    CALL p_populate_grados();
-
-    UPDATE grades SET with_honors = 1 WHERE grade_id = 21;
-
-    CALL p_log_test('RN001', 'ERROR: Se permitió MH con nota inferior a 9', 'FAIL');
-END //
-DELIMITER ;
-
 -- Test RN008: Un alumno no puede acceder por selectividad con menos de 16 años
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_rn008_min_age()

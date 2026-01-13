@@ -201,7 +201,8 @@ ALTER TABLE grades
 
 DELIMITER //
 
-CREATE OR REPLACE TRIGGER t_biu_students_rn10
+-- RN08: Un alumno no puede acceder por selectividad teniendo menos de 16 años
+CREATE OR REPLACE TRIGGER t_biu_students_rn08
 BEFORE INSERT OR UPDATE ON students
 FOR EACH ROW
 BEGIN
@@ -210,7 +211,7 @@ BEGIN
         SELECT age INTO v_age FROM people WHERE person_id = NEW.student_id;
         IF v_age < 16 THEN
             SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN10: No se puede acceder por Selectividad con menos de 16 años';
+                SET MESSAGE_TEXT = 'RN08: No se puede acceder por Selectividad con menos de 16 años';
         END IF;
     END IF;
 END//
