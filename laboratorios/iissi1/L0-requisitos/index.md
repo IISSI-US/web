@@ -54,10 +54,10 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 - **Quiero**: Para que una nota sea matrícula de honor es necesario que su valor sea igual o superior a 9
 - **Para**: Poder cumplir la normativa de la propia Universidad
 
-**RN002 - Nota por alumno**
+**RN002 - Notas solo en grupos de pertenencia**
 - **Como**: Director del Centro
-- **Quiero**: Un alumno no puede tener más de una nota para la misma asignatura, convocatoria y año académico
-- **Para**: Poder cumplir la normativa de la propia Universidad
+- **Quiero**: Un alumno solo puede tener notas en grupos a los que pertenece
+- **Para**: Garantizar la coherencia de los datos académicos
 
 **RN003 - Profesores por grupo**
 - **Como**: Director del Centro
@@ -128,6 +128,21 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 - **Como**: Director del Centro
 - **Quiero**: El curso de una asignatura está comprendido entre 1 y 6
 - **Para**: Corresponder con la duración máxima de los grados
+
+**RN017 - Unicidad de nota por convocatoria**
+- **Como**: Director del Centro
+- **Quiero**: Un alumno no puede tener más de una nota para la misma asignatura, convocatoria y año académico
+- **Para**: Poder cumplir la normativa de la propia Universidad
+
+## Requisitos no funcionales
+
+**RNF001 - Control de acceso**
+- **Como**: Responsable de seguridad
+- **Quiero**: El sistema debe implementar tres roles de usuario con diferentes niveles de acceso:
+  - **Administrador (admin)**: Control total sobre todas las tablas y operaciones
+  - **Profesor (teacher)**: Lectura completa en todas las tablas y escritura exclusivamente en notas/grades
+  - **Alumno (student)**: Solo acceso de lectura en todas las tablas
+- **Para**: Garantizar la seguridad y confidencialidad de los datos académicos
 
 ## Requisitos funcionales
 
@@ -233,13 +248,13 @@ Las siguientes pruebas verifican que el sistema rechaza correctamente operacione
 - ❌ **Alumno en dos grupos de teoría**: Intentar añadir un alumno que ya está en T1 a otro grupo de teoría de la misma asignatura
 - ❌ **Alumno en dos grupos de laboratorio**: Intentar añadir un alumno que ya está en L1 a un segundo grupo de laboratorio (máximo 1 de cada tipo)
 
-### Notas (RN001, RN002, RN005, RN011)
+### Notas (RN001, RN002, RN005, RN011, RN017)
 
-- ❌ **Nota duplicada por convocatoria**: Intentar insertar una segunda nota para el alumno 6 en Primera convocatoria (ya existe)
-- ❌ **Nota para alumno fuera del grupo**: Intentar registrar una nota del alumno 6 en un grupo al que no pertenece
-- ❌ **Modificar nota en más de 4 puntos**: Intentar cambiar la nota del alumno 6 de 9.8 a 0.5 (diferencia de 9.3 puntos)
-- ❌ **Matrícula de honor con nota < 9**: Intentar marcar como MH la nota 6.2 del alumno 16
-- ❌ **Nota fuera de rango**: Intentar insertar una nota con valor 11.0 o -1.0 (debe estar entre 0 y 10)
+- ❌ **Nota duplicada por convocatoria (RN017)**: Intentar insertar una segunda nota para el alumno 6 en Primera convocatoria (ya existe)
+- ❌ **Nota para alumno fuera del grupo (RN002)**: Intentar registrar una nota del alumno 6 en un grupo al que no pertenece
+- ❌ **Modificar nota en más de 4 puntos (RN005)**: Intentar cambiar la nota del alumno 6 de 9.8 a 0.5 (diferencia de 9.3 puntos)
+- ❌ **Matrícula de honor con nota < 9 (RN001)**: Intentar marcar como MH la nota 6.2 del alumno 16
+- ❌ **Nota fuera de rango (RN011)**: Intentar insertar una nota con valor 11.0 o -1.0 (debe estar entre 0 y 10)
 
 
 
