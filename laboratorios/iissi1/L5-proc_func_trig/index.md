@@ -2,7 +2,7 @@
 layout: single
 sidebar:
   nav: labs-iissi-1
-title: "Lab5 - Procedimientos, funciones y disparadores"
+title: "Lab5 - Funciones y Disparadores SQL"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -10,286 +10,648 @@ toc_sticky: true
 pdf_version: true
 ---
 
-<!-- # Procedimientos, funciones y disparadores -->
+<!-- # Funciones y Disparadores SQL -->
 
 ## Objetivo
 
-El objetivo de esta práctica es implementar disparadores y procedimientos en SQL. El alumno aprenderá a:
+El objetivo de esta práctica es implementar funciones y disparadores en SQL. El alumno aprenderá a:
 
-- Usar procedimientos y funciones para definir un conjunto de órdenes reutilizable.
-- Usar disparadores para implementar restricciones complejas y reglas de negocio.
+- Crear funciones SQL que retornan valores y pueden usarse en consultas.
+- Implementar disparadores (triggers) para validar reglas de negocio automáticamente.
+- Usar disparadores BEFORE INSERT/UPDATE para validar datos antes de modificarlos.
+- Combinar funciones auxiliares con disparadores para código reutilizable.
+
+Los procedimientos almacenados ya se han visto en el L4. En este laboratorio nos centraremos en funciones (que sí retornan valores) y disparadores (que se ejecutan automáticamente ante eventos).
 
 ## Preparación del entorno
 
-Conéctese a la base de datos "grados" y ejecute en ella los scripts de `pCreateDB` y `pPopulateDB` del Anexo B.
+Abre HeidiSQL y conéctate con el usuario `iissi_user` a la base de datos `GradesDB`. Asegúrate de haber ejecutado previamente los scripts `createDB.sql` y `populateDB.sql`.
 
-Cree un archivo `triggers.sql` para la escritura de los disparadores y un archivo `procedures.sql` para los procedimientos y funciones.
+Crea un archivo `functions.sql` para las funciones que implementarás en este laboratorio.
 
-## Procedimientos
+## Control de versiones
 
-Un procedimiento es un conjunto de sentencias SQL a las que se les asigna un nombre y que reciben unos parámetros, de manera análoga a las funciones de otros lenguajes. La principal diferencia entre un procedimiento y una función en SQL es que los primeros no devuelven ningún valor, mientras que las segundas tienen un valor de retorno.
+Continuaremos trabajando con el repositorio `GradesDB` creado en L1.
 
-Generalmente, se emplean para definir un conjunto de instrucciones reutilizable que se espera emplear a menudo. Por ejemplo, para implementar el requisito funcional RF-002, por el cual se pide borrar las notas de un alumno con un DNI dado:
+**Al inicio del laboratorio**, añade el archivo y haz commit:
 
-<!-- ![procedures-1](/assets/images/iissi1/laboratorios/fig/lab1-7/procedures-1.PNG) -->
+```bash
+git add functions.sql
+git commit -m "Añadido archivo functions.sql para L5"
+```
+
+**Al finalizar el laboratorio**, haz push al repositorio remoto:
+
+```bash
+git add functions.sql
+git commit -m "Completado L5: Funciones y disparadores SQL"
+git push origin main
+```
+
+## Funciones SQL
+
+Las funciones son similares a los procedimientos pero tienen una diferencia fundamental: **las funciones devuelven un valor** mediante `RETURN` y pueden usarse directamente en consultas SELECT, WHERE, ORDER BY, etc.
+
+### Características de las funciones
+
+- Deben declarar el tipo de dato que retornan mediante `RETURNS`.
+- Usan `RETURN` para devolver el resultado.
+- Pueden usarse en cualquier lugar donde se usaría una expresión o valor.
+- Requieren especificar características como `DETERMINISTIC` o `READS SQL DATA`.
+- No pueden modificar datos (no pueden usar INSERT, UPDATE, DELETE).
+
+### Sintaxis básica
 
 ```sql
--- RF-002: Borrar las notas de un alumno con un DNI dado
 DELIMITER //
-CREATE OR REPLACE PROCEDURE procDeleteGrades(studentDni CHAR(9))
+CREATE OR REPLACE FUNCTION nombre_funcion(
+    parametro1 TIPO,
+    parametro2 TIPO
+) RETURNS TIPO_RETORNO
+DETERMINISTIC
+READS SQL DATA
 BEGIN
-	DECLARE id INT;
-	SET id = (SELECT studentId s FROM Students s WHERE s.dni=studentDni);
-	DELETE FROM Grades WHERE studentId=id;
+    DECLARE v_resultado TIPO_RETORNO;
+    
+    -- Lógica de la función
+    -- ...
+    
+    RETURN v_resultado;
 END //
 DELIMITER ;
 ```
 
-Observe lo siguiente:
+**Características importantes:**
 
-- En las instrucciones de código que forman parte del procedimiento (entre `BEGIN` y `END`), los puntos y coma pueden ser problemáticos, ya que el intérprete puede confundirlos con el fin del procedimiento. Para evitar esto, durante su definición **cambiamos el símbolo usado para delimitar instrucciones** a `//` mediante la sentencia `DELIMITER`. Al terminar de definir el procedimiento, reestablecemos `;` como delimitador.
-- La primera instrucción, `CREATE OR REPLACE PROCEDURE`, **declara el procedimiento que se va a definir** y lo reemplaza si ya existe uno con ese nombre.
-- Por consistencia, y para distinguirlos visualmente más facilmente de las funciones, todos los nombres de procedimientos que definamos **empezarán por `proc`**.
-- Se indican los parámetros de entrada **entre paréntesis, incluyendo el tipo de los mismos**. Si hay más de un parámetro, éstos son separados por comas.
-- Dentro de un procedimiento **se pueden declarar variables** mediante `DECLARE` incluyendo su tipo, y se les puede asignar un valor mediante `SET`. El valor a asignar puede ser el resultado de una consulta SQL.
-- En este procedimiento, buscamos la ID del estudiante que tiene el DNI proporcionado, la almacenamos en una variable y eliminamos todas las notas del estudiante cuya ID hemos almacenado.
+- `DETERMINISTIC`: La función siempre devuelve el mismo resultado para los mismos parámetros.
+- `READS SQL DATA`: Indica que la función lee datos pero no los modifica.
+- Se debe usar `DELIMITER` igual que con los procedimientos.
 
-Los procedimientos almacenados pueden ser llamados mediante `CALL`, por ejemplo:
+### Ejemplo 1: Función para calcular nota media de un estudiante
 
-<!-- ![call-1](/assets/images/iissi1/laboratorios/fig/lab1-7/call-1.PNG) -->
-
-```sql
-CALL procDeleteGrades('12345678A');
-```
-
-A continuación, crearemos un procedimiento que borre todos los datos de la base de datos:
-
-<!-- ![procedures-2](/assets/images/iissi1/laboratorios/fig/lab1-7/procedures-2.PNG) -->
+Esta función calcula el promedio de todas las notas de un estudiante.
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE PROCEDURE procDeleteData()
+CREATE OR REPLACE FUNCTION f_student_average(
+    p_student_id INT
+) RETURNS DECIMAL(4,2)
+DETERMINISTIC
+READS SQL DATA
 BEGIN
-	DELETE FROM Grades;
-	DELETE FROM GroupsStudents;
-	DELETE FROM Students;
-	DELETE FROM Groups;
-	DELETE FROM Subjects;
-	DELETE FROM Degrees;
+    DECLARE v_average DECIMAL(4,2) DEFAULT 0;
+    
+    SELECT AVG(grade_value) INTO v_average
+    FROM grades
+    WHERE student_id = p_student_id;
+    
+    RETURN v_average;
 END //
 DELIMITER ;
 ```
 
-A modo de ejercicio, implemente el requisito funcional RF-001 para añadir la nota de un alumno en un grupo.
+**Para ejecutarla:**
 
-## Funciones
+```sql
+-- Usar en una consulta SELECT
+SELECT f_student_average(6) AS 'Promedio del estudiante 6';
 
-Las funciones son muy parecidas a los procedimientos, pero se diferencian de ellos en que las funciones sí pueden devolver valores, por lo que deben declarar su tipo de retorno. Las funciones SQL pueden usarse para obtener datos que requieran varias instrucciones SQL y se quieran consultar a menudo.
+-- Usarla junto con otros datos
+SELECT p.person_id, p.first_name, p.last_name,
+       f_student_average(s.student_id) AS promedio
+FROM people p
+JOIN students s ON s.student_id = p.person_id
+ORDER BY promedio DESC;
 
-Mediante una función SQL podemos implementar el requisito funcional RF-007 para obtener la nota media de un alumno:
+-- Usar en una cláusula WHERE
+SELECT p.first_name, p.last_name
+FROM people p
+JOIN students s ON s.student_id = p.person_id
+WHERE f_student_average(s.student_id) >= 7.0;
+```
 
-<!-- ![functions-1](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-1.PNG) -->
+**Observe lo siguiente:**
+
+- La función retorna `DECIMAL(4,2)` especificado en `RETURNS`.
+- Se inicializa `v_average` con `DEFAULT 0` para devolver 0 si el estudiante no tiene notas (en lugar de NULL).
+- La función se invoca directamente en consultas, sin necesidad de `CALL`.
+- Puede usarse en SELECT, WHERE, ORDER BY, etc.
+- Es más concisa que un procedimiento con parámetro OUT para este caso.
+
+### Ejemplo 2: Función para verificar si un estudiante está matriculado en una asignatura
+
+Esta es una función booleana (devuelve TRUE/FALSE) útil para validaciones.
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE FUNCTION avgGrade(studentId INT) RETURNS DOUBLE
+CREATE OR REPLACE FUNCTION f_is_student_enrolled(
+    p_student_id INT,
+    p_subject_id INT
+) RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
 BEGIN
-	DECLARE avgStudentGrade DOUBLE;
-	SET avgStudentGrade = (SELECT AVG(value) FROM Grades
-		WHERE Grades.studentId = studentId);
-	RETURN avgStudentGrade;
+    DECLARE v_exists INT;
+    
+    SELECT COUNT(*) INTO v_exists
+    FROM subject_enrollments
+    WHERE student_id = p_student_id
+      AND subject_id = p_subject_id;
+    
+    RETURN v_exists > 0;
 END //
 DELIMITER ;
 ```
 
-Observe lo siguiente:
-
-- El comienzo de la declaración es similar, sustituyendo `PROCEDURE` por `FUNCTION` e indicando los parámetros de entrada si los hay, pero se debe indicar el tipo que retorna la función mediante `RETURNS`.
-- Al igual que en los procedimientos, se pueden declarar y asignar valores a variables mediante `DECLARE` y `SET`.
-- Mediante la instrucción `RETURN` devolvemos el resultado. Puede devolverse una variable o el resultado de una consulta directamente.
-- Como en los procedimientos, se debe realizar el cambio de delimitador para que el intérprete no confunda los `;` del interior de la función con el final de la misma.
-
-Al contrario que los procedimientos, las funciones se pueden usar en cualquier lugar en el que se podría usar una variable, como consultas, o el cuerpo de procedimientos/funciones/disparadores. Para consultar el valor de una función, en lugar de usar `CALL`, podemos hacer una consulta `SELECT`:
-
-<!-- ![functions-3](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-3.PNG) -->
+**Para ejecutarla:**
 
 ```sql
-SELECT avgGrade(2);
+-- Listar asignaturas con indicador de matrícula del estudiante 6 del grado 3
+SELECT s.subject_id, s.subject_name,
+       f_is_student_enrolled(6, s.subject_id) AS matriculado
+FROM subjects s
+WHERE s.degree_id = 3;
+
+-- Usar en un WHERE
+SELECT s.subject_name
+FROM subjects s
+WHERE f_is_student_enrolled(6, s.subject_id) = TRUE;
 ```
 
-![functions-4]({{ '/assets/images/iissi1/laboratorios/fig/lab1-7/functions-4.png' | relative_url }})
+**Observe lo siguiente:**
 
-También podemos consultarla como si fuera una columna más, por ejemplo, para obtener el nombre y los apellidos de un alumno junto con su nota media:
+- Devuelve un valor `BOOLEAN` (TRUE o FALSE).
+- La expresión `v_exists > 0` devuelve un booleano directamente.
+- Las funciones booleanas son muy útiles para validaciones y filtros.
+- Pueden usarse en cláusulas WHERE con comparaciones `= TRUE` o `= FALSE`.
 
-<!-- ![functions-2](/assets/images/iissi1/laboratorios/fig/lab1-7/functions-2.PNG) -->
+### Ejemplo 3: Función para verificar límite de grupos por asignatura
 
-```sql
-SELECT s.firstName, s.surname, avgGrade(s.studentId) FROM Students s;
-```
-
-A modo de ejercicio, implemente el resto de requisitos funcionales del dominio:
-- RF-003: Obtener un listado de alumnos por orden alfabético con nombre, apellidos, asignatura y grupo.
-- RF-004: Obtener un listado de los alumnos cuyo método de acceso sea mayor de 40 años (Mayor).
-- RF-005: Obtener las asignaturas (nombre, acrónimo, créditos y tipo) de un grado para un curso concreto ordenadas por el acrónimo.
-- RF-006: Obtener, por DNI, las notas finales de cada asignatura que ha cursado un alumno, es decir, las de mayor año y convocatoria.
-- RF-008: Obtener un listado de las asignaturas de un grado.
-
-## Disparadores
-
-Mediante los disparadores (triggers) podemos asociar la ejecución de código a la inserción, modificación, o borrado de filas en una tabla. Esto nos puede servir, por ejemplo, para comprobar restricciones complejas e implementar reglas de negocio. 
-
-Como ejemplo, implementamos la regla de negocio RN-001, según la cual, para obtener matrícula de honor la nota debe ser mayor o igual a 9:
-
-<!-- ![triggers-1](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-1.PNG) -->
+Esta función verifica si una asignatura ha alcanzado el número máximo de grupos permitidos para un tipo de actividad (1 para Teoría, 2 para Laboratorio) en un año académico específico.
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE TRIGGER RN001_triggerWithHonours
-BEFORE INSERT ON Grades
-FOR EACH ROW
+CREATE OR REPLACE FUNCTION f_count_subject_groups(
+    p_subject_id INT,
+    p_activity VARCHAR(15),
+    p_academic_year YEAR
+) RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
 BEGIN
-    IF (new.withHonours = 1 AND new.value < 9.0) THEN
-        SIGNAL SQLSTATE '45000' SET message_text = 
-        'You cannot insert a grade with honours whose value is less than 9';
+    DECLARE v_count INT;
+    DECLARE v_result BOOLEAN DEFAULT FALSE;
+    
+    -- Contar grupos del tipo especificado
+    SELECT COUNT(*) INTO v_count
+    FROM groups
+    WHERE subject_id = p_subject_id
+      AND activity = p_activity
+      AND academic_year = p_academic_year;
+    
+    -- Verificar si se alcanzó el límite
+    IF p_activity = 'Teoría' THEN
+        SET v_result = (v_count >= 1);  -- Máximo 1 grupo de teoría
+    ELSEIF p_activity = 'Laboratorio' THEN
+        SET v_result = (v_count >= 2);  -- Máximo 2 grupos de laboratorio
     END IF;
-END//
-DELIMITER ;
-```
-
-Observe lo siguiente:
-
-- Se debe cambiar el delimitador al igual que en los casos anteriores.
-- Mediante `BEFORE INSERT ON Grades` indicamos que el disparador debe ejecutarse **justo antes de insertar filas** en la tabla Grades. Podríamos sustituir `BEFORE` por `AFTER`, pero en este caso, para cuando se lanzara el disparador, la nota ya habría sido insertada.
-- En vez de `INSERT` podrían usarse `UPDATE` o `DELETE` para vincular disparadores a la actualización o borrado de filas, respectivamente.
-- Con un `INSERT` podríamos insertar varias filas a la vez. Algo similar ocurre con `UPDATE` y `DELETE`. Con `FOR EACH ROW` indicamos que el disparador debe ejecutarse **por cada fila afectada**.
-- Con `new` hacemos referencia a **la fila que está siendo insertada**, tanto si el disparador se ejecuta antes como después de insertarla.
-- Mediante `SIGNAL` podemos hacer que se produzcan errores, **cancelándose la inserción de la fila**. El número después de `SQLSTATE` corresponde al código de error. Existe [una gran cantidad de códigos de error](https://mariadb.com/docs/server/reference/error-codes/mariadb-error-code-reference), aunque el usual para los errores personalizados es 45000. Con `SET message_text` indicamos cuál es el mensaje del error. Es muy útil incluir un mensaje **tan descriptivo como sea posible**.
-- Sería conveniente que se hiciera la comprobación no sólo al insertar una nota, sino al actualizarla. Para que sea así, habría que repetir el trigger, cambiando el nombre y sustituyendo `INSERT` por `UPDATE`.
-
-Como buena práctica, podemos encapsular la funcionalidad del disparador en un procedimiento y crear un disparador para cada una de las operaciones que queramos que se cubran: INSERT y UPDATE:
-
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE pWithHonours
-(withHonours INT, value DECIMAL(4,2))
-BEGIN
-    IF (withHonours = 1 AND value < 9.0) THEN
-        SIGNAL SQLSTATE '45000' SET message_text = 
-        'A grade with honours can not have a value less than 9';
-    END IF;
+    
+    RETURN v_result;
 END //
 DELIMITER ;
+```
 
-DELIMITER //
-CREATE OR REPLACE TRIGGER RN001I_triggerWithHonours
-BEFORE INSERT ON Grades
-FOR EACH ROW
-BEGIN
-    CALL pWithHonours(new.withHonours, new.value);
-END//
-DELIMITER ;
+**Para ejecutarla:**
 
+```sql
+-- Verificar si la asignatura 1 ya tiene el máximo de grupos de teoría en 2025
+SELECT f_count_subject_groups(1, 'Teoría', 2025, NULL) AS 'Límite alcanzado';
+
+-- Listar asignaturas que han alcanzado el límite de grupos de teoría
+SELECT s.subject_id, s.subject_name, s.acronym
+FROM subjects s
+WHERE f_count_subject_groups(s.subject_id, 'Teoría', 2025, NULL) = TRUE;
+```
+
+**Observe lo siguiente:**
+
+- Usa lógica condicional `IF ... THEN ... ELSEIF ... END IF` dentro de la función.
+- Implementa lógica de negocio: diferentes límites para teoría (1) y laboratorio (2).
+- Retorna un booleano indicando si se alcanzó el límite máximo.
+- La condición `p_excluded_group IS NULL OR group_id <> p_excluded_group` permite usar la misma función tanto para INSERT (NULL) como UPDATE (grupo actual).
+
+## Funciones auxiliares para triggers
+
+Antes de implementar los triggers, necesitamos definir una función auxiliar adicional que encapsula lógica de validación reutilizable. Esta función complementa las ya vistas en los ejemplos anteriores.
+
+### Función: f_student_group_limit
+
+Verifica si un estudiante ha alcanzado el límite de grupos permitidos para una actividad en una asignatura (1 grupo de teoría o 1 grupo de laboratorio por asignatura).
+
+```sql
 DELIMITER //
-CREATE OR REPLACE TRIGGER RN001U_triggerWithHonours
-BEFORE UPDATE ON Grades
-FOR EACH ROW
+CREATE OR REPLACE FUNCTION f_student_group_limit(
+    p_student_id INT,
+    p_subject_id INT,
+    p_activity VARCHAR(15),
+    p_excluded_group INT
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+READS SQL DATA
 BEGIN
-    CALL pWithHonours(new.withHonours, new.value);
+    DECLARE v_count INT;
+    DECLARE v_result BOOLEAN DEFAULT FALSE;
+    
+    SELECT COUNT(*) INTO v_count
+    FROM group_enrollments ge
+    JOIN groups g ON g.group_id = ge.group_id
+    WHERE ge.student_id = p_student_id
+      AND g.subject_id = p_subject_id
+      AND g.activity = p_activity
+      AND (p_excluded_group IS NULL OR ge.group_id <> p_excluded_group);
+
+    IF p_activity = 'Teoría' THEN
+        SET v_result = (v_count >= 1);
+    ELSEIF p_activity = 'Laboratorio' THEN
+        SET v_result = (v_count >= 1);
+    END IF;
+    
+    RETURN v_result;
 END//
 DELIMITER ;
 ```
 
-El disparador anterior es simple, ya que solo contiene la comprobación de un valor y el lanzamiento de un error. Implementemos ahora un disparador que implementa la regla de negocio RN-004, por la que no se puede poner a un alumno una nota en un grupo al que no pertenece:
+**Observe lo siguiente:**
 
-<!-- ![triggers-2](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-2.PNG) -->
+- Cuenta los grupos en los que el estudiante está matriculado para una asignatura y actividad específicas.
+- El parámetro `p_excluded_group` permite excluir un grupo del conteo (útil en UPDATEs).
+- Retorna TRUE si el estudiante ya alcanzó el límite para esa actividad.
+- Se usa en los triggers RN04 para validar límites de grupos por estudiante.
+
+**Resumen de funciones auxiliares para triggers**:
+- `f_is_student_enrolled`: Verifica matrícula en asignatura (vista en Ejemplo 2)
+- `f_count_subject_groups`: Verifica límites de grupos por asignatura (vista en Ejemplo 3)
+- `f_student_group_limit`: Verifica límites de grupos por estudiante (recién definida)
+
+## Disparadores (Triggers)
+
+Los disparadores son bloques de código SQL que se ejecutan **automáticamente** cuando ocurre un evento específico en una tabla (INSERT, UPDATE o DELETE). Son fundamentales para implementar reglas de negocio y validaciones complejas.
+
+### Características de los disparadores
+
+- Se ejecutan automáticamente, sin necesidad de llamarlos explícitamente.
+- Pueden ejecutarse BEFORE (antes) o AFTER (después) del evento.
+- Tienen acceso a los valores NEW (nuevos) y OLD (antiguos) de las filas afectadas.
+- Pueden lanzar errores con `SIGNAL` para cancelar la operación.
+- Se definen por cada operación (INSERT, UPDATE, DELETE) y momento (BEFORE, AFTER).
+
+### Sintaxis básica
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE TRIGGER RN004_triggerGradeStudentGroup
-BEFORE INSERT ON Grades
+CREATE OR REPLACE TRIGGER nombre_trigger
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE | INSERT OR UPDATE} ON nombre_tabla
 FOR EACH ROW
 BEGIN
-    DECLARE isInGroup INT;
-    SET isInGroup = (SELECT COUNT(*) 
-        FROM GroupsStudents
-            WHERE studentId = new.studentId AND groupId = new.groupId);
-    IF(isInGroup < 1) THEN
-        SIGNAL SQLSTATE '45000' SET message_text = 
-    	    'A student cannot have grades for groups in which they are not registered';
+    -- Código del trigger
+    -- Puede usar NEW.columna (valor nuevo)
+    -- Puede usar OLD.columna (valor antiguo en UPDATE/DELETE)
+END //
+DELIMITER ;
+```
+
+**Nota importante**: MariaDB permite combinar operaciones con `OR`, por ejemplo `BEFORE INSERT OR UPDATE`, lo que evita tener que crear triggers separados para cada operación cuando la lógica es la misma.
+
+### Valores NEW y OLD
+
+| Operación | NEW | OLD |
+|-----------|-----|-----|
+| INSERT | Valores siendo insertados | No disponible |
+| UPDATE | Valores nuevos después del UPDATE | Valores antiguos antes del UPDATE |
+| DELETE | No disponible | Valores siendo borrados |
+
+### Cuándo usar BEFORE vs AFTER
+
+- **BEFORE**: Para validar datos y potencialmente cancelar la operación con SIGNAL.
+- **AFTER**: Para realizar acciones después de que la operación se completó exitosamente.
+
+En GradesDB, **todos los triggers son BEFORE** porque se usan para validar reglas de negocio.
+
+## Triggers en GradesDB
+
+A continuación se presentan los disparadores implementados en `createDB.sql` para validar las reglas de negocio de GradesDB.
+
+### Trigger RN08: Edad mínima para selectividad
+
+**Regla de negocio**: Un alumno que accede por selectividad debe tener al menos 16 años.
+
+```sql
+DELIMITER //
+CREATE OR REPLACE TRIGGER t_biu_students_rn08
+BEFORE INSERT OR UPDATE ON students
+FOR EACH ROW
+BEGIN
+    DECLARE v_age TINYINT;
+    IF NEW.access_method = 'Selectividad' THEN
+        SELECT age INTO v_age FROM people WHERE person_id = NEW.student_id;
+        IF v_age < 16 THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN08: No se puede acceder por Selectividad con menos de 16 años';
+        END IF;
     END IF;
 END//
 DELIMITER ;
 ```
 
-Pruebe el disparador anterior y observe lo siguiente:
+**Observe lo siguiente:**
 
-- Se pueden declarar y asignar variables mediante `DECLARE` y `SET` al igual que en los procedimientos y funciones.
-- En este caso, buscamos el número de asignaciones a grupos que coinciden con el estudiante y el grupo al que se está intentando asignar la nota. Si no hay ninguna, es porque el estudiante no está en ese grupo, y se lanza un error.
+- `BEFORE INSERT OR UPDATE`: Se ejecuta antes de insertar o actualizar en la tabla `students`.
+- `FOR EACH ROW`: Se ejecuta por cada fila afectada.
+- Se declara una variable local `v_age` para consultar la edad desde la tabla `people`.
+- `NEW.access_method`: Accede al valor del método de acceso que se está insertando/actualizando.
+- `SIGNAL SQLSTATE '45000'`: Lanza un error personalizado que cancela la operación.
+- El error incluye un mensaje descriptivo con el prefijo de la regla (RN08).
 
-Como ejercicio, modifique el disparador anterior para que use un procedimiento y defina disparadores tanto para la inserción como para la actualización de filas.
+### Trigger RN02: Nota solo en grupos donde está matriculado
 
-A continuación creamos un disparador que implementa la regla de negocio RN-005: cada vez que se actualice una nota, comprueba si ésta se ha subido en más de 4 puntos. En ese caso, se muestra un error con el nombre del estudiante y la diferencia de la nota nueva con respecto a la antigua:
-
-<!-- ![triggers-3](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-3.PNG) -->
+**Regla de negocio**: Un alumno solo puede tener notas en grupos a los que pertenece.
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE TRIGGER RN005_triggerGradesChangeDifference
-BEFORE UPDATE ON Grades
+CREATE OR REPLACE TRIGGER t_biu_grades_rn02
+BEFORE INSERT OR UPDATE ON grades
 FOR EACH ROW
 BEGIN
-    DECLARE difference DECIMAL(4,2);
-    DECLARE student ROW TYPE OF Students;
-    SET difference = new.value - old.value;
-    IF(difference > 4) THEN
-        SELECT * INTO student FROM Students WHERE studentId = new.studentId;
-        SET @error_message = CONCAT('You cannot add ', difference, 
-            ' points to a grade for the student',
-            student.firstName, ' ', student.surname);
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @error_message;
+    DECLARE v_count INT;
+    SELECT COUNT(*) INTO v_count
+    FROM group_enrollments
+    WHERE student_id = NEW.student_id
+      AND group_id = NEW.group_id;
+
+    IF v_count = 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN02: El alumno no pertenece al grupo indicado';
     END IF;
 END//
 DELIMITER ;
 ```
 
-Observe lo siguiente:
+**Observe lo siguiente:**
 
-- En este caso no se ha asignado el disparador a la inserción de filas, sino a la modificación de una fila, mediante `BEFORE UPDATE ON`.
-- Una de las variables declaradas tiene como tipo una fila de la tabla Students, indicado mediante `ROW TYPE OF`. Así, podemos acceder a cualquier atributo del estudiante que almacenemos en esa variable.
-- Se le asigna un valor mediante una consulta `SELECT` que sabemos que sólo devolverá una fila.
-- La asignación en el caso de variables que representan filas se debe hacer de una forma diferente: incluyendo `INTO student` dentro de la consulta.
-- Podemos hacer referencia a la fila tanto antes de la actualización (`new`) como después (`old`).
-- Para crear un mensaje personalizado que requiera concatenar varias partes, usamos `CONCAT`. Como `CONCAT` no se puede usar en la misma instrucción en la que lanzamos el error, creamos primero el mensaje en una variable y luego lo usamos.
-- La variable en la que hemos guardado el mensaje no se ha declarado antes, y tiene en su nombre el símbolo '@'. Si se usa una variable de esta forma, en vez de ser una variable local es una variable a nivel de usuario, que sigue existiendo y teniendo el mismo valor fuera del disparador. La hemos usado por comodidad a la hora de guardar y usar rápidamente el mensaje de error.
+- Verifica la existencia del estudiante en el grupo mediante un COUNT.
+- Si no existe matrícula en el grupo (`v_count = 0`), lanza un error.
+- Previene inconsistencias: no pueden existir notas de estudiantes que no están en el grupo.
 
-Podemos probar el disparador intentando subir una nota más de 4 puntos:
+### Trigger RN01: Una nota por asignatura, convocatoria y año
 
-<!-- ![triggers-error-1](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-error-1.PNG) -->
-
-A continuación, modificaremos el último disparador para que, en vez de lanzarse un error, la nota sólo sea aumentada en 4 puntos:
-
-<!-- ![triggers-4](/assets/images/iissi1/laboratorios/fig/lab1-7/triggers-4.PNG) -->
+**Regla de negocio**: Un alumno no puede tener más de una nota para la misma asignatura, convocatoria y año académico.
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE TRIGGER RN005_triggerGradesChangeDifference
-BEFORE UPDATE ON Grades
+CREATE OR REPLACE TRIGGER t_biu_grades_rn01
+BEFORE INSERT OR UPDATE ON grades
 FOR EACH ROW
 BEGIN
-    DECLARE difference DECIMAL(4,2);
-    SET difference = new.value - old.value;
-    IF(difference > 4) THEN
-        SET new.value = old.value + 4;
+    DECLARE v_subject_id INT;
+    DECLARE v_academic_year YEAR;
+    DECLARE v_exists INT;
+
+    SELECT subject_id, academic_year INTO v_subject_id, v_academic_year
+    FROM groups
+    WHERE group_id = NEW.group_id;
+
+    SELECT COUNT(*) INTO v_exists
+    FROM grades g
+    JOIN groups gr ON gr.group_id = g.group_id
+    WHERE g.student_id = NEW.student_id
+      AND g.exam_call = NEW.exam_call
+      AND gr.subject_id = v_subject_id
+      AND gr.academic_year = v_academic_year
+      AND (NEW.grade_id IS NULL OR g.grade_id <> NEW.grade_id);
+
+    IF v_exists > 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN01: Ya existe una nota para la misma asignatura, convocatoria y año académico';
     END IF;
 END//
 DELIMITER ;
 ```
 
-Pruebe el disparador anterior y observe cómo se puede reemplazar el valor de los atributos siendo actualizados con `new`.
+**Observe lo siguiente:**
 
-Finalmente, implemente las reglas de negocio:
-- RN-003, que evita que un alumno que accede por selectividad tenga menos de 16 años.
-- RN-006, que evita que un grupo de teoría tenga mas de 75 alumnos y uno de laboratorio más de 25.
-- RN-007, que evita que un alumno pertenezca a más de un grupo de teoría y a más de un grupo de laboratorio de la misma asignatura.
+- Primero obtiene la asignatura y año académico del grupo.
+- Busca si ya existe otra nota con las mismas características.
+- La condición `NEW.grade_id IS NULL OR g.grade_id <> NEW.grade_id` diferencia entre INSERT (NULL) y UPDATE (excluye la fila actual).
+- Requiere un JOIN para relacionar notas con grupos y obtener la asignatura.
+
+### Trigger RN05: Límite de cambio en notas
+
+**Regla de negocio**: Una nota no puede modificarse en más de 4 puntos.
+
+```sql
+DELIMITER //
+CREATE OR REPLACE TRIGGER t_bu_grades_rn05
+BEFORE UPDATE ON grades
+FOR EACH ROW
+BEGIN
+    IF ABS(NEW.grade_value - OLD.grade_value) > 4 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN05: No se puede modificar la nota en más de 4 puntos';
+    END IF;
+END//
+DELIMITER ;
+```
+
+**Observe lo siguiente:**
+
+- Este trigger es solo `BEFORE UPDATE` (no aplica a INSERT).
+- Usa `OLD.grade_value` para el valor antiguo y `NEW.grade_value` para el nuevo.
+- `ABS()` calcula el valor absoluto para manejar tanto subidas como bajadas.
+- Validación simple pero efectiva para prevenir cambios drásticos en notas.
+
+### Trigger RN03: Máximo de profesores por grupo
+
+**Regla de negocio**: Un grupo no puede tener más de 2 profesores asignados.
+
+```sql
+DELIMITER //
+CREATE OR REPLACE TRIGGER t_bi_teaching_loads_rn03
+BEFORE INSERT ON teaching_loads
+FOR EACH ROW
+BEGIN
+    DECLARE v_count INT;
+
+    SELECT COUNT(*) INTO v_count
+    FROM teaching_loads
+    WHERE group_id = NEW.group_id;
+
+    IF v_count >= 2 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN03: El grupo ya tiene 2 profesores asignados';
+    END IF;
+END//
+
+CREATE OR REPLACE TRIGGER t_bu_teaching_loads_rn03
+BEFORE UPDATE ON teaching_loads
+FOR EACH ROW
+BEGIN
+    DECLARE v_count INT;
+
+    SELECT COUNT(*) INTO v_count
+    FROM teaching_loads
+    WHERE group_id = NEW.group_id
+      AND NOT (professor_id = OLD.professor_id AND group_id = OLD.group_id);
+
+    IF v_count >= 2 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN03: El grupo ya tiene 2 profesores asignados';
+    END IF;
+END//
+DELIMITER ;
+```
+
+**Observe lo siguiente:**
+
+- Se definen **dos triggers separados**: uno para INSERT y otro para UPDATE, ya que la lógica de validación es ligeramente diferente.
+- Aunque MariaDB permite `INSERT OR UPDATE`, en este caso se separan porque el trigger de UPDATE necesita excluir la fila actual del conteo.
+- El trigger de UPDATE excluye la fila actual con `NOT (professor_id = OLD.professor_id AND group_id = OLD.group_id)`.
+- Cuenta profesores existentes antes de permitir la asignación.
+- Implementa el límite de 2 profesores por grupo.
+
+### Triggers RN04 y RN07: Límites de grupos por estudiante
+
+**Reglas de negocio**: 
+- RN04: Un alumno solo puede estar en 1 grupo de teoría y 1 de laboratorio por asignatura.
+- RN07: Un alumno debe estar matriculado en la asignatura antes de unirse a un grupo.
+
+Estos triggers **usan funciones auxiliares** para código más limpio:
+
+```sql
+DELIMITER //
+CREATE OR REPLACE TRIGGER t_bi_group_enrollments_rn04
+BEFORE INSERT ON group_enrollments
+FOR EACH ROW
+BEGIN
+    DECLARE v_subject_id INT;
+    DECLARE v_activity VARCHAR(15);
+    SELECT subject_id, activity INTO v_subject_id, v_activity
+    FROM groups
+    WHERE group_id = NEW.group_id;
+
+    IF NOT f_is_student_enrolled(NEW.student_id, v_subject_id) THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'RN07: El alumno debe estar matriculado en la asignatura';
+    END IF;
+
+    IF f_student_group_limit(NEW.student_id, v_subject_id, v_activity, NULL) THEN
+        IF v_activity = 'Teoría' THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN04: Solo puede haber un grupo de teoría por asignatura y alumno';
+        ELSE
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN04: Solo puede haber dos grupos de laboratorio por asignatura y alumno';
+        END IF;
+    END IF;
+END//
+DELIMITER ;
+```
+
+**Observe lo siguiente:**
+
+- El trigger **llama a funciones** (`f_is_student_enrolled` y `f_student_group_limit`) en lugar de repetir la lógica.
+- Esto hace el código más mantenible y reutilizable.
+- Valida primero la matrícula en la asignatura (RN07).
+- Luego valida el límite de grupos según el tipo de actividad (RN04).
+- Las funciones fueron definidas previamente en `createDB.sql`.
+
+### Triggers RN06: Límites de grupos por asignatura
+
+**Regla de negocio**: Solo puede haber 1 grupo de teoría y 2 de laboratorio por asignatura y año académico.
+
+```sql
+DELIMITER //
+CREATE OR REPLACE TRIGGER t_bi_groups_rn06
+BEFORE INSERT ON groups
+FOR EACH ROW
+BEGIN
+    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, NULL) THEN
+        IF NEW.activity = 'Teoría' THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
+        ELSE
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+        END IF;
+    END IF;
+END//
+
+CREATE OR REPLACE TRIGGER t_bu_groups_rn06
+BEFORE UPDATE ON groups
+FOR EACH ROW
+BEGIN
+    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, OLD.group_id) THEN
+        IF NEW.activity = 'Teoría' THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
+        ELSE
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+        END IF;
+    END IF;
+END//
+DELIMITER ;
+```
+
+**Observe lo siguiente:**
+
+- Usa la función `f_count_subject_groups` para verificar el límite.
+- El trigger de INSERT pasa `NULL` como grupo a excluir.
+- El trigger de UPDATE pasa `OLD.group_id` para excluir el grupo actual del conteo.
+- Diferentes mensajes de error según el tipo de actividad.
+- La función encapsula la lógica compleja de conteo y validación.
+
+## Buenas prácticas con Triggers y Funciones
+
+### Separación de responsabilidades
+
+- **Funciones**: Encapsulan lógica de validación reutilizable.
+- **Triggers**: Coordinan las validaciones y lanzan errores.
+
+### Mensajes de error descriptivos
+
+- Incluir el código de la regla de negocio (ej: RN01, RN02).
+- Explicar claramente qué violación se detectó.
+- Facilitar el debugging y comprensión de problemas.
+
+### Nomenclatura consistente
+
+- Triggers: `t_{bi|bu|bd}_{tabla}_{rn}` 
+  - `bi` = BEFORE INSERT
+  - `bu` = BEFORE UPDATE
+  - `bd` = BEFORE DELETE
+  - `biu` = BEFORE INSERT OR UPDATE
+- Funciones: `f_{descripcion}`
+- Variables: `v_{nombre}`
+- Parámetros: `p_{nombre}`
+
+### Uso de funciones auxiliares
+
+Cuando la misma lógica se necesita en múltiples lugares:
+1. Crear una función que encapsule la lógica.
+2. Llamar a la función desde los triggers.
+3. Mantener el código DRY (Don't Repeat Yourself).
+
+## Ejercicios propuestos
+
+Implementa las siguientes funciones y triggers en tu archivo `functions.sql`:
+
+1. **Función**: `f_count_student_grades(p_student_id INT, p_exam_call VARCHAR(20))` que cuente cuántas notas tiene un estudiante en una convocatoria específica.
+
+2. **Función**: `f_professor_total_credits(p_professor_id INT)` que calcule el total de créditos que imparte un profesor.
+
+3. **Trigger**: Validar que un grado no pueda tener más de 240 créditos en total sumando todas sus asignaturas.
+
+4. **Trigger**: Validar que un estudiante no pueda estar matriculado en más de 60 créditos por año académico.
 
 > [Versión PDF disponible](./index.pdf)
