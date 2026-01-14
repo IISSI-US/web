@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
@@ -53,8 +54,21 @@ def ensure_notice(path: Path):
     path.write_text(updated, encoding="utf-8")
 
 
-def build_pdf(md_path: Path):
+def needs_rebuild(md_path: Path) -> bool:
+    """Check if PDF needs to be rebuilt (doesn't exist or MD is newer)."""
     pdf_path = md_path.with_suffix(".pdf")
+    if not pdf_path.exists():
+        return True
+    return md_path.stat().st_mtime > pdf_path.stat().st_mtime
+
+
+def build_pdf(md_path: Path, force: bool = False):
+    pdf_path = md_path.with_suffix(".pdf")
+    
+    # Skip if PDF is up-to-date and not forcing
+    if not force and not needs_rebuild(md_path):
+        return False
+    
     md_rel = md_path.relative_to(ROOT)
     pdf_rel = pdf_path.relative_to(ROOT)
     subprocess.run(
@@ -62,6 +76,7 @@ def build_pdf(md_path: Path):
         check=True,
         cwd=ROOT,
     )
+    return True
 
 
 def discover_indexes():
@@ -75,14 +90,36 @@ def discover_indexes():
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Genera PDFs de los archivos index.md con pdf_version: true"
+    )
+    parser.add_argument(
+        "--incremental",
+        "-i",
+        action="store_true",
+        help="Solo regenerar PDFs si el MD es más reciente que el PDF",
+    )
+    args = parser.parse_args()
+    
     indexes = list(discover_indexes())
     if not indexes:
         print("No se han encontrado índices con pdf_version: true", file=sys.stderr)
         return
+    
+    total = 0
+    skipped = 0
+    
     for md in indexes:
         ensure_notice(md)
+        if args.incremental and not needs_rebuild(md):
+            skipped += 1
+            continue
         print(f"[PDF] Generando {md.relative_to(ROOT)}")
-        build_pdf(md)
+        if build_pdf(md, force=not args.incremental):
+            total += 1
+    
+    if args.incremental:
+        print(f"\n[PDF] Generados: {total}, Omitidos (actualizados): {skipped}")
 
 
 if __name__ == "__main__":

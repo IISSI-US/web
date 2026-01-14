@@ -1,6 +1,6 @@
 # Simple Makefile for image exports and related tooling
 
-.PHONY: help mc2mr-images req2sql-images grades-images images pdfs clean-images clean-mc2mr-images clean-req2sql-images clean-grades-images build serve serve-prod serve-dev build-prod
+.PHONY: help mc2mr-images req2sql-images grades-images images pdfs pdfs-incremental clean-images clean-mc2mr-images clean-req2sql-images clean-grades-images build serve serve-prod serve-dev build-prod
 
 .POSIX:
 
@@ -21,7 +21,8 @@ help:
 	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL"
 	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)"
 	@echo "  images            Renderiza todos los diagramas"
-	@echo "  pdfs              Genera los PDF de cada index.md con pdf_version: true"
+	@echo "  pdfs              Genera todos los PDF de index.md con pdf_version: true"
+	@echo "  pdfs-incremental  Regenera solo PDFs cuyo MD sea más reciente"
 	@echo ""
 	@echo "=== Limpieza ==="
 	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR"
@@ -50,6 +51,10 @@ images: mc2mr-images req2sql-images grades-images
 # Generate PDF versions from markdown indexes (requires pdf_version: true)
 pdfs:
 	python3 _scripts/build_pdfs.py
+
+# Generate PDFs only for modified markdown files (incremental build)
+pdfs-incremental:
+	python3 _scripts/build_pdfs.py --incremental
 
 # Remove generated PNGs from public assets
 clean-mc2mr-images:
