@@ -33,6 +33,10 @@ sass:
   sass_dir: _sass
   style: expanded
 
+# Include _code directory in the generated site
+include:
+  - _code
+
 # Exclude internal tooling from the generated site
 exclude:
   - _diagrams/
