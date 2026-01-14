@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /iissi1/labs/
-title: "Laboratorios"
+#title: "Laboratorios"
 sidebar: false
 labs:
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
