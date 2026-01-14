@@ -51,3 +51,7 @@ toc_sticky: true
 ## Exámenes de años anteriores
 
 - TODO
+
+> [Versión PDF disponible](./index.pdf)
+
+

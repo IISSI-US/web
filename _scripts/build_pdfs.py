@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET_DIRS = ("laboratorios", "mc2mr", "req2sql")
+TARGET_DIRS = ("laboratorios", "mc2mr", "req2sql", "evaluacion", "planificacion", "profesores")
 NOTICE = "> [Versión PDF disponible](./index.pdf)\n"
 
 
@@ -111,15 +111,21 @@ def main():
     
     for md in indexes:
         ensure_notice(md)
+        
+        # En modo incremental, verificar si es necesario regenerar
         if args.incremental and not needs_rebuild(md):
             skipped += 1
             continue
+            
         print(f"[PDF] Generando {md.relative_to(ROOT)}")
         if build_pdf(md, force=not args.incremental):
             total += 1
     
+    # Mostrar resumen
     if args.incremental:
         print(f"\n[PDF] Generados: {total}, Omitidos (actualizados): {skipped}")
+    else:
+        print(f"\n[PDF] Total generados: {total}")
 
 
 if __name__ == "__main__":
