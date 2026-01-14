@@ -29,7 +29,7 @@ Estudiantes(estudianteId, centroId, matrícula, nombre, edad, promedio)
     FK(centroId)/Centros
 ```
 
-## Extensión (Datos de ejemplo)
+## Extensión ([RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/320bad1e907e474d3a150db74530801e))
 
 ```
 Universidades = {  

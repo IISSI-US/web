@@ -26,7 +26,8 @@ Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
     FK(autorId)/Autores
 ```
 
-## Modelo Relacional. Extensión
+## Modelo Relacional. Extensión ([RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/161f9826954987889517236781ca140d))
+)
 ```
 Bibliotecas = {
     (b1, 'Central', 'Av. Siempre Viva 123', 1995-04-15),

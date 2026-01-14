@@ -86,8 +86,7 @@ Usuarios(usuarioId, nombre, género, edad, email)
 	PK(usuarioId)
 	AK(email)
 ```
-
-### Extensión
+Extensión [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/44df3153b7b1dfba92bdcb7c3777a8bb)
 
 ```
 Usuarios = {
