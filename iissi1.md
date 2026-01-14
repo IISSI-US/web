@@ -15,18 +15,18 @@ colecciones:
   
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
     alt: "MC a MR"
-    title: "Conceptual a Relacional"
+    title: "Ejercicios de transformación de modelos y AR"
     excerpt: |
-      Colección de ejercicios resueltos sobre la transformación de modelos conceptuales a relacionales.
+      Colección de ejercicios resueltos sobre la transformación de modelos conceptuales a relacionales y álgebra relacional.
     url: "/mc2mr/"
     btn_label: "Ver ejercicios"
     btn_class: "btn--primary"
   
   - image_path: /assets/images/iissi1/req2sql-icon.svg
     alt: "Requisitos a SQL"
-    title: "Requisitos a SQL"
+    title: "Ejercicios de ciclo completo"
     excerpt: |
-      Ejercicios del ciclo completo que abarcan desde los requisitos hasta la base de datos en MariaDB.
+      Estos ejercicios abarcan desde los requisitos hasta la base de datos en MariaDB.
     url: "/req2sql/"
     btn_label: "Ver ejercicios"
     btn_class: "btn--primary"

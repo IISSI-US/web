@@ -5,9 +5,16 @@ permalink: /laboratorios/iissi1/
 sidebar: false
 labs:
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
+    alt: "Anexo A"
+    title: "Anexo A - Entorno"
+    excerpt: "Configuración del entorno de desarrollo"
+    url: "/laboratorios/iissi1/AN-A-entorno/"
+    btn_label: "Ver anexo"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Lab0"
-    title: "Lab0 - Catálogo de requisitos"
-    excerpt: "Requisitos, diagramas de clases y  pruebas de aceptación"
+    title: "Lab0 - Documento de requisitos iniciales"
+    excerpt: "Requisitos, diagramas de clases y pruebas de aceptación"
     url: "/laboratorios/iissi1/L0-requisitos/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
@@ -60,16 +67,9 @@ labs:
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    alt: "AN-A"
-    title: "AN-A - Entorno"
-    excerpt: "Configuración del entorno de desarrollo"
-    url: "/laboratorios/iissi1/AN-A-entorno/"
-    btn_label: "Ver anexo"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    alt: "AN-B"
-    title: "AN-B - Scripts"
-    excerpt: "Scripts y utilidades para los laboratorios"
+    alt: "Anexo B"
+    title: "Anexo B - Scripts"
+    excerpt: "Scripts SQL de la base de datos"
     url: "/laboratorios/iissi1/AN-B-scripts/"
     btn_label: "Ver anexo"
     btn_class: "btn--primary"
