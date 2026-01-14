@@ -1,42 +1,70 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
-  <!-- Fondo circular -->
-  <circle cx="100" cy="100" r="95" fill="#4a9eff" opacity="0.95"/>
+  <!-- Gradiente de fondo Backend a Frontend -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4a9eff;stop-opacity:0.15" />
+      <stop offset="50%" style="stop-color:#5aa8ff;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.15" />
+    </linearGradient>
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4a9eff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
   
-  <!-- Backend (izquierda): Base de datos -->
-  <g transform="translate(40, 65)">
-    <!-- Cilindro de base de datos -->
-    <ellipse cx="25" cy="12" rx="24" ry="8" fill="#ffffff" opacity="0.9"/>
-    <rect x="1" y="12" width="48" height="35" fill="#ffffff" opacity="0.9"/>
-    <ellipse cx="25" cy="47" rx="24" ry="8" fill="#ffffff" opacity="0.9"/>
-    <!-- Líneas de separación -->
-    <ellipse cx="25" cy="23" rx="24" ry="8" fill="none" stroke="#4a9eff" stroke-width="2"/>
-    <ellipse cx="25" cy="35" rx="24" ry="8" fill="none" stroke="#4a9eff" stroke-width="2"/>
-  </g>
+  <!-- Fondo circular con gradiente -->
+  <circle cx="100" cy="100" r="95" fill="url(#bgGradient)"/>
   
-  <!-- Separador central -->
-  <line x1="100" y1="55" x2="100" y2="145" stroke="#ffffff" stroke-width="3" opacity="0.8"/>
-  
-  <!-- Frontend (derecha): Browser con React -->
-  <g transform="translate(105, 65)">
-    <!-- Ventana del navegador -->
-    <rect x="0" y="0" width="55" height="42" rx="4" fill="#ffffff" opacity="0.9" stroke="#4a9eff" stroke-width="2"/>
-    <!-- Barra superior del navegador -->
-    <rect x="0" y="0" width="55" height="8" rx="4" fill="#4a9eff" opacity="0.6"/>
-    <circle cx="5" cy="4" r="1.5" fill="#ffffff"/>
-    <circle cx="10" cy="4" r="1.5" fill="#ffffff"/>
-    <circle cx="15" cy="4" r="1.5" fill="#ffffff"/>
+  <!-- Stack completo: Backend + Frontend integrado -->
+  <g transform="translate(100, 75)">
     
-    <!-- Logo React simplificado -->
-    <g transform="translate(27.5, 25)">
-      <!-- Átomo central -->
-      <circle cx="0" cy="0" r="3" fill="#61dafb"/>
-      <!-- Órbitas elípticas -->
-      <ellipse cx="0" cy="0" rx="16" ry="6.5" fill="none" stroke="#61dafb" stroke-width="1.5"/>
-      <ellipse cx="0" cy="0" rx="16" ry="6.5" fill="none" stroke="#61dafb" stroke-width="1.5" transform="rotate(60)"/>
-      <ellipse cx="0" cy="0" rx="16" ry="6.5" fill="none" stroke="#61dafb" stroke-width="1.5" transform="rotate(-60)"/>
+    <!-- Capa inferior: Base de datos (Backend) -->
+    <g transform="translate(0, 25)">
+      <ellipse cx="0" cy="0" rx="45" ry="12" fill="#4a9eff" opacity="0.3"/>
+      <ellipse cx="0" cy="-10" rx="45" ry="12" fill="none" stroke="#4a9eff" stroke-width="2.5" opacity="0.7"/>
+      <ellipse cx="0" cy="-20" rx="45" ry="12" fill="none" stroke="#4a9eff" stroke-width="2.5" opacity="0.5"/>
+    </g>
+    
+    <!-- Capa media: Servidor/API (gradiente) -->
+    <g transform="translate(0, 0)">
+      <!-- Servidor representado como rectángulo con conectores -->
+      <rect x="-35" y="-15" width="70" height="30" rx="4" fill="url(#iconGradient)" opacity="0.2" stroke="url(#iconGradient)" stroke-width="2.5"/>
+      <!-- Símbolo API/REST -->
+      <text x="0" y="5" font-family="monospace" font-size="16" font-weight="bold" fill="url(#iconGradient)" text-anchor="middle">&lt;API/&gt;</text>
+    </g>
+    
+    <!-- Capa superior: Frontend (Browser + React) -->
+    <g transform="translate(0, -35)">
+      <!-- Ventana del navegador -->
+      <rect x="-40" y="-20" width="80" height="50" rx="5" fill="none" stroke="#06b6d4" stroke-width="2.5"/>
+      <!-- Barra superior -->
+      <rect x="-40" y="-20" width="80" height="12" rx="5" fill="#06b6d4" opacity="0.3"/>
+      <!-- Botones de ventana -->
+      <circle cx="-32" cy="-14" r="2.5" fill="#06b6d4" opacity="0.7"/>
+      <circle cx="-24" cy="-14" r="2.5" fill="#06b6d4" opacity="0.7"/>
+      <circle cx="-16" cy="-14" r="2.5" fill="#06b6d4" opacity="0.7"/>
+      
+      <!-- React atom en el centro del browser -->
+      <g transform="translate(0, 5)">
+        <circle cx="0" cy="0" r="3.5" fill="#06b6d4"/>
+        <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="#06b6d4" stroke-width="2"/>
+        <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="#06b6d4" stroke-width="2" transform="rotate(60)"/>
+        <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="#06b6d4" stroke-width="2" transform="rotate(-60)"/>
+      </g>
+    </g>
+    
+    <!-- Flechas de conexión (datos fluyen arriba/abajo) -->
+    <g fill="none" stroke-width="2" opacity="0.4">
+      <!-- Flecha subiendo (datos al frontend) -->
+      <path d="M -25 10 L -25 -15" stroke="#4a9eff"/>
+      <polygon points="-25,-15 -28,-20 -22,-20" fill="#4a9eff"/>
+      
+      <!-- Flecha bajando (peticiones al backend) -->
+      <path d="M 25 -15 L 25 10" stroke="#06b6d4"/>
+      <polygon points="25,10 22,5 28,5" fill="#06b6d4"/>
     </g>
   </g>
   
   <!-- Texto IISSI -->
-  <text x="100" y="170" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle">IISSI</text>
+  <text x="100" y="175" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="url(#iconGradient)" text-anchor="middle">IISSI</text>
 </svg>
