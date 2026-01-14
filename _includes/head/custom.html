@@ -154,6 +154,14 @@ necesitan cargarse DESPUÉS del CSS compilado del tema.
     justify-items: stretch !important;
   }
   
+  /* Centrar cuando hay exactamente 2 items */
+  .feature__wrapper:has(.feature__item:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, minmax(250px, 400px)) !important;
+    justify-content: center !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+  }
+  
   .feature__item {
     max-width: 100% !important;
     width: 100% !important;

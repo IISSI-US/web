@@ -1,21 +1,25 @@
 ---
 layout: single
-title: Inicio
+permalink: /
+
+asignaturas:
+  - image_path: /assets/images/iissi1/laboratorios-icon.svg
+    alt: "IISSI-1"
+    title: "IISSI-1 (Backend)"
+    excerpt: |
+      Introducción a la Ingeniería del Software y los Sistemas de Información I.
+    url: "/iissi1/"
+    btn_label: "Acceder a IISSI-1"
+    btn_class: "btn--primary"
+  
+  - image_path: /assets/images/iissi2/laboratorios-icon.svg
+    alt: "IISSI-2"
+    title: "IISSI-2 (Frontend)"
+    excerpt: |
+      Introducción a la Ingeniería del Software y los Sistemas de Información II.
+    url: "/iissi2/"
+    btn_label: "Acceder a IISSI-2"
+    btn_class: "btn--primary"
 ---
 
-La primera parte de la asignatura se centra en el diseño, implementación y gestión de **bases de datos relacionales**. Los estudiantes aprenderán a:
-
-- Diseñar esquemas de bases de datos relacionales normalizadas
-- Implementar bases de datos usando SQL y MariaDB/MySQL
-- Crear y manipular tablas con diferentes tipos de datos y restricciones
-- Escribir consultas SQL complejas para extraer información
-- Desarrollar procedimientos almacenados, funciones y disparadores
-- Gestionar transacciones y garantizar la integridad de los datos
-- Aplicar buenas prácticas de diseño y optimización de bases de datos
-
-## Tecnologías utilizadas
-
-- **MariaDB**: Sistema gestor de bases de datos relacional
-- **HeidiSQL**: Cliente visual para gestión de bases de datos
-- **SQL**: creación de esquemas, consultas, procedimientos, funciones y disparadores
-- **Python + Silence**: Framework para APIs REST (backend)
+{% include feature_row id="asignaturas" %}
