@@ -27,16 +27,16 @@ labs:
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Lab3"
-    title: "Lab3 - Datos y consultas simples"
-    excerpt: "Inserción, actualización, borrado y consulta básica de datos con SQL"
+    title: "Lab3 - Consultas simples y avanzadas"
+    excerpt: "Consultas SQL, borrado y actulización de datos"
     url: "/laboratorios/iissi1/L3-sql_I/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Lab4"
-    title: "Lab4 - Consultas avanzadas"
-    excerpt: "Joins, subconsultas, agregaciones y consultas complejas"
-    url: "/laboratorios/iissi1/L4-sql_II/"
+    title: "Lab4 - Procedimientos y tests"
+    excerpt: "Procedimientos almacenados y tests SQL"
+    url: "/laboratorios/iissi1/L4-proc-tests/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
