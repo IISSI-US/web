@@ -1,6 +1,6 @@
 ---
 layout: single
-permalink: /mc2mr/
+permalink: /iissi1/mc2mr/
 title: "MC → MR"
 sidebar: false
 mc2mr:

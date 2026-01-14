@@ -1,6 +1,6 @@
 ---
 layout: single
-permalink: /req2sql/
+permalink: /iissi1/req2sql/
 title: "Req → SQL"
 sidebar: false
 req2sql:

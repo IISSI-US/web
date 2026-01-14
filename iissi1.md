@@ -9,7 +9,7 @@ colecciones:
     title: "Laboratorios"
     excerpt: |
       Colección de boletines de laboratorios para crear una base de datos MariaDB a partir de unos requisitos iniciales.
-    url: "/laboratorios/iissi1/"
+    url: "/iissi1/labs/"
     btn_label: "Ver laboratorios"
     btn_class: "btn--primary"
   
@@ -18,7 +18,7 @@ colecciones:
     title: "Ejercicios de transformación de modelos y AR"
     excerpt: |
       Colección de ejercicios resueltos sobre la transformación de modelos conceptuales a relacionales y álgebra relacional.
-    url: "/mc2mr/"
+    url: "/iissi1/mc2mr/"
     btn_label: "Ver ejercicios"
     btn_class: "btn--primary"
   
@@ -27,7 +27,7 @@ colecciones:
     title: "Ejercicios de ciclo completo"
     excerpt: |
       Estos ejercicios abarcan desde los requisitos hasta la base de datos en MariaDB.
-    url: "/req2sql/"
+    url: "/iissi1/req2sql/"
     btn_label: "Ver ejercicios"
     btn_class: "btn--primary"
 

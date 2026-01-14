@@ -10,97 +10,97 @@ labs-iissi-1:
   - title: "Labs IISSI-1"
     children:
       - title: "Lab0 - Requisitos"
-        url: /laboratorios/iissi1/L0-requisitos/
+        url: /iissi1/labs/L0-requisitos/
       - title: "Lab1 - Creación de tablas"
-        url: /laboratorios/iissi1/L1-tablas_I/
+        url: /iissi1/labs/L1-tablas_I/
       - title: "Lab2 - Restricciones en tablas"
-        url: /laboratorios/iissi1/L2-tablas_II/
+        url: /iissi1/labs/L2-tablas_II/
       - title: "Lab3 - Datos y consultas simples"
-        url: /laboratorios/iissi1/L3-sql_I/
+        url: /iissi1/labs/L3-sql_I/
       - title: "Lab4 - Consultas avanzadas"
-        url: /laboratorios/iissi1/L4-sql_II/
+        url: /iissi1/labs/L4-sql_II/
       - title: "Lab5 - Procedimientos, funciones y disparadores"
-        url: /laboratorios/iissi1/L5-proc_func_trig/
+        url: /iissi1/labs/L5-proc_func_trig/
       - title: "Lab6 - Pruebas SQL"
-        url: /laboratorios/iissi1/L6-pruebas/
+        url: /iissi1/labs/L6-pruebas/
       - title: "Lab7 - APIs REST y Silence"
-        url: /laboratorios/iissi1/L7-silence/
+        url: /iissi1/labs/L7-silence/
       - title: "Lab8 - Transacciones"
-        url: /laboratorios/iissi1/L8-transacciones/
+        url: /iissi1/labs/L8-transacciones/
       - title: "Anexo A · Entorno de trabajo"
-        url: /laboratorios/iissi1/AN-A-entorno/
+        url: /iissi1/labs/AN-A-entorno/
       - title: "Anexo B - Scripts"
-        url: /laboratorios/iissi1/AN-B-scripts/
+        url: /iissi1/labs/AN-B-scripts/
 
 mc2mr:
   - title: "MC → MR"
     children:
       - title: "1. Composición y 1:N"
-        url: /mc2mr/01_universidad/
+        url: /iissi1/mc2mr/01_universidad/
       - title: "2. Agregación y 1:N"
-        url: /mc2mr/02_biblioteca/
+        url: /iissi1/mc2mr/02_biblioteca/
       - title: "3. Herencia completa disjunta"
-        url: /mc2mr/03_herencia-completa-disjunta/
+        url: /iissi1/mc2mr/03_herencia-completa-disjunta/
       - title: "4. Herencia completa solapada"
-        url: /mc2mr/04_herencia-completa-solapada/
+        url: /iissi1/mc2mr/04_herencia-completa-solapada/
       - title: "5. Herencia incompleta disjunta"
-        url: /mc2mr/05_herencia-incompleta-disjunta/
+        url: /iissi1/mc2mr/05_herencia-incompleta-disjunta/
       - title: "6. Herencia incompleta solapada"
-        url: /mc2mr/06_herencia-incompleta-solapada/
+        url: /iissi1/mc2mr/06_herencia-incompleta-solapada/
       - title: "7. Clase asociación"
-        url: /mc2mr/07_clase-asociacion/
+        url: /iissi1/mc2mr/07_clase-asociacion/
       - title: "8. Relaciones M:N"
-        url: /mc2mr/08_relaciones-mn/
+        url: /iissi1/mc2mr/08_relaciones-mn/
       - title: "9. Modelo complejo (tenis)"
-        url: /mc2mr/09_torneo-tenis/
+        url: /iissi1/mc2mr/09_torneo-tenis/
 
 req2sql:
   - title: "Req → SQL"
     children:
       - title: "1. Usuarios"
-        url: /req2sql/1_Usuarios/
+        url: /iissi1/req2sql/1_Usuarios/
       - title: "2. Aficiones"
-        url: /req2sql/2_Aficiones/
+        url: /iissi1/req2sql/2_Aficiones/
       - title: "3. Pedidos"
-        url: /req2sql/3_Pedidos/
+        url: /iissi1/req2sql/3_Pedidos/
       - title: "4. Empleados"
-        url: /req2sql/4_Empleados/
+        url: /iissi1/req2sql/4_Empleados/
       # - title: "5. Apartamentos"
-      #   url: /req2sql/5_Apartamentos/
+      #   url: /iissi1/req2sql/5_Apartamentos/
       # - title: "6. Animales"
-      #   url: /req2sql/6_Animales/
+      #   url: /iissi1/req2sql/6_Animales/
       # - title: "7. Proyectos"
-      #   url: /req2sql/7_Proyectos/
+      #   url: /iissi1/req2sql/7_Proyectos/
       # - title: "8. Espectáculos"
-      #   url: /req2sql/8_Espectaculos/
+      #   url: /iissi1/req2sql/8_Espectaculos/
       - title: "9. Bodegas"
-        url: /req2sql/9_Bodegas/
+        url: /iissi1/req2sql/9_Bodegas/
       # - title: "10. Grados"
-      #   url: /req2sql/10_Grados/
+      #   url: /iissi1/req2sql/10_Grados/
 
 labs-iissi-2:
   - title: "Labs IISSI-2"
     children:
       - title: "Introducción"
-        url: /laboratorios/iissi2/
+        url: /iissi2/labs/
       - title: "Lab1 - Configuración y HTML"
-        url: /laboratorios/iissi2/lab2-1/
+        url: /iissi2/labs/lab2-1/
       - title: "Lab2 - HTML y CSS básico"
-        url: /laboratorios/iissi2/lab2-2/
+        url: /iissi2/labs/lab2-2/
       - title: "Lab3 - CSS avanzado (Bootstrap)"
-        url: /laboratorios/iissi2/lab2-3/
+        url: /iissi2/labs/lab2-3/
       - title: "Lab4 - JS, DOM y renderizadores"
-        url: /laboratorios/iissi2/lab2-4/
+        url: /iissi2/labs/lab2-4/
       - title: "Lab5 - Eventos y formularios"
-        url: /laboratorios/iissi2/lab2-5/
+        url: /iissi2/labs/lab2-5/
       - title: "Lab6 - Peticiones AJAX GET"
-        url: /laboratorios/iissi2/lab2-6/
+        url: /iissi2/labs/lab2-6/
       - title: "Lab7 - AJAX POST, PUT, DELETE"
-        url: /laboratorios/iissi2/lab2-7/
+        url: /iissi2/labs/lab2-7/
       - title: "Lab9 - Gestión de sesiones"
-        url: /laboratorios/iissi2/lab2-8/
+        url: /iissi2/labs/lab2-8/
       - title: "Anexo - Entorno"
-        url: /laboratorios/iissi2/anexo-entorno/
+        url: /iissi2/labs/anexo-entorno/
 
 
 
