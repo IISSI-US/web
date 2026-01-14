@@ -63,7 +63,7 @@ defaults:
     values:
       page_footer: false
   - scope:
-      path: "laboratorios/iissi1"
+      path: "iissi1/labs"
     values:
       layout: single
       author_profile: false
@@ -71,7 +71,7 @@ defaults:
       sidebar:
         nav: labs-iissi-1
   - scope:
-      path: "mc2mr"
+      path: "iissi1/mc2mr"
     values:
       layout: single
       author_profile: false
@@ -79,7 +79,7 @@ defaults:
       sidebar:
         nav: mc2mr
   - scope:
-      path: "req2sql"
+      path: "iissi1/req2sql"
     values:
       layout: single
       author_profile: false
@@ -89,7 +89,7 @@ defaults:
       footer_scripts:
         - /assets/js/sql-embed.js
   - scope:
-      path: "laboratorios/iissi2"
+      path: "iissi2/labs"
     values:
       layout: single
       author_profile: false

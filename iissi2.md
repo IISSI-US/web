@@ -1,6 +1,6 @@
 ---
 layout: single
-#title: "IISSI-2 (Frontend)"
+title: "IISSI-2"
 permalink: /iissi2/
 
 colecciones:
