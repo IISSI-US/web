@@ -19,6 +19,12 @@ plugins:
 minimal_mistakes_skin: default # options: default, dark, dirt, neon, etc.
 enable_copy_code_button: true
 
+# Búsqueda del sitio
+search: true
+search_full_content: true
+lunr:
+  search_within_pages: true
+
 # Motor de Markdown
 markdown: kramdown
 kramdown:

@@ -10,15 +10,15 @@ labs-iissi-1:
         url: /iissi1/labs/L1-tablas_I/
       - title: "Lab2 - Restricciones en tablas"
         url: /iissi1/labs/L2-tablas_II/
-      - title: "Lab3 - Datos y consultas simples"
+      - title: "Lab3 - Consultas simples y avanzadas"
         url: /iissi1/labs/L3-sql_I/
-      - title: "Lab4 - Consultas avanzadas"
+      - title: "Lab4 - Procedimientos y tests SQL"
         url: /iissi1/labs/L4-sql_II/
-      - title: "Lab5 - Procedimientos, funciones y disparadores"
+      - title: "Lab5 - Funciones y disparadores"
         url: /iissi1/labs/L5-proc_func_trig/
       - title: "Lab6 - Pruebas SQL"
         url: /iissi1/labs/L6-pruebas/
-      - title: "Lab7 - APIs REST y Silence"
+      - title: "Lab7 - Framework Silence"
         url: /iissi1/labs/L7-silence/
       - title: "Lab8 - Transacciones"
         url: /iissi1/labs/L8-transacciones/
