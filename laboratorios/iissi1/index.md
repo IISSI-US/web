@@ -41,20 +41,12 @@ labs:
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Lab5"
-    title: "Lab5 - Procedimientos, funciones y triggers"
+    title: "Lab5 - Funciones y triggers"
     excerpt: "Programación en SQL con stored procedures y triggers"
-    url: "/laboratorios/iissi1/L5-proc_func_trig/"
+    url: "/laboratorios/iissi1/L5-func_trig/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    alt: "Lab6"
-    title: "Lab6 - Pruebas y validación"
-    excerpt: "Testing de bases de datos y validación de restricciones"
-    url: "/laboratorios/iissi1/L6-pruebas/"
-    btn_label: "Ver laboratorio"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    alt: "Lab7"
     title: "Lab7 - Framework Silence"
     excerpt: "Introducción al framework Python para APIs REST sobre bases de datos"
     url: "/laboratorios/iissi1/L7-silence/"

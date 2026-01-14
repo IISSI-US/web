@@ -9,9 +9,6 @@ main:
   - title: "Planificación"
     url: /planificacion/
 
-  - title: "Exámenes"
-    url: /examenes/
-  
   - title: "IISSI-1"
     url: /iissi1/
   
