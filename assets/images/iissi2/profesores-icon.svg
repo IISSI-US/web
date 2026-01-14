@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="95" fill="#06b6d4" opacity="0.1"/>
+  
+  <!-- Pizarra/Tablero -->
+  <g fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="45" y="50" width="110" height="75" rx="4"/>
+  </g>
+  
+  <!-- Contenido en la pizarra -->
+  <g stroke="#06b6d4" stroke-width="2" opacity="0.4">
+    <!-- Texto simulado -->
+    <line x1="55" y1="65" x2="85" y2="65"/>
+    <line x1="55" y1="75" x2="80" y2="75"/>
+    
+    <!-- Fórmula/diagrama -->
+    <circle cx="120" cy="70" r="8" fill="none"/>
+    <line x1="130" y1="70" x2="145" y2="70"/>
+    
+    <!-- Más contenido -->
+    <line x1="55" y1="90" x2="100" y2="90"/>
+    <line x1="55" y1="100" x2="95" y2="100"/>
+    <line x1="55" y1="110" x2="105" y2="110"/>
+  </g>
+  
+  <!-- Profesor (figura simplificada) -->
+  <g fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Cabeza -->
+    <circle cx="100" cy="145" r="12"/>
+    
+    <!-- Cuerpo -->
+    <line x1="100" y1="157" x2="100" y2="180"/>
+    
+    <!-- Brazos -->
+    <path d="M 85 165 L 100 170 L 115 165"/>
+    
+    <!-- Brazo apuntando a pizarra -->
+    <line x1="85" y1="165" x2="70" y2="155"/>
+    
+    <!-- Piernas -->
+    <line x1="100" y1="180" x2="90" y2="195"/>
+    <line x1="100" y1="180" x2="110" y2="195"/>
+  </g>
+  
+  <!-- Libro/material didáctico -->
+  <g fill="none" stroke="#06b6d4" stroke-width="2.5" opacity="0.5">
+    <rect x="120" y="135" width="20" height="15" rx="2"/>
+    <line x1="130" y1="135" x2="130" y2="150"/>
+  </g>
+  
+  <!-- Gorro académico (opcional, sutil) -->
+  <g fill="#06b6d4" opacity="0.4">
+    <polygon points="100,130 108,137 92,137"/>
+    <rect x="95" y="137" width="10" height="2"/>
+  </g>
+</svg>

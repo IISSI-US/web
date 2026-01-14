@@ -1,14 +1,5 @@
 # Navegación principal para Minimal Mistakes
 main:
-  - title: "Profesores"
-    url: /profesores/
-
-  - title: "Evaluación"
-    url: /evaluacion/
-
-  - title: "Planificación"
-    url: /planificacion/
-
   - title: "IISSI-1"
     url: /iissi1/
   
