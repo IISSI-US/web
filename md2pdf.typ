@@ -96,6 +96,14 @@
       return ""
     }
     let label = extract-attr(attrs, "label")
+    
+    // Si es una URL HTTP, no intentar leerla, solo mostrar referencia
+    if raw-src.starts-with("http://") or raw-src.starts-with("https://") {
+      let title = if label != none { "**" + label + "**\n\n" } else { "" }
+      return title + "> _Código SQL disponible en: " + raw-src + "_\n\n"
+    }
+    
+    // Para rutas locales, leer el archivo
     let rel = if raw-src.starts-with("/") { raw-src.slice(1) } else { raw-src }
     let sql = read(rel)
     let title = if label != none { "**" + label + "**\n\n" } else { "" }
