@@ -37,6 +37,13 @@ sass:
 include:
   - _code
 
+# Configuración de Google Analytics
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: "G-1CHY989RM0"
+    anonymize_ip: true
+
 # Exclude internal tooling from the generated site
 exclude:
   - _diagrams/
