@@ -152,6 +152,17 @@ necesitan cargarse DESPUÉS del CSS compilado del tema.
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
     gap: 1.5rem !important;
     justify-items: stretch !important;
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+  
+  /* Eliminar líneas/bordes entre feature rows */
+  .page__content .feature__wrapper::before,
+  .page__content .feature__wrapper::after,
+  .feature__wrapper::before,
+  .feature__wrapper::after {
+    display: none !important;
   }
   
   /* Centrar cuando hay exactamente 2 items */
