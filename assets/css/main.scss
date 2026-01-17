@@ -40,7 +40,39 @@ layout: null
 @import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)
 @import "partials/custom-colors";  // ÚLTIMO: CSS custom properties + TOC
 
-// Layout customizations for 1920x1080
+// === Layout Responsive ===
+
+// Mobile and Tablet (default, < 64em)
+@media (max-width: 63.9375em) {
+  .page {
+    width: 100%;
+    float: none;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .page__inner-wrap {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page__content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar__right {
+    display: none;
+  }
+}
+
+// Desktop (1920x1080 optimized)
 @media (min-width: 64em) {
   
   // Full width layout

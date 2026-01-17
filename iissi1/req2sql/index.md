@@ -78,7 +78,7 @@ req2sql:
 
 # Ejercicios de ciclo completo
 
-{% include feature_row id="req2sql" %}
+{% include feature_row id="req2sql" type="center" %}
 
 En esta sección encontrarás 10 ejercicios completos que recorren el ciclo: Requisitos → Modelo Conceptual → Modelo Relacional → SQL.
 

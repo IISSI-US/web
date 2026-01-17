@@ -73,4 +73,4 @@ labs:
 
 La segunda parte de la asignatura se centra en el desarrollo del **front-end** de aplicaciones web, complementando los conocimientos de bases de datos adquiridos en IISSI-1. -->
 
-{% include feature_row id="labs" %}
+{% include feature_row id="labs" type="center" %}

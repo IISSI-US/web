@@ -82,4 +82,4 @@ profesores:
 
 <!-- ## Contacto con los profesores de la asignatura -->
 
-{% include feature_row id="profesores" %}
+{% include feature_row id="profesores" type="center" %}

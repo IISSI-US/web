@@ -73,4 +73,4 @@ mc2mr:
 
 Transformación de diagramas UML a modelos relacionales con álgebra relacional.
 
-{% include feature_row id="mc2mr" %}
+{% include feature_row id="mc2mr" type="center" %}

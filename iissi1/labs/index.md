@@ -79,4 +79,4 @@ labs:
 
 En esta sección encontrarás los ejercicios prácticos y guías paso a paso para practicar la implementación de bases de datos relacionales con SQL y MariaDB. -->
 
-{% include feature_row id="labs" %}
+{% include feature_row id="labs" type="center" %}

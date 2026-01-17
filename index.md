@@ -22,4 +22,4 @@ asignaturas:
     btn_class: "btn--primary"
 ---
 
-{% include feature_row id="asignaturas" %}
+{% include feature_row id="asignaturas" type="center" %}
