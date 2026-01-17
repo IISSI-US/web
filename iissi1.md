@@ -62,8 +62,8 @@ info:
 
 <!-- ## Colecciones de materiales -->
 
-{% include feature_row id="colecciones" %}
+{% include feature_row id="colecciones" type="center" %}
 
 <!-- ## Información del curso -->
 
-{% include feature_row id="info" %}
+{% include feature_row id="info" type="center" %}
