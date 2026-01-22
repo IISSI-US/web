@@ -6,7 +6,7 @@
 USE GradesDB;
 
 DELIMITER //
-CREATE OR REPLACE PROCEDURE p_populate_grados()
+CREATE OR REPLACE PROCEDURE p_populate()
 BEGIN
     SET FOREIGN_KEY_CHECKS = 0;
     DELETE FROM grades;
@@ -186,4 +186,4 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL p_populate_grados();
+CALL p_populate();

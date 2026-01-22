@@ -42,7 +42,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN001', 'RN001: La MH requiere nota >= 9', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     UPDATE grades SET with_honors = 1 WHERE grade_id = 21;
 
@@ -57,7 +57,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN002', 'RN002: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
         VALUES (101, 6, 1, 6.0, 'Primera', 0);
@@ -73,7 +73,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN003', 'RN003: No se permite añadir un tercer profesor al grupo', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO teaching_loads (professor_id, group_id, credits) VALUES (5, 1, 1.0);
 
@@ -88,7 +88,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN004', 'RN004: Un alumno no puede pertenecer a más grupos de los permitidos', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO group_enrollments (student_id, group_id) VALUES (6, 3);
 
@@ -103,7 +103,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN005', 'RN005: No se puede modificar la nota en más de 4 puntos', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     UPDATE grades SET grade_value = 0.5 WHERE grade_id = 1;
 
@@ -118,7 +118,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN006', 'RN006: No se permite crear un segundo grupo de teoría para la asignatura', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year)
         VALUES (11, 11, 'T2', 'Teoría', 2024);
@@ -134,7 +134,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN007', 'RN007: No se puede añadir a un grupo sin matrícula en la asignatura', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
         VALUES (102, '20000002B', 'Test', 'Alumno', 20, 'nuevo@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
@@ -152,7 +152,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN008', 'RN008: No se permite Selectividad con menos de 16 años', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
         VALUES (104, '20000004D', 'Test', 'Menor', 15, 'menor@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
@@ -169,7 +169,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN009', 'RN009: Los atributos obligatorios no pueden quedar a NULL', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
         VALUES (103, '20000003C', NULL, 'Campos', 22, 'null@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
@@ -185,7 +185,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN010', 'RN010: Los créditos de una asignatura pueden ser 6 o 12', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, course, subject_type)
         VALUES (31, 3, 'Asignatura Créditos Inválidos', 'ACI', 8, 2, 'Obligatoria');
@@ -201,7 +201,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN011', 'RN011: La nota debe estar entre 0 y 10', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
         VALUES (201, 6, 1, 11.0, 'Primera', 0);
@@ -217,7 +217,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN012', 'RN012: La edad de las personas debe estar entre 16 y 70', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
         VALUES (105, '20000005E', 'Edad', 'Fuera', 80, 'edad@us.es', 'student', 'pbkdf2_sha256$1$00$00');
@@ -233,7 +233,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN013', 'RN013: Los grados deben tener entre 3 y 6 años', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO degrees (degree_id, degree_name, duration_years)
         VALUES (10, 'Grado Experimental', 2);
@@ -249,7 +249,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN014', 'RN014: El DNI debe tener 8 dígitos y una letra', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
         VALUES (106, 'INVALIDO', 'DNI', 'Incorrecto', 30, 'dni@us.es', 'student', 'pbkdf2_sha256$1$00$00');
@@ -265,7 +265,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN015', 'RN015: El año académico debe estar entre 2000 y 2100', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year)
         VALUES (20, 12, 'MD-T2025', 'Teoría', 1999);
@@ -281,7 +281,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
         CALL p_log_test('RN016', 'RN016: El curso de una asignatura debe estar entre 1 y 6', 'PASS');
 
-    CALL p_populate_grados();
+    CALL p_populate();
 
     INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, course, subject_type)
         VALUES (30, 3, 'Asignatura Fuera de Curso', 'AFC', 6, 0, 'Obligatoria');
