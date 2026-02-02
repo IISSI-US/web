@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC_BASE="${REPO_DIR}/_diagrams/req2sql"
-OUT_BASE="${REPO_DIR}/assets/images/req2sql"  # tracked; published
+OUT_BASE="${REPO_DIR}/assets/images/iissi1/req2sql"  # tracked; published
 PLANTUML_JAR="${REPO_DIR}/_scripts/plantuml.jar"
 
 if [[ ! -d "${SRC_BASE}" ]]; then
@@ -57,5 +57,5 @@ GEN_COUNT=$(find "${OUT_BASE}" -type f -name '*.png' | wc -l | tr -d ' ')
 if [[ ${GEN_COUNT} -eq 0 ]]; then
   echo "[WARN] No PNGs were generated from ${SRC_BASE}." >&2
 else
-  echo "[DONE] PNGs are up to date in assets/images/req2sql/ (${GEN_COUNT} files)"
+  echo "[DONE] PNGs are up to date in assets/images/iissi1/req2sql/ (${GEN_COUNT} files)"
 fi

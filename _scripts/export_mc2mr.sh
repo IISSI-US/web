@@ -2,16 +2,17 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PUBLIC_OUT_DIR="${REPO_DIR}/assets/images/mc2mr"  # tracked; published
+PUBLIC_OUT_DIR="${REPO_DIR}/assets/images/iissi1/mc2mr"  # tracked; published
 
 # Canonical diagram source location (simplified)
 DIAGRAMS_DIR="${REPO_DIR}/_diagrams/mc2mr"
 SRC_PUML="${DIAGRAMS_DIR}/diagramas.puml"
 PLANTUML_JAR="${REPO_DIR}/_scripts/plantuml.jar"
 
-if [[ ! -f "${SRC_PUML}" ]]; then
-  echo "[ERR] PlantUML source not found: ${SRC_PUML}" >&2
-  echo "      Expected at: _diagrams/mc2mr/diagramas.puml" >&2
+# Check if at least one .puml file exists
+if ! compgen -G "${DIAGRAMS_DIR}/*.puml" > /dev/null; then
+  echo "[ERR] No PlantUML source files found in: ${DIAGRAMS_DIR}" >&2
+  echo "      Expected .puml files in: _diagrams/mc2mr/" >&2
   exit 1
 fi
 
@@ -22,7 +23,10 @@ render_with_jar() {
   (
     cd "${DIAGRAMS_DIR}"
     # Output directly to public assets dir (avoids intermediate copy)
-    java -jar "${PLANTUML_JAR}" -tpng -o "${PUBLIC_OUT_DIR}" "diagramas.puml"
+    for puml_file in *.puml; do
+      echo "[INFO] Processing ${puml_file}..."
+      java -jar "${PLANTUML_JAR}" -tpng -o "${PUBLIC_OUT_DIR}" "${puml_file}"
+    done
   )
 }
 
@@ -38,7 +42,7 @@ fi
 # Report
 GEN_COUNT=$(ls -1 "${PUBLIC_OUT_DIR}"/*.png 2>/dev/null | wc -l | tr -d ' ')
 if [[ ${GEN_COUNT} -eq 0 ]]; then
-  echo "[WARN] No PNGs were generated from ${SRC_PUML}." >&2
+  echo "[WARN] No PNGs were generated from .puml files in ${DIAGRAMS_DIR}." >&2
 else
-  echo "[DONE] PNGs are up to date in assets/images/mc2mr/ (${GEN_COUNT} files)"
+  echo "[DONE] PNGs are up to date in assets/images/iissi1/mc2mr/ (${GEN_COUNT} files)"
 fi
