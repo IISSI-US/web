@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Ordenación temporal de los contenidos"
-pdf_version: true
+pdf_version: false
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"

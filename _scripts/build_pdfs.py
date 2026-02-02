@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET_DIRS = ("laboratorios", "mc2mr", "req2sql", "evaluacion", "planificacion", "profesores")
+TARGET_DIRS = ("iissi1", "iissi2")
 NOTICE = "> [Versión PDF disponible](./index.pdf)\n"
 
 
