@@ -86,7 +86,7 @@ Usuarios(usuarioId, nombre, género, edad, email)
 	PK(usuarioId)
 	AK(email)
 ```
-Extensión [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/44df3153b7b1dfba92bdcb7c3777a8bb)
+### Extensión
 
 ```
 Usuarios = {
@@ -167,6 +167,62 @@ $$
 $$
 MayoresGenero \leftarrow \Group{\operatorname{MAX}(ed)}{g}(U)
 $$
+
+### RelaX
+
+RelaX permite **reutilizar expresiones** mediante asignaciones. El funcionamiento es el siguiente:
+
+1. **Asignaciones**: Usa `relación = expresion` para guardar el resultado de una expresión con un nombre
+2. **Reutilización**: Las relaciones asignadas pueden usarse en expresiones posteriores
+3. **Visualización**: Escribe el nombre de la relación (sin asignación) para mostrar su resultado
+4. **Comentarios**: Puedes incluir comentarios con `--` para documentar cada paso
+
+**Ejemplo:** Si defines `U` con el renombrado, luego puedes usar `U` en lugar de repetir toda la expresión de renombrado en cada consulta.
+
+Enlaces:
+- [GIST](https://gist.github.com/druizcortes/44df3153b7b1dfba92bdcb7c3777a8bb)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/44df3153b7b1dfba92bdcb7c3777a8bb)
+- Expresiones:
+
+```text
+-- Primero renombramos la tabla para usar nombres más cortos
+U = ρuid←usuarioId, n←nombreUsuario, ed←edad, g←genero, em←email(Usuarios)
+
+-- Mujeres
+Mujeres = πn,em(σg='FEMENINO'(U))
+-- Mujeres
+
+-- Usuarios con dominio @us.es (guardado para reutilizar)
+UsuariosUS = σem like '%@us.es'(U)
+-- UsuariosUS
+
+-- Edad media y total de usuarios
+MedTotUsuarios = γavg(ed)→media, count(*)→total(U)
+-- MedTotUsuarios
+
+-- Edad media y total de usuarios US
+MedTotUsuariosUS = γavg(ed)→media, count(*)→total(UsuariosUS)
+-- MedTotUsuariosUS
+
+-- Edad media por género
+MediaGenero = γg;avg(ed)→media(U)
+-- MediaGenero
+
+-- Total por género
+TotalGenero = γg;count(*)→total(U)
+-- TotalGenero
+
+-- Edad máxima
+EdadMaxima = γmax(ed)→maxEdad(U)
+-- EdadMaxima
+
+-- Edad máxima por género
+MaximaGenero = γg;max(ed)→mayor(U)
+-- MaximaGenero
+
+-- Usuarios de mayor edad (usando EdadMaxima)
+(πed, n(U)) ⨝ (EdadMaxima)
+```
 
 ## Pruebas HTTP
 
