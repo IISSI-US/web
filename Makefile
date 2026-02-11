@@ -61,7 +61,7 @@ clean-mc2mr-images:
 	rm -f assets/images/iissi1/mc2mr/*.png || true
 
 clean-req2sql-images:
-	rm -f assets/images/iissi1/req2sql/**/*.png assets/images/iissi1req2sql/*.png 2>/dev/null || true
+	rm -f assets/images/iissi1/req2sql/*.png 2>/dev/null || true
 
 clean-grades-images:
 	rm -f assets/images/iissi1/laboratorios/fig/req/*.svg 2>/dev/null || true
