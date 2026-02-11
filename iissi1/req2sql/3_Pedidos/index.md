@@ -76,7 +76,7 @@ pdf_version: true
 
 ## Intensión
 
-```
+```text
 Usuarios(usuarioId, nombre, provincia, fechaAlta)
 	PK(usuarioId)
 Productos(productoId, descripcion, precio, stock)
@@ -89,7 +89,7 @@ Pedidos(pedidoId, usuarioId, productoId, fechaCompra, cantidad)
 
 ## Extensión
 
-```
+```text
 Usuarios = {
 	(u1, "David Ruiz", "Sevilla", "2018-05-18"),
 	(u2, "Marta López", "Málaga", "2018-06-12"),
@@ -160,7 +160,7 @@ $$
 - **Descripción y stock de productos con stock < 100**: Proyectamos solo la descripción y stock de aquellos productos cuyo stock es inferior a 100 unidades.
 
 $$
-\Proj{P.d,P.s}(\Sel{P.s<100}(P))
+\Proj{P.d,P.s}\left(\Sel{P.s<100}(P)\right)
 $$
 
 - **Número de pedidos por usuario**: Agrupamos por usuario (uId) y contamos cuántos pedidos tiene cada uno. El join con U asegura incluir a todos los usuarios que han hecho pedido.
@@ -205,8 +205,51 @@ $$
 \Proj{RPM.mes, RPM.recaudacion}(\Sel{RPM.recaudacion = \operatorname{MAX}(RPM.recaudacion)}(RPM))
 $$
 
-## Modelo Tecnológico (MariaDB)
 
+Enlaces:
+- [GIST](https://gist.github.com/druizcortes/24cc0583792178fe778335eb95b5e3d9)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/24cc0583792178fe778335eb95b5e3d9)
+- Expresiones:
+
+```text
+ U = rho uId<-usuarioId, n<-nombre, prov<-provincia, fa<-fechaAlta (Usuarios)
+P = rho pId<-productoId, d<-descripcion, pr<-precio, st<-stock (Productos)
+Ped = rho pedId<-pedidoId, uId<-usuarioId, pId<-productoId, fc<-fechaCompra, c<-cantidad (Pedidos)
+UPP = U join Ped join P
+
+Q1_UPP = UPP
+-- Q1_UPP
+
+Q2_PedidosMalaga = sigma prov='Malaga' (UPP)
+-- Q2_PedidosMalaga
+
+Q3_StockBajo = pi d, st (sigma st < 100 (P))
+-- Q3_StockBajo
+
+Q4_NumPedidosUsuario = gamma uId, n ; count(pedId) -> total (U join Ped)
+-- Q4_NumPedidosUsuario
+
+Importes = pi uId, n, importe <- pr * c (UPP)
+Q5_ImporteTotalUsuario = gamma uId, n ; sum(importe) -> totalGasto (Importes)
+-- Q5_ImporteTotalUsuario
+
+PedMes = pi pedId, mes <- month(fc) (Ped)
+Q6_PedidosPorMes = gamma mes ; count(pedId) -> total (PedMes)
+-- Q6_PedidosPorMes
+
+ImportesMesUsuario = pi uId, n, mes <- month(fc), importe <- pr * c (UPP)
+GPUM = gamma uId, n, mes ; sum(importe) -> totalGasto (ImportesMesUsuario)
+MGPM = gamma mes ; max(totalGasto) -> maxGasto (GPUM)
+Q7_MasGastaPorMes = pi n, mes, totalGasto (sigma totalGasto = maxGasto (GPUM join MGPM))
+-- Q7_MasGastaPorMes
+
+ImportesMes = pi mes <- month(fc), importe <- pr * c (UPP)
+RPM = gamma mes ; sum(importe) -> recaudacion (ImportesMes)
+MaxRecaudacion = gamma ; max(recaudacion) -> maxRec (RPM)
+Q8_MesMaxRecaudacion = pi mes, recaudacion (sigma recaudacion = maxRec (RPM join MaxRecaudacion))
+Q8_MesMaxRecaudacion
+
+```
 
 # Modelo tecnológico (MariaDB)
 
