@@ -11,10 +11,6 @@ title: "Lab5 - Eventos y formularios"
 nav_order: 6
 ---
 
-
-
-# Gestión de eventos y validación de formularios
-
 ## Objetivo
 El objetivo de esta práctica es introducir la gestión básica de eventos mediante JavaScript, desarrollando código que se ejecute cuando ocurre una determinada acción en la página Web. Además, se presentarán los conceptos fundamentales sobre la validación de los formularios de la página.
 

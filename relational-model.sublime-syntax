@@ -1,0 +1,38 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: relational
+file_extensions: []
+scope: source.relational
+contexts:
+  main:
+    # Resaltar nombre de tabla y campos: e.g., Degrees(degreeId, name, years)
+    - match: '^(\w+)\s*?\(([^)]+)\)'
+      captures:
+        1: entity.name.class  # Nombre de la tabla (verde en Monokai)
+        2: meta.keyword        # Grupo para campos
+    # Resaltar PK o FK: e.g., PK(degreeId) o FK(degreeId) / Degrees
+    - match: '(PK|FK|AK)'
+      captures:
+        1: keyword            # PK o FK
+      push: key
+    # Resaltar referencia a tabla en FK: e.g., / Degrees
+    - match: '\s*/\s*(\w+)'
+      captures:
+        1: entity.name.class  # Nombre de la tabla referenciada (verde)
+  fields:
+    # Dentro de los paréntesis de campos
+    - meta_scope: meta.fields
+    - match: ','
+      scope: punctuation.separator  # Comas (no resaltadas en Monokai, pero ok)
+    - match: '\)'
+      pop: true
+  key:
+    # Dentro de los paréntesis de PK/FK
+    - meta_scope: meta.key
+    - match: ','
+      scope: punctuation.separator  # Comas (no resaltadas)
+    - match: '\w+'
+      scope: variable.parameter     # Nombres de campos en clave (naranja italic)
+    - match: '\)'
+      pop: true

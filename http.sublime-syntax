@@ -1,0 +1,174 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/syntax.html
+name: HTTP
+file_extensions:
+  - http
+  - rest
+scope: source.http
+contexts:
+  main:
+    # Curl requests
+    - match: '^\s*(?=curl)'
+      scope: http.request.curl
+      push: curl-body
+    
+    # JSON body
+    - match: '\s*(?=(\[|{[^{]))'
+      scope: http.request.body.json
+      push: json-body
+    
+    # XML body
+    - match: '^\s*(?=<\S)'
+      scope: http.request.body.xml
+      push: xml-body
+    
+    # GraphQL body
+    - match: '\s*(?=(query|mutation))'
+      scope: http.request.body.graphql
+      push: graphql-body
+    
+    # Metadata
+    - include: metadata
+    
+    # Comments
+    - include: comments
+    
+    # File variables: @name = value
+    - match: '^\s*(@)([^\s=]+)\s*=\s*(.*?)\s*$'
+      scope: http.filevariable
+      captures:
+        1: keyword.other.http
+        2: variable.other.http
+        3: string.other.http
+    
+    # Query parameters: ?key=value or &key=value
+    - match: '^\s*(\?|&)([^=\s]+)=(.*)$'
+      scope: http.query
+      captures:
+        1: keyword.operator.http
+        2: variable.other.http
+        3: string.other.http
+    
+    # Headers: Header-Name: value
+    - match: '^([\w\-]+)\s*(\:)\s*([^\/].*?)\s*$'
+      scope: http.headers
+      captures:
+        1: entity.name.tag.http
+        2: keyword.other.http
+        3: string.other.http
+    
+    # Request line
+    - include: request-line
+    
+    # Response line
+    - include: response-line
+  
+  curl-body:
+    - match: '^\s*(\#{3,}.*?)?\s*$'
+      captures:
+        0: comment.line.sharp.http
+      pop: true
+    - include: scope:source.shell
+  
+  json-body:
+    - match: '^\s*(\#{3,}.*?)?\s*$'
+      captures:
+        0: comment.line.sharp.http
+      pop: true
+    - include: scope:source.json
+  
+  xml-body:
+    - match: '^\s*(\#{3,}.*?)?\s*$'
+      captures:
+        0: comment.line.sharp.http
+      pop: true
+    - include: scope:text.xml
+  
+  graphql-body:
+    - match: '^\s*(\#{3,}.*?)?\s*$|^\{\s*$'
+      captures:
+        0: comment.line.sharp.http
+      pop: true
+    - include: scope:source.graphql
+  
+  metadata:
+    # @name metadata with #
+    - match: '^\s*\#{1,}\s+(?:((@)name)\s+([^\s\.]+))$'
+      scope: comment.line.sharp.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+        3: entity.name.type.http
+    
+    # @name metadata with //
+    - match: '^\s*\/{2,}\s+(?:((@)name)\s+([^\s\.]+))$'
+      scope: comment.line.double-slash.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+        3: entity.name.type.http
+    
+    # @note metadata with #
+    - match: '^\s*\#{1,}\s+((@)note)\s*$'
+      scope: comment.line.sharp.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+    
+    # @note metadata with //
+    - match: '^\s*\/{2,}\s+((@)note)\s*$'
+      scope: comment.line.double-slash.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+    
+    # @prompt metadata with #
+    - match: '^\s*\#{1,}\s+(?:((@)prompt)\s+([^\s]+)(?:\s+(.*))?\s*)$'
+      scope: comment.line.sharp.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+        3: variable.other.http
+        4: string.other.http
+    
+    # @prompt metadata with //
+    - match: '^\s*\/{2,}\s+(?:((@)prompt)\s+([^\s]+)(?:\s+(.*))?\s*)$'
+      scope: comment.line.double-slash.http
+      captures:
+        1: entity.other.attribute-name
+        2: punctuation.definition.block.tag.metadata
+        3: variable.other.http
+        4: string.other.http
+  
+  comments:
+    # # comments
+    - match: '^\s*\#{1,}.*$'
+      scope: comment.line.sharp.http
+    
+    # // comments
+    - match: '^\s*\/{2,}.*$'
+      scope: comment.line.double-slash.http
+  
+  request-line:
+    - match: '(?i)^(?:(get|post|put|delete|patch|head|options|connect|trace)\s+)?\s*(.+?)(?:\s+(HTTP\/\S+))?\s*$'
+      scope: http.requestline
+      captures:
+        1: keyword.control.http
+        2: const.language.http
+        3: http.version
+  
+  response-line:
+    - match: '(?i)^\s*(HTTP\/\S+)\s([1-5][0-9][0-9])\s(.*)\s*$'
+      scope: http.responseLine
+      captures:
+        1: http.version
+        2: constant.numeric.http
+        3: string.other.http
+  
+  protocol:
+    - match: '(HTTP)\/(\d+\.\d+)'
+      scope: http.version
+      captures:
+        1: keyword.other.http
+        2: constant.numeric.http

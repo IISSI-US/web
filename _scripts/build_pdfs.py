@@ -72,7 +72,7 @@ def build_pdf(md_path: Path, force: bool = False):
     md_rel = md_path.relative_to(ROOT)
     pdf_rel = pdf_path.relative_to(ROOT)
     subprocess.run(
-        ["typst", "compile", "md2pdf.typ", str(pdf_rel), "--input", f"md={md_rel}"],
+        ["typst", "compile", "md2pdf.typ", str(pdf_rel), "--input", f"md={md_rel}", "--font-path", "./assets/fonts"],
         check=True,
         cwd=ROOT,
     )

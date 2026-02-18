@@ -11,10 +11,6 @@ title: "Lab1 - Configuración del proyecto e introducción a HTML"
 nav_order: 2
 ---
 
-
-
-# Configuración del proyecto e introducción a HTML
-
 ## Objetivo
 El objetivo de esta práctica es descargar y configurar un proyecto Silence que se usará a lo largo de las posteriores sesiones de laboratorio, así como a crear contenido básico en HTML5 usando las etiquetas aprendidas en teoría.
 - Crear una copia de un proyecto Silence existente en GitHub.

@@ -1,0 +1,13 @@
+[package]
+name = "fancy-frames"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Daniel Ayala"]
+license = "MIT-0"
+description = "Package for easily adding a variety  of fancy frames."
+categories = ["components", "fun"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

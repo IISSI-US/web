@@ -11,10 +11,6 @@ title: "Lab4 - JS, DOM y renderizadores"
 nav_order: 5
 ---
 
-
-
-# Introducción a JS, DOM y renderizadores
-
 ## Objetivo
 El objetivo de esta práctica es introducir al alumno a JavaScript, el lenguaje de programación ejecutable por los navegadores que permite añadir comportamiento e interacciones complejas a la Web, así como algunos usos básicos de JS. El alumno aprenderá a:
 - Escribir código con los elementos básicos de JavaScript.

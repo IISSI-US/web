@@ -11,10 +11,6 @@ title: "Lab7 - Peticiones AJAX POST, PUT y DELETE"
 nav_order: 8
 ---
 
-
-
-# Peticiones AJAX: POST, PUT y DELETE
-
 ## Objetivo
 El objetivo de esta práctica es profundizar en la comunicación del back-end con el front-end mediante peticiones AJAX que modifiquen el estado de la base de datos. El alumno aprenderá a:
 - Usar la librería JavaScript "Axios" para realizar peticiones AJAX de tipo POST, PUT y DELETE a los endpoints del proyecto, mediante el enfoque orientado a módulos JavaScript aprendido en la práctica anterior.

@@ -15,7 +15,7 @@ toc_sticky: true
 
 La transformación UML → Relacional genera tres relaciones con claves primarias y foráneas:
 
-```
+```relational
 Universidades(universidadId, nombre, dirección, fundación)
     PK(universidadId)
 
@@ -31,7 +31,7 @@ Estudiantes(estudianteId, centroId, matrícula, nombre, edad, promedio)
 
 ## Extensión ([RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/320bad1e907e474d3a150db74530801e))
 
-```
+```python
 Universidades = {  
   (u1, 'UNAM', 'Ciudad de México', 1910-09-22),  
   (u2, 'ITESM', 'Monterrey', 1943-01-01)  
@@ -88,7 +88,7 @@ $$ E \leftarrow \Ren{E(eid,cid,m,n,e,p)}(Estudiantes)$$
 
 $$\Sel{edad > 20}(E)$$
 
-```
+```python
 Resultado: {
   (e2, f1, '2023002', 'Luis', 21, 8.1), 
   (e4, f2, '2023004', 'Carlos', 22, 7.8), 
@@ -102,7 +102,7 @@ Resultado: {
 
 $$\Sel{p > 5000000}(C)$$
 
-```
+```python
 Resultado: {
   (f3, u1, 'Medicina', 'FM03', 7500000.75), 
   (f5, u2, 'Ingeniería', 'IE02', 6100000.20)
@@ -113,7 +113,7 @@ Resultado: {
 
 $$\Proj{n, e}(E)$$
 
-```
+```python
 Resultado: {
   ('Ana', 20), ('Luis', 21), ('María', 19), ('Carlos', 22), 
   ('Elena', 20), ('Roberto', 23), ('Sofia', 21), ('Diego', 19)
@@ -124,7 +124,7 @@ Resultado: {
 
 $$\Sel{f > 2000-01-01}(U)$$
 
-```
+```python
 Resultado: {
   (u2, 'ITESM', 'Monterrey', 2001-01-01)
 }
@@ -134,7 +134,7 @@ Resultado: {
 
 $$\Sel{p \geq 9.0}(E)$$
 
-```
+```python
 Resultado: {
   (e3, f2, '2023003', 'María', 19, 9.2),
   (e5, f3, '2023005', 'Elena', 20, 9.5),
@@ -146,7 +146,7 @@ Resultado: {
 
 $$\Sel{uid = u1}(C)$$
 
-```
+```python
 Resultado: {
   (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
   (f2, u1, 'Derecho', 'FD02', 3500000.25),
@@ -158,7 +158,7 @@ Resultado: {
 
 $$E \NatJoin C$$
 
-```
+```python
 Resultado: {
   (e1, f1, u1, '2023001', 'Ana', 20, 8.7, 'Ingeniería', 'FI01', 5000000.50),
   (e2, f1, u1, '2023002', 'Luis', 21, 8.4, 'Ingeniería', 'FI01', 5000000.50),
@@ -171,7 +171,7 @@ Resultado: {
 
 $$\Group{cid,COUNT(eid)}{cid}(E)$$
 
-```
+```python
 Resultado: {
   (f1, 3), (f2, 2), (f3, 1), (f4, 1), (f5, 1)
 }
@@ -181,7 +181,7 @@ Resultado: {
 
 $$\Group{cid,AVG(p)}{cid}(E)$$
 
-```
+```python
 Resultado: {
   (f1, 8.43), (f2, 8.5), (f3, 9.5), (f4, 8.9), (f5, 9.1)
 }
@@ -191,7 +191,7 @@ Resultado: {
 
 $$\Group{U.uid,MAX(E.p)}{U.uid}(E \NatJoin C \NatJoin U)$$
 
-```
+```python
 Resultado: {
   (u1, 9.5), (u2, 9.1)
 }

@@ -11,10 +11,6 @@ title: "Lab3 - CSS avanzado (Bootstrap)"
 nav_order: 4
 ---
 
-
-
-# CSS avanzado: Bootstrap
-
 ## Objetivo
 El objetivo de esta práctica es introducir al alumno al framework CSS Bootstrap, para diseñar aplicaciones Web responsivas y con un nivel de acabado visual satisfactorio. El alumno aprenderá a:
 - Integrar el framework Bootstrap en un proyecto ya existente.

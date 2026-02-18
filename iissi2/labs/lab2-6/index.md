@@ -11,10 +11,6 @@ title: "Lab6 - Peticiones AJAX GET"
 nav_order: 7
 ---
 
-
-
-# Peticiones AJAX: GET
-
 ## Objetivo
 El objetivo de esta práctica es introducir la comunicación del front-end implementado, usando HTML+CSS+JS, con el back-end del proyecto, consistente en una serie de endpoints REST. El alumno aprenderá a:
 - Usar la librería JavaScript "Axios" para realizar peticiones AJAX de tipo GET a los endpoints del proyecto.

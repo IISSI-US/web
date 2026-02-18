@@ -11,10 +11,6 @@ title: "Lab2 - HTML y CSS básico"
 nav_order: 3
 ---
 
-
-
-# HTML y CSS básico
-
 ## Objetivo
 El objetivo de esta práctica es introducir al alumno a los conceptos básicos de HTML y CSS necesarios para construir una versión preliminar de la aplicación a desarrollar. El alumno aprenderá a:
 - Utilizar las etiquetas básicas HTML para organizar los elementos en un sitio web.

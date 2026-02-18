@@ -11,10 +11,6 @@ title: "Lab9 - Gestión de sesiones"
 nav_order: 9
 ---
 
-
-
-# Gestión de sesiones
-
 ## Objetivo
 El propósito de esta práctica es aprender a realizar operaciones de registro, login y cierre de sesión en el cliente, haciendo uso de los endpoints provistos por el servidor a tal efecto. Además, se mostrarán conceptos básicos sobre gestión de la sesión en el cliente usando JavaScript. El alumno aprenderá a:
 - Realizar el registro de un nuevo usuario en la aplicación.
