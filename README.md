@@ -26,8 +26,8 @@ Este sitio contiene:
 
 ```bash
 # 1. Clona el repositorio
-git clone https://github.com/druizcortes/IISSI-26.git
-cd IISSI-26
+git clone https://github.com/IISSI-US/web.git
+cd web
 
 # 2. Instala las dependencias Ruby
 bundle install
@@ -44,7 +44,7 @@ Abre tu navegador en `http://127.0.0.1:4000/`
 ```bash
 make serve-dev
 ```
-- Sitio disponible en `http://127.0.0.1:4000/` (sin prefijo `/IISSI-26`)
+- Sitio disponible en `http://127.0.0.1:4000/` (sin prefijo `/web`)
 - Livereload automático al guardar cambios
 - Usa `_config.dev.yml` que sobrescribe `baseurl` a vacío
 - **Ventaja**: URLs más simples durante desarrollo
@@ -53,7 +53,7 @@ make serve-dev
 ```bash
 make serve-prod
 ```
-- Sitio disponible en `http://127.0.0.1:4000/IISSI-26/`
+- Sitio disponible en `http://127.0.0.1:4000/web/`
 - Simula el comportamiento de GitHub Pages
 - **Útil para**: detectar problemas de rutas/enlaces antes de hacer push
 
@@ -115,14 +115,14 @@ El sitio se despliega **automáticamente** mediante GitHub Actions:
    - Instala Ruby 3.1 y dependencias
    - Ejecuta `jekyll build` con baseurl dinámico
    - Despliega a GitHub Pages
-4. **URL producción**: https://druizcortes.github.io/IISSI-26/
+4. **URL producción**: https://iissi-us.github.io/web/
 
 ### Configuración de URLs
 
 | Entorno | Archivo | URL | Baseurl |
 |---------|---------|-----|----------|
 | **Desarrollo** | `_config.dev.yml` | `http://127.0.0.1:4000` | `""` (vacío) |
-| **Producción** | `_config.yml` | `https://druizcortes.github.io` | `/IISSI-26` |
+| **Producción** | `_config.yml` | `https://iissi-us.github.io` | `/web` |
 | **GitHub Actions** | Workflow | — | Dinámico vía `steps.pages.outputs.base_path` |
 
 ### Notas importantes

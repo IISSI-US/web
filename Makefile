@@ -9,7 +9,7 @@ help:
 	@echo ""
 	@echo "=== Desarrollo local ==="
 	@echo "  serve-dev         Servidor local en raíz / (recomendado para desarrollo)"
-	@echo "  serve-prod        Servidor local en /IISSI-26 (prueba antes de push)"
+	@echo "  serve-prod        Servidor local en /web (prueba antes de push)"
 	@echo "  serve             Servidor con baseurl de producción (= serve-prod)"
 	@echo ""
 	@echo "=== Construcción ==="
@@ -74,16 +74,16 @@ build:
 
 # Serve con baseurl de producción (alias de serve-prod)
 serve:
-	bundle exec jekyll serve --livereload --baseurl "/IISSI-26"
+	bundle exec jekyll serve --livereload --baseurl "/web"
 
 # Build con JEKYLL_ENV=production y baseurl de producción
 build-prod:
-	JEKYLL_ENV=production bundle exec jekyll build --baseurl "/IISSI-26"
+	JEKYLL_ENV=production bundle exec jekyll build --baseurl "/web"
 
-# Serve local simulando GitHub Pages (baseurl = /IISSI-26)
+# Serve local simulando GitHub Pages (baseurl = /web)
 # Útil para probar rutas antes de push
 serve-prod:
-	bundle exec jekyll serve --livereload --baseurl "/IISSI-26"
+	bundle exec jekyll serve --livereload --baseurl "/web"
 
 # Serve en raíz / (sin baseurl) - RECOMENDADO para desarrollo
 # Usa _config.dev.yml que sobrescribe url y baseurl
