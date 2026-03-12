@@ -3,7 +3,7 @@ layout: single
 #title: "IISSI-2"
 permalink: /iissi2/
 
-colecciones:
+info:
   - image_path: /assets/images/iissi2/laboratorios-icon.svg
     alt: "Laboratorios"
     title: "Laboratorios"
@@ -12,8 +12,6 @@ colecciones:
     url: "/iissi2/labs/"
     btn_label: "Ver laboratorios"
     btn_class: "btn--primary"
-
-info:
   - image_path: /assets/images/iissi2/evaluacion-icon.svg
     alt: "Evaluación"
     title: "Evaluación"
@@ -41,11 +39,5 @@ info:
     btn_label: "Ver profesores"
     btn_class: "btn--info"
 ---
-
-<!-- ## Colecciones de materiales -->
-
-{% include feature_row id="colecciones" type="center" %}
-
-<!-- ## Información del curso -->
 
 {% include feature_row id="info" type="center" %}

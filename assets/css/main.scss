@@ -13,8 +13,8 @@ layout: null
  * 4. partials/*: Nuestros estilos custom por funcionalidad
  * 5. custom-colors: AL FINAL para sobrescribir con CSS custom properties (theme toggle + TOC)
  * 
- * NOTA: Los estilos de feature_row están en _includes/head/custom.html (no aquí)
- * porque requieren !important y necesitan cargarse DESPUÉS del CSS compilado.
+ * NOTA: Los estilos de feature_row están en _sass/partials/_feature-row.scss
+ * e importados al final para mantener prioridad sobre el tema.
  * 
  * Este orden asegura que:
  * - MM recibe nuestras variables y las usa internamente
@@ -38,7 +38,8 @@ layout: null
 @import "partials/sql-embed";      // Componente custom para embeds SQL
 @import "partials/theme-toggle";   // Botón de cambio de tema
 @import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)
-@import "partials/custom-colors";  // ÚLTIMO: CSS custom properties + TOC
+@import "partials/custom-colors";  // CSS custom properties + TOC
+@import "partials/feature-row";    // ÚLTIMO: tarjetas feature_row (global, centradas)
 
 // === Layout Responsive ===
 
