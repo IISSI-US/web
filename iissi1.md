@@ -4,6 +4,15 @@ layout: single
 permalink: /iissi1/
 
 colecciones:
+  - image_path: /assets/images/iissi1/teoria-icon.svg
+    alt: "Teoría"
+    title: "Teoría"
+    excerpt: |
+      Colección de boletines de laboratorios para crear una base de datos MariaDB a partir de unos requisitos iniciales.
+    url: "/iissi1/teoria/"
+    btn_label: "Ver teoría"
+    btn_class: "btn--primary"
+  
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Laboratorios"
     title: "Laboratorios"
