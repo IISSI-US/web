@@ -1,0 +1,39 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffe7d7"/>
+    <stop offset="100%" stop-color="#f3c8b0"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0.8" dy="1.0" stdDeviation="1.4" flood-color="#000" flood-opacity="0.38"/>
+  </filter>
+  <style>
+    .wc { font-family: 'Roboto Condensed', 'Lato', 'Roboto', Arial, sans-serif; font-weight: 700; letter-spacing: 0.85px; }
+  </style>
+</defs>
+<rect x="0" y="0" width="640" height="640" rx="14" ry="14" fill="url(#bg)"/>
+<rect x="8" y="8" width="624" height="624" rx="10" ry="10" fill="none" stroke="#9a5f3f" stroke-width="2.1" stroke-opacity="0.60"/>
+<circle cx="134.4" cy="128.0" r="89.6" fill="#ffb89e" opacity="0.35"/>
+<circle cx="518.4" cy="524.8" r="102.4" fill="#ffa384" opacity="0.33"/>
+<circle cx="505.6" cy="128.0" r="64.0" fill="#ffd1bb" opacity="0.28"/>
+<text class="wc" x="320.00" y="320.00" font-size="70" fill="#2a050f" opacity="1.00" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Software</text>
+<text class="wc" x="321.70" y="255.13" font-size="32" fill="#560a1f" opacity="0.97" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Mantenimiento</text>
+<text class="wc" x="310.31" y="383.04" font-size="32" fill="#8c1030" opacity="0.95" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Calidad</text>
+<text class="wc" x="404.66" y="448.34" font-size="32" fill="#c01747" opacity="0.93" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 404.66 448.34)">Proyecto</text>
+<text class="wc" x="326.79" y="490.79" font-size="28" fill="#ef2f66" opacity="0.90" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 326.79 490.79)">Ingeniería</text>
+<text class="wc" x="216.75" y="445.13" font-size="28" fill="#ff6d97" opacity="0.88" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 216.75 445.13)">Productos</text>
+<text class="wc" x="291.42" y="147.09" font-size="28" fill="#ff9fba" opacity="0.85" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 291.42 147.09)">Desarrollo</text>
+<text class="wc" x="286.25" y="488.13" font-size="27" fill="#2a050f" opacity="0.82" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 286.25 488.13)">Requisitos</text>
+<text class="wc" x="370.61" y="214.24" font-size="26" fill="#560a1f" opacity="0.80" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Gestión</text>
+<text class="wc" x="420.03" y="179.16" font-size="26" fill="#8c1030" opacity="0.78" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Configuración</text>
+<text class="wc" x="367.30" y="476.68" font-size="25" fill="#c01747" opacity="0.75" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 367.30 476.68)">Problemas</text>
+<text class="wc" x="254.65" y="193.98" font-size="23" fill="#ef2f66" opacity="0.72" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 254.65 193.98)">Chaos</text>
+<text class="wc" x="441.51" y="465.52" font-size="22" fill="#ff6d97" opacity="0.70" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 441.51 465.52)">Características</text>
+<text class="wc" x="182.12" y="434.74" font-size="22" fill="#ff9fba" opacity="0.68" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 182.12 434.74)">Estándares</text>
+<text class="wc" x="253.41" y="453.76" font-size="22" fill="#2a050f" opacity="0.65" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 253.41 453.76)">Report</text>
+<text class="wc" x="195.22" y="220.89" font-size="21" fill="#560a1f" opacity="0.62" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Normas</text>
+<text class="wc" x="377.37" y="147.49" font-size="21" fill="#8c1030" opacity="0.60" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Tendencias</text>
+<text class="wc" x="179.90" y="188.67" font-size="21" fill="#c01747" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Actuales</text>
+<text class="wc" x="469.82" y="419.81" font-size="18" fill="#ef2f66" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 469.82 419.81)">Contenido</text>
+<text class="wc" x="142.36" y="261.12" font-size="18" fill="#ff6d97" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Industria</text>
+</svg>
