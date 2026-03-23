@@ -8,8 +8,8 @@ teoria:
     alt: "Tema 1"
     title: "Tema 1 - Introduccion a la Ingenieria del Software"
     excerpt: "Fundamentos de la ingenieria del software."
-    url: "/iissi1/teoria/t1-introduccion-a-la-ingenieria-del-software.pdf"
-    btn_label: "Abrir tema"
+    url: "/assets/slides/iissi1/t1/index.html"
+    btn_label: "Abrir en web"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/teoria-icon.svg
     alt: "Tema 2"
@@ -91,3 +91,8 @@ teoria:
 ---
 
 {% include feature_row id="teoria" type="center" %}
+
+## Tema 1
+
+- [Version web](/assets/slides/iissi1/t1/index.html)
+- [Version PDF](/assets/slides/iissi1/t1/t1.pdf)

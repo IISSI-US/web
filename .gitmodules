@@ -1,0 +1,3 @@
+[submodule "assets/marp-theme"]
+	path = assets/marp-theme
+	url = git@github.com:IISSI-US/marp-theme.git
