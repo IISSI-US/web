@@ -27,6 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.MARP_THEME_READ_TOKEN }}
           submodules: recursive
 
       - name: Setup Ruby
