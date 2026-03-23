@@ -185,3 +185,15 @@
     max-width: 1600px !important;
   }
 }
+
+.feature__item-actions {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+}
+
+.feature__item-actions .btn {
+  min-width: 5.5rem !important;
+}

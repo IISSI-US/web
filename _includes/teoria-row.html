@@ -1,0 +1,33 @@
+{% assign items = page[include.id] %}
+<div class="feature__wrapper">
+  {% for item in items %}
+    <div class="feature__item feature__item--center">
+      <div class="archive__item">
+        {% if item.image_path %}
+          <div class="archive__item-teaser">
+            <img src="{{ item.image_path | relative_url }}" alt="{{ item.alt | default: item.title }}">
+          </div>
+        {% endif %}
+
+        <div class="archive__item-body">
+          {% if item.title %}
+            <h2 class="archive__item-title">{{ item.title }}</h2>
+          {% endif %}
+
+          {% if item.excerpt %}
+            <div class="archive__item-excerpt">{{ item.excerpt | markdownify }}</div>
+          {% endif %}
+
+          <div class="feature__item-actions">
+            {% if item.url_web %}
+              <a href="{{ item.url_web | relative_url }}" class="btn btn--primary">Web</a>
+            {% endif %}
+            {% if item.url_pdf %}
+              <a href="{{ item.url_pdf | relative_url }}" class="btn btn--primary">PDF</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
