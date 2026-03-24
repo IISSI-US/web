@@ -1,0 +1,39 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffe7d7"/>
+    <stop offset="100%" stop-color="#f3c8b0"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0.8" dy="1.0" stdDeviation="1.4" flood-color="#000" flood-opacity="0.38"/>
+  </filter>
+  <style>
+    .wc { font-family: 'Roboto Condensed', 'Lato', 'Roboto', Arial, sans-serif; font-weight: 700; letter-spacing: 0.85px; }
+  </style>
+</defs>
+<rect x="0" y="0" width="640" height="640" rx="14" ry="14" fill="url(#bg)"/>
+<rect x="8" y="8" width="624" height="624" rx="10" ry="10" fill="none" stroke="#9a5f3f" stroke-width="2.1" stroke-opacity="0.60"/>
+<circle cx="134.4" cy="128.0" r="89.6" fill="#ffb89e" opacity="0.35"/>
+<circle cx="518.4" cy="524.8" r="102.4" fill="#ffa384" opacity="0.33"/>
+<circle cx="505.6" cy="128.0" r="64.0" fill="#ffd1bb" opacity="0.28"/>
+<text class="wc" x="320.00" y="320.00" font-size="70" fill="#2a050f" opacity="1.00" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Requisitos</text>
+<text class="wc" x="317.53" y="390.16" font-size="44" fill="#560a1f" opacity="0.97" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Historias</text>
+<text class="wc" x="330.84" y="248.83" font-size="44" fill="#8c1030" opacity="0.95" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Usuario</text>
+<text class="wc" x="324.92" y="443.74" font-size="43" fill="#c01747" opacity="0.93" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Funcionales</text>
+<text class="wc" x="202.54" y="156.80" font-size="38" fill="#ef2f66" opacity="0.90" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 202.54 156.80)">Aceptación</text>
+<text class="wc" x="322.35" y="198.26" font-size="37" fill="#ff6d97" opacity="0.88" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Pruebas</text>
+<text class="wc" x="337.97" y="151.93" font-size="36" fill="#ff9fba" opacity="0.85" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Objetivos</text>
+<text class="wc" x="460.73" y="161.04" font-size="34" fill="#2a050f" opacity="0.82" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 460.73 161.04)">Información</text>
+<text class="wc" x="159.46" y="436.32" font-size="33" fill="#560a1f" opacity="0.80" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 159.46 436.32)">Reglas</text>
+<text class="wc" x="157.72" y="200.49" font-size="33" fill="#8c1030" opacity="0.78" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 157.72 200.49)">Negocio</text>
+<text class="wc" x="489.68" y="460.97" font-size="32" fill="#c01747" opacity="0.75" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 489.68 460.97)">Generales</text>
+<text class="wc" x="326.16" y="490.73" font-size="30" fill="#ef2f66" opacity="0.72" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Contenido</text>
+<text class="wc" x="82.95" y="323.28" font-size="30" fill="#ff6d97" opacity="0.70" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 82.95 323.28)">Introducción</text>
+<text class="wc" x="327.14" y="527.90" font-size="28" fill="#ff9fba" opacity="0.68" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Sistema</text>
+<text class="wc" x="307.67" y="112.45" font-size="24" fill="#2a050f" opacity="0.65" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Sistemas</text>
+<text class="wc" x="498.34" y="226.05" font-size="24" fill="#560a1f" opacity="0.62" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 498.34 226.05)">Debe</text>
+<text class="wc" x="312.41" y="561.43" font-size="24" fill="#8c1030" opacity="0.60" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Usuarios</text>
+<text class="wc" x="213.42" y="524.77" font-size="22" fill="#c01747" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Mapas</text>
+<text class="wc" x="312.42" y="82.87" font-size="18" fill="#ef2f66" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Detalle</text>
+<text class="wc" x="122.29" y="416.57" font-size="18" fill="#ff6d97" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 122.29 416.57)">Describen</text>
+</svg>
