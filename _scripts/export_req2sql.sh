@@ -2,21 +2,18 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=plantuml-lib.sh
+source "${REPO_DIR}/_scripts/plantuml-lib.sh"
+
 SRC_BASE="${REPO_DIR}/_diagrams/req2sql"
 OUT_BASE="${REPO_DIR}/assets/images/iissi1/req2sql"  # tracked; published
-PLANTUML_JAR="${REPO_DIR}/_scripts/plantuml.jar"
 
 if [[ ! -d "${SRC_BASE}" ]]; then
   echo "[ERR] Source dir not found: ${SRC_BASE}" >&2
   exit 1
 fi
 
-if [[ ! -f "${PLANTUML_JAR}" ]]; then
-  echo "[ERR] PlantUML jar not found: ${PLANTUML_JAR}" >&2
-  echo "      Place the renderer at: _scripts/plantuml.jar" >&2
-  exit 2
-fi
-
+check_plantuml_jar
 mkdir -p "${OUT_BASE}"
 
 render_dir() {
