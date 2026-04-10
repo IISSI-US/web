@@ -1,0 +1,39 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffe7d7"/>
+    <stop offset="100%" stop-color="#f3c8b0"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0.8" dy="1.0" stdDeviation="1.4" flood-color="#000" flood-opacity="0.38"/>
+  </filter>
+  <style>
+    .wc { font-family: 'Roboto Condensed', 'Lato', 'Roboto', Arial, sans-serif; font-weight: 700; letter-spacing: 0.85px; }
+  </style>
+</defs>
+<rect x="0" y="0" width="640" height="640" rx="14" ry="14" fill="url(#bg)"/>
+<rect x="8" y="8" width="624" height="624" rx="10" ry="10" fill="none" stroke="#9a5f3f" stroke-width="2.1" stroke-opacity="0.60"/>
+<circle cx="134.4" cy="128.0" r="89.6" fill="#ffb89e" opacity="0.35"/>
+<circle cx="518.4" cy="524.8" r="102.4" fill="#ffa384" opacity="0.33"/>
+<circle cx="505.6" cy="128.0" r="64.0" fill="#ffd1bb" opacity="0.28"/>
+<text class="wc" x="320.00" y="320.00" font-size="70" fill="#2a050f" opacity="1.00" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Bootstrap</text>
+<text class="wc" x="307.83" y="391.31" font-size="46" fill="#560a1f" opacity="0.97" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Fontawesome</text>
+<text class="wc" x="312.23" y="247.33" font-size="43" fill="#8c1030" opacity="0.95" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Librerías</text>
+<text class="wc" x="543.33" y="315.65" font-size="39" fill="#c01747" opacity="0.93" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 543.33 315.65)">Introducción</text>
+<text class="wc" x="455.92" y="160.18" font-size="36" fill="#ef2f66" opacity="0.90" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 455.92 160.18)">Contenidos</text>
+<text class="wc" x="307.19" y="511.36" font-size="27" fill="#ff6d97" opacity="0.88" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 307.19 511.36)">Universidad</text>
+<text class="wc" x="335.02" y="201.84" font-size="27" fill="#ff9fba" opacity="0.85" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Sevilla</text>
+<text class="wc" x="318.78" y="165.77" font-size="27" fill="#2a050f" opacity="0.82" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Departamento</text>
+<text class="wc" x="408.00" y="436.30" font-size="27" fill="#560a1f" opacity="0.80" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Lenguajes</text>
+<text class="wc" x="211.28" y="444.50" font-size="27" fill="#8c1030" opacity="0.78" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Sistemas</text>
+<text class="wc" x="313.76" y="129.71" font-size="27" fill="#c01747" opacity="0.75" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Informáticos</text>
+<text class="wc" x="167.96" y="206.22" font-size="27" fill="#ef2f66" opacity="0.72" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 167.96 206.22)">Estilos</text>
+<text class="wc" x="338.65" y="493.85" font-size="18" fill="#ff6d97" opacity="0.70" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 338.65 493.85)">Carlos</text>
+<text class="wc" x="396.50" y="469.05" font-size="18" fill="#ff9fba" opacity="0.68" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Arévalo</text>
+<text class="wc" x="233.26" y="202.04" font-size="18" fill="#2a050f" opacity="0.65" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Daniel</text>
+<text class="wc" x="239.94" y="475.62" font-size="18" fill="#560a1f" opacity="0.62" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Ayala</text>
+<text class="wc" x="380.63" y="496.82" font-size="18" fill="#8c1030" opacity="0.60" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">José</text>
+<text class="wc" x="240.90" y="503.71" font-size="18" fill="#c01747" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Calderón</text>
+<text class="wc" x="307.46" y="98.60" font-size="18" fill="#ef2f66" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Margarita</text>
+<text class="wc" x="124.28" y="387.57" font-size="18" fill="#ff6d97" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Cruz</text>
+</svg>

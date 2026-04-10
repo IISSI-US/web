@@ -1,0 +1,39 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffe7d7"/>
+    <stop offset="100%" stop-color="#f3c8b0"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0.8" dy="1.0" stdDeviation="1.4" flood-color="#000" flood-opacity="0.38"/>
+  </filter>
+  <style>
+    .wc { font-family: 'Roboto Condensed', 'Lato', 'Roboto', Arial, sans-serif; font-weight: 700; letter-spacing: 0.85px; }
+  </style>
+</defs>
+<rect x="0" y="0" width="640" height="640" rx="14" ry="14" fill="url(#bg)"/>
+<rect x="8" y="8" width="624" height="624" rx="10" ry="10" fill="none" stroke="#9a5f3f" stroke-width="2.1" stroke-opacity="0.60"/>
+<circle cx="134.4" cy="128.0" r="89.6" fill="#ffb89e" opacity="0.35"/>
+<circle cx="518.4" cy="524.8" r="102.4" fill="#ffa384" opacity="0.33"/>
+<circle cx="505.6" cy="128.0" r="64.0" fill="#ffd1bb" opacity="0.28"/>
+<text class="wc" x="320.00" y="320.00" font-size="65" fill="#2a050f" opacity="1.00" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Comunicación</text>
+<text class="wc" x="589.72" y="323.53" font-size="55" fill="#560a1f" opacity="0.97" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 589.72 323.53)">Petición</text>
+<text class="wc" x="320.12" y="251.84" font-size="49" fill="#8c1030" opacity="0.95" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Rest</text>
+<text class="wc" x="54.41" y="332.69" font-size="49" fill="#c01747" opacity="0.93" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 54.41 332.69)">Peticiones</text>
+<text class="wc" x="317.09" y="385.14" font-size="43" fill="#ef2f66" opacity="0.90" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Json</text>
+<text class="wc" x="296.81" y="437.45" font-size="43" fill="#ff6d97" opacity="0.88" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Datos</text>
+<text class="wc" x="406.62" y="478.09" font-size="36" fill="#ff9fba" opacity="0.85" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 406.62 478.09)">Asíncronas</text>
+<text class="wc" x="223.05" y="186.56" font-size="33" fill="#2a050f" opacity="0.82" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 223.05 186.56)">Asíncrona</text>
+<text class="wc" x="419.57" y="203.53" font-size="33" fill="#560a1f" opacity="0.80" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 419.57 203.53)">Módulos</text>
+<text class="wc" x="313.06" y="202.27" font-size="33" fill="#8c1030" opacity="0.78" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Axios</text>
+<text class="wc" x="209.07" y="385.98" font-size="30" fill="#c01747" opacity="0.75" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Ajax</text>
+<text class="wc" x="309.70" y="164.60" font-size="27" fill="#ef2f66" opacity="0.72" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Modelo</text>
+<text class="wc" x="449.55" y="432.47" font-size="27" fill="#ff6d97" opacity="0.70" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 449.55 432.47)">Servidor</text>
+<text class="wc" x="298.54" y="480.87" font-size="24" fill="#ff9fba" opacity="0.68" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Llamadas</text>
+<text class="wc" x="316.27" y="129.73" font-size="24" fill="#2a050f" opacity="0.65" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Formatos</text>
+<text class="wc" x="186.00" y="188.91" font-size="24" fill="#560a1f" opacity="0.62" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 186.00 188.91)">Recordatorio</text>
+<text class="wc" x="277.77" y="513.51" font-size="24" fill="#8c1030" opacity="0.60" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Implementación</text>
+<text class="wc" x="458.26" y="233.23" font-size="24" fill="#c01747" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 458.26 233.23)">Error</text>
+<text class="wc" x="484.15" y="420.50" font-size="24" fill="#ef2f66" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 484.15 420.50)">Objeto</text>
+<text class="wc" x="166.79" y="418.86" font-size="17" fill="#ff6d97" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Contenidos</text>
+</svg>

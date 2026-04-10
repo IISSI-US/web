@@ -1,0 +1,39 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ffe7d7"/>
+    <stop offset="100%" stop-color="#f3c8b0"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0.8" dy="1.0" stdDeviation="1.4" flood-color="#000" flood-opacity="0.38"/>
+  </filter>
+  <style>
+    .wc { font-family: 'Roboto Condensed', 'Lato', 'Roboto', Arial, sans-serif; font-weight: 700; letter-spacing: 0.85px; }
+  </style>
+</defs>
+<rect x="0" y="0" width="640" height="640" rx="14" ry="14" fill="url(#bg)"/>
+<rect x="8" y="8" width="624" height="624" rx="10" ry="10" fill="none" stroke="#9a5f3f" stroke-width="2.1" stroke-opacity="0.60"/>
+<circle cx="134.4" cy="128.0" r="89.6" fill="#ffb89e" opacity="0.35"/>
+<circle cx="518.4" cy="524.8" r="102.4" fill="#ffa384" opacity="0.33"/>
+<circle cx="505.6" cy="128.0" r="64.0" fill="#ffd1bb" opacity="0.28"/>
+<text class="wc" x="320.00" y="320.00" font-size="70" fill="#2a050f" opacity="1.00" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Rest</text>
+<text class="wc" x="177.07" y="316.95" font-size="63" fill="#560a1f" opacity="0.97" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 177.07 316.95)">Recurso</text>
+<text class="wc" x="455.44" y="338.33" font-size="51" fill="#8c1030" opacity="0.95" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 455.44 338.33)">Introducción</text>
+<text class="wc" x="274.55" y="494.72" font-size="51" fill="#c01747" opacity="0.93" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Protocolo</text>
+<text class="wc" x="313.10" y="395.13" font-size="51" fill="#ef2f66" opacity="0.90" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Apis</text>
+<text class="wc" x="297.18" y="184.57" font-size="45" fill="#ff6d97" opacity="0.88" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 297.18 184.57)">Diseño</text>
+<text class="wc" x="351.06" y="193.83" font-size="40" fill="#ff9fba" opacity="0.85" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 351.06 193.83)">Google</text>
+<text class="wc" x="243.56" y="180.22" font-size="34" fill="#2a050f" opacity="0.82" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 243.56 180.22)">Servicios</text>
+<text class="wc" x="402.38" y="177.28" font-size="34" fill="#560a1f" opacity="0.80" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 402.38 177.28)">Respuesta</text>
+<text class="wc" x="506.25" y="337.41" font-size="30" fill="#8c1030" opacity="0.78" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 506.25 337.41)">Restful</text>
+<text class="wc" x="119.05" y="309.07" font-size="30" fill="#c01747" opacity="0.75" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 119.05 309.07)">Consumir</text>
+<text class="wc" x="316.70" y="545.10" font-size="30" fill="#ef2f66" opacity="0.72" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Wikipedia</text>
+<text class="wc" x="322.66" y="444.84" font-size="30" fill="#ff6d97" opacity="0.70" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Wiki</text>
+<text class="wc" x="305.71" y="62.56" font-size="30" fill="#ff9fba" opacity="0.68" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Peticiones</text>
+<text class="wc" x="506.83" y="222.09" font-size="30" fill="#2a050f" opacity="0.65" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(90 506.83 222.09)">Usar</text>
+<text class="wc" x="543.48" y="314.46" font-size="26" fill="#560a1f" opacity="0.62" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 543.48 314.46)">Contenido</text>
+<text class="wc" x="178.72" y="155.45" font-size="26" fill="#8c1030" opacity="0.60" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Uris</text>
+<text class="wc" x="303.81" y="581.36" font-size="26" fill="#c01747" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Navegador</text>
+<text class="wc" x="82.71" y="321.26" font-size="26" fill="#ef2f66" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill" transform="rotate(-90 82.71 321.26)">Response</text>
+<text class="wc" x="519.96" y="423.88" font-size="18" fill="#ff6d97" opacity="0.58" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)" stroke="#300914" stroke-width="0.85" paint-order="stroke fill">Forma</text>
+</svg>
