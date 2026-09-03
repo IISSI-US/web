@@ -3,7 +3,7 @@ layout: single
 #title: "IISSI-2"
 permalink: /iissi2/
 
-info:
+materiales:
   - image_path: /assets/images/iissi2/laboratorios-icon.svg
     alt: "Laboratorios"
     title: "Laboratorios"
@@ -12,32 +12,22 @@ info:
     url: "/iissi2/labs/"
     btn_label: "Ver laboratorios"
     btn_class: "btn--primary"
-  - image_path: /assets/images/iissi2/evaluacion-icon.svg
-    alt: "Evaluación"
-    title: "Evaluación"
-    excerpt: |
-      Criterios de calificación, ordenación temporal de contenidos y normativa de la asignatura.
-    url: "/iissi2/evaluacion/"
-    btn_label: "Ver información"
-    btn_class: "btn--info"
-  
+
+organizacion_docente:
   - image_path: /assets/images/iissi2/planificacion-icon.svg
-    alt: "Planificación"
-    title: "Planificación"
+    alt: "Organización Docente"
+    title: "Organización Docente"
     excerpt: |
-      Calendario de clases, entregas y exámenes.
-    url: "/iissi2/planificacion/"
-    btn_label: "Ver planificación"
-    btn_class: "btn--info"
-  
-  - image_path: /assets/images/iissi2/profesores-icon.svg
-    alt: "Profesores"
-    title: "Profesores"
-    excerpt: |
-      Información de contacto y horarios de tutoría del equipo docente.
-    url: "/iissi2/profesores/"
-    btn_label: "Ver profesores"
+      Profesorado, criterios de evaluación y planificación temporal de la asignatura.
+    url: "/iissi2/organizacion-docente/"
+    btn_label: "Ver organización docente"
     btn_class: "btn--info"
 ---
 
-{% include feature_row id="info" type="center" %}
+<!-- ## Material -->
+
+{% include feature_row id="materiales" type="center" %}
+
+## Organización Docente
+
+{% include feature_row id="organizacion_docente" type="center" %}
