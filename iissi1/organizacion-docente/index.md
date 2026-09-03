@@ -11,7 +11,7 @@ profesores:
     title: "Inma Hernández"
     role: "Coordinadora de Tecnologías Informáticas y Doble Grado"
     email: inmahernadez@us.es
-    groups: "IS-5 (Teoría inglés), TI-1 (Teoría), IC-2 (laboratorio)"
+    groups: "IS-5 (Teoría inglés), TI-1 (Teoría) e IC-2 (laboratorio)"
     url: "mailto:inmahernadez@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
