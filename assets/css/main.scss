@@ -33,6 +33,7 @@ layout: null
 
 // Custom partials (orden alfabético para claridad)
 @import "partials/code";           // Estilos de bloques de código
+@import "partials/docente-list";    // Listado de profesorado con avatar
 @import "partials/formulas";       // MathJax containerss
 @import "partials/images";         // Imágenes centradas y redondeadas
 @import "partials/sql-embed";      // Componente custom para embeds SQL

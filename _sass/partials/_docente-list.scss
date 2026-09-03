@@ -1,0 +1,57 @@
+.docente-list {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+}
+
+.docente-list__item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.docente-list__entry {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.docente-list__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+}
+
+.docente-list__body {
+  min-width: 0;
+}
+
+.docente-list__name {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.docente-list__body p {
+  margin: 0.15rem 0;
+}
+
+.docente-list__action {
+  white-space: nowrap;
+}
+
+@media (max-width: 37.5em) {
+  .docente-list__entry {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .docente-list__avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .docente-list__action {
+    grid-column: 2;
+  }
+}
