@@ -47,9 +47,9 @@ profesores:
   - image_path: /assets/images/profesores/mcruz.png
     alt: "Margarita Cruz"
     title: "Margarita Cruz"
-    email: mcruz@us.es
+    email: cruz@us.es
     groups: "TI-1 (Teoría y laboratorio), IC-1 (laboratorio)"
-    url: "mailto:mcruz@us.es"
+    url: "mailto:cruz@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
 
@@ -58,7 +58,7 @@ profesores:
     title: "Pepe Calderón"
     email: josecalderon@us.es
     groups: "IS-5 (laboratorio inglés)"
-    url: "mailto:pepecalderon@us.es"
+    url: "mailto:josecalderon@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
 
