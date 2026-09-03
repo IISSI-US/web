@@ -136,4 +136,32 @@ Las notas de las partes aprobadas (T>=5 o L>=5) se conservan entre convocatorias
 
 ## Planificación
 
-![Planificación]({{ '/assets/images/iissi1/planificacion.png' | relative_url }})
+La planificación por grupos es tentativa y está sujeta a cambios
+
+### Grupos 1 y 3 de TI
+![Planificación]({{ '/assets/images/iissi1/plan-ti1-ti3.png' | relative_url }})
+
+### Grupos 2 de TI y DG
+![Planificación]({{ '/assets/images/iissi1/plan-ti2.png' | relative_url }})
+
+### Grupos 1 y 2 de IC
+![Planificación]({{ '/assets/images/iissi1/plan-ic1-ic2.png' | relative_url }})
+
+## Exámenes
+
+### Grupos 1 y 3 de TI
+- Teoría Bloque I: 14 de Octubre
+- Teoría Bloque II: 9 de Diciembre
+- Laboratorios: 14 y 16 de Diciembre
+
+### Grupos 2 de TI y DG
+- Teoría Bloque I: 13 de Octubre
+- Teoría Bloque II: 10 de Diciembre
+- Laboratorios: 15 y 17 de Diciembre
+
+
+### Grupos 1 y 2 de IC
+- Teoría Bloque I: 13 de Octubre
+- Teoría Bloque II: 10 de Diciembre
+- Laboratorios: 15 y 17 de Diciembre
+
