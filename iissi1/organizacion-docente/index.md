@@ -56,7 +56,7 @@ profesores:
   - image_path: /assets/images/profesores/pepe.png
     alt: "Pepe Calderón"
     title: "Pepe Calderón"
-    email: pepecalderon@us.es
+    email: josecalderon@us.es
     groups: "IS-5 (laboratorio inglés)"
     url: "mailto:pepecalderon@us.es"
     btn_label: "Contactar"
