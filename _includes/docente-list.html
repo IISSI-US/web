@@ -1,0 +1,32 @@
+{% assign docentes = page[include.id] %}
+
+<ul class="docente-list">
+  {% for docente in docentes %}
+    <li class="docente-list__item">
+      <div class="docente-list__entry">
+        {% if docente.image_path %}
+          <img class="docente-list__avatar" src="{{ docente.image_path | relative_url }}" alt="{{ docente.alt | default: docente.title | escape }}">
+        {% endif %}
+
+        <div class="docente-list__body">
+          {% if docente.title %}
+            <h3 class="docente-list__name">{{ docente.title }}</h3>
+          {% endif %}
+          {% if docente.role %}
+            <p><strong>{{ docente.role }}</strong></p>
+          {% endif %}
+          {% if docente.email %}
+            <p><strong>Email:</strong> {{ docente.email }}</p>
+          {% endif %}
+          {% if docente.groups %}
+            <p><strong>Grupos:</strong> {{ docente.groups }}</p>
+          {% endif %}
+        </div>
+
+        {% if docente.url %}
+          <a class="btn {{ docente.btn_class | default: 'btn--primary' }} docente-list__action" href="{{ docente.url }}">{{ docente.btn_label | default: 'Contactar' }}</a>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ul>
