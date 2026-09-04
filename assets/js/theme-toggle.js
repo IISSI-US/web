@@ -5,10 +5,12 @@
     var STORAGE_KEY = 'mm-theme-mode'; // 'light' | 'dark' | 'auto'
     var mq = window.matchMedia('(prefers-color-scheme: dark)');
 
+    function effectiveTheme(mode) {
+        return mode === 'auto' ? (mq.matches ? 'dark' : 'light') : mode;
+    }
+
     function apply(mode) {
-        var autoDark = mq.matches;
-        var effective = mode === 'auto' ? (autoDark ? 'dark' : 'light') : mode;
-        document.documentElement.setAttribute('data-theme', effective);
+        document.documentElement.setAttribute('data-theme', effectiveTheme(mode));
         updateIcon(mode);
     }
 
@@ -22,7 +24,7 @@
 
     function cycle() {
         var curr = readMode();
-        var effective = curr === 'auto' ? (mq.matches ? 'dark' : 'light') : curr;
+        var effective = effectiveTheme(curr);
         var next = (curr === 'auto')
             ? (effective === 'dark' ? 'light' : 'dark')
             : (curr === 'dark' ? 'light' : 'auto');
@@ -41,8 +43,7 @@
     function updateIcon(mode) {
         var btn = document.getElementById('mm-theme-toggle');
         if (!btn) return;
-        var autoDark = mq.matches;
-        var effective = mode === 'auto' ? (autoDark ? 'dark' : 'light') : mode;
+        var effective = effectiveTheme(mode);
         btn.setAttribute('data-mode', mode);
         btn.title = 'Tema: ' + (mode === 'auto' ? ('auto (' + effective + ')') : mode);
         btn.setAttribute('aria-label', btn.title);
