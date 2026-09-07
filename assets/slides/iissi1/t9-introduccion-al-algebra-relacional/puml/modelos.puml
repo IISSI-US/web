@@ -1,0 +1,49 @@
+@startuml modelo-pedidos-nm
+
+!include ../../puml/final.iuml
+
+class Usuario {
+  nombre
+  direccion
+  telefono
+  provincia
+}
+
+class Producto {
+  descripcion
+  precio
+}
+
+class Pedido {
+  cantidad
+}
+
+Usuario *-left- "0..*" Pedido : realiza >
+Producto "1" -right- "0..*" Pedido : incluye >
+
+@enduml
+
+@startuml modelo-pedidos-ca
+
+!include ../../puml/final.iuml
+
+class Usuario {
+  nombre
+  direccion
+  telefono
+  provincia
+}
+
+class Producto {
+  descripcion
+  precio
+}
+
+class Pedido {
+  cantidad
+}
+
+Usuario "0..*" -right- "0..*" Producto : compra >
+(Usuario,Producto) .. Pedido : realiza
+
+@enduml

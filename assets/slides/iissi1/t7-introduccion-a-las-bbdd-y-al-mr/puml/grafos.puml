@@ -1,0 +1,102 @@
+@startuml grafo-dependencias-funcionales
+!include ../../puml/grafos.iuml
+
+rectangle "inmuebleId" as I
+rectangle "dirección" as D
+rectangle "precio" as P
+rectangle "propietarios" as PR
+rectangle "empleadoId" as E
+rectangle "nombre" as N
+rectangle "cargo" as C
+
+I --> D
+I --> P
+I --> PR
+I --> E
+E --> N
+E --> C
+@enduml
+
+@startuml grafo-no-2fn
+!include ../../puml/grafos.iuml
+
+rectangle "{inmuebleId,propietario}" as I
+rectangle "dirección" as D
+rectangle "precio" as P
+rectangle "porcentaje" as PO
+rectangle "empleadoId" as E
+rectangle "nombre" as N
+rectangle "cargo" as C
+
+I --> D
+I --> P
+I --> PO
+I --> E
+E --> N
+E --> C
+@enduml
+
+@startuml grafo-2fn
+!include ../../puml/grafos.iuml
+
+rectangle "inmuebleId" as I
+rectangle "dirección" as D
+rectangle "precio" as P
+rectangle "empleadoId" as E
+rectangle "nombre" as N
+rectangle "cargo" as C
+
+I --> D
+I --> P
+I --> E
+E --> N
+E --> C
+
+rectangle "{inmuebleId,propietario}" as IP
+rectangle "porcentaje" as PO
+
+IP --> PO
+
+@enduml
+
+@startuml grafo-no-3fn
+!include ../../puml/grafos.iuml
+
+rectangle "inmuebleId" as I
+rectangle "dirección" as D
+rectangle "precio" as P
+rectangle "empleadoId" as E
+rectangle "nombre" as N
+rectangle "cargo" as C
+
+I --> D
+I --> P
+I --> E
+E --> N
+E --> C
+I ..> N
+I ..> C
+
+@enduml
+
+@startuml grafo-3fn
+!include ../../puml/grafos.iuml
+
+rectangle "inmuebleId" as I
+rectangle "dirección" as D
+rectangle "precio" as P
+rectangle "empleadoId" as E
+rectangle "nombre" as N
+rectangle "cargo" as C
+rectangle "{inmuebleId,propietario}" as IP
+rectangle "porcentaje" as PO
+
+IP --> PO
+I --> D
+I --> P
+
+E --> N
+E --> C
+
+
+@enduml

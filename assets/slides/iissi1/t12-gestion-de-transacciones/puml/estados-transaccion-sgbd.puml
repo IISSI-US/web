@@ -1,0 +1,20 @@
+@startuml estados_transaccion_sgbd
+!include ../../puml/estados.iuml
+
+[*] --> Active : [Consistent State]\nStart Transaction
+
+Active --> Active : Read & Write dirty pages\nin Buffer Pool
+Active --> Partially_Committed : Coded Commit\n/ Commit initiated
+Active --> Partially_Committed : AutoCommit\n/ Commit initiated
+Active --> Aborted : Unrecoverable error\n/ Automatic Rollback
+Active --> Aborted : Coded Rollback
+
+Partially_Committed --> Committed : Guaranteed Commit
+Partially_Committed --> Aborted : Commit Error
+
+Committed --> Finished : Write dirty pages\nfrom Buffer Pool to Database
+Aborted --> Finished : Discard dirty pages from Buffer Pool\n/ Database Unchanged
+
+Finished --> [*] : End Transaction\n[Consistent State] 
+
+@enduml

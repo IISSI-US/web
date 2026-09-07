@@ -1,0 +1,20 @@
+@startmindmap
+' Árbol de requisitos (estilo similar a la traspa de referencia)
+
+* Requisito
+** Requisito general\n(objetivo)
+** Requisito\n(detallado)
+*** Requisito funcional
+**** Requisito de\ninformación
+**** Regla de\nnegocio
+**** Requisito de\ninterfaz
+**** Caso de uso
+**** ...
+*** Requisito no\nfuncional
+**** Requisito de\nusabilidad
+**** Requisito de\nseguridad
+**** Requisito de\nfiabilidad
+**** Restricción\ntécnica
+**** ...
+
+@endmindmap

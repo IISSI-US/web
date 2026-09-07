@@ -1,0 +1,269 @@
+@startuml ejemplo-mdd
+!include ../../puml/final.iuml
+
+class Laboratorio {
+  cif
+  nombre
+  direccion
+}
+
+class Catalogo {
+  fecha
+}
+
+class Almacen {
+  nombre
+  direccion
+}
+
+class LineaCatalogo {
+  precioMenorXcien
+  precioMasDeCien
+}
+
+class Producto {
+  codigo
+  nombre
+  descripcion
+}
+
+Laboratorio *-- "0..*" Catalogo: publica
+Laboratorio "?" -- "0..*" Almacen: > almacenaProductosEn
+Catalogo *-- "1..*" LineaCatalogo: contiene
+LineaCatalogo "*" -- "1" Producto : referencia
+@enduml
+
+
+
+@startuml transformacion-entidad-departamento
+!include ../../puml/final.iuml
+
+class Departamento {
+  denominacion
+  presupuesto
+  ciudad
+}
+@enduml
+
+@startuml transformacion-asociacion-1n
+!include ../../puml/final.iuml
+
+class Empleado {
+  nif
+  nombre
+  apellidos
+}
+
+class Departamento {
+  denominacion
+  presupuesto
+  ciudad
+}
+
+Empleado "*" -- "1" Departamento: > trabajaEn
+@enduml
+
+@startuml transformacion-asociacion-1n-orden
+!include ../../puml/final.iuml
+
+class Factura {
+  numero
+  fecha
+}
+
+class LineaFactura {
+  cantidad
+  precio
+}
+
+Factura *-- "{ordered} 1..*" LineaFactura
+@enduml
+
+@startuml transformacion-asociacion-11
+!include ../../puml/final.iuml
+class Empleado {
+  nif
+  nombre
+  apellidos
+}
+class Solicitud {
+  fecha 
+  ...
+}
+
+Empleado "1" -- "0..1" Solicitud: > presenta
+@enduml
+
+@startuml transformacion-asociacion-mn
+!include ../../puml/final.iuml
+
+class Empleado {
+  nif
+  nombre
+  apellidos
+}
+
+class Proyecto {
+  nombre
+  fechaInicial
+  presupuesto
+}
+
+Empleado "*" -- "*" Proyecto: participaEn
+@enduml
+
+@startuml herencia-completa-disjunta-persona
+!include ../../puml/final.iuml
+skinparam linkStyle ortho
+
+class Persona {
+  nombre: String
+  fechaNacimiento: Date
+}
+
+class Empleado {
+  numeroEmpleado: String
+  salario: Double
+}
+
+class Estudiante {
+  numeroMatricula: String
+  añoIngreso: Integer
+}
+
+Persona "{completa,disjunta}" --|>  Empleado
+Persona --|>  Estudiante
+
+note top of Persona
+  Cada persona es un empleado o 
+  un estudiante, pero no ambos.
+end note
+
+@enduml
+
+@startuml herencia-incompleta-disjunta-vehiculo
+!include ../../puml/final.iuml
+
+class Vehículo {
+  marca: String
+  modelo: String
+  año: Integer
+}
+
+class Coche {
+  numeroPuertas: Integer
+  tipoTransmision: String
+}
+
+class Moto {
+  cilindrada: Integer
+  tipoManillar: String
+}
+
+Coche --|> "{incompleta,disjunta}" Vehículo
+Moto --|>  Vehículo
+
+note bottom of Vehículo
+  Un vehículo puede ser un coche 
+  o una moto, o ninguno de los dos.
+end note
+@enduml
+
+
+@startuml herencia-incompleta-solapada-recurso-humano
+!include ../../puml/final.iuml
+
+class RecursoHumano {
+  nombre: String
+  email: String
+  fechaContratacion: Date
+}
+
+class Gerente {
+  tamañoEquipo: Integer
+  presupuesto: Double
+}
+
+class Ingeniero {
+  especialidad: String
+  añosExperiencia: Integer
+}
+
+Gerente --|> RecursoHumano
+Ingeniero --|> RecursoHumano
+
+note bottom of RecursoHumano
+  Pueden existir RRHH que no sean 
+  ni gerentes ni ingenieros, o 
+  que sean ambos.
+end note
+@enduml
+
+@startuml ejemplo-vinos
+!include ../../puml/final.iuml
+
+class Bodega {
+  nombre : String
+  denominaciónOrigen : String
+}
+
+class Vino {
+  nombre : String
+  grados : Double
+}
+
+class Joven {
+  tiempoBarrica : Integer
+  tiempoBotella : Integer
+}
+
+class Crianza {
+  tiempoBarrica : Integer
+  tiempoBotella : Integer
+}
+
+class Uva {
+  nombre : String
+}
+
+class Cosecha {
+  año : Year
+  calidad : String
+}
+
+Bodega "1" --> "1..*" Vino : produce
+Vino "0..*" -- "1..*" Uva : elaboradoCon
+
+Joven --|> Vino
+Crianza --|> Vino
+note left of Vino
+{completa,disjunta}
+end note
+
+Crianza "1" *-- "1..*" Cosecha
+
+note top of Bodega
+RN-1: Los nombres de las bodegas,
+vinos y uvas son únicos
+end note
+
+note right of Vino
+RN-3: la graduación está entre
+los 10 y 15 grados
+end note
+
+note top of Joven
+RN-2: Menos de 6 meses en barrica
+end note
+
+note top of Crianza
+RN-2: 24 meses de crianza: 6 y 12 meses
+en barrica y el resto en botella
+end note
+
+note bottom of Cosecha
+RN-4: Cada vino de crianza tiene
+como máximo una cosecha por año
+end note
+@enduml
+

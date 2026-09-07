@@ -1,0 +1,32 @@
+@startuml employees-mc
+!include ../../puml/final.iuml
+
+class Empleado {
+  nombre
+  salario
+  fechaInicial
+  fechaFinal
+  comision
+}
+
+class Departamento {
+  nombreDep
+  localidad
+}
+
+Empleado "*" --> "0..1" Departamento : trabajaEn
+Empleado "0..1" --> "*" Empleado : esJefeDe
+
+note bottom of Departamento
+  La combinación
+  (nombreDep, localidad)
+  no se puede repetir
+end note
+
+note top of Empleado
+  La fecha incial no puede ser 
+  superiror que la fecha final. 
+  El nombre del empleado es único.
+  La comisión entre 0 y 1.
+end note
+@enduml
