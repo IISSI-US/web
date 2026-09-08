@@ -13,14 +13,12 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
+## Modelo Relacional.
+
 ```mr-table
 RecursosHumanos = { recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia }
     PK(recursoId)
-```
 
-## Modelo Relacional. Extensión
-```mr-table
 RecursosHumanos = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
     (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
@@ -77,8 +75,10 @@ $$RecursosGenéricos \leftarrow \Sel{esG = false \land esI = false}(RH)$$
 
 $$Gerentes$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
     (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
     (r5, 'Ana Martín', 'ana@empresa.com', 2020-05-20, true, 12, 350000.0, false, null, null),
@@ -91,8 +91,10 @@ Resultado: {
 
 $$Ingenieros$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
     (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
     (r6, 'David Chen', 'david@empresa.com', 2021-11-08, false, null, null, true, 'Frontend', 3),
@@ -106,8 +108,10 @@ Resultado: {
 
 $$Gerentes \Inter Ingenieros$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
     (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12),
     (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
@@ -118,8 +122,10 @@ Resultado: {
 
 $$\Proj{nom, esp}\left(\Sel{exp > 5}(Ingenieros)\right)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, esp }
+
+Resultado = {
     ('Miguel Torres', 'Arquitectura'),
     ('Sofía Herrera', 'DevOps'),
     ('Luis Moreno', 'Security')
@@ -130,8 +136,10 @@ Resultado: {
 
 $$\Sel{pre > 300000}(Gerentes)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
     (r5, 'Ana Martín', 'ana@empresa.com', 2020-05-20, true, 12, 350000.0, false, null, null),
     (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12)
@@ -142,8 +150,10 @@ Resultado: {
 
 $$\Sel{fec \geq '2021-01-01' \land fec < '2022-01-01'}(RH)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
     (r6, 'David Chen', 'david@empresa.com', 2021-11-08, false, null, null, true, 'Frontend', 3)
 }
@@ -151,22 +161,26 @@ Resultado: {
 
 **7. Obtener el presupuesto promedio de todos los gerentes**
 
-$$presPromedio \leftarrow \Group{AVG(pre)}{}(Gerentes)$$
+$$\Group{\rho_{presupuestoMedio}(AVG(pre))}{}(Gerentes)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { presupuestoMedio }
+
+Resultado = {
     (406000.0)  -- (500000 + 200000 + 350000 + 800000 + 180000) / 5
 }
 ```
 
 **8. Obtener el gerente con el equipo más grande**
 
-$$tamMax \leftarrow \Group{MAX(tam)}{}(Gerentes)$$
+$$tamMax \leftarrow \Group{\rho_{tamMax}(MAX(tam))}{}(Gerentes)$$
 
 $$\Sel{tam = tamMax}(Gerentes)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12)
 }
 ```
@@ -175,8 +189,10 @@ Resultado: {
 
 $$RecursosGenéricos$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
     (r4, 'Patricia López', 'patricia@empresa.com', 2022-09-15, false, null, null, false, null, null),
     (r9, 'Carmen Díaz', 'carmen@empresa.com', 2022-07-03, false, null, null, false, null, null)
 }
@@ -186,8 +202,10 @@ Resultado: {
 
 $$\Proj{esp}(Ingenieros)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { esp }
+
+Resultado = {
     ('Backend'),
     ('Arquitectura'),
     ('Frontend'),

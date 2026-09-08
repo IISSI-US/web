@@ -11,18 +11,17 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
+## Modelo Relacional. 
 ```mr-table
+-- Intensión
 Contenidos = {
     contenidoId, título, fechaPublicación, 
     esArtículo, textoMarkdown, númeroPalabras, 
     esVideo, urlStreaming, duraciónSeg, resolución }
     
     PK(contenidoId)
-```
 
-## Modelo Relacional. Extensión
-```mr-table
+-- Extensión
 Contenidos = {
     (c1, 'Tutorial de Java', 2023-01-15, true, 'Introducción básica a Java...', 1200, false, null, null, null),
     (c2, 'Demo de la aplicación', 2023-02-20, false, null, null, true, 'https://demo.mp4', 300, '1080p'),
@@ -75,8 +74,10 @@ $$Videos \leftarrow \Sel{esVideo = true}(Contenidos)$$
 
 $$Artículos$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c1, 'Tutorial de Java', 2023-01-15, true, 'Introducción básica a Java...', 1200, false, null, null, null),
     (c3, 'Video Tutorial Completo', 2023-03-10, true, 'Tutorial completo en video...', 800, true, 'https://tutorial.mp4', 1800, '1080p'),
     (c4, 'Guía de Python', 2023-03-25, true, 'Programación en Python desde cero...', 2500, false, null, null, null),
@@ -91,8 +92,10 @@ Resultado: {
 
 $$Videos$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c2, 'Demo de la aplicación', 2023-02-20, false, null, null, true, 'https://demo.mp4', 300, '1080p'),
     (c3, 'Video Tutorial Completo', 2023-03-10, true, 'Tutorial completo en video...', 800, true, 'https://tutorial.mp4', 1800, '1080p'),
     (c5, 'Webinar JavaScript', 2023-04-05, true, 'Conceptos avanzados de JS...', 1800, true, 'https://webinar-js.mp4', 3600, '720p'),
@@ -107,8 +110,10 @@ Resultado: {
 
 $$Artículos \Inter Videos$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c3, 'Video Tutorial Completo', 2023-03-10, true, 'Tutorial completo en video...', 800, true, 'https://tutorial.mp4', 1800, '1080p'),
     (c5, 'Webinar JavaScript', 2023-04-05, true, 'Conceptos avanzados de JS...', 1800, true, 'https://webinar-js.mp4', 3600, '720p'),
     (c8, 'Tutorial CSS Avanzado', 2023-05-01, true, 'Técnicas modernas de CSS...', 1500, true, 'https://css-tutorial.mp4', 2700, '1080p'),
@@ -120,8 +125,10 @@ Resultado: {
 
 $$\Proj{título, fechaPublicación}(\Sel{duraciónSeg > 1800}(Videos))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { título, fechaPublicación }
+
+Resultado = {
     ('Webinar JavaScript', 2023-04-05),
     ('Tutorial CSS Avanzado', 2023-05-01),
     ('Curso Completo Full Stack', 2023-05-15)
@@ -132,8 +139,10 @@ Resultado: {
 
 $$\Sel{númeroPalabras > 2000}(Artículos)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c4, 'Guía de Python', 2023-03-25, true, 'Programación en Python desde cero...', 2500, false, null, null, null),
     (c7, 'Documentación API', 2023-04-20, true, 'Especificación completa de la API...', 3200, false, null, null, null),
     (c10, 'Curso Completo Full Stack', 2023-05-15, true, 'Desarrollo web full stack...', 4800, true, 'https://fullstack.mp4', 7200, '1080p')
@@ -144,8 +153,10 @@ Resultado: {
 
 $$\Sel{resolución = '1080p'}(Videos)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c2, 'Demo de la aplicación', 2023-02-20, false, null, null, true, 'https://demo.mp4', 300, '1080p'),
     (c3, 'Video Tutorial Completo', 2023-03-10, true, 'Tutorial completo en video...', 800, true, 'https://tutorial.mp4', 1800, '1080p'),
     (c6, 'Presentación React', 2023-04-12, false, null, null, true, 'https://react-demo.mp4', 900, '1080p'),
@@ -156,12 +167,14 @@ Resultado: {
 
 **7. Obtener el contenido con mayor número de palabras**
 
-$$maxPalabras \leftarrow \Group{MAX(númeroPalabras)}{}(Artículos)$$
+$$maxPalabras \leftarrow \Group{\rho_{maxPalabras}(MAX(númeroPalabras))}{}(Artículos)$$
 
 $$\Sel{númeroPalabras = maxPalabras}(Artículos)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c10, 'Curso Completo Full Stack', 2023-05-15, true, 'Desarrollo web full stack...', 4800, true, 'https://fullstack.mp4', 7200, '1080p')
 }
 ```
@@ -170,8 +183,10 @@ Resultado: {
 
 $$\Sel{fechaPublicación \geq '2023-04-01' \land fechaPublicación < '2023-05-01'}(Contenidos)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c5, 'Webinar JavaScript', 2023-04-05, true, 'Conceptos avanzados de JS...', 1800, true, 'https://webinar-js.mp4', 3600, '720p'),
     (c6, 'Presentación React', 2023-04-12, false, null, null, true, 'https://react-demo.mp4', 900, '1080p'),
     (c7, 'Documentación API', 2023-04-20, true, 'Especificación completa de la API...', 3200, false, null, null, null)
@@ -180,10 +195,12 @@ Resultado: {
 
 **9. Obtener la duración promedio de todos los videos**
 
-$$durPromedio \leftarrow \Group{AVG(duraciónSeg)}{}(Videos)$$
+$$durPromedio \leftarrow \Group{\rho_{duraciónMedia}(AVG(duraciónSeg))}{}(Videos)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { duraciónMedia }
+
+Resultado = {
     (2164.29)  -- (300 + 1800 + 3600 + 900 + 2700 + 450 + 7200) / 7
 }
 ```
@@ -194,8 +211,10 @@ $$
 Artículos - Videos
 $$
 
-```
-Resultado: {
+```mr-table
+Resultado = { contenidoId, título, fechaPublicación, esArtículo, texto, númeroPalabras, esVideo, urlVideo, duraciónSeg, resolución }
+
+Resultado = {
     (c1, 'Tutorial de Java', 2023-01-15, true, 'Introducción básica a Java...', 1200, false, null, null, null),
     (c4, 'Guía de Python', 2023-03-25, true, 'Programación en Python desde cero...', 2500, false, null, null, null),
     (c7, 'Documentación API', 2023-04-20, true, 'Especificación completa de la API...', 3200, false, null, null, null)

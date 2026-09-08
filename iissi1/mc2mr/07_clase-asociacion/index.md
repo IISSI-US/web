@@ -11,8 +11,9 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
+## Modelo Relacional. 
 ```mr-table
+-- Intensión
 Estudiantes = { estudianteId, nombre, email, fechaNacimiento }
     PK(estudianteId)
 
@@ -25,10 +26,8 @@ Inscripciones = { inscripcionId, estudianteId, cursoId, fechaInscripcion, califi
     FK(estudianteId)/Estudiantes
     FK(cursoId)/Cursos
     AK(estudianteId,cursoId) -- el modelo no lo indica, pero parece lógico
-```
 
-## Modelo Relacional. Extensión
-```mr-table
+-- Extensión
 Estudiantes = {
     (e1, 'Ana García', 'ana@universidad.edu', 2000-05-15),
     (e2, 'Carlos López', 'carlos@universidad.edu', 1999-11-22),
@@ -93,22 +92,24 @@ Inscripciones = {
 
 **Renombramiento de relaciones:**
 
-$$E \leftarrow \Ren{E(eid,nom,ema,fna)}(Estudiantes)$$
+$$E \leftarrow \Ren{E(eid,en,ema,fna)}(Estudiantes)$$
 
-$$C \leftarrow \Ren{C(cid,nom,cod,cre)}(Cursos)$$
+$$C \leftarrow \Ren{C(cid,cn,cod,cre)}(Cursos)$$
 
 $$I \leftarrow \Ren{I(iid,eid,cid,fin,cal,est)}(Inscripciones)$$
 
 **1. Obtener todos los estudiantes inscritos en el curso 'Programación en Java'**
 
-$$CJ \leftarrow \Sel{nom = 'Programación en Java'}(C)$$
+$$CJ \leftarrow \Sel{cn = 'Programación en Java'}(C)$$
 
-$$EJids \leftarrow \Proj{eid}(I \Join CJ)$$
+$$EJids \leftarrow \Proj{eid}(I \NatJoin CJ)$$
 
-$$EJids \Join E$$
+$$EJids \NatJoin E$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { eid, en, ema, fna }
+
+Resultado = {
     (e1, 'Ana García', 'ana@universidad.edu', 2000-05-15),
     (e2, 'Carlos López', 'carlos@universidad.edu', 1999-11-22),
     (e3, 'María González', 'maria@universidad.edu', 2001-03-08),
@@ -120,8 +121,10 @@ Resultado: {
 
 $$\Sel{est = 'Completado' \land cal > 8.0}(I)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { iid, eid, cid, fin, cal, est }
+
+Resultado = {
     (i1, e1, c1, 2023-08-15, 8.5, 'Completado'),
     (i2, e2, c2, 2023-08-15, 9.2, 'Completado'),
     (i5, e3, c3, 2023-09-01, 9.5, 'Completado'),
@@ -134,10 +137,12 @@ Resultado: {
 
 $$EstEnCursoIDS \leftarrow \Proj{eid}\left(\Sel{est = 'En Curso'}(I)\right)$$
 
-$$\Proj{nom, ema}(EstEnCursoIDS \Join E)$$
+$$\Proj{en, ema}(EstEnCursoIDS \NatJoin E)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { en, ema }
+
+Resultado = {
     ('Carlos López', 'carlos@universidad.edu'),
     ('David Martín', 'david@universidad.edu'),
     ('Pablo Ruiz', 'pablo@universidad.edu'),
@@ -148,11 +153,13 @@ Resultado: {
 **4. Obtener todos los cursos en los que está inscrita 'María González'**
 
 $$
-\Proj{C.cid, c.nom, c.cod, c.cre}\left(\Sel{E.nom='\\text{María González}'}(E \Join I \Join C)\right)
+\Proj{cid, cn, cod, cre}\left(\Sel{en='\\text{María González}'}(E \NatJoin I \NatJoin C)\right)
 $$
 
-```
-Resultado: {
+```mr-table
+Resultado = { cid, cn, cod, cre }
+
+Resultado = {
     (c1, 'Programación en Java', 'CS101', 4),
     (c3, 'Algoritmos y Estructuras', 'CS102', 4),
     (c5, 'Desarrollo Web', 'CS250', 2)
@@ -161,40 +168,46 @@ Resultado: {
 
 **5. Obtener la calificación promedio de todos los cursos completados**
 
-$$calPromedio \leftarrow \Group{AVG(cal)}{}\left(\Sel{est = 'Completado'}(I)\right)$$
+$$calPromedio \leftarrow \Group{\rho_{calMedia}(AVG(cal))}{}\left(\Sel{est = 'Completado'}(I)\right)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { calMedia }
+
+Resultado = {
     (8.46)  -- (8.5 + 9.2 + 7.8 + 9.5 + 6.2 + 9.8 + 8.9 + 7.5) / 8
 }
 ```
 
 **6. Obtener estudiantes que han completado más de 2 cursos**
 
-$$EstComIDS \leftarrow \Group{eid, \Ren{numCursos}COUNT(*)}{eid}\left(\Sel{est = 'Completado'}(I)\right)$$
+$$EstComIDS \leftarrow \Group{eid,\rho_{numCursos}(COUNT(*))}{eid}\left(\Sel{est = 'Completado'}(I)\right)$$
 
 $$EstMasDosIDS \leftarrow \Proj{eid}\left(\Sel{numCursos > 2}(EstComIDS)\right)$$
 
-$$EstMasDosIDS \Join E$$
+$$EstMasDosIDS \NatJoin E$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { eid, en, ema, fna }
+
+Resultado = {
     (e3, 'María González', 'maria@universidad.edu', 2001-03-08)
 }
 ```
 
 **7. Obtener el curso con más inscripciones**
 
-$$InsPorCurso \leftarrow \Group{cid, \Ren{numIns}COUNT(*)}{cid}(I)$$
+$$InsPorCurso \leftarrow \Group{cid,\rho_{numIns}(COUNT(*))}{cid}(I)$$
 
-$$maxIns \leftarrow \Group{MAX(numIns)}{}(InsPorCurso)$$
+$$maxIns \leftarrow \Group{\rho_{maxIns}(MAX(numIns))}{}(InsPorCurso)$$
 
 $$CursoPopularID \leftarrow \Proj{cid}\left(\Sel{numIns = maxIns}(InsPorCurso)\right)$$
 
-$$CursoPopularID \Join C$$
+$$CursoPopularID \NatJoin C$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { cid, cn, cod, cre }
+
+Resultado = {
     (c1, 'Programación en Java', 'CS101', 4)
 }
 ```
@@ -203,8 +216,10 @@ Resultado: {
 
 $$\Sel{fna \geq '2000-01-01' \land fna < '2001-01-01'}(E)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { eid, en, ema, fna }
+
+Resultado = {
     (e1, 'Ana García', 'ana@universidad.edu', 2000-05-15),
     (e4, 'David Martín', 'david@universidad.edu', 2000-09-12)
 }
@@ -214,22 +229,26 @@ Resultado: {
 
 $$CursosConInsID \leftarrow \Proj{cid}(I)$$
 
-$$C - CursosConInsID$$
+$$C - (CursosConInsID \NatJoin C)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { cid, cn, cod, cre }
+
+Resultado = {
     (c6, 'Inteligencia Artificial', 'CS401', 4)
 }
 ```
 
 **10. Obtener la inscripción con la calificación más alta**
 
-$$calMax \leftarrow \Group{MAX(cal)}{}(\Sel{est = 'Completado'}(I))$$
+$$calMax \leftarrow \Group{\rho_{calMax}(MAX(cal))}{}(\Sel{est = 'Completado'}(I))$$
 
 $$\Sel{cal = calMax}(I)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { iid, eid, cid, fin, cal, est }
+
+Resultado = {
     (i8, e5, c1, 2023-08-15, 9.8, 'Completado')
 }
 ```

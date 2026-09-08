@@ -135,7 +135,7 @@ $$
 - Departamentos sin empleados:
 
 $$
-\Proj{dId}(D) \Diff \Proj{dId}(E)
+\Proj{dId}(D) - \Proj{dId}(E)
 $$
 
 - Estadísticas globales de salario:

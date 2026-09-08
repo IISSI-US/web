@@ -11,8 +11,9 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-09-torneo-tenis-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
+## Modelo Relacional. 
 ```mr-table
+-- Intensión
 Personas = { personaId, nombre, apellido, fechaNacimiento, nacionalidad }
     PK(personaId)
 
@@ -29,19 +30,17 @@ Partidos = { partidoId, tenista1Id, tenista2Id, ganadorId, árbitroId, torneo, f
     PK(partidoId)
     FK(tenista1Id)/Tenistas
     FK(tenista2Id)/Tenistas
-    FK(ganadorId)/Tenistas
+    FK(ganadorId)/Tenistas -- ganadorId = tenista1Id OR tenista2Id
     FK(árbitroId)/Árbitros
 
-    ** ganadorId \in = {tenista1Id, tenista2Id}
+     
 
 Sets = { setId, partidoId, ganadorId, orden, resultado }
     PK(setId)
     FK(partidoId)/Partidos
     FK(ganadorId)/Tenistas
-```
 
-## Modelo Relacional. Extensión
-```mr-table
+-- Extensión
 Personas = {
     (p1, 'Rafael', 'Nadal', 1986-06-03, 'España'),
     (p2, 'Novak', 'Djokovic', 1987-05-22, 'Serbia'),
@@ -155,11 +154,13 @@ $$S \leftarrow \Ren{S(setId,parId,ganId,ord,res)}(Sets)$$
 
 **1. Obtener el nombre, apellido y ranking de todos los tenistas de nacionalidad española**
 
-$$\Proj{nom, ape, ran}\left(\Sel{nac = \text{'España'}}(P \Join T)\right)$$
+$$\Proj{nom, ape, ran}\left(\Sel{nac = \text{'España'}}(P \NatJoin T)\right)$$
 
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, ape, ran }
+
+Resultado = {
     ('Rafael', 'Nadal', 2),
     ('Carlos', 'Alcaraz', 4)
 }
@@ -169,18 +170,22 @@ Resultado: {
 
 $$\Sel{tor = '\text{Roland Garros 2025}' \land ron = '\text{Final}'}(Par)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { parId, ten1Id, ten2Id, ganId, arbId, tor, fec, ron, dur }
+
+Resultado = {
     (par1, p1, p2, p2, p3, 'Roland Garros 2025', 2025-07-11, 'Final', 195)
 }
 ```
 
 **3. Obtener nombre, apellido y licencia de todos los árbitros con licencia ATP**
 
-$$\Proj{nom, ape, lic}\left(\Sel{lic\\ LIKE\\ 'ATP\%'}(P \Join A)\right)$$
+$$\Proj{nom, ape, lic}\left(\Sel{lic\\ LIKE\\ 'ATP\%'}(P \NatJoin A)\right)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, ape, lic }
+
+Resultado = {
     ('John', 'Hawkins', 'ATP-001'),
     ('Carlos', 'Ramos', 'ATP-002'),
     ('James', 'Mitchell', 'ATP-004')
@@ -191,10 +196,12 @@ Resultado: {
 
 $$GanadoresWim \leftarrow \Proj{ganId}(\Sel{tor = 'Wimbledon\ 2025'}(Par))$$
 
-$$\Proj{nom, ape}(GanadoresWim \Join_{ganId = pId} P)$$
+$$\Proj{nom, ape}(GanadoresWim \JoinR{ganId = pId} P)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, ape }
+
+Resultado = {
     ('Rafael', 'Nadal'),
     ('Roger', 'Federer')
 }
@@ -204,8 +211,10 @@ Resultado: {
 
 $$\Sel{res = '6-0'}(S)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { setId, parId, ganId, ord, res }
+
+Resultado = {
     (s13, par5, p2, 1, '6-0')
 }
 ```
@@ -214,8 +223,10 @@ Resultado: {
 
 $$\Proj{tor, ron, dur}(\Sel{dur > 200}(Par))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { tor, ron, dur }
+
+Resultado = {
     ('Australian Open 2025', 'Cuartos', 203),
     ('Roland Garros 2025', 'Semifinal', 256),
     ('Australian Open 2025', 'Octavos', 234)
@@ -224,10 +235,12 @@ Resultado: {
 
 **7. Nombre y ranking de tenistas con ranking mejor que 3 (ranking ≤ 3)**
 
-$$\Proj{nom, ape, ran}(\Sel{ran \leq 3}(P \Join T))$$
+$$\Proj{nom, ape, ran}(\Sel{ran \leq 3}(P \NatJoin T))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, ape, ran }
+
+Resultado = {
     ('Rafael', 'Nadal', 2),
     ('Novak', 'Djokovic', 1),
     ('Roger', 'Federer', 3),
@@ -238,14 +251,16 @@ Resultado: {
 
 **8. Información de partidos arbitrados por árbitros de nacionalidad Reino Unido**
 
-$$ArbitrosRU \leftarrow \Proj{pId}(\Sel{nac = 'Reino\ Unido'}(P \Join A))$$
+$$ArbitrosRU \leftarrow \Proj{pId}(\Sel{nac = 'Reino\ Unido'}(P \NatJoin A))$$
 
-$$PartidosArbitradosRU \leftarrow ArbitrosRU \Join_{pId = arbId} Par$$
+$$PartidosArbitradosRU \leftarrow ArbitrosRU \JoinR{pId = arbId} Par$$
 
 $$\Proj{parId, tor, fec, ron}(PartidosArbitradosRU)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { parId, tor, fec, ron }
+
+Resultado = {
     (par1, 'Roland Garros 2025', 2025-07-11, 'Final'),
     (par4, 'Australian Open 2025', 2025-01-28, 'Cuartos'),
     (par7, 'US Open 2025', 2025-09-10, 'Semifinal')
@@ -254,12 +269,14 @@ Resultado: {
 
 **9. Obtener el número de sets ganados por cada tenista**
 
-$$SetsContados \leftarrow \Group{ganId, \Ren{numSets}COUNT(*)}{ganId}(S)$$
+$$SetsContados \leftarrow \Group{ganId,\rho_{numSets}(COUNT(*))}{ganId}(S)$$
 
-$$\Proj{nom, ape, numSets}(SetsContados \Join_{ganId = pId} P)$$
+$$\Proj{nom, ape, numSets}(SetsContados \JoinR{ganId = pId} P)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, ape, numSets }
+
+Resultado = {
     ('Rafael', 'Nadal', 6),
     ('Novak', 'Djokovic', 4),
     ('Roger', 'Federer', 2),
@@ -278,8 +295,10 @@ $$PartidosTop3 \leftarrow \Sel{ten1Id \in TenistasTop3 \land ten2Id \in Tenistas
 
 $$\Proj{parId, tor, ron}(PartidosTop3)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { parId, tor, ron }
+
+Resultado = {
     (par1, 'Roland Garros 2025', 'Final'),
     (par2, 'Wimbledon 2025', 'Semifinal')
 }

@@ -128,7 +128,7 @@ $$
 - Usuarios sin aficiones: 
 
 $$
-UsuSinAfi \leftarrow \Proj{uid,nu}\big(U \NatJoin (\Proj{uid}(U) \Diff \Proj{uid}(A))\big)
+UsuSinAfi \leftarrow \Proj{uid,nu}\big(U \NatJoin (\Proj{uid}(U) -\Proj{uid}(A))\big)
 $$
 
 - Número de aficiones por usuario: 
@@ -205,7 +205,7 @@ $$
 - Usuarios sin aficiones: 
 
 $$
-USinAfi \leftarrow \Proj{nu}\big(U \NatJoin (\Proj{uid}(U) \Diff \Proj{uid}(UA))\big)
+USinAfi \leftarrow \Proj{nu}\big(U \NatJoin (\Proj{uid}(U) - \Proj{uid}(UA))\big)
 $$
 
 - Usuarios con todas las aficiones: 

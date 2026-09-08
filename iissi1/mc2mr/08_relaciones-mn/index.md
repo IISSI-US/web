@@ -11,33 +11,32 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
+## Modelo Relacional.
 ```mr-table
+-- Intensión
 Autores = { autorId, nombre, nacionalidad }
     PK(autorId)
 
 Libros = { libroId, isbn, titulo, añoPublicación }
     PK(libroId)
-    AK(isbn) -- El MC no indica nada, pero parece lógico
+    AK(isbn)
 
 Categorías = { categoríaId, nombre, descripción }
     PK(categoríaId)
 
 AutoresLibros = { autoresLibrosId, autorId, libroId, orden }
     PK(autoresLibrosId)
-    AK(autorId, libroId) -- El MC no indica nada, pero parece lógico
+    AK(autorId, libroId)
     FK(autorId)/Autores
     FK(libroId)/Libros
 
 LibrosCategorías = { librosCategoríasId, libroId, categoríaId }
     PK(librosCategoríasId)
-    AK(libroId, categoríaId) -- El MC no indica nada, pero parece lógico
+    AK(libroId, categoríaId)
     FK(libroId)/Libros
     FK(categoríaId)/Categorías
-```
 
-## Modelo Relacional. Extensión
-```mr-table
+-- Extensión
 Autores = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),
     (a2, 'Mario Vargas Llosa', 'Peruana'),
@@ -108,8 +107,6 @@ LibrosCategorías = {
 }
 ```
 
----
-
 ## Álgebra relacional
 
 ### Enunciados
@@ -150,10 +147,12 @@ $$LC \leftarrow \Ren{LC(lcid,lid,cid)}(LibrosCategorías)$$
 
 **1. Obtener todos los libros con sus autores y su posición en la autoría**
 
-$$\Proj{tit, nom, ord}(L \Join AL \Join A)$$
+$$\Proj{tit, nom, ord}(L \NatJoin AL \NatJoin A)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { tit, nom, ord }
+
+Resultado = {
     ('Antología de la Literatura Fantástica', 'Jorge Luis Borges', 1),
     ('Antología de la Literatura Fantástica', 'Adolfo Bioy Casares', 2),
     ('Cien años de soledad', 'Gabriel García Márquez', 1),
@@ -171,14 +170,42 @@ Resultado: {
 
 **2. Obtener libros que tienen múltiples autores**
 
-$$LibrosMultiples \leftarrow \Group{lid, \Ren{numAutores}COUNT(*)}{lid}(AL)$$
+$$LibrosMultiples \leftarrow \Group{lid,\rho_{numAutores}(COUNT(*))}{lid}(AL)$$
+
+```mr-table
+LibrosMultiples = { lid, numAutores }
+
+LibrosMultiples = {
+    (l1, 1),
+    (l2, 1),
+    (l3, 2),
+    (l4, 2),
+    (l5, 1),
+    (l6, 1),
+    (l7, 1),
+    (l8, 2),
+    (l9, 1)
+}
+```
 
 $$LibrosColaborativosIDS \leftarrow \Proj{lid}\left(\Sel{numAutores > 1}(LibrosMultiples)\right)$$
 
-$$LibrosColaborativosIDS \Join L$$
+```mr-table
+LibrosColaborativosIDS = { lid }
 
+LibrosColaborativosIDS = {
+    (l3),
+    (l4),
+    (l8)
+}
 ```
-Resultado: {
+
+$$LibrosColaborativosIDS \NatJoin L$$
+
+```mr-table
+Resultado = { lid, isbn, tit, año }
+
+Resultado = {
     (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940),
     (l4, '978-84-204-8321-7', 'Cuentos Breves y Extraordinarios', 1955),
     (l8, '978-84-376-8765-4', 'El llano en llamas', 1953)
@@ -189,10 +216,12 @@ Resultado: {
 
 $$PrimerosAutores \leftarrow \Sel{ord = 1}(AL)$$
 
-$$\Proj{tit, nom}(L \Join PrimerosAutores \Join A)$$
+$$\Proj{tit, nom}(L \NatJoin PrimerosAutores \NatJoin A)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { tit, nom }
+
+Resultado = {
     ('Cien años de soledad', 'Gabriel García Márquez'),
     ('La ciudad y los perros', 'Mario Vargas Llosa'),
     ('Antología de la Literatura Fantástica', 'Jorge Luis Borges'),
@@ -209,12 +238,14 @@ Resultado: {
 
 $$CienAños \leftarrow \Sel{tit = \text{'Cien años de soledad'}}(L)$$
 
-$$CategoriasLibroIDS \leftarrow \Proj{cid}(CienAños \Join LC)$$
+$$CategoriasLibroIDS \leftarrow \Proj{cid}(CienAños \NatJoin LC)$$
 
-$$CategoriasLibroIDS \Join C$$
+$$CategoriasLibroIDS \NatJoin C$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { cid, nom, des }
+
+Resultado = {
     (c1, 'Ficción', 'Narrativa de ficción'),
     (c2, 'Realismo Mágico', 'Corriente literaria'),
     (c3, 'Clásicos', 'Literatura clásica')
@@ -225,10 +256,12 @@ Resultado: {
 
 $$AutoresArgentinos \leftarrow \Sel{nac = 'Argentina'}(A)$$
 
-$$\Proj{nom, tit}(AutoresArgentinos \Join AL \Join L)$$
+$$\Proj{nom, tit}(AutoresArgentinos \NatJoin AL \NatJoin L)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { nom, tit }
+
+Resultado = {
     ('Jorge Luis Borges', 'Antología de la Literatura Fantástica'),
     ('Adolfo Bioy Casares', 'Antología de la Literatura Fantástica'),
     ('Jorge Luis Borges', 'Cuentos Breves y Extraordinarios'),
@@ -238,14 +271,16 @@ Resultado: {
 
 **6. Obtener libros que pertenecen a más de 2 categorías**
 
-$$CategoriasPorLibro \leftarrow \Group{lid, \Ren{numCategorias} COUNT(*)}{lid}(LC)$$
+$$CategoriasPorLibro \leftarrow \Group{lid,\rho_{numCategorias}(COUNT(*))}{lid}(LC)$$
 
 $$LibrosMulticatIDS \leftarrow \Proj{lid}\left(\Sel{numCategorias > 2}(CategoriasPorLibro)\right)$$
 
-$$LibrosMulticatIDS \Join L$$
+$$LibrosMulticatIDS \NatJoin L$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { lid, isbn, tit, año }
+
+Resultado = {
     (l1, '978-84-376-0494-7', 'Cien años de soledad', 1967),
     (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940)
 }
@@ -257,16 +292,18 @@ $$Borges \leftarrow \Sel{nom = \text{'Jorge Luis Borges'}}(A)$$
 
 $$Bioy \leftarrow \Sel{nom = \text{'Adolfo Bioy Casares'}}(A)$$
 
-$$LibrosBorgesIDS \leftarrow \Proj{lid}(Borges \Join AL)$$
+$$LibrosBorgesIDS \leftarrow \Proj{lid}(Borges \NatJoin AL)$$
 
-$$LibrosBioyIDS \leftarrow \Proj{lid}(Bioy \Join AL)$$
+$$LibrosBioyIDS \leftarrow \Proj{lid}(Bioy \NatJoin AL)$$
 
 $$ColaboracionesIDS \leftarrow LibrosBorgesIDS \Inter LibrosBioyIDS$$
 
-$$ColaboracionesIDS \Join L$$
+$$ColaboracionesIDS \NatJoin L$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { lid, isbn, tit, año }
+
+Resultado = {
     (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940),
     (l4, '978-84-204-8321-7', 'Cuentos Breves y Extraordinarios', 1955)
 }
@@ -276,12 +313,14 @@ Resultado: {
 
 $$RealismoMagico \leftarrow \Sel{nom = \text{'Realismo Mágico'}}(C)$$
 
-$$LibrosRealismoIDS \leftarrow \Proj{lid}(RealismoMagico \Join LC)$$
+$$LibrosRealismoIDS \leftarrow \Proj{lid}(RealismoMagico \NatJoin LC)$$
 
-$$LibrosRealismoIDS \Join L$$
+$$LibrosRealismoIDS \NatJoin L$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { lid, isbn, tit, año }
+
+Resultado = {
     (l1, '978-84-376-0494-7', 'Cien años de soledad', 1967),
     (l5, '978-84-204-9876-2', 'La casa de los espíritus', 1982)
 }
@@ -289,10 +328,12 @@ Resultado: {
 
 **9. Obtener el número de libros por autor**
 
-$$\Group{aid, nom; COUNT(*) \rightarrow numLibros}{aid}(A \Join AL)$$
+$$\Group{aid,nom,\rho_{numLibros}(COUNT(*))}{aid,nom}(A \NatJoin AL)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { aid, nom, numLibros }
+
+Resultado = {
     (a1, 'Gabriel García Márquez', 2),
     (a2, 'Mario Vargas Llosa', 1),
     (a3, 'Jorge Luis Borges', 2),
@@ -306,16 +347,18 @@ Resultado: {
 
 **10. Obtener autores que han escrito tanto ficción como ensayo**
 
-$$AutoresFiccionIDS \leftarrow \Proj{aid}\left(AL \Join LC \Join \Sel{nom = 'Ficción'}(C)\right)$$
+$$AutoresFiccionIDS \leftarrow \Proj{aid}\left(AL \NatJoin LC \NatJoin \Sel{nom = 'Ficción'}(C)\right)$$
 
-$$AutoresEnsayoIDS \leftarrow \Proj{aid}\left(AL \Join LC \Join \Sel{nom = 'Ensayo'}(C)\right)$$
+$$AutoresEnsayoIDS \leftarrow \Proj{aid}\left(AL \NatJoin LC \NatJoin \Sel{nom = 'Ensayo'}(C)\right)$$
 
 $$AutoresVersatilesIDS \leftarrow AutoresFiccionIDS \Inter AutoresEnsayoIDS$$
 
-$$AutoresVersatilesIDS \Join A$$
+$$AutoresVersatilesIDS \NatJoin A$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { aid, nom, nac }
+
+Resultado = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),
     (a6, 'Octavio Paz', 'Mexicana')
 }

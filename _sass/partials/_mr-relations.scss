@@ -35,7 +35,7 @@ figure.highlight pre code.language-mr-text {
 .mr-relation-block {
   width: fit-content;
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .mr-table {
@@ -47,6 +47,7 @@ figure.highlight pre code.language-mr-text {
   border: 1px solid var(--border-color);
   border-radius: 6px;
   overflow: hidden;
+  margin-inline: auto;
   background: var(--bg-color);
   color: var(--code-text);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
