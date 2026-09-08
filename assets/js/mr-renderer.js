@@ -142,7 +142,10 @@
 
   function looksLikeAttributeList(body) {
     const attrs = splitTopLevel(body).map(cleanAttribute).filter(Boolean);
-    return attrs.length > 0 && attrs.every((attr) => /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ_][\wÁÉÍÓÚÜÑáéíóúüñ_]*$/.test(attr));
+    const identifier = '[A-Za-zÁÉÍÓÚÜÑáéíóúüñ_][\\wÁÉÍÓÚÜÑáéíóúüñ_]*';
+    const simpleAttribute = new RegExp(`^${identifier}(?:\\.${identifier})?$`);
+    const derivedAttribute = new RegExp(`^[A-Z]+\\((?:\\*|${identifier}(?:\\.${identifier})?)\\)$`);
+    return attrs.length > 0 && attrs.every((attr) => simpleAttribute.test(attr) || derivedAttribute.test(attr));
   }
 
   function parseSchemaLine(line) {
@@ -199,19 +202,21 @@
 
       const assignment = collectAssignment(lines, i, raw);
       if (assignment) {
-        const rows = parseRows(assignment.body);
         const relation = relationByName(relations, schemas, assignment.name);
-        if (rows.length > 0) relation.rows = rows;
-        else if (schemas[assignment.name] && !looksLikeAttributeList(assignment.body)) {
-          const row = [assignment.body.trim()];
-          row.commentOnly = true;
-          relation.rows = row[0] ? [row] : [];
-        }
-        else {
+        if (looksLikeAttributeList(assignment.body)) {
           relation.attributes = splitTopLevel(assignment.body).map(cleanAttribute).filter(Boolean);
           relation.rows = [];
           relation.constraints = [];
           relation.comments = [];
+        }
+        else {
+          const rows = parseRows(assignment.body);
+          if (rows.length > 0) relation.rows = rows;
+          else if (schemas[assignment.name]) {
+            const row = [assignment.body.trim()];
+            row.commentOnly = true;
+            relation.rows = row[0] ? [row] : [];
+          }
         }
         relation.comments.push.apply(relation.comments, assignment.comments);
         current = relation;

@@ -60,18 +60,18 @@ Estudiantes = {
 
 Para simplificar la notación hacemos los siguientes renombrados:
 
-$$ U \leftarrow \Ren{U(uid,n,d,f)}(Universidades)$$
+$$ U \leftarrow \Ren{U(uid,un,d,f)}(Universidades)$$
 
-$$ C \leftarrow \Ren{C(cid,uid,n,c,p)}(Centros)$$
+$$ C \leftarrow \Ren{C(cid,uid,cn,c,pres)}(Centros)$$
 
-$$ E \leftarrow \Ren{E(eid,cid,m,n,e,p)}(Estudiantes)$$
+$$ E \leftarrow \Ren{E(eid,cid,m,en,e,p)}(Estudiantes)$$
 
 ### Enunciados de consultas:
 
 1. **Estudiantes con edad mayor a 20 años**
 2. **Centros con presupuesto superior a 5 millones**
 3. **Nombres y edades de estudiantes**
-4. **Universidades fundadas después del año 2000**
+4. **Universidades fundadas después del año 1940**
 5. **Estudiantes con promedio mayor o igual a 9.0**
 6. **Centros de la Universidad Nacional (uid = u1)**
 7. **Estudiantes con información de sus centros**
@@ -85,24 +85,28 @@ $$ E \leftarrow \Ren{E(eid,cid,m,n,e,p)}(Estudiantes)$$
 
 **1. Estudiantes con edad mayor a 20 años**
 
-$$\Sel{edad > 20}(E)$$
+$$\Sel{e > 20}(E)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { eid, cid, m, en, e, p }
+
+Resultado = {
   (e2, f1, '2023002', 'Luis', 21, 8.1), 
   (e4, f2, '2023004', 'Carlos', 22, 7.8), 
   (e6, f4, '2023006', 'Roberto', 23, 8.9), 
-  (e7, f5, '2023007', 'Sofia', 21, 9.1), 
-  (e8, f5, '2023008', 'Diego', 19, 8.3)
+  (e7, f5, '2023007', 'Sofia', 21, 9.1)
 }
 ```
 
 **2. Centros con presupuesto superior a 5 millones**
 
-$$\Sel{p > 5000000}(C)$$
+$$\Sel{pres > 5000000}(C)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { cid, uid, cn, c, pres }
+
+Resultado = {
+  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
   (f3, u1, 'Medicina', 'FM03', 7500000.75), 
   (f5, u2, 'Ingeniería', 'IE02', 6100000.20)
 }
@@ -110,22 +114,26 @@ Resultado: {
 
 **3. Nombres y edades de estudiantes**
 
-$$\Proj{n, e}(E)$$
+$$\Proj{en, e}(E)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { en, e }
+
+Resultado = {
   ('Ana', 20), ('Luis', 21), ('María', 19), ('Carlos', 22), 
   ('Elena', 20), ('Roberto', 23), ('Sofia', 21), ('Diego', 19)
 }
 ```
 
-**4. Universidades fundadas después del año 2000**
+**4. Universidades fundadas después del año 1940**
 
-$$\Sel{f > 2000-01-01}(U)$$
+$$\Sel{f > 1940-01-01}(U)$$
 
-```python
-Resultado: {
-  (u2, 'ITESM', 'Monterrey', 2001-01-01)
+```mr-table
+Resultado = { uid, un, d, f }
+
+Resultado = {
+  (u2, 'ITESM', 'Monterrey', 1943-01-01)
 }
 ```
 
@@ -133,8 +141,10 @@ Resultado: {
 
 $$\Sel{p \geq 9.0}(E)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { eid, cid, m, en, e, p }
+
+Resultado = {
   (e3, f2, '2023003', 'María', 19, 9.2),
   (e5, f3, '2023005', 'Elena', 20, 9.5),
   (e7, f5, '2023007', 'Sofia', 21, 9.1)
@@ -145,8 +155,10 @@ Resultado: {
 
 $$\Sel{uid = u1}(C)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { cid, uid, cn, c, pres }
+
+Resultado = {
   (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
   (f2, u1, 'Derecho', 'FD02', 3500000.25),
   (f3, u1, 'Medicina', 'FM03', 7500000.75)
@@ -157,41 +169,53 @@ Resultado: {
 
 $$E \NatJoin C$$
 
-```python
-Resultado: {
-  (e1, f1, u1, '2023001', 'Ana', 20, 8.7, 'Ingeniería', 'FI01', 5000000.50),
-  (e2, f1, u1, '2023002', 'Luis', 21, 8.4, 'Ingeniería', 'FI01', 5000000.50),
-  (e3, f2, u1, '2023003', 'María', 19, 9.2, 'Derecho', 'FD02', 3500000.25),
-  ...
+```mr-table
+Resultado = { eid, cid, m, en, e, p, uid, cn, c, pres }
+
+Resultado = {
+  (e1, f1, '2023001', 'Ana', 20, 8.7, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (e2, f1, '2023002', 'Luis', 21, 8.1, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (e3, f2, '2023003', 'María', 19, 9.2, u1, 'Derecho', 'FD02', 3500000.25),
+  (e4, f2, '2023004', 'Carlos', 22, 7.8, u1, 'Derecho', 'FD02', 3500000.25),
+  (e5, f3, '2023005', 'Elena', 20, 9.5, u1, 'Medicina', 'FM03', 7500000.75),
+  (e6, f4, '2023006', 'Roberto', 23, 8.9, u2, 'Negocios', 'EN01', 4200000.00),
+  (e7, f5, '2023007', 'Sofia', 21, 9.1, u2, 'Ingeniería', 'IE02', 6100000.20),
+  (e8, f5, '2023008', 'Diego', 19, 8.3, u2, 'Ingeniería', 'IE02', 6100000.20)
 }
 ```
 
 **8. Número de estudiantes por centro**
 
-$$\Group{cid,COUNT(eid)}{cid}(E)$$
+$$\Group{cid,\rho_{total}(COUNT(eid))}{cid}(E)$$
 
-```python
-Resultado: {
-  (f1, 3), (f2, 2), (f3, 1), (f4, 1), (f5, 1)
+```mr-table
+Resultado = { cid, total }
+
+Resultado = {
+  (f1, 2), (f2, 2), (f3, 1), (f4, 1), (f5, 2)
 }
 ```
 
 **9. Promedio de calificaciones por centro**
 
-$$\Group{cid,AVG(p)}{cid}(E)$$
+$$\Group{cid,\rho_{media}(AVG(p))}{cid}(E)$$
 
-```python
-Resultado: {
-  (f1, 8.43), (f2, 8.5), (f3, 9.5), (f4, 8.9), (f5, 9.1)
+```mr-table
+Resultado = { cid, media }
+
+Resultado = {
+  (f1, 8.4), (f2, 8.5), (f3, 9.5), (f4, 8.9), (f5, 8.7)
 }
 ```
 
 **10. Mejor promedio por universidad**
 
-$$\Group{U.uid,MAX(E.p)}{U.uid}(E \NatJoin C \NatJoin U)$$
+$$\Group{uid,\rho_{mejor}(MAX(p))}{uid}(E \NatJoin C \NatJoin U)$$
 
-```python
-Resultado: {
+```mr-table
+Resultado = { uid, mejor }
+
+Resultado = {
   (u1, 9.5), (u2, 9.1)
 }
 ```
