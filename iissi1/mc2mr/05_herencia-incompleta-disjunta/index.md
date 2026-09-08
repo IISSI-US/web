@@ -12,23 +12,23 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-05-herencia-incompleta-disjunta-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```
+```mr-table
 ** Versión 1: Una relación con discriminante
 
-Vehículos(vehículoId, marca, modelo, año, clase, numeroPuertas, tipoTransmisión, cilindrada, tipoManillar)
+Vehículos = { vehículoId, marca, modelo, año, clase, numeroPuertas, tipoTransmisión, cilindrada, tipoManillar }
     PK(vehículoId)
     ** clase puede ser 'C', 'M' o 'V'
 
 Versión 2: Una relación por cada entidad
 
-Vehículos(vehículoId, marca, modelo, año, clase)
+Vehículos = { vehículoId, marca, modelo, año, clase }
     PK(vehículoId)
 
-Coches(VehículoId, númeroPuertas, tipoTransmisión)
+Coches = { VehículoId, númeroPuertas, tipoTransmisión }
     PK(vehículoId)
     FK(vehículoId)/Vehículos
 
-Motos(vehículoId, cilindrada, tipoManillar)
+Motos = { vehículoId, cilindrada, tipoManillar }
     PK(vehículoId)
     FK(vehículoId)/Vehículos
 
@@ -36,7 +36,7 @@ Motos(vehículoId, cilindrada, tipoManillar)
 ```
 
 ## Modelo Relacional. Extensión
-```text
+```mr-table
 ** Versión 1:
 Vehículos = {
     (v1, 'Ford', 'F-150', 2021, 'V', null, null, null, null),

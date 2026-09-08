@@ -65,11 +65,11 @@ En la versión dinámica, las aficiones se convierten en entidad propia para per
 
 ### Intensión
 
-```
-Usuarios(usuarioId, nombre, edad, género, email)
+```mr-table
+Usuarios = { usuarioId, nombre, edad, género, email }
 	PK(usuarioId)
 	AK(email)
-Aficiones(aficionId, usuarioId, afición)
+Aficiones = { aficionId, usuarioId, afición }
 	PK(aficionId)
 	FK(usuarioId) / Usuarios
 	AK(usuarioId, afición)
@@ -77,7 +77,7 @@ Aficiones(aficionId, usuarioId, afición)
 
 ### Extensión
 
-```
+```mr-table
 Usuarios = { u1..u11 como en el ejercicio de Usuarios }
 Aficiones = {
     (a1, u1, "Deporte"), 
@@ -144,13 +144,13 @@ $$
 
 ### Intensión
 
-```
-Usuarios(usuarioId, nombre, edad, género, email)
+```mr-table
+Usuarios = { usuarioId, nombre, edad, género, email }
 	PK(usuarioId)
 	AK(email)
-Aficiones(aficionId, afición)
+Aficiones = { aficionId, afición }
 	PK(aficionId)
-UsuariosAficiones(usuarioAficionId, usuarioId, aficiónId)
+UsuariosAficiones = { usuarioAficionId, usuarioId, aficiónId }
 	PK(usuarioAficionId)
 	FK(usuarioId) / Usuarios
 	FK(aficiónId) / Aficiones
@@ -159,7 +159,7 @@ UsuariosAficiones(usuarioAficionId, usuarioId, aficiónId)
 
 ### Extensión
 
-```
+```mr-table
 Usuarios = { u1..u11 como en el ejercicio de Usuarios }
 
 Aficiones = { 

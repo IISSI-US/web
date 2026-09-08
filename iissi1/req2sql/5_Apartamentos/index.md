@@ -81,23 +81,23 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 
 Opción A: una relación por subclase (partición completa y disjunta):
 
-```
-Usuarios(usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono)
+```mr-table
+Usuarios = { usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono }
 	PK(usuarioId)
 	AK(correo)
 	AK(dni)
-Huespedes(usuarioId)
+Huespedes = { usuarioId }
 	PK(usuarioId)
 	FK(usuarioId) / Usuarios
-Propietarios(usuarioId, fCompra)
+Propietarios = { usuarioId, fCompra }
 	PK(usuarioId)
 	FK(usuarioId) / Usuarios
 ```
 
 Opción B: una sola relación con booleanos (partición completa y solapada):
 
-```
-Usuarios(usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono, fCompra, esPropietario, esHuesped)
+```mr-table
+Usuarios = { usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono, fCompra, esPropietario, esHuesped }
 	PK(usuarioId)
 	AK(correo)
 	AK(dni)
@@ -105,28 +105,28 @@ Usuarios(usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telef
 
 Estructura común del dominio:
 
-```
-ZonasTuristicas(zonaId, zona)
+```mr-table
+ZonasTuristicas = { zonaId, zona }
 	PK(zonaId)
-Alojamientos(alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima)
+Alojamientos = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima }
 	PK(alojamientoId)
 	FK(propietarioId) / Propietarios
 	FK(zonaId) / ZonasTuristicas
-Reservas(reservaId, huespedId, alojamientoId, checkIn, checkOut, comentario, valoracion)
+Reservas = { reservaId, huespedId, alojamientoId, checkIn, checkOut, comentario, valoracion }
 	PK(reservaId)
 	FK(huespedId) / Huespedes
 	FK(alojamientoId) / Alojamientos
-Fotos(fotoId, alojamientoId, titulo, fotoURL)
+Fotos = { fotoId, alojamientoId, titulo, fotoURL }
 	PK(fotoId)
 	FK(alojamientoId) / Alojamientos
-Servicios(servicioId, alojamientoId, tipoServicio, disponible)
+Servicios = { servicioId, alojamientoId, tipoServicio, disponible }
 	PK(servicioId)
 	FK(alojamientoId) / Alojamientos
 ```
 
 ## Extensión (fragmento)
 
-```
+```mr-table
 ZonasTuristicas = { (z1, "Costa del Sol") }
 Alojamientos = { (a1, p1, z1, "Calle Mayor 10", 3, 2, 6) }
 Reservas = { (r1, h1, a1, "2024-10-01", "2024-10-10", "Excelente estancia", 1) }

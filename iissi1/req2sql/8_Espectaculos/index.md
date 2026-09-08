@@ -64,27 +64,27 @@ La transcripción que aparece a continuación corresponde a una entrevista reali
 
 ## Intensión
 
-```
-TiposEspectaculos(tipoEspectaculoId, tipo)
+```mr-table
+TiposEspectaculos = { tipoEspectaculoId, tipo }
 	PK(tipoEspectaculoId)
-Zonas(zonaId, nombreZona)
+Zonas = { zonaId, nombreZona }
 	PK(zonaId)
-Precios(precioId, zonaId, tipoEspectaculoId, precio)
+Precios = { precioId, zonaId, tipoEspectaculoId, precio }
 	PK(precioId)
 	FK(zonaId) / Zonas
 	FK(tipoEspectaculoId) / TiposEspectaculos
-Localidades(localidadId, zonaId, numFila, numButaca)
+Localidades = { localidadId, zonaId, numFila, numButaca }
 	PK(localidadId)
 	FK(zonaId) / Zonas
 	AK(zonaId, numFila, numButaca)
-Espectaculos(espectaculoId, tipoEspectaculoId, nombre, denominacion, duracion)
+Espectaculos = { espectaculoId, tipoEspectaculoId, nombre, denominacion, duracion }
 	PK(espectaculoId)
 	FK(tipoEspectaculoId) / TiposEspectaculos
-Representaciones(representacionId, espectaculoId, fechaHoraInicio)
+Representaciones = { representacionId, espectaculoId, fechaHoraInicio }
 	PK(representacionId)
 	FK(espectaculoId) / Espectaculos
 	AK(espectaculoId, fechaHoraInicio)
-Entradas(entradaId, representacionId, localidadId, fHoraCompra, canal, pCompra)
+Entradas = { entradaId, representacionId, localidadId, fHoraCompra, canal, pCompra }
 	PK(entradaId)
 	FK(representacionId) / Representaciones
 	FK(localidadId) / Localidades
@@ -93,7 +93,7 @@ Entradas(entradaId, representacionId, localidadId, fHoraCompra, canal, pCompra)
 
 ## Extensión (fragmento)
 
-```
+```mr-table
 TiposEspectaculos = { (te1, "Concierto") }
 Zonas = { (z1, "Patio"), (z2, "Primera Balcón") }
 Precios = { (p1, z1, te1, 50), (p2, z2, te1, 100) }

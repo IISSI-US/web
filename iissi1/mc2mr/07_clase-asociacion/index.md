@@ -12,15 +12,15 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-07-clase-asociacion-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```
-Estudiantes(estudianteId, nombre, email, fechaNacimiento)
+```mr-table
+Estudiantes = { estudianteId, nombre, email, fechaNacimiento }
     PK(estudianteId)
 
-Cursos(cursoId, nombre, codigo, creditos)
+Cursos = { cursoId, nombre, codigo, creditos }
     PK(cursoId)
     AK(codigo)
 
-Inscripciones(inscripcionId, estudianteId, cursoId, fechaInscripcion, calificacionFinal, estado)
+Inscripciones = { inscripcionId, estudianteId, cursoId, fechaInscripcion, calificacionFinal, estado }
     PK(inscripcionId)
     FK(estudianteId)/Estudiantes
     FK(cursoId)/Cursos
@@ -28,7 +28,7 @@ Inscripciones(inscripcionId, estudianteId, cursoId, fechaInscripcion, calificaci
 ```
 
 ## Modelo Relacional. Extensión
-```text
+```mr-table
 Estudiantes = {
     (e1, 'Ana García', 'ana@universidad.edu', 2000-05-15),
     (e2, 'Carlos López', 'carlos@universidad.edu', 1999-11-22),

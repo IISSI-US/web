@@ -5,6 +5,7 @@ toc: true
 toc_label: "Contenido"
 sidebar:
     nav: mc2mr
+toc_sticky: true
 pdf_version: true
 ---
 
@@ -13,12 +14,13 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-06-herencia-incompleta-solapada-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-RecursosHumanos(recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia)
+```mr-table
+RecursosHumanos = { recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia }
     PK(recursoId)
 ```
 
-toc_sticky: true
-```text
+## Modelo Relacional. Extensión
+```mr-table
 RecursosHumanos = {
     (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
     (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),

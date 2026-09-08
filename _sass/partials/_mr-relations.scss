@@ -1,0 +1,177 @@
+/*
+ * Renderizado tabular para modelos relacionales.
+ *
+ * Los bloques de código MR se transforman en tablas desde assets/js/mr-renderer.js.
+ */
+.mr-relations {
+  --mr-pk-bg: rgba(36, 41, 46, 0.08);
+  --mr-fk-bg: rgba(36, 41, 46, 0.045);
+  --mr-pk-bg-strong: rgba(36, 41, 46, 0.12);
+  --mr-fk-bg-strong: rgba(36, 41, 46, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem auto;
+  overflow-x: auto;
+  font-family: $monospace;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+[data-theme='dark'] .mr-relations {
+  --mr-pk-bg: rgba(255, 255, 255, 0.09);
+  --mr-fk-bg: rgba(255, 255, 255, 0.05);
+  --mr-pk-bg-strong: rgba(255, 255, 255, 0.13);
+  --mr-fk-bg-strong: rgba(255, 255, 255, 0.09);
+}
+
+div.language-mr-text,
+figure.highlight pre code.language-mr-text {
+  font-family: $monospace;
+}
+
+.mr-relation-block {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+}
+
+.mr-table {
+  display: table;
+  width: auto;
+  max-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-color);
+  color: var(--code-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.mr-table th,
+.mr-table td {
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.32rem 0.6rem;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.mr-table th:last-child,
+.mr-table td:last-child {
+  border-right: 0;
+}
+
+.mr-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.mr-table .mr-relation-name th {
+  background: var(--code-bg);
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.mr-table .mr-intension th {
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-weight: 700;
+}
+
+.mr-table .mr-pk-col {
+  background: var(--mr-pk-bg);
+}
+
+.mr-table .mr-fk-col {
+  background: var(--mr-fk-bg);
+}
+
+.mr-table .mr-pk-col.mr-fk-col {
+  background: linear-gradient(
+    135deg,
+    var(--mr-pk-bg-strong) 0%,
+    var(--mr-pk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 100%
+  );
+}
+
+.mr-table .mr-intension th.mr-pk-col {
+  background: var(--mr-pk-bg-strong);
+}
+
+.mr-table .mr-intension th.mr-fk-col {
+  background: var(--mr-fk-bg-strong);
+}
+
+.mr-table .mr-intension th.mr-pk-col.mr-fk-col {
+  background: linear-gradient(
+    135deg,
+    var(--mr-pk-bg-strong) 0%,
+    var(--mr-pk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 100%
+  );
+}
+
+.mr-table tbody tr:nth-child(even) td {
+  background: var(--code-bg);
+}
+
+.mr-table tbody tr:nth-child(even) td.mr-pk-col {
+  background: var(--mr-pk-bg-strong);
+}
+
+.mr-table tbody tr:nth-child(even) td.mr-fk-col {
+  background: var(--mr-fk-bg-strong);
+}
+
+.mr-table tbody tr:nth-child(even) td.mr-pk-col.mr-fk-col {
+  background: linear-gradient(
+    135deg,
+    var(--mr-pk-bg-strong) 0%,
+    var(--mr-pk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 50%,
+    var(--mr-fk-bg-strong) 100%
+  );
+}
+
+.mr-table td.mr-null {
+  color: #8a4d00;
+  font-style: italic;
+}
+
+.mr-table .mr-notes td {
+  background: var(--bg-color);
+  color: var(--code-text);
+  font-size: 0.92em;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.mr-table .mr-comment {
+  color: var(--muted-text-color);
+  font-style: italic;
+}
+
+.mr-table .mr-constraint-kind {
+  display: inline-block;
+  margin-right: 0.15em;
+  padding: 0.02em 0.2em;
+  border-radius: 0.18em;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.mr-table .mr-constraint-pk {
+  background: var(--mr-pk-bg);
+}
+
+.mr-table .mr-constraint-fk {
+  background: var(--mr-fk-bg);
+}

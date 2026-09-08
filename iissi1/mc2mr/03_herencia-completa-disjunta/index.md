@@ -12,18 +12,18 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```
-Empleados(personaId, nombre, fechaNacimiento, numeroEmpleado, salario)
+```mr-table
+Empleados = { personaId, nombre, fechaNacimiento, numeroEmpleado, salario }
     PK(personaId)
     AK(numeroEmpleado)
 
-Estudiantes(personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso)
+Estudiantes = { personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso }
     PK(personaId)
     AK(numeroMatricula)
 ```
 
 ## Modelo Relacional. Extensión
-```text
+```mr-table
 Empleados = {
     (p1, 'Juan Pérez', 1985-03-15, 'E001', 50000.0),
     (p3, 'Carlos Ruiz', 1978-11-08, 'E002', 65000.0),

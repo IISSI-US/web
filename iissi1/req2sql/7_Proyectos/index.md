@@ -74,29 +74,29 @@ sistema de información para ayudarle en la gestión de sus proyectos.
 
 ## Intensión
 
-```
-Proyectos(proyectoId, nombre, presupuesto)
+```mr-table
+Proyectos = { proyectoId, nombre, presupuesto }
 	PK(proyectoId)
-Roles(rolId, proyectoId, nombre)
+Roles = { rolId, proyectoId, nombre }
 	PK(rolId)
 	FK(proyectoId) / Proyectos
-Tareas(tareaId, proyectoId, orden, id, descripcion, estimacion)
+Tareas = { tareaId, proyectoId, orden, id, descripcion, estimacion }
 	PK(tareaId)
 	FK(proyectoId) / Proyectos
 	AK(proyectoId, orden)
-Subtareas(subtareaId, tareaId, orden)
+Subtareas = { subtareaId, tareaId, orden }
 	PK(subtareaId, tareaId)
 	FK(tareaId) / Tareas
 	AK(subtareaId, orden)
-Empleados(empleadoId, dni, nombre)
+Empleados = { empleadoId, dni, nombre }
 	PK(empleadoId)
 	AK(dni)
-PeriodosCargos(periodoCargoId, empleadoId, rolId, fInicio, fFin)
+PeriodosCargos = { periodoCargoId, empleadoId, rolId, fInicio, fFin }
 	PK(periodoCargoId)
 	FK(empleadoId) / Empleados
 	FK(rolId) / Roles
 	AK(empleadoId, rolId)
-PeriodosTareas(periodoTareaId, empleadoId, tareaId, fInicio, fFin)
+PeriodosTareas = { periodoTareaId, empleadoId, tareaId, fInicio, fFin }
 	PK(periodoTareaId)
 	FK(empleadoId) / Empleados
 	FK(tareaId) / Tareas

@@ -12,14 +12,14 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-02-biblioteca-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```text
-Bibliotecas(bibliotecaId, nombre, dirección, añoInauguración)
+```mr-table
+Bibliotecas = { bibliotecaId, nombre, dirección, añoInauguración }
     PK(bibliotecaId)
 
-Autores(autorId, nombre, fechaNacimiento)
+Autores = { autorId, nombre, fechaNacimiento }
     PK(autorId)
 
-Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
+Libros = { libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas }
     PK(libroId)
     AK(isbn)
     FK(bibliotecaId)/Bibliotecas
@@ -28,7 +28,7 @@ Libros(libroId, bibliotecaId, autorId, isbn, titulo, precio, páginas)
 
 ## Modelo Relacional. Extensión ([RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/161f9826954987889517236781ca140d))
 )
-```
+```mr-table
 Bibliotecas = {
     (b1, 'Central', 'Av. Siempre Viva 123', 1995-04-15),
     (b2, 'Norte', 'Calle Revolución 456', 2001-08-20),

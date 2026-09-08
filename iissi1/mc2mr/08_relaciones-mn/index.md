@@ -12,24 +12,24 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-08-relaciones-mn-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```
-Autores(autorId, nombre, nacionalidad)
+```mr-table
+Autores = { autorId, nombre, nacionalidad }
     PK(autorId)
 
-Libros(libroId, isbn, titulo, añoPublicación)
+Libros = { libroId, isbn, titulo, añoPublicación }
     PK(libroId)
     AK(isbn) -- El MC no indica nada, pero parece lógico
 
-Categorías(categoríaId, nombre, descripción)
+Categorías = { categoríaId, nombre, descripción }
     PK(categoríaId)
 
-AutoresLibros(autoresLibrosId, autorId, libroId, orden)
+AutoresLibros = { autoresLibrosId, autorId, libroId, orden }
     PK(autoresLibrosId)
     AK(autorId, libroId) -- El MC no indica nada, pero parece lógico
     FK(autorId)/Autores
     FK(libroId)/Libros
 
-LibrosCategorías(librosCategoríasId, libroId, categoríaId)
+LibrosCategorías = { librosCategoríasId, libroId, categoríaId }
     PK(librosCategoríasId)
     AK(libroId, categoríaId) -- El MC no indica nada, pero parece lógico
     FK(libroId)/Libros
@@ -37,7 +37,7 @@ LibrosCategorías(librosCategoríasId, libroId, categoríaId)
 ```
 
 ## Modelo Relacional. Extensión
-```text
+```mr-table
 Autores = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),
     (a2, 'Mario Vargas Llosa', 'Peruana'),

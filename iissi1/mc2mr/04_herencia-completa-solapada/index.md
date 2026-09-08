@@ -12,17 +12,17 @@ pdf_version: true
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-04-herencia-completa-solapada-clases.png' | relative_url }})
 
 ## Modelo Relacional. Intensión
-```
-Contenidos(
+```mr-table
+Contenidos = {
     contenidoId, título, fechaPublicación, 
     esArtículo, textoMarkdown, númeroPalabras, 
-    esVideo, urlStreaming, duraciónSeg, resolución)
+    esVideo, urlStreaming, duraciónSeg, resolución }
     
     PK(contenidoId)
 ```
 
 ## Modelo Relacional. Extensión
-```text
+```mr-table
 Contenidos = {
     (c1, 'Tutorial de Java', 2023-01-15, true, 'Introducción básica a Java...', 1200, false, null, null, null),
     (c2, 'Demo de la aplicación', 2023-02-20, false, null, null, true, 'https://demo.mp4', 300, '1080p'),

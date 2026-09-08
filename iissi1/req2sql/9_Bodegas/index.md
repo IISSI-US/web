@@ -119,28 +119,28 @@ pdf_version: true
 
 ### Intensión
 
-```
-Bodegas(bodegaId, nombre, denominaciónOrigen)
+```mr-table
+Bodegas = { bodegaId, nombre, denominaciónOrigen }
     PK(bodegaId)
     AK(nombre)
-Vinos(vinoId, bodegaId, nombre, grados)
+Vinos = { vinoId, bodegaId, nombre, grados }
     PK(vinoId)
     FK(bodegaId) / Bodegas
     AK(nombre)
-Jóvenes(vinoId, tiempoBarrica, tiempoBotella)
+Jóvenes = { vinoId, tiempoBarrica, tiempoBotella }
     PK(vinoId)
     FK(vinoId) / Vinos
-Crianzas(vinoId, tiempoBarrica, tiempoBotella)
+Crianzas = { vinoId, tiempoBarrica, tiempoBotella }
     PK(vinoId)
     FK(vinoId) / Vinos
-Uvas(uvaId, nombre)
+Uvas = { uvaId, nombre }
     PK(uvaId)
     AK(nombre)
-Cosechas(cosechaId, crianzaId, año, calidad)
+Cosechas = { cosechaId, crianzaId, año, calidad }
     PK(cosechaId)
     FK(crianzaId) / Crianzas
     AK(cosechaId, crianzaId, año)
-VinosUvas(vinoUvaId, vinoId, uvaId)
+VinosUvas = { vinoUvaId, vinoId, uvaId }
     PK(vinoUvaId)
     FK(vinoId) / Vinos
     FK(uvaId) / Uvas
@@ -149,7 +149,7 @@ VinosUvas(vinoUvaId, vinoId, uvaId)
 
 ### Extensión
 
-```
+```mr-table
 Bodegas = {
     (b1, "Bodegas El Sol", "Rioja"),
     (b2, "Bodegas La Luna", "Ribera del Duero")      
@@ -228,14 +228,14 @@ $$
 
 La intensión de la relación derivada VVUU sería la unión de los conjuntos de atributos de las relaciones V, VU y U:
 
-```
-Intensión(VVUU) = {vid, bid, nv, g, vuid, uid, nu}
+```mr-table
+VVUU = {vid, bid, nv, g, vuid, uid, nu}
 ```
 
 La extensión de VVUU quedaría con las siguientes tuplas:
 
-```
-Extensión(VVUU) = {
+```mr-table
+VVUU = {
     (1, 1, "Vino Blanco Joven", 12, 1, 3, "Albarino"),
     (2, 2, "Vino Tinto Joven", 13, 2, 1, "Tempranillo"),
     (3, 1, "Vino Crianza Especial", 14, 4, 2, "Garnacha"),
@@ -253,10 +253,10 @@ $$
 
 En este caso, la intensión de la relación derivada CCo sería la unión de los conjuntos de atributos de las relaciones C y Co, y la extensión tendría las siguientes tuplas:
 
-```
-Intensión(CCo) = {vid, bid, nv, g, coid, a, c}
+```mr-table
+CCo = {vid, bid, nv, g, coid, a, c}
 
-Extensión(CCo) = {
+CCo = {
     (3, 1, "Vino Crianza Especial", 14, 1, 2020, "Excelente"),
     (3, 1, "Vino Crianza Especial", 14, 2, 2019, "Buena"),
     (4, 2, "Vino Crianza Reserva", 13.5, 3, 2018, "Muy buena")
@@ -313,26 +313,26 @@ $$
 
 ### Intensión
 
-```
-Bodegas(bodegaId, nombre, denominaciónOrigen)
+```mr-table
+Bodegas = { bodegaId, nombre, denominaciónOrigen }
     PK(bodegaId)
     AK(nombre)
-Jóvenes(jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella)
+Jóvenes = { jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
     PK(jovenId)
     FK(bodegaId) / Bodegas
     AK(nombre)
-Crianzas(crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella)
+Crianzas = { crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
     PK(crianzaId)
     FK(bodegaId) / Bodegas
     AK(nombre)
-Uvas(uvaId, nombre)
+Uvas = { uvaId, nombre }
     PK(uvaId)
     AK(nombre)
-Cosechas(cosechaId, crianzaId, año, calidad)
+Cosechas = { cosechaId, crianzaId, año, calidad }
     PK(cosechaId)
     FK(crianzaId) / Crianzas
     AK(cosechaId, crianzaId, año)
-VinosUvas(vinoUvaId, jovenId*, crianzaId*, uvaId)
+VinosUvas = { vinoUvaId, jovenId*, crianzaId*, uvaId }
     PK(vinoUvaId)
     FK(jovenId) / Jóvenes
     FK(crianzaId) / Crianzas
@@ -344,7 +344,7 @@ VinosUvas(vinoUvaId, jovenId*, crianzaId*, uvaId)
 
 ### Extensión
 
-```
+```mr-table
 Bodegas = {
     (b1, "Bodegas El Sol", "Rioja"),
     (b2, "Bodegas La Luna", "Ribera del Duero")      
@@ -386,26 +386,26 @@ VinosUvas = {
 
 ### Intensión
 
-```
-Bodegas(bodegaId, nombre, denominaciónOrigen)
+```mr-table
+Bodegas = { bodegaId, nombre, denominaciónOrigen }
     PK(bodegaId)
     AK(nombre)
-Jóvenes(jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella)
+Jóvenes = { jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
     PK(jovenId)
     FK(bodegaId) / Bodegas
     AK(nombre)
-Crianzas(crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella)
+Crianzas = { crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
     PK(crianzaId)
     FK(bodegaId) / Bodegas
     AK(nombre)
-Uvas(uvaId, nombre)
+Uvas = { uvaId, nombre }
     PK(uvaId)
     AK(nombre)
-Cosechas(cosechaId, crianzaId, año, calidad)
+Cosechas = { cosechaId, crianzaId, año, calidad }
     PK(cosechaId)
     FK(crianzaId) / Crianzas
     AK(cosechaId, crianzaId, año)
-VinosUvas(vinoUvaId, jovenId*, crianzaId*, uvaId)
+VinosUvas = { vinoUvaId, jovenId*, crianzaId*, uvaId }
     PK(vinoUvaId)
     FK(jovenId) / Jóvenes
     FK(crianzaId) / Crianzas
@@ -417,7 +417,7 @@ VinosUvas(vinoUvaId, jovenId*, crianzaId*, uvaId)
 
 ### Extensión
 
-```
+```mr-table
 Bodegas = {
     (b1, "Bodegas El Sol", "Rioja"),
     (b2, "Bodegas La Luna", "Ribera del Duero")      

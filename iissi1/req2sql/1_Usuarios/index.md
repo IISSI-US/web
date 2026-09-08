@@ -79,16 +79,13 @@ pdf_version: true
 
 ## Modelo Relacional
 
-### Intensión
-
-```
-Usuarios(usuarioId, nombre, género, edad, email)
+```mr-table
+-- Intensión
+Usuarios = { usuarioId, nombre, género, edad, email }
 	PK(usuarioId)
 	AK(email)
-```
-### Extensión
 
-```
+-- Extensión
 Usuarios = {
 	(u1,  "David Ruiz",      45, MASCULINO, "druiz@us.es"),
 	(u2,  "Carlos Arévalo",  58, MASCULINO, "carevalo@us.es"),

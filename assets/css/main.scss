@@ -36,6 +36,7 @@ layout: null
 @import "partials/docente-list";    // Listado de profesorado con avatar
 @import "partials/formulas";       // MathJax containerss
 @import "partials/images";         // Imágenes centradas y redondeadas
+@import "partials/mr-relations";   // Renderizado tabular de modelos relacionales
 @import "partials/sql-embed";      // Componente custom para embeds SQL
 @import "partials/theme-toggle";   // Botón de cambio de tema
 @import "partials/typography";     // Tipografía (actualmente vacío, manejado por variables)

@@ -238,25 +238,25 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 
 ## Intensión
 
-```
-Degrees(degreeId, name, duration)
+```mr-table
+Degrees = { degreeId, name, duration }
 	PK(degreeId)
-Subjects(subjectId, departmentId, gradeId, name, acronym, credits, year, type)
+Subjects = { subjectId, departmentId, gradeId, name, acronym, credits, year, type }
 	PK(subjectId)
 	FK(departmentId) / Departments
 	FK(gradeId) / Degrees
-Groups(groupId, subjectId, name, activity, academicYear)
+Groups = { groupId, subjectId, name, activity, academicYear }
 	PK(groupId)
 	FK(subjectId) / Subjects
-Students(studentId, accessMethod, dni, firstname, surname, birthDate, email)
+Students = { studentId, accessMethod, dni, firstname, surname, birthDate, email }
 	PK(studentId)
 	AK(dni)
 	AK(email)
-Grades(gradeId, studentId, groupId, value, call, withHonours)
+Grades = { gradeId, studentId, groupId, value, call, withHonours }
 	PK(gradeId)
 	FK(studentId) / Students
 	FK(groupId) / Groups
-StudentsGroups(studentGroupId, studentId, groupId)
+StudentsGroups = { studentGroupId, studentId, groupId }
 	PK(studentGroupId)
 	FK(studentId) / Students
 	FK(groupId) / Groups

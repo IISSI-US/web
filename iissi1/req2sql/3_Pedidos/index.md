@@ -76,12 +76,12 @@ pdf_version: true
 
 ## Intensión
 
-```text
-Usuarios(usuarioId, nombre, provincia, fechaAlta)
+```mr-table
+Usuarios = { usuarioId, nombre, provincia, fechaAlta }
 	PK(usuarioId)
-Productos(productoId, descripcion, precio, stock)
+Productos = { productoId, descripcion, precio, stock }
 	PK(productoId)
-Pedidos(pedidoId, usuarioId, productoId, fechaCompra, cantidad)
+Pedidos = { pedidoId, usuarioId, productoId, fechaCompra, cantidad }
 	PK(pedidoId)
 	FK(usuarioId) / Usuarios
 	FK(productoId) / Productos
@@ -89,7 +89,7 @@ Pedidos(pedidoId, usuarioId, productoId, fechaCompra, cantidad)
 
 ## Extensión
 
-```text
+```mr-table
 Usuarios = {
 	(u1, "David Ruiz", "Sevilla", "2018-05-18"),
 	(u2, "Marta López", "Málaga", "2018-06-12"),

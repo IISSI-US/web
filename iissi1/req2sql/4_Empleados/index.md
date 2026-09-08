@@ -56,11 +56,11 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 
 ## Intensión
 
-```
-Departamentos(departamentoId, nombre, localidad)
+```mr-table
+Departamentos = { departamentoId, nombre, localidad }
 	PK(departamentoId)
 	AK(nombre, localidad)
-Empleados(empleadoId, departamentoId, jefeId, nombre, salario, fechaInicio, fechaFin, comision)
+Empleados = { empleadoId, departamentoId, jefeId, nombre, salario, fechaInicio, fechaFin, comision }
 	PK(empleadoId)
 	FK(departamentoId) / Departamentos
 	FK(jefeId) / Empleados
@@ -69,7 +69,7 @@ Empleados(empleadoId, departamentoId, jefeId, nombre, salario, fechaInicio, fech
 
 ## Extensión
 
-```
+```mr-table
 Departamentos = {
 	(d1, 'Arte', 'Cádiz'),
 	(d2, 'Historia', null),

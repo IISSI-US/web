@@ -11,27 +11,26 @@ toc_sticky: true
 
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-01-universidad-clases.png' | relative_url }})
 
-## Intensión (Esquema Relacional)
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/320bad1e907e474d3a150db74530801e)
 
 La transformación UML → Relacional genera tres relaciones con claves primarias y foráneas:
 
-```relational
-Universidades(universidadId, nombre, dirección, fundación)
+```mr-table
+-- Intensión
+Universidades = { universidadId, nombre, dirección, fundación }
     PK(universidadId)
 
-Centros(centroId, universidadId, nombre, código, presupuesto)
+Centros = { centroId, universidadId, nombre, código, presupuesto }
     PK(centroId)
     FK(universidadId)/Universidades
     
-Estudiantes(estudianteId, centroId, matrícula, nombre, edad, promedio)
+Estudiantes = { estudianteId, centroId, matrícula, nombre, edad, promedio }
     PK(estudianteId)
     AK(matrícula)
     FK(centroId)/Centros
-```
 
-## Extensión ([RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/320bad1e907e474d3a150db74530801e))
+-- Extensión
 
-```python
 Universidades = {  
   (u1, 'UNAM', 'Ciudad de México', 1910-09-22),  
   (u2, 'ITESM', 'Monterrey', 1943-01-01)  
