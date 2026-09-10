@@ -2,12 +2,14 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=plantuml-lib.sh
+source "${REPO_DIR}/_scripts/plantuml-lib.sh"
+
 PUBLIC_OUT_DIR="${REPO_DIR}/assets/images/iissi1/mc2mr"  # tracked; published
 
 # Canonical diagram source location (simplified)
 DIAGRAMS_DIR="${REPO_DIR}/_diagrams/mc2mr"
 SRC_PUML="${DIAGRAMS_DIR}/diagramas.puml"
-PLANTUML_JAR="${REPO_DIR}/_scripts/plantuml.jar"
 
 # Check if at least one .puml file exists
 if ! compgen -G "${DIAGRAMS_DIR}/*.puml" > /dev/null; then
@@ -16,6 +18,7 @@ if ! compgen -G "${DIAGRAMS_DIR}/*.puml" > /dev/null; then
   exit 1
 fi
 
+check_plantuml_jar
 mkdir -p "${PUBLIC_OUT_DIR}"
 
 render_with_jar() {
@@ -30,14 +33,7 @@ render_with_jar() {
   )
 }
 
-# Choose renderer (strict: only local jar)
-if [[ -f "${PLANTUML_JAR}" ]]; then
-  render_with_jar
-else
-  echo "[ERR] PlantUML jar not found: ${PLANTUML_JAR}" >&2
-  echo "      Place the renderer at: _scripts/plantuml.jar" >&2
-  exit 2
-fi
+render_with_jar
 
 # Report
 GEN_COUNT=$(ls -1 "${PUBLIC_OUT_DIR}"/*.png 2>/dev/null | wc -l | tr -d ' ')
