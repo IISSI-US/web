@@ -11,26 +11,23 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/ejercicio-03-herencia-completa-disjunta-clases.png' | relative_url }})
 
-## Modelo Relacional. Intensión
-```
-Empleados(personaId, nombre, fechaNacimiento, numeroEmpleado, salario)
+## Modelo Relacional. 
+```mr-table
+-- Intensión
+Empleados = { personaId, nombre, fechaNacimiento, numeroEmpleado, salario }
     PK(personaId)
     AK(numeroEmpleado)
-
-Estudiantes(personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso)
+Estudiantes = { personaId, nombre, fechaNacimiento, numeroMatricula, añoIngreso }
     PK(personaId)
     AK(numeroMatricula)
-```
 
-## Modelo Relacional. Extensión
-```text
+-- Extensión
 Empleados = {
     (p1, 'Juan Pérez', 1985-03-15, 'E001', 50000.0),
     (p3, 'Carlos Ruiz', 1978-11-08, 'E002', 65000.0),
     (p5, 'Roberto Silva', 1982-09-30, 'E003', 58000.0),
     (p7, 'David Torres', 1975-06-25, 'E004', 72000.0)
 }
-
 Estudiantes = {
     (p2, 'Ana García', 2000-07-22, 'M2023001', 2023),
     (p4, 'María López', 1999-04-12, 'M2023002', 2023),
@@ -68,8 +65,10 @@ $$Est \leftarrow \Ren{Est(pid,n,fn,nm,ai)}(Estudiantes)$$
 
 $$Emp$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { pid, n, fn, ne, s }
+
+Resultado = {
   (p1, 'Juan Pérez', 1985-03-15, 'E001', 50000.0),
   (p3, 'Carlos Ruiz', 1978-11-08, 'E002', 65000.0),
   (p5, 'Roberto Silva', 1982-09-30, 'E003', 58000.0),
@@ -81,8 +80,10 @@ Resultado: {
 
 $$Est$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { pid, n, fn, nm, ai }
+
+Resultado = {
   (p2, 'Ana García', 2000-07-22, 'M2023001', 2023),
   (p4, 'María López', 1999-04-12, 'M2023002', 2023),
   (p6, 'Laura Martín', 2001-01-18, 'M2024001', 2024),
@@ -94,8 +95,10 @@ Resultado: {
 
 $$\Proj{pid,n,fn}(Emp) \Union \Proj{pid,n,fn}(Est)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { pid, n, fn }
+
+Resultado = {
   (p1, 'Juan Pérez', 1985-03-15),
   (p2, 'Ana García', 2000-07-22),
   (p3, 'Carlos Ruiz', 1978-11-08),
@@ -111,8 +114,10 @@ Resultado: {
 
 $$\Proj{n, ne, s}(\Sel{s > 60000}(Emp))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { n, ne, s }
+
+Resultado = {
   ('Carlos Ruiz', 'E002', 65000.0),
   ('David Torres', 'E004', 72000.0)
 }
@@ -122,8 +127,10 @@ Resultado: {
 
 $$\Proj{n, nm}(\Sel{ai = 2023}(Est))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { n, nm }
+
+Resultado = {
   ('Ana García', 'M2023001'),
   ('María López', 'M2023002')
 }
@@ -135,8 +142,10 @@ $$Per \leftarrow \Proj{n, fn}(Emp) \Union \Proj{n, fn}(Est)$$
 
 $$\Sel{fn > 1990-01-01}(Per)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { n, fn }
+
+Resultado = {
   ('Ana García', 2000-07-22),
   ('María López', 1999-04-12),
   ('Laura Martín', 2001-01-18),
@@ -148,29 +157,32 @@ Resultado: {
 
 $$\Sel{Emp.fn > Est.fn}(Emp \times Est)$$
 
-```
-Resultado: ∅ (conjunto vacío)
--- Ningún empleado es más joven que ningún estudiante
--- Todos los empleados nacieron entre 1975-1985
--- Todos los estudiantes nacieron entre 1999-2001
+```mr-table
+Resultado = { Emp.pid, Emp.n, Emp.fn, ne, s, Est.pid, Est.n, Est.fn, nm, ai }
+
+Resultado = {} -- Ningún empleado es más joven que ningún estudiante; todos los empleados nacieron entre 1975-1985 y todos los estudiantes entre 1999-2001.
 ```
 
 **8. Salario promedio de empleados**
 
-$$salProm \leftarrow \Group{AVG(s)}{}(Emp)$$
+$$salProm \leftarrow \Group{\rho_{salarioMedio}(AVG(s))}{}(Emp)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { salarioMedio }
+
+Resultado = {
   (61250.0)  -- (50000 + 65000 + 58000 + 72000) / 4
 }
 ```
 
 **9. Número de estudiantes por año de ingreso**
 
-$$\Group{ai, COUNT(pid)}{ai}(Est)$$
+$$\Group{ai,\rho_{total}(COUNT(pid))}{ai}(Est)$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { ai, total }
+
+Resultado = {
   (2023, 2),
   (2024, 2)
 }
@@ -180,8 +192,10 @@ Resultado: {
 
 $$\Proj{n, ne, s}(\Sel{s > salProm}(Emp))$$
 
-```
-Resultado: {
+```mr-table
+Resultado = { n, ne, s }
+
+Resultado = {
   ('Carlos Ruiz', 'E002', 65000.0),
   ('David Torres', 'E004', 72000.0)
 }

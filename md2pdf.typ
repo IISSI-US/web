@@ -155,16 +155,16 @@
     // agrupación (gamma con superíndice) II
     .replace("\\GroupUp{", "\\Large \\displaystyle \\gamma\\limits^{")
     // operadores estándar
-    .replace("\\NatJoin", "\\Large \\displaystyle \\Join")
-    .replace("\\JoinR{", "\\Large \\displaystyle \\Join\\limits_{")
+    .replace("\\NatJoin", "\\,\\Join\\,")
+    .replace("\\JoinR{", "\\Join\\limits_{")
     .replace("\\GroupDown{", "\\Large \\displaystyle \\gamma\\limits_{")
-    .replace("\\Inter", "\\Large \\displaystyle \\cap")
-    .replace("\\Union", "\\Large \\displaystyle \\cup")
-    .replace("\\Diff", "\\Large \\displaystyle \\setminus")
-    .replace("\\Div", "\\Large \\displaystyle \\div")
-    .replace("\\LeftJoin", "\\Large \\displaystyle \\ltimes")
-    .replace("\\RightJoin", "\\Large \\displaystyle \\rtimes")
-    .replace("\\OuterJoin", "\\Large \\displaystyle \\bowtie")
+    .replace("\\Inter", "\\,∩\\,")
+    .replace("\\Union", "\\,∪\\,")
+    .replace("\\Diff", "\\,-\\,")
+    .replace("\\Div", "\\,\\div\\,")
+    .replace("\\LeftJoin", "\\,\\ltimes\\,")
+    .replace("\\RightJoin", "\\,\\rtimes\\,")
+    .replace("\\OuterJoin", "\\,\\bowtie\\,")
 }
 
 // Handler de matemáticas: reescribe macros y pasa por MiTeX
@@ -218,11 +218,14 @@
 #let code-background = rgb("#f6f8fa")
 #let code-stroke = 2pt + rgb("#d1d5da")
 #let code-text = rgb("#181818")
-#show raw.where(block: true): it => {
+#let render-code-block(it) = {
   set text(fill: code-text)
   set block(inset: 0.3cm, fill: code-background, stroke: code-stroke, radius: 0.2cm, breakable: true, width: 100%)
   it
 }
+#show raw.where(block: true, lang: "mr-table"): it => render-code-block(raw(it.text, block: true, lang: "relational"))
+#show raw.where(block: true, lang: "mr-text"): it => render-code-block(raw(it.text, block: true, lang: "relational"))
+#show raw.where(block: true): it => render-code-block(it)
 #show raw.where(block: false): it => {
   set text(fill: code-text)
   box(fill: code-background, inset: (x: 3pt, y: 0pt), outset: (y: 4pt), radius: 2pt, it)

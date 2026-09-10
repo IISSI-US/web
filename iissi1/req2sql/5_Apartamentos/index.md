@@ -66,9 +66,6 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 - P: ¿Más funcionalidades que necesite del portal?
   - R: Quedan muchos más temas por tratar, como la disponibilidad, la gestión de los pagos, etc., pero para una primera versión creo que puede ser suficiente.
 
-## Modelo Conceptual
-
-
 # Modelo conceptual
 
 ## Diagrama de clases
@@ -77,61 +74,69 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 
 # Modelo relacional
 
-## Intensión
+## Opción A: una relación por subclase (partición completa y disjunta):
 
-Opción A: una relación por subclase (partición completa y disjunta):
-
-```
-Usuarios(usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono)
+```mr-table
+Usuarios = { usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono }
 	PK(usuarioId)
 	AK(correo)
 	AK(dni)
-Huespedes(usuarioId)
-	PK(usuarioId)
-	FK(usuarioId) / Usuarios
-Propietarios(usuarioId, fCompra)
-	PK(usuarioId)
-	FK(usuarioId) / Usuarios
-```
+Usuarios = {
+	(u1, "12345678A", "Ana", "García", "ana@example.com", "pwd1", "Calle Sol 1", "600111222"),
+	(u2, "87654321B", "Luis", "Pérez", "luis@example.com", "pwd2", "Calle Luna 2", "600333444")
+}
 
-Opción B: una sola relación con booleanos (partición completa y solapada):
+Huespedes = { huespedId }
+	PK(huespedId)
+	FK(huespedId) / Usuarios
+Huespedes = {
+	(u2)
+}
 
-```
-Usuarios(usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono, fCompra, esPropietario, esHuesped)
-	PK(usuarioId)
-	AK(correo)
-	AK(dni)
-```
+Propietarios = { propietarioId, fCompra }
+	PK(propietarioId)
+	FK(propietarioId) / Usuarios
+Propietarios = {
+	(u1, "2020-05-10")
+}
 
-Estructura común del dominio:
-
-```
-ZonasTuristicas(zonaId, zona)
+ZonasTuristicas = { zonaId, zona }
 	PK(zonaId)
-Alojamientos(alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima)
+ZonasTuristicas = {
+	(z1, "Costa del Sol")
+}
+
+Alojamientos = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima }
 	PK(alojamientoId)
 	FK(propietarioId) / Propietarios
 	FK(zonaId) / ZonasTuristicas
-Reservas(reservaId, huespedId, alojamientoId, checkIn, checkOut, comentario, valoracion)
+Alojamientos = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6)
+}
+
+Reservas = { reservaId, huespedId, alojamientoId, checkIn, checkOut, comentario, valoracion }
 	PK(reservaId)
 	FK(huespedId) / Huespedes
 	FK(alojamientoId) / Alojamientos
-Fotos(fotoId, alojamientoId, titulo, fotoURL)
+Reservas = {
+	(r1, u2, a1, "2024-10-01", "2024-10-10", "Excelente estancia", 1)
+}
+
+Fotos = { fotoId, alojamientoId, titulo, fotoURL }
 	PK(fotoId)
 	FK(alojamientoId) / Alojamientos
-Servicios(servicioId, alojamientoId, tipoServicio, disponible)
+Fotos = {
+	(f1, a1, "Salón", "Siempre-viva-salon.jpg"),
+	(f2, a1, "Cocina", "Siempre-viva-cocina.jpg")
+}
+
+Servicios = { servicioId, alojamientoId, tipoServicio, disponible }
 	PK(servicioId)
 	FK(alojamientoId) / Alojamientos
-```
-
-## Extensión (fragmento)
-
-```
-ZonasTuristicas = { (z1, "Costa del Sol") }
-Alojamientos = { (a1, p1, z1, "Calle Mayor 10", 3, 2, 6) }
-Reservas = { (r1, h1, a1, "2024-10-01", "2024-10-10", "Excelente estancia", 1) }
-Servicios = { (s1, a1, "Wifi", true), (s2, a1, "Piscina", true) }
-Fotos = { (f1, a1, "Salón", "Siempre-viva-salon.jpg"), (f2, a1, "Cocina", "Siempre-viva-cocina.jpg") }
+Servicios = {
+	(s1, a1, "Wifi", true),
+	(s2, a1, "Piscina", true)
+}
 ```
 
 ## Álgebra relacional
@@ -142,11 +147,28 @@ $$
 APZ \leftarrow Alojamientos \NatJoin Propietarios \NatJoin ZonasTuristicas
 $$
 
+```mr-table
+APZ = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, fCompra, zona }
+
+APZ = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, "2020-05-10", "Costa del Sol")
+}
+```
+
 - Alojamientos con fotos:
 
 $$
 AF \leftarrow Alojamientos \NatJoin Fotos
 $$
+
+```mr-table
+AF = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, fotoId, titulo, fotoURL }
+
+AF = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, f1, "Salón", "Siempre-viva-salon.jpg"),
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, f2, "Cocina", "Siempre-viva-cocina.jpg")
+}
+```
 
 - Alojamientos con servicios:
 
@@ -154,11 +176,28 @@ $$
 AS \leftarrow Alojamientos \NatJoin Servicios
 $$
 
+```mr-table
+AS = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, servicioId, tipoServicio, disponible }
+
+AS = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, s1, "Wifi", true),
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, s2, "Piscina", true)
+}
+```
+
 - Alojamientos con reservas:
 
 $$
 AR \leftarrow Alojamientos \NatJoin Reservas
 $$
+
+```mr-table
+AR = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, reservaId, huespedId, checkIn, checkOut, comentario, valoracion }
+
+AR = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, r1, u2, "2024-10-01", "2024-10-10", "Excelente estancia", 1)
+}
+```
 
 - Alojamientos con propietarios, zona, fotos, servicios y reservas:
 
@@ -166,11 +205,30 @@ $$
 APZFRS \leftarrow APZ \NatJoin Fotos \NatJoin Servicios \NatJoin Reservas
 $$
 
+```mr-table
+APZFRS = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, fCompra, zona, fotoId, titulo, fotoURL, servicioId, tipoServicio, disponible, reservaId, huespedId, checkIn, checkOut, comentario, valoracion }
+
+APZFRS = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, "2020-05-10", "Costa del Sol", f1, "Salón", "Siempre-viva-salon.jpg", s1, "Wifi", true, r1, u2, "2024-10-01", "2024-10-10", "Excelente estancia", 1),
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, "2020-05-10", "Costa del Sol", f1, "Salón", "Siempre-viva-salon.jpg", s2, "Piscina", true, r1, u2, "2024-10-01", "2024-10-10", "Excelente estancia", 1),
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, "2020-05-10", "Costa del Sol", f2, "Cocina", "Siempre-viva-cocina.jpg", s1, "Wifi", true, r1, u2, "2024-10-01", "2024-10-10", "Excelente estancia", 1),
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, "2020-05-10", "Costa del Sol", f2, "Cocina", "Siempre-viva-cocina.jpg", s2, "Piscina", true, r1, u2, "2024-10-01", "2024-10-10", "Excelente estancia", 1)
+}
+```
+
 - Alojamientos con piscina:
 
 $$
 APiscina \leftarrow Alojamientos \NatJoin (\Sel{tipoServicio=\text{'Piscina'} \wedge disponible=\text{true}}(Servicios))
 $$
+
+```mr-table
+APiscina = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima, servicioId, tipoServicio, disponible }
+
+APiscina = {
+	(a1, u1, z1, "Calle Mayor 10", 3, 2, 6, s2, "Piscina", true)
+}
+```
 
 - Reservas en la Costa del Sol:
 
@@ -178,11 +236,27 @@ $$
 ReservasCS \leftarrow \Proj{alojamientoId}(AR \NatJoin \Sel{zona=\text{'Costa del Sol'}}(ZonasTuristicas))
 $$
 
+```mr-table
+ReservasCS = { alojamientoId }
+
+ReservasCS = {
+	(a1)
+}
+```
+
 - Dormitorios y baños de alojamientos con Wifi:
 
 $$
 \Proj{numDormitorios,numBanos}(\Sel{tipoServicio=\text{Wifi} \wedge disponible=\text{true}}(AS))
 $$
+
+```mr-table
+AlojamientosWifi = { numDormitorios, numBanos }
+
+AlojamientosWifi = {
+	(3, 2)
+}
+```
 
 - Propietarios en una zona concreta:
 
@@ -190,32 +264,67 @@ $$
 \Proj{nombre}(\Sel{zona=\text{Playa}}(APZ))
 $$
 
+```mr-table
+PropietariosPlaya = { nombre }
+
+PropietariosPlaya = {}
+```
+
 - Valoración media por alojamiento:
 
 $$
-\Group{\operatorname{AVG}(valoracion)}{alojamientoId}(AR)
+\Group{alojamientoId,\rho_{media}(\operatorname{AVG}(valoracion))}{alojamientoId}(AR)
 $$
+
+```mr-table
+ValoracionMediaAlojamiento = { alojamientoId, media }
+
+ValoracionMediaAlojamiento = {
+	(a1, 1.00)
+}
+```
 
 - Número de servicios por alojamiento:
 
 $$
-\Group{\operatorname{COUNT}(*)}{alojamientoId}(AS)
+\Group{alojamientoId,\rho_{total}(\operatorname{COUNT}(*))}{alojamientoId}(AS)
 $$
+
+```mr-table
+NumServiciosAlojamiento = { alojamientoId, total }
+
+NumServiciosAlojamiento = {
+	(a1, 2)
+}
+```
 
 - Número de fotos por alojamiento:
 
 $$
-\Group{\operatorname{COUNT}(*)}{alojamientoId}(AF)
+\Group{alojamientoId,\rho_{total}(\operatorname{COUNT}(*))}{alojamientoId}(AF)
 $$
+
+```mr-table
+NumFotosAlojamiento = { alojamientoId, total }
+
+NumFotosAlojamiento = {
+	(a1, 2)
+}
+```
 
 - Número de reservas por huésped:
 
 $$
-\Group{\operatorname{COUNT}(*)}{huespedId}(Reservas)
+\Group{huespedId,\rho_{total}(\operatorname{COUNT}(*))}{huespedId}(Reservas)
 $$
 
-## Modelo Tecnológico (MariaDB)
+```mr-table
+NumReservasHuesped = { huespedId, total }
 
+NumReservasHuesped = {
+	(u2, 1)
+}
+```
 
 # Modelo tecnológico (MariaDB)
 
