@@ -63,8 +63,6 @@ En la versión dinámica, las aficiones se convierten en entidad propia para per
 
 ## Variante estática (Aficiones como atributos en su relación)
 
-### Intensión
-
 ```mr-table
 Usuarios = { usuarioId, nombre, edad, género, email }
 	PK(usuarioId)
@@ -73,12 +71,19 @@ Aficiones = { aficionId, usuarioId, afición }
 	PK(aficionId)
 	FK(usuarioId) / Usuarios
 	AK(usuarioId, afición)
-```
-
-### Extensión
-
-```mr-table
-Usuarios = { u1..u11 como en el ejercicio de Usuarios }
+Usuarios = {
+    (u1,  "David Ruiz",      45, MASCULINO, "druiz@us.es"),
+    (u2,  "Carlos Arévalo",  58, MASCULINO, "carevalo@us.es"),
+    (u3,  "Margarita Cruz",  58, FEMENINO,  "mcruz@us.es"),
+    (u4,  "Inma Hernández",  35, FEMENINO,  "inmahernandez@us.es"),
+    (u5,  "Alfonso Márquez", 35, MASCULINO, "amarquez@us.es"),
+    (u6,  "Daniel Ayala",    28, MASCULINO, "dayala1@us.es"),
+    (u7,  "Raquel Sampedro", 55, FEMENINO,  "rsampedro@gmail.com"),
+    (u8,  "Marta López",     18, FEMENINO,  "mlopez@mail.com"),
+    (u9,  "David Ruiz",      25, MASCULINO, "druiz@mail.com"),
+    (u10, "Andrea Gómez",    27, OTRO,      "agomez@mail.es"),
+    (u11, "Ernesto Murillo", 55, OTRO,      "emurillo@correo.es")
+}
 Aficiones = {
     (a1, u1, "Deporte"), 
     (a2, u1, "Gastronomía"),
@@ -119,11 +124,48 @@ $$
 UA \leftarrow U \NatJoin A
 $$
 
-- Usuarias a las que les gusta el cine: 
+```mr-table
+UA = { uid, nu, ed, g, em, aid, af }
+
+UA = {
+    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", a1, "Deporte"),
+    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", a2, "Gastronomía"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a3, "Deporte"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a4, "Literatura"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a5, "Cine"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a6, "Gastronomía"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a7, "Cine"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a8, "Literatura"),
+    (u5, "Alfonso Márquez", 35, MASCULINO, "amarquez@us.es", a9, "Deporte"),
+    (u6, "Daniel Ayala", 28, MASCULINO, "dayala1@us.es", a10, "Cine"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a11, "Deporte"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a12, "Gastronomía"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a13, "Literatura"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a14, "Cine"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a15, "Deporte"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a16, "Literatura"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a17, "Cine"),
+    (u10, "Andrea Gómez", 27, OTRO, "agomez@mail.es", a18, "Gastronomía")
+}
+```
+
+- Usuarios a los que les gusta el cine:
 
 $$
-UCine \leftarrow \Sel{af=\text{CINE}}(UA)
+UCine \leftarrow \Sel{af=\text{Cine}}(UA)
 $$
+
+```mr-table
+UCine = { uid, nu, ed, g, em, aid, af }
+
+UCine = {
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a5, "Cine"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a7, "Cine"),
+    (u6, "Daniel Ayala", 28, MASCULINO, "dayala1@us.es", a10, "Cine"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a14, "Cine"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a17, "Cine")
+}
+```
 
 - Usuarios sin aficiones: 
 
@@ -131,18 +173,38 @@ $$
 UsuSinAfi \leftarrow \Proj{uid,nu}\big(U \NatJoin (\Proj{uid}(U) -\Proj{uid}(A))\big)
 $$
 
+```mr-table
+UsuSinAfi = { uid, nu }
+
+UsuSinAfi = {
+    (u3, "Margarita Cruz"),
+    (u7, "Raquel Sampedro"),
+    (u11, "Ernesto Murillo")
+}
+```
+
 - Número de aficiones por usuario: 
 
 $$
-NumAfiUsu \leftarrow \Group{\operatorname{COUNT}(*)}{uid}(UA)
+NumAfiUsu \leftarrow \Group{uid,\rho_{total}(\operatorname{COUNT}(*))}{uid}(UA)
 $$
 
+```mr-table
+NumAfiUsu = { uid, total }
 
----
+NumAfiUsu = {
+    (u1, 2),
+    (u2, 3),
+    (u4, 3),
+    (u5, 1),
+    (u6, 1),
+    (u8, 4),
+    (u9, 3),
+    (u10, 1)
+}
+```
 
 ## Variante dinámica (tabla intermedia usuario–afición)
-
-### Intensión
 
 ```mr-table
 Usuarios = { usuarioId, nombre, edad, género, email }
@@ -155,22 +217,33 @@ UsuariosAficiones = { usuarioAficionId, usuarioId, aficiónId }
 	FK(usuarioId) / Usuarios
 	FK(aficiónId) / Aficiones
 	AK(usuarioId, aficiónId)
-```
 
-### Extensión
-
-```mr-table
-Usuarios = { u1..u11 como en el ejercicio de Usuarios }
+Usuarios = {
+    (u1,  "David Ruiz",      45, MASCULINO, "druiz@us.es"),
+    (u2,  "Carlos Arévalo",  58, MASCULINO, "carevalo@us.es"),
+    (u3,  "Margarita Cruz",  58, FEMENINO,  "mcruz@us.es"),
+    (u4,  "Inma Hernández",  35, FEMENINO,  "inmahernandez@us.es"),
+    (u5,  "Alfonso Márquez", 35, MASCULINO, "amarquez@us.es"),
+    (u6,  "Daniel Ayala",    28, MASCULINO, "dayala1@us.es"),
+    (u7,  "Raquel Sampedro", 55, FEMENINO,  "rsampedro@gmail.com"),
+    (u8,  "Marta López",     18, FEMENINO,  "mlopez@mail.com"),
+    (u9,  "David Ruiz",      25, MASCULINO, "druiz@mail.com"),
+    (u10, "Andrea Gómez",    27, OTRO,      "agomez@mail.es"),
+    (u11, "Ernesto Murillo", 55, OTRO,      "emurillo@correo.es")
+}
 
 Aficiones = { 
     (a1, "Cine"), (a2, "Deporte"), (a3, "Jugar al fútbol"), 
     (a4, "Hacer senderismo"), (a5, "Montar a caballo") 
 }
-UsuariosAficiones = { 
-    (u1,a3), (u1,a4), (u2,a1), (u2,a2), (u2,a3), (u4,a4), 
-    (u4,a2), (u4,a1), (u5,a3), (u6,a2), (u8,a3), (u8,a4), 
-    (u8,a1), (u8,a2), (u9,a3), (u9,a1), (u9,a2), (u10,a4), 
-    (u11,a5) 
+UsuariosAficiones = {
+    (ua1, u1, a3), (ua2, u1, a4), (ua3, u2, a1),
+    (ua4, u2, a2), (ua5, u2, a3), (ua6, u4, a4),
+    (ua7, u4, a2), (ua8, u4, a1), (ua9, u5, a3),
+    (ua10, u6, a2), (ua11, u8, a3), (ua12, u8, a4),
+    (ua13, u8, a1), (ua14, u8, a2), (ua15, u9, a3),
+    (ua16, u9, a1), (ua17, u9, a2), (ua18, u10, a4),
+    (ua19, u11, a5)
 }
 ```
 
@@ -187,7 +260,7 @@ $$
 $$
 
 $$
-\Ren{UA(uid,aid)}(UsuariosAficiones)
+\Ren{UA(uaid,uid,aid)}(UsuariosAficiones)
 $$
 
 - Usuarios con sus aficiones: 
@@ -196,11 +269,48 @@ $$
 UAA \leftarrow U \NatJoin UA \NatJoin A
 $$
 
+```mr-table
+UAA = { uid, nu, ed, g, em, uaid, aid, af }
+
+UAA = {
+    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", ua1, a3, "Jugar al fútbol"),
+    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", ua2, a4, "Hacer senderismo"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", ua3, a1, "Cine"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", ua4, a2, "Deporte"),
+    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", ua5, a3, "Jugar al fútbol"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", ua6, a4, "Hacer senderismo"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", ua7, a2, "Deporte"),
+    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", ua8, a1, "Cine"),
+    (u5, "Alfonso Márquez", 35, MASCULINO, "amarquez@us.es", ua9, a3, "Jugar al fútbol"),
+    (u6, "Daniel Ayala", 28, MASCULINO, "dayala1@us.es", ua10, a2, "Deporte"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", ua11, a3, "Jugar al fútbol"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", ua12, a4, "Hacer senderismo"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", ua13, a1, "Cine"),
+    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", ua14, a2, "Deporte"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", ua15, a3, "Jugar al fútbol"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", ua16, a1, "Cine"),
+    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", ua17, a2, "Deporte"),
+    (u10, "Andrea Gómez", 27, OTRO, "agomez@mail.es", ua18, a4, "Hacer senderismo"),
+    (u11, "Ernesto Murillo", 55, OTRO, "emurillo@correo.es", ua19, a5, "Montar a caballo")
+}
+```
+
 - Usuarios a los que les gusta el cine: 
 
 $$
-UCine \leftarrow \Proj{nu}\big(\Sel{af=\text{CINE}}(UAA)\big)
+UCine \leftarrow \Proj{nu}\big(\Sel{af=\text{Cine}}(UAA)\big)
 $$
+
+```mr-table
+UCine = { nu }
+
+UCine = {
+    ("Carlos Arévalo"),
+    ("Inma Hernández"),
+    ("Marta López"),
+    ("David Ruiz")
+}
+```
 
 - Usuarios sin aficiones: 
 
@@ -208,15 +318,26 @@ $$
 USinAfi \leftarrow \Proj{nu}\big(U \NatJoin (\Proj{uid}(U) - \Proj{uid}(UA))\big)
 $$
 
+```mr-table
+USinAfi = { nu }
+
+USinAfi = {
+    ("Margarita Cruz"),
+    ("Raquel Sampedro")
+}
+```
+
 - Usuarios con todas las aficiones: 
 
 $$
-UsuTodasAfi \leftarrow \Proj{nu,uid}\left(\frac{UA}{\Proj{aid}(A)} \NatJoin U\right)
+UsuTodasAfi \leftarrow \Proj{nu,uid}\left(\left(\frac{\Proj{uid,aid}(UA)}{\Proj{aid}(A)}\right) \NatJoin U\right)
 $$
 
+```mr-table
+UsuTodasAfi = { nu, uid }
 
-## Modelo Tecnológico (MariaDB)
-
+UsuTodasAfi = {}
+```
 
 # Modelo tecnológico (MariaDB)
 

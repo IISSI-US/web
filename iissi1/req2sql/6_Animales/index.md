@@ -53,9 +53,6 @@ pdf_version: true
 - Quiero: Si un animal es hallado “abandonado” en la vía pública, entonces es obligatorio especificar el “lugar, fecha y hora de encuentro”, en caso contrario se trata de una “entrega” y hay que identificar la persona que la realiza (nombre, dirección y email)
 - Para: Facilitar las búsquedas de sus dueños
 
-## Modelo Conceptual
-
-
 # Modelo conceptual
 
 ## Diagrama de clases
@@ -63,8 +60,6 @@ pdf_version: true
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Animales/animales-dc.png' | relative_url }})
 
 # Modelo relacional
-
-## Intensión
 
 ```mr-table
 Especies = { especieId, especie }
@@ -92,57 +87,152 @@ Entregas = { ingresoId }
 Abandonos = { ingresoId, fechaHoraAbandono, lugar }
 	PK(ingresoId)
 	FK(ingresoId) / Ingresos
-	FK(animalId) / Animales
-	AK(ingresoId, animalId)
 Adopciones = { adopcionId, personaId, animalId, fechaHoraAdopcion }
 	PK(adopcionId)
 	FK(personaId) / Personas
 	FK(animalId) / Animales
-	AK(personaId, Mes(fechaHoraAdopcion))
-```
+	-- Una persona no puede adoptar más de dos animales abandonados en un mes.
 
-## Extensión (fragmento)
+Especies = {
+	(e1, "Canino"),
+	(e2, "Felino")
+}
 
-```mr-table
-Especies = { (e1, "Canino"), (e2, "Felino") }
-Razas = { (r1, e1, "Labrador"), (r2, e1, "Pastor Alemán"), (r3, e2, "Siamesa") }
-Animales = { (a1, r1, "12345", "Max", "Perro marrón"), (a2, r1, "67890", "Rocky", "Perro negro"), (a3, r2, "54321", "Luna", "Gato gris") }
+Razas = {
+	(r1, e1, "Labrador"),
+	(r2, e1, "Pastor Alemán"),
+	(r3, e2, "Siamesa")
+}
+
+Animales = {
+	(a1, r1, "12345", "Max", "Perro marrón"),
+	(a2, r1, "67890", "Rocky", "Perro negro"),
+	(a3, r3, "54321", "Luna", "Gata gris")
+}
+
+Personas = {
+	(p1, "Ana García", "Calle Sol 1", "ana@example.com"),
+	(p2, "Luis Pérez", "Calle Luna 2", "luis@example.com"),
+	(p3, "Marta López", "Calle Mar 3", "marta@example.com")
+}
+
+Ingresos = {
+	(i1, p1, a1, "2024-09-15 10:00"),
+	(i2, p3, a2, "2024-10-01 09:30"),
+	(i3, p2, a3, "2024-10-05 18:15")
+}
+
+Entregas = {
+	(i1),
+	(i3)
+}
+
+Abandonos = {
+	(i2, "2024-10-01 08:45", "Parque de María Luisa")
+}
+
+Adopciones = {
+	(ad1, p2, a1, "2024-10-20 12:00"),
+	(ad2, p3, a2, "2024-10-22 17:30"),
+	(ad3, p1, a3, "2024-11-03 11:00")
+}
 ```
 
 ## Álgebra relacional
 
+- Renombrado:
+
+$$
+P \leftarrow \Ren{P(pid,pn,dir,email)}(Personas)
+$$
+
+$$
+A \leftarrow \Ren{A(aid,rid,chip,an,desc)}(Animales)
+$$
+
+$$
+Ad \leftarrow \Ren{Ad(adid,pid,aid,fha)}(Adopciones)
+$$
+
+$$
+I \leftarrow \Ren{I(iid,pid,aid,fhe)}(Ingresos)
+$$
+
 - Personas que adoptan animales:
 
 $$
-PerAdoAni \leftarrow Personas \NatJoin Adopciones \NatJoin Animales
+PerAdoAni \leftarrow P \NatJoin Ad \NatJoin A
 $$
+
+```mr-table
+PerAdoAni = { pid, pn, dir, email, adid, aid, fha, rid, chip, an, desc }
+
+PerAdoAni = {
+	(p2, "Luis Pérez", "Calle Luna 2", "luis@example.com", ad1, a1, "2024-10-20 12:00", r1, "12345", "Max", "Perro marrón"),
+	(p3, "Marta López", "Calle Mar 3", "marta@example.com", ad2, a2, "2024-10-22 17:30", r1, "67890", "Rocky", "Perro negro"),
+	(p1, "Ana García", "Calle Sol 1", "ana@example.com", ad3, a3, "2024-11-03 11:00", r3, "54321", "Luna", "Gata gris")
+}
+```
 
 - Personas que entregan animales:
 
 $$
-PerEntAni \leftarrow Personas \NatJoin Ingresos \NatJoin Animales
+PerEntAni \leftarrow P \NatJoin I \NatJoin A
 $$
+
+```mr-table
+PerEntAni = { pid, pn, dir, email, iid, aid, fhe, rid, chip, an, desc }
+
+PerEntAni = {
+	(p1, "Ana García", "Calle Sol 1", "ana@example.com", i1, a1, "2024-09-15 10:00", r1, "12345", "Max", "Perro marrón"),
+	(p3, "Marta López", "Calle Mar 3", "marta@example.com", i2, a2, "2024-10-01 09:30", r1, "67890", "Rocky", "Perro negro"),
+	(p2, "Luis Pérez", "Calle Luna 2", "luis@example.com", i3, a3, "2024-10-05 18:15", r3, "54321", "Luna", "Gata gris")
+}
+```
 
 - Personas que entregan animales abandonados:
 
 $$
-PerEntAniAba \leftarrow Personas \NatJoin Ingresos \NatJoin Abandonos \NatJoin Animales
+PerEntAniAba \leftarrow P \NatJoin I \NatJoin \Ren{Ab(iid,fhab,lugar)}(Abandonos) \NatJoin A
 $$
+
+```mr-table
+PerEntAniAba = { pid, pn, dir, email, iid, aid, fhe, fhab, lugar, rid, chip, an, desc }
+
+PerEntAniAba = {
+	(p3, "Marta López", "Calle Mar 3", "marta@example.com", i2, a2, "2024-10-01 09:30", "2024-10-01 08:45", "Parque de María Luisa", r1, "67890", "Rocky", "Perro negro")
+}
+```
 
 - Adopciones en octubre:
 
 $$
-\Sel{Mes(fechaHoraAdopcion)=\text{Octubre}}(PerAdoAni)
+\Sel{Mes(fha)=\text{Octubre}}(PerAdoAni)
 $$
+
+```mr-table
+AdopcionesOctubre = { pid, pn, dir, email, adid, aid, fha, rid, chip, an, desc }
+
+AdopcionesOctubre = {
+	(p2, "Luis Pérez", "Calle Luna 2", "luis@example.com", ad1, a1, "2024-10-20 12:00", r1, "12345", "Max", "Perro marrón"),
+	(p3, "Marta López", "Calle Mar 3", "marta@example.com", ad2, a2, "2024-10-22 17:30", r1, "67890", "Rocky", "Perro negro")
+}
+```
 
 - Adopciones por especie:
 
 $$
-\Group{\operatorname{COUNT}(*)}{especieId}(PerAdoAni \NatJoin Razas \NatJoin Especies)
+\Group{especieId,especie,\rho_{total}(\operatorname{COUNT}(*))}{especieId,especie}(PerAdoAni \NatJoin Razas \NatJoin Especies)
 $$
 
-## Modelo Tecnológico (MariaDB)
+```mr-table
+AdopcionesPorEspecie = { especieId, especie, total }
 
+AdopcionesPorEspecie = {
+	(e1, "Canino", 2),
+	(e2, "Felino", 1)
+}
+```
 
 # Modelo tecnológico (MariaDB)
 

@@ -89,18 +89,39 @@ Entradas = { entradaId, representacionId, localidadId, fHoraCompra, canal, pComp
 	FK(representacionId) / Representaciones
 	FK(localidadId) / Localidades
 	AK(representacionId, localidadId)
-```
 
-## Extensión (fragmento)
+TiposEspectaculos = {
+	(te1, "Concierto")
+}
 
-```mr-table
-TiposEspectaculos = { (te1, "Concierto") }
-Zonas = { (z1, "Patio"), (z2, "Primera Balcón") }
-Precios = { (p1, z1, te1, 50), (p2, z2, te1, 100) }
-Localidades = { (l1, z1, 5, 12), (l2, z2, 1, 6) }
-Espectaculos = { (e1, te1, "Concierto de ACDC", "Festival", 2.5) }
-Representaciones = { (r1, e1, "2024-10-15 20:00"), (r2, e1, "2024-10-16 20:00") }
-Entradas = { (en1, r1, l1, "2024-10-10 18:00", "Web", 50), (en2, r2, l2, "2024-10-11 15:00", "Invitación", 0) }
+Zonas = {
+	(z1, "Patio"),
+	(z2, "Primera Balcón")
+}
+
+Precios = {
+	(p1, z1, te1, 50),
+	(p2, z2, te1, 100)
+}
+
+Localidades = {
+	(l1, z1, 5, 12),
+	(l2, z2, 1, 6)
+}
+
+Espectaculos = {
+	(e1, te1, "AC/DC", "Concierto de ACDC", 2.5)
+}
+
+Representaciones = {
+	(r1, e1, "2024-10-15 20:00"),
+	(r2, e1, "2024-10-16 20:00")
+}
+
+Entradas = {
+	(en1, r1, l1, "2024-10-10 18:00", "Web", 50),
+	(en2, r2, l2, "2024-10-11 15:00", "Invitación", 0)
+}
 ```
 
 ## Álgebra relacional
@@ -111,17 +132,44 @@ $$
 PZT \leftarrow Precios \NatJoin Zonas \NatJoin TiposEspectaculos
 $$
 
+```mr-table
+PZT = { precioId, zonaId, tipoEspectaculoId, precio, nombreZona, tipo }
+
+PZT = {
+	(p1, z1, te1, 50, "Patio", "Concierto"),
+	(p2, z2, te1, 100, "Primera Balcón", "Concierto")
+}
+```
+
 - Localidades por zona/tipo/representación:
 
 $$
 PZTRL \leftarrow PZT \NatJoin Localidades
 $$
 
+```mr-table
+PZTRL = { precioId, zonaId, tipoEspectaculoId, precio, nombreZona, tipo, localidadId, numFila, numButaca }
+
+PZTRL = {
+	(p1, z1, te1, 50, "Patio", "Concierto", l1, 5, 12),
+	(p2, z2, te1, 100, "Primera Balcón", "Concierto", l2, 1, 6)
+}
+```
+
 - Entradas por representación:
 
 $$
-numER \leftarrow \Group{\operatorname{COUNT}(*)}{representacionId}(Entradas \NatJoin Representaciones)
+numER \leftarrow \Group{representacionId,\rho_{total}(\operatorname{COUNT}(*))}{representacionId}(Entradas \NatJoin Representaciones)
 $$
+
+```mr-table
+numER = { representacionId, total }
+
+numER = {
+	(r1, 1),
+	(r2, 1)
+}
+```
 
 - Representaciones con espectáculos:
 
@@ -129,32 +177,71 @@ $$
 RE \leftarrow Representaciones \NatJoin Espectaculos
 $$
 
+```mr-table
+RE = { representacionId, espectaculoId, fechaHoraInicio, tipoEspectaculoId, nombre, denominacion, duracion }
+
+RE = {
+	(r1, e1, "2024-10-15 20:00", te1, "AC/DC", "Concierto de ACDC", 2.5),
+	(r2, e1, "2024-10-16 20:00", te1, "AC/DC", "Concierto de ACDC", 2.5)
+}
+```
+
 - Número de representaciones por espectáculo:
 
 $$
-numRE \leftarrow \Group{\operatorname{COUNT}(*)}{espectaculoId}(Representaciones \NatJoin Espectaculos)
+numRE \leftarrow \Group{espectaculoId,\rho_{total}(\operatorname{COUNT}(*))}{espectaculoId}(Representaciones \NatJoin Espectaculos)
 $$
+
+```mr-table
+numRE = { espectaculoId, total }
+
+numRE = {
+	(e1, 2)
+}
+```
 
 - Recaudación por representación:
 
 $$
-Recaudaciones \leftarrow \Group{\operatorname{SUM}(pCompra)}{representacionId}(Entradas)
+Recaudaciones \leftarrow \Group{representacionId,\rho_{recaudacion}(\operatorname{SUM}(pCompra))}{representacionId}(Entradas)
 $$
 
-- Localidades vendidas en r3:
+```mr-table
+Recaudaciones = { representacionId, recaudacion }
+
+Recaudaciones = {
+	(r1, 50),
+	(r2, 0)
+}
+```
+
+- Localidades vendidas en r1:
 
 $$
-LocR3 \leftarrow \Group{\operatorname{COUNT}(localidadId)}{representacionId}(\Sel{representacionId=3}(Entradas))
+LocR1 \leftarrow \Group{representacionId,\rho_{total}(\operatorname{COUNT}(localidadId))}{representacionId}(\Sel{representacionId=r1}(Entradas))
 $$
+
+```mr-table
+LocR1 = { representacionId, total }
+
+LocR1 = {
+	(r1, 1)
+}
+```
 
 - Entradas por invitación:
 
 $$
-EntradasInvitacion \leftarrow \Sel{canal=\text{Invitacion}}(RE \NatJoin Entradas)
+EntradasInvitacion \leftarrow \Sel{canal=\text{Invitación}}(RE \NatJoin Entradas)
 $$
 
-## Modelo Tecnológico (MariaDB)
+```mr-table
+EntradasInvitacion = { representacionId, espectaculoId, fechaHoraInicio, tipoEspectaculoId, nombre, denominacion, duracion, entradaId, localidadId, fHoraCompra, canal, pCompra }
 
+EntradasInvitacion = {
+	(r2, e1, "2024-10-16 20:00", te1, "AC/DC", "Concierto de ACDC", 2.5, en2, l2, "2024-10-11 15:00", "Invitación", 0)
+}
+```
 
 # Modelo tecnológico (MariaDB)
 

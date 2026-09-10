@@ -67,22 +67,9 @@ req2sql:
     url: "/iissi1/req2sql/9_Bodegas/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
-  - image_path: /assets/images/iissi1/req2sql-icon.svg
-    alt: "10"
-    title: "10 - Grados"
-    excerpt: "Ejercicio de grados"
-    url: "/iissi1/req2sql/10_Grados/"
-    btn_label: "Ver ejercicio"
-    btn_class: "btn--primary"
 ---
 
 # Ejercicios de ciclo completo
 
 {% include feature_row id="req2sql" type="center" %}
 
-En esta sección encontrarás 10 ejercicios completos que recorren el ciclo: Requisitos → Modelo Conceptual → Modelo Relacional → SQL.
-
-- Las imágenes de los diagramas se generan desde PlantUML y están en `/assets/images/iissi1/req2sql/`.
-- Los scripts SQL están disponibles en `https://raw.githubusercontent.com/IISSI-US/silence-db/main/`.
-
-Usa la navegación lateral para acceder a cada ejercicio.

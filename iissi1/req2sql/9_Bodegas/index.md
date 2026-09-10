@@ -91,11 +91,8 @@ pdf_version: true
 11. ❌ Crear un nuevo vino Joven sin bodega.
 12. ❌ Crear un nuevo vino Crianza sin bodega.
 
-## Modelo Conceptual
-
 
 # Modelo conceptual
-
 
 ## Diagrama de clases
 
@@ -110,14 +107,7 @@ pdf_version: true
 
 ![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc-examen.png' | relative_url }})
 
-## Modelo Relacional (v1)
-
-
-# Modelo relacional
-
-## Versión 1: Una relación para cada clase de la jerarquía
-
-### Intensión
+# Modelo Relacional
 
 ```mr-table
 Bodegas = { bodegaId, nombre, denominaciónOrigen }
@@ -145,11 +135,6 @@ VinosUvas = { vinoUvaId, vinoId, uvaId }
     FK(vinoId) / Vinos
     FK(uvaId) / Uvas
     AK(vinoId, uvaId)
-```
-
-### Extensión
-
-```mr-table
 Bodegas = {
     (b1, "Bodegas El Sol", "Rioja"),
     (b2, "Bodegas La Luna", "Ribera del Duero")      
@@ -220,46 +205,46 @@ $$
 Riojas \leftarrow \Sel{do=\text{'Rioja'}}(B)
 $$
 
+```mr-table
+Riojas = { bid, nb, do }
+
+Riojas = {
+    (b1, "Bodegas El Sol", "Rioja")
+}
+```
+
 - Listado de vinos con sus uvas:
 
 $$
 VVUU \leftarrow V \NatJoin VU \NatJoin U
 $$
 
-La intensión de la relación derivada VVUU sería la unión de los conjuntos de atributos de las relaciones V, VU y U:
-
 ```mr-table
 VVUU = {vid, bid, nv, g, vuid, uid, nu}
-```
 
-La extensión de VVUU quedaría con las siguientes tuplas:
-
-```mr-table
 VVUU = {
-    (1, 1, "Vino Blanco Joven", 12, 1, 3, "Albarino"),
-    (2, 2, "Vino Tinto Joven", 13, 2, 1, "Tempranillo"),
-    (3, 1, "Vino Crianza Especial", 14, 4, 2, "Garnacha"),
-    (3, 1, "Vino Crianza Especial", 14, 5, 1, "Tempranillo"),
-    (4, 2, "Vino Crianza Reserva", 13.5, 6, 2, "Garnacha"),
-    (4, 2, "Vino Crianza Reserva", 13.5, 7, 1, "Tempranillo")
+    (v1, b1, "Vino Blanco Joven", 12, vu1, u3, "Albarino"),
+    (v2, b2, "Vino Tinto Joven", 13, vu2, u1, "Tempranillo"),
+    (v3, b1, "Vino Crianza Especial", 14, vu3, u2, "Garnacha"),
+    (v3, b1, "Vino Crianza Especial", 14, vu4, u1, "Tempranillo"),
+    (v4, b2, "Vino Crianza Reserva", 13.5, vu5, u2, "Garnacha"),
+    (v4, b2, "Vino Crianza Reserva", 13.5, vu6, u1, "Tempranillo")
 }
 ```
 
 - Crianzas con sus cosechas:
 
 $$
-CCo \leftarrow V \NatJoin Co
+CCo \leftarrow V \NatJoin C \NatJoin Co
 $$
 
-En este caso, la intensión de la relación derivada CCo sería la unión de los conjuntos de atributos de las relaciones C y Co, y la extensión tendría las siguientes tuplas:
-
 ```mr-table
-CCo = {vid, bid, nv, g, coid, a, c}
+CCo = {vid, bid, nv, g, tba, tbo, coid, a, c}
 
 CCo = {
-    (3, 1, "Vino Crianza Especial", 14, 1, 2020, "Excelente"),
-    (3, 1, "Vino Crianza Especial", 14, 2, 2019, "Buena"),
-    (4, 2, "Vino Crianza Reserva", 13.5, 3, 2018, "Muy buena")
+    (v3, b1, "Vino Crianza Especial", 14, 6, 18, c1, 2020, "Excelente"),
+    (v3, b1, "Vino Crianza Especial", 14, 6, 18, c2, 2019, "Buena"),
+    (v4, b2, "Vino Crianza Reserva", 13.5, 12, 12, c3, 2018, "Muy buena")
 }
 ```
 
@@ -269,39 +254,168 @@ $$
 BV \leftarrow B \NatJoin V
 $$
 
+```mr-table
+BV = { bid, nb, do, vid, nv, g }
+
+BV = {
+    (b1, "Bodegas El Sol", "Rioja", v1, "Vino Blanco Joven", 12),
+    (b2, "Bodegas La Luna", "Ribera del Duero", v2, "Vino Tinto Joven", 13),
+    (b1, "Bodegas El Sol", "Rioja", v3, "Vino Crianza Especial", 14),
+    (b2, "Bodegas La Luna", "Ribera del Duero", v4, "Vino Crianza Reserva", 13.5)
+}
+```
+
+$$
+BodegasJovenes \leftarrow \Proj{bid,nb}(BV \NatJoin J)
+$$
+
+```mr-table
+BodegasJovenes = { bid, nb }
+
+BodegasJovenes = {
+    (b1, "Bodegas El Sol"),
+    (b2, "Bodegas La Luna")
+}
+```
+
+$$
+BodegasCrianzas \leftarrow \Proj{bid,nb}(BV \NatJoin C)
+$$
+
+```mr-table
+BodegasCrianzas = { bid, nb }
+
+BodegasCrianzas = {
+    (b1, "Bodegas El Sol"),
+    (b2, "Bodegas La Luna")
+}
+```
+
+$$
+BodegasJovenes \Inter BodegasCrianzas
+$$
+
+```mr-table
+BodegasJovenesCrianzas = { bid, nb }
+
+BodegasJovenesCrianzas = {
+    (b1, "Bodegas El Sol"),
+    (b2, "Bodegas La Luna")
+}
+```
+
 - Nombre de las bodegas y vinos que están compuestos, al menos, con uva "Tempranillo":
 
 $$
 BT \leftarrow \Proj{nb,nv}\big(\Sel{nu=\text{'Tempranillo'}}(BV \NatJoin VU \NatJoin U)\big)
 $$
 
+```mr-table
+BT = { nb, nv }
+
+BT = {
+    ("Bodegas La Luna", "Vino Tinto Joven"),
+    ("Bodegas El Sol", "Vino Crianza Especial"),
+    ("Bodegas La Luna", "Vino Crianza Reserva")
+}
+```
+
 - Total de cosechas por vino de crianza:
 
 $$
-TotalCrianzas \leftarrow \Group{\operatorname{COUNT}(*)}{coid}(C \NatJoin Co)
+TotalCosechasCrianza \leftarrow \Group{vid,\rho_{total}(\operatorname{COUNT}(*))}{vid}(C \NatJoin Co)
 $$
+
+```mr-table
+TotalCosechasCrianza = { vid, total }
+
+TotalCosechasCrianza = {
+    (v3, 2),
+    (v4, 1)
+}
+```
 
 - Nombre del vino joven con más grados:
 
 $$
-max \leftarrow \GroupUp{\operatorname{MAX}(g)}(V \NatJoin J)
+maxGrados \leftarrow \GroupUp{\rho_{maxG}(\operatorname{MAX}(g))}(V \NatJoin J)
 $$
 
+```mr-table
+maxGrados = { maxG }
+
+maxGrados = {
+    (13)
+}
+```
+
 $$
-VinoMasGrados \leftarrow \Proj{nv}\big(\Sel{g=max}(V \NatJoin J)\big)
+VinoMasGrados \leftarrow \Proj{nv}\big(\Sel{g=maxG}((V \NatJoin J) \times maxGrados)\big)
 $$
+
+```mr-table
+VinoMasGrados = { nv }
+
+VinoMasGrados = {
+    ("Vino Tinto Joven")
+}
+```
 
 - Número de vinos crianza por cosecha:
 
 $$
-NumCCo \leftarrow \Group{\operatorname{COUNT}(vid)}{coid}(Co)
+NumCCo \leftarrow \Group{a,\rho_{total}(\operatorname{COUNT}(vid))}{a}(Co)
 $$
+
+```mr-table
+NumCCo = { a, total }
+
+NumCCo = {
+    (2018, 1),
+    (2019, 1),
+    (2020, 1)
+}
+```
 
 - Bodegas con más vinos:
 
 $$
-BodegasMasVinos \leftarrow \GroupUp{\operatorname{MAX}(n)}\left(\Ren{n \leftarrow \operatorname{COUNT}(vid)}\left(\Group{\operatorname{COUNT}(vid)}{bid}(BV)\right)\right)
+BodegasNumVinos \leftarrow \Group{bid,nb,\rho_{total}(\operatorname{COUNT}(vid))}{bid,nb}(BV)
 $$
+
+```mr-table
+BodegasNumVinos = { bid, nb, total }
+
+BodegasNumVinos = {
+    (b1, "Bodegas El Sol", 2),
+    (b2, "Bodegas La Luna", 2)
+}
+```
+
+$$
+maxVinos \leftarrow \GroupUp{\rho_{maxTotal}(\operatorname{MAX}(total))}(BodegasNumVinos)
+$$
+
+```mr-table
+maxVinos = { maxTotal }
+
+maxVinos = {
+    (2)
+}
+```
+
+$$
+BodegasMasVinos \leftarrow \Proj{bid,nb}\left(\Sel{total=maxTotal}(BodegasNumVinos \times maxVinos)\right)
+$$
+
+```mr-table
+BodegasMasVinos = { bid, nb }
+
+BodegasMasVinos = {
+    (b1, "Bodegas El Sol"),
+    (b2, "Bodegas La Luna")
+}
+```
 
 - Vinos que tienen, al menos, las mismas uvas que el vino 'v1':
 
@@ -309,151 +423,15 @@ $$
 VinosUvasV1 \leftarrow \Proj{vid,nv}\left(\frac{\Proj{vid,uid}(VU)}{\Proj{uid}\big(\Sel{vid=v1}(VU)\big)} \NatJoin V\right)
 $$
 
-## Versión 2: Una relación para cada subclase
-
-### Intensión
-
 ```mr-table
-Bodegas = { bodegaId, nombre, denominaciónOrigen }
-    PK(bodegaId)
-    AK(nombre)
-Jóvenes = { jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
-    PK(jovenId)
-    FK(bodegaId) / Bodegas
-    AK(nombre)
-Crianzas = { crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
-    PK(crianzaId)
-    FK(bodegaId) / Bodegas
-    AK(nombre)
-Uvas = { uvaId, nombre }
-    PK(uvaId)
-    AK(nombre)
-Cosechas = { cosechaId, crianzaId, año, calidad }
-    PK(cosechaId)
-    FK(crianzaId) / Crianzas
-    AK(cosechaId, crianzaId, año)
-VinosUvas = { vinoUvaId, jovenId*, crianzaId*, uvaId }
-    PK(vinoUvaId)
-    FK(jovenId) / Jóvenes
-    FK(crianzaId) / Crianzas
-    FK(uvaId) / Uvas
-    AK(jovenId, uvaId)
-    AK(crianzaId, uvaId)
-    * Restricción: jovenId y crianzaId deben ser disjuntos.
-```
+VinosUvasV1 = { vid, nv }
 
-### Extensión
-
-```mr-table
-Bodegas = {
-    (b1, "Bodegas El Sol", "Rioja"),
-    (b2, "Bodegas La Luna", "Ribera del Duero")      
-}
-Jóvenes = {
-    (j1, b1, "Vino Blanco Joven", 12, 6, 0),
-    (j2, b2, "Vino Tinto Joven", 13, 0, 12),
-}
-Crianzas = {
-    (c1, b1, "Vino Crianza Especial", 14, 6, 18),
-    (c2, b2, "Vino Crianza Reserva", 13.5, 12, 12)
-}
-Uvas = {
-    (u1, "Tempranillo"),
-    (u2, "Garnacha"),
-    (u3, "Albarino")
-}
-Cosechas = {
-    (co1, c1, 2020, "Excelente"),
-    (co2, c1, 2019, "Buena"),
-    (co3, c2, 2018, "Muy buena")
-}
-VinosUvas = {
-    (vu1, j1, null, u3),
-    (vu2, j2, null, u1),
-    (vu3, null, c1, u2),
-    (vu4, null, c1, u1),
-    (vu5, null, c2, u2),
-    (vu6, null, c2, u1)
+VinosUvasV1 = {
+    (v1, "Vino Blanco Joven")
 }
 ```
 
-## Modelo Relacional (v2)
-
-
-# Modelo relacional
-
-## Versión 2: Una relación para cada subclase
-
-### Intensión
-
-```mr-table
-Bodegas = { bodegaId, nombre, denominaciónOrigen }
-    PK(bodegaId)
-    AK(nombre)
-Jóvenes = { jovenId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
-    PK(jovenId)
-    FK(bodegaId) / Bodegas
-    AK(nombre)
-Crianzas = { crianzaId, bodegaId, nombre, grados, tiempoBarrica, tiempoBotella }
-    PK(crianzaId)
-    FK(bodegaId) / Bodegas
-    AK(nombre)
-Uvas = { uvaId, nombre }
-    PK(uvaId)
-    AK(nombre)
-Cosechas = { cosechaId, crianzaId, año, calidad }
-    PK(cosechaId)
-    FK(crianzaId) / Crianzas
-    AK(cosechaId, crianzaId, año)
-VinosUvas = { vinoUvaId, jovenId*, crianzaId*, uvaId }
-    PK(vinoUvaId)
-    FK(jovenId) / Jóvenes
-    FK(crianzaId) / Crianzas
-    FK(uvaId) / Uvas
-    AK(jovenId, uvaId)
-    AK(crianzaId, uvaId)
-    * Restricción: jovenId y crianzaId deben ser disjuntos.
-```
-
-### Extensión
-
-```mr-table
-Bodegas = {
-    (b1, "Bodegas El Sol", "Rioja"),
-    (b2, "Bodegas La Luna", "Ribera del Duero")      
-}
-Jóvenes = {
-    (j1, b1, "Vino Blanco Joven", 12, 6, 0),
-    (j2, b2, "Vino Tinto Joven", 13, 0, 12),
-}
-Crianzas = {
-    (c1, b1, "Vino Crianza Especial", 14, 6, 18),
-    (c2, b2, "Vino Crianza Reserva", 13.5, 12, 12)
-}
-Uvas = {
-    (u1, "Tempranillo"),
-    (u2, "Garnacha"),
-    (u3, "Albarino")
-}
-Cosechas = {
-    (co1, c1, 2020, "Excelente"),
-    (co2, c1, 2019, "Buena"),
-    (co3, c2, 2018, "Muy buena")
-}
-VinosUvas = {
-    (vu1, j1, null, u3),
-    (vu2, j2, null, u1),
-    (vu3, null, c1, u2),
-    (vu4, null, c1, u1),
-    (vu5, null, c2, u2),
-    (vu6, null, c2, u1)
-}
-```
-
-## Modelo Tecnológico (v1)
-
-
-# Modelo tecnológico. Versión 1: Una relación para cada clase de la jerarquía
+# Modelo tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -467,49 +445,5 @@ VinosUvas = {
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/sql/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
 
-
-## Modelo Tecnológico (v2)
-
-
-# Modelo tecnológico. Versión 2: Una relación para cada subclase
-
-## Script SQL para crear la base de datos
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas2/sql/createDB.sql' label='Bodegas2/createDB.sql' collapsed=true %}
-
-## Script SQL para la carga inicial de datos
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas2/sql/populateDB.sql' label='Bodegas2/populateDB.sql' collapsed=true %}
-
-## Consultas
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas2/sql/queries.sql' label='Bodegas2/queries.sql' collapsed=true %}
-
-## SQL Avanzado
-
-Realice un disparador que compruebe que en la tabla VinosUvas no se insertan tuplas con valores para jovenId y crianzaId simultáneamente:
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas2/sql/triggers.sql' label='Bodegas2/triggers.sql' collapsed=true %}
-
-
-
-## Pruebas SQL
-
-
-
-# Pruebas SQL
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas2/sql/tests.sql' label='Bodegas2/tests.sql' collapsed=true %}
-
-
-## Pruebas HTTP
-
-
-
-# Pruebas HTTP
-
-<div class="http-file" data-src="{{ '/silence-db/tests/Bodegas/bodegas.http' | relative_url }}"></div>
-
-<div class="http-file" data-src="{{ '/silence-db/tests/Bodegas/vinos.http' | relative_url }}"></div>
 
 > [Versión PDF disponible](./index.pdf)

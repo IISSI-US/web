@@ -81,7 +81,7 @@ pdf_version: true
 
 ```mr-table
 -- Intensión
-Usuarios = { usuarioId, nombre, género, edad, email }
+Usuarios = { usuarioId, nombre, edad, género, email }
 	PK(usuarioId)
 	AK(email)
 
@@ -106,7 +106,7 @@ Usuarios = {
 - Renombrado de la relación Usuarios (corregido para incluir el atributo género):
 
 $$
-\Ren{U(uid,n,g,ed,em)}\left(Usuarios\right)
+\Ren{U(uid,n,ed,g,em)}\left(Usuarios\right)
 $$
 
 - Nombre y correo de las usuarias (género femenino):
@@ -115,55 +115,176 @@ $$
 Mujeres \leftarrow \Proj{n,em}\big(\Sel{g=\text{FEMENINO}}(U)\big)
 $$
 
+```mr-table
+Mujeres = { n, em }
+
+Mujeres = {
+	("Margarita Cruz", "mcruz@us.es"),
+	("Inma Hernández", "inmahernandez@us.es"),
+	("Raquel Sampedro", "rsampedro@gmail.com"),
+	("Marta López", "mlopez@mail.com")
+}
+```
+
 - Nombre, edad y correo de los usuarios con dominio “@us.es”:
 
 $$
 UsuariosUS \leftarrow \Proj{n,ed,em}\big(\Sel{\operatorname{dominio}(em)='us.es'}(U)\big)
 $$
 
-Asumimos una función $\operatorname{dominio}(\cdot)$ que dado un email devuelve su dominio (la cadena tras la @).
+```mr-table
+UsuariosUS = { n, ed, em }
+
+UsuariosUS = {
+	("David Ruiz", 45, "druiz@us.es"),
+	("Carlos Arévalo", 58, "carevalo@us.es"),
+	("Margarita Cruz", 58, "mcruz@us.es"),
+	("Inma Hernández", 35, "inmahernandez@us.es"),
+	("Alfonso Márquez", 35, "amarquez@us.es"),
+	("Daniel Ayala", 28, "dayala1@us.es")
+}
+```
+
+Asumimos una función $\operatorname{dominio}()$ que dado un email devuelve su dominio (la cadena tras la @).
 
 - Edad media y total de usuarios:
 
 $$
-MedTotUsuarios \leftarrow \GroupUp{\operatorname{AVG}(ed),\;\operatorname{COUNT}(*)}(U)
+MedTotUsuarios \leftarrow \GroupUp{\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}(U)
 $$
+
+```mr-table
+MedTotUsuarios = { media, total }
+
+MedTotUsuarios = {
+	(39.91, 11)
+}
+```
 
 - Edad media y total de los usuarios con dominio “@us.es”:
 
 $$
-MedTotUsuariosUS \leftarrow \GroupUp{\operatorname{AVG}(ed),\;\operatorname{COUNT}(*)}(UsuariosUS)
+MedTotUsuariosUS \leftarrow \GroupUp{\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}(UsuariosUS)
 $$
+
+```mr-table
+MedTotUsuariosUS = { media, total }
+
+MedTotUsuariosUS = {
+	(43.17, 6)
+}
+```
 
 - Edad media de los usuarios agrupada por género:
 
 $$
-MediaGenero \leftarrow \Group{\operatorname{AVG}(ed)}{g}(U)
+MediaGenero \leftarrow \Group{g,\rho_{media}(\operatorname{AVG}(ed))}{g}(U)
 $$
+
+```mr-table
+MediaGenero = { g, media }
+
+MediaGenero = {
+	(MASCULINO, 38.20),
+	(FEMENINO, 41.50),
+	(OTRO, 41.00)
+}
+```
 
 - Número de usuarios agrupados por género:
 
 $$
-TotalGenero \leftarrow \Group{\operatorname{COUNT}(*)}{g}(U)
+TotalGenero \leftarrow \Group{g,\rho_{total}(\operatorname{COUNT}(*))}{g}(U)
 $$
+
+```mr-table
+TotalGenero = { g, total }
+
+TotalGenero = {
+	(MASCULINO, 5),
+	(FEMENINO, 4),
+	(OTRO, 2)
+}
+```
 
 - Edad media y total de usuarios según el dominio del correo electrónico:
 
 $$
-MedTotDominio \leftarrow \Group{\operatorname{AVG}(ed),\;\operatorname{COUNT}(*)}{\operatorname{dominio}(em)}(U)
+MedTotDominio \leftarrow \Group{\operatorname{dominio}(em),\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}{\operatorname{dominio}(em)}(U)
 $$
+
+```mr-table
+MedTotDominio = { dominio, media, total }
+
+MedTotDominio = {
+	("us.es", 43.17, 6),
+	("gmail.com", 55.00, 1),
+	("mail.com", 21.50, 2),
+	("mail.es", 27.00, 1),
+	("correo.es", 55.00, 1)
+}
+```
 
 - Edad del usuario de mayor edad:
 
 $$
-edadMayor \leftarrow \GroupUp{\operatorname{MAX}(ed)}(U)
+edadMayor \leftarrow \GroupUp{\rho_{mayor}(\operatorname{MAX}(ed))}(U)
 $$
+
+```mr-table
+edadMayor = { mayor }
+
+edadMayor = {
+	(58)
+}
+```
+
+- Usuarios de mayor edad:
+
+$$
+UsuariosMayores \leftarrow \Proj{uid,n,ed,g,em}\left(\Sel{ed = mayor}(U \times edadMayor)\right)
+$$
+
+```mr-table
+UsuariosMayores = { uid, n, ed, g, em }
+
+UsuariosMayores = {
+	(u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es"),
+	(u3, "Margarita Cruz", 58, FEMENINO, "mcruz@us.es")
+}
+```
 
 - Edad máxima por género:
 
 $$
-MayoresGenero \leftarrow \Group{\operatorname{MAX}(ed)}{g}(U)
+MayoresGenero \leftarrow \Group{g,\rho_{mayor}(\operatorname{MAX}(ed))}{g}(U)
 $$
+
+```mr-table
+MayoresGenero = { g, mayor }
+
+MayoresGenero = {
+	(MASCULINO, 58),
+	(FEMENINO, 58),
+	(OTRO, 55)
+}
+```
+
+- Usuarios de mayor edad según el género:
+
+$$
+UsuariosMayoresGenero \leftarrow \Proj{uid,n,ed,g,em}\left(\Sel{ed = mayor}(U \NatJoin MayoresGenero)\right)
+$$
+
+```mr-table
+UsuariosMayoresGenero = { uid, n, ed, g, em }
+
+UsuariosMayoresGenero = {
+	(u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es"),
+	(u3, "Margarita Cruz", 58, FEMENINO, "mcruz@us.es"),
+	(u11, "Ernesto Murillo", 55, OTRO, "emurillo@correo.es")
+}
+```
 
 ### RelaX
 

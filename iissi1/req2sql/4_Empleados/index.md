@@ -54,8 +54,6 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 
 # Modelo relacional
 
-## Intensión
-
 ```mr-table
 Departamentos = { departamentoId, nombre, localidad }
 	PK(departamentoId)
@@ -65,11 +63,6 @@ Empleados = { empleadoId, departamentoId, jefeId, nombre, salario, fechaInicio, 
 	FK(departamentoId) / Departamentos
 	FK(jefeId) / Empleados
 	AK(nombre)
-```
-
-## Extensión
-
-```mr-table
 Departamentos = {
 	(d1, 'Arte', 'Cádiz'),
 	(d2, 'Historia', null),
@@ -89,11 +82,11 @@ Empleados = {
 - Renombrado de relaciones para acortar las expresiones en álgebra relacional:
 
 $$
-\Ren{D(dId, n, l)}(Departamentos)
+\Ren{D(dId, dn, l)}(Departamentos)
 $$
 
 $$
-\Ren{E(eId, dId, jId, n, s, FI, Ff, c)}(Empleados)
+\Ren{E(eId, dId, jId, en, s, fI, fF, c)}(Empleados)
 $$
 
 - Empleados con sueldo < 2000:
@@ -102,11 +95,30 @@ $$
 \Sel{s<2000}(E)
 $$
 
+```mr-table
+EmpleadosSueldoBajo = { eId, dId, jId, en, s, fI, fF, c }
+
+EmpleadosSueldoBajo = {
+	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0),
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0)
+}
+```
+
 - Fechas de alta y baja:
 
 $$
 \Proj{fI,fF}(E)
 $$
+
+```mr-table
+FechasContratos = { fI, fF }
+
+FechasContratos = {
+	('2017-09-15', NULL),
+	('2018-08-15', NULL),
+	('2018-08-15', '2018-11-15')
+}
+```
 
 - Sueldo entre 2000 y 3000:
 
@@ -114,11 +126,43 @@ $$
 \Sel{2000<s<3000}(E)
 $$
 
+```mr-table
+EmpleadosSueldoMedio = { eId, dId, jId, en, s, fI, fF, c }
+
+EmpleadosSueldoMedio = {
+	(e1, d1, NULL, 'Pedro', 2300.00, '2017-09-15', NULL, 0.2),
+	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5),
+	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3)
+}
+```
+
 - Producto cartesiano:
 
 $$
 E \times D
 $$
+
+```mr-table
+ProductoEmpleadosDepartamentos = { eId, E.dId, jId, en, s, fI, fF, c, D.dId, dn, l }
+
+ProductoEmpleadosDepartamentos = {
+	(e1, d1, NULL, 'Pedro', 2300.00, '2017-09-15', NULL, 0.2, d1, 'Arte', 'Cádiz'),
+	(e1, d1, NULL, 'Pedro', 2300.00, '2017-09-15', NULL, 0.2, d2, 'Historia', NULL),
+	(e1, d1, NULL, 'Pedro', 2300.00, '2017-09-15', NULL, 0.2, d3, 'Informática', 'Sevilla'),
+	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5, d1, 'Arte', 'Cádiz'),
+	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5, d2, 'Historia', NULL),
+	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5, d3, 'Informática', 'Sevilla'),
+	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3, d1, 'Arte', 'Cádiz'),
+	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3, d2, 'Historia', NULL),
+	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3, d3, 'Informática', 'Sevilla'),
+	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, d1, 'Arte', 'Cádiz'),
+	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, d2, 'Historia', NULL),
+	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, d3, 'Informática', 'Sevilla'),
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d1, 'Arte', 'Cádiz'),
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d2, 'Historia', NULL),
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d3, 'Informática', 'Sevilla')
+}
+```
 
 - Join Empleados–Departamentos:
 
@@ -126,11 +170,32 @@ $$
 E \NatJoin D
 $$
 
+```mr-table
+EmpleadosDepartamentos = { eId, dId, jId, en, s, fI, fF, c, dn, l }
+
+EmpleadosDepartamentos = {
+	(e1, d1, NULL, 'Pedro', 2300.00, '2017-09-15', NULL, 0.2, 'Arte', 'Cádiz'),
+	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5, 'Arte', 'Cádiz'),
+	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3, 'Historia', NULL),
+	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, 'Arte', 'Cádiz'),
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, 'Arte', 'Cádiz')
+}
+```
+
 - Departamentos con empleados:
 
 $$
 \Proj{dId}(E)
 $$
+
+```mr-table
+DepartamentosConEmpleados = { dId }
+
+DepartamentosConEmpleados = {
+	(d1),
+	(d2)
+}
+```
 
 - Departamentos sin empleados:
 
@@ -138,27 +203,81 @@ $$
 \Proj{dId}(D) - \Proj{dId}(E)
 $$
 
+```mr-table
+DepartamentosSinEmpleados = { dId }
+
+DepartamentosSinEmpleados = {
+	(d3)
+}
+```
+
 - Estadísticas globales de salario:
 
 $$
-\GroupUp{\operatorname{COUNT}(*),\;\operatorname{MIN}(s),\;\operatorname{MAX}(s),\;\operatorname{AVG}(s),\;\operatorname{SUM}(s)}(E)
+\GroupUp{\rho_{total}(\operatorname{COUNT}(*)),\;\rho_{minSalario}(\operatorname{MIN}(s)),\;\rho_{maxSalario}(\operatorname{MAX}(s)),\;\rho_{mediaSalario}(\operatorname{AVG}(s)),\;\rho_{sumaSalarios}(\operatorname{SUM}(s))}(E)
 $$
+
+```mr-table
+EstadisticasSalario = { total, minSalario, maxSalario, mediaSalario, sumaSalarios }
+
+EstadisticasSalario = {
+	(5, 1300.00, 2500.00, 1940.00, 9700.00)
+}
+```
 
 - Estadísticas de salario por departamento:
 
 $$
-\Group{\operatorname{COUNT}(*),\;\operatorname{MIN}(s),\;\operatorname{MAX}(s),\;\operatorname{AVG}(s),\;\operatorname{SUM}(s)}{dId}(E)
+\Group{dId,\rho_{total}(\operatorname{COUNT}(*)),\;\rho_{minSalario}(\operatorname{MIN}(s)),\;\rho_{maxSalario}(\operatorname{MAX}(s)),\;\rho_{mediaSalario}(\operatorname{AVG}(s)),\;\rho_{sumaSalarios}(\operatorname{SUM}(s))}{dId}(E)
 $$
+
+```mr-table
+EstadisticasSalarioDepartamento = { dId, total, minSalario, maxSalario, mediaSalario, sumaSalarios }
+
+EstadisticasSalarioDepartamento = {
+	(d1, 4, 1300.00, 2500.00, 1850.00, 7400.00),
+	(d2, 1, 2300.00, 2300.00, 2300.00, 2300.00)
+}
+```
 
 - Estadísticas de salarios por departamento con al menos dos empleados:
 
 $$
-   Dep2 \leftarrow \Proj{dId} \left( \Sel{\operatorname{COUNT}(*) \geq 2} \left( \Group{\operatorname{COUNT}(*)}{dId}(E) \right) \right)
+   NumEmpDep \leftarrow \Group{dId,\rho_{total}(\operatorname{COUNT}(*))}{dId}(E)
 $$
 
+```mr-table
+NumEmpDep = { dId, total }
+
+NumEmpDep = {
+	(d1, 4),
+	(d2, 1)
+}
+```
+
 $$
-   \Group{\operatorname{COUNT}(*),\;\operatorname{MIN}(s),\;\operatorname{MAX}(s),\;\operatorname{AVG}(s),\;\operatorname{SUM}(s)}{dId}(E \NatJoin Dep2)
+   Dep2 \leftarrow \Proj{dId} \left( \Sel{total \geq 2}(NumEmpDep) \right)
 $$
+
+```mr-table
+Dep2 = { dId }
+
+Dep2 = {
+	(d1)
+}
+```
+
+$$
+   \Group{dId,\rho_{total}(\operatorname{COUNT}(*)),\;\rho_{minSalario}(\operatorname{MIN}(s)),\;\rho_{maxSalario}(\operatorname{MAX}(s)),\;\rho_{mediaSalario}(\operatorname{AVG}(s)),\;\rho_{sumaSalarios}(\operatorname{SUM}(s))}{dId}(E \NatJoin Dep2)
+$$
+
+```mr-table
+EstadisticasSalarioDep2 = { dId, total, minSalario, maxSalario, mediaSalario, sumaSalarios }
+
+EstadisticasSalarioDep2 = {
+	(d1, 4, 1300.00, 2500.00, 1850.00, 7400.00)
+}
+```
 
 
 ## Modelo Tecnológico (MariaDB)

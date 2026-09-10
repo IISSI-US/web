@@ -9,9 +9,6 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Pedidos
-
-
 ## Requisitos
 
 
@@ -65,7 +62,6 @@ pdf_version: true
 
 ## Modelo Conceptual
 
-
 # Modelo conceptual
 
 ## Diagrama de clases 
@@ -73,8 +69,6 @@ pdf_version: true
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Pedidos/pedidos-dc.png' | relative_url }})
 
 # Modelo relacional
-
-## Intensión
 
 ```mr-table
 Usuarios = { usuarioId, nombre, provincia, fechaAlta }
@@ -85,11 +79,6 @@ Pedidos = { pedidoId, usuarioId, productoId, fechaCompra, cantidad }
 	PK(pedidoId)
 	FK(usuarioId) / Usuarios
 	FK(productoId) / Productos
-```
-
-## Extensión
-
-```mr-table
 Usuarios = {
 	(u1, "David Ruiz", "Sevilla", "2018-05-18"),
 	(u2, "Marta López", "Málaga", "2018-06-12"),
@@ -132,11 +121,11 @@ Pedidos = {
 Renombrado:
 
 $$
-\Ren{U(uId,n,p,fa)}{Usuarios(usuarioId,nombre,provincia,fechaAlta)}
+\Ren{U(uId,n,prov,fa)}{Usuarios(usuarioId,nombre,provincia,fechaAlta)}
 $$
 
 $$
-\Ren{P(pId,d,p,s)}{Productos(productoId,descripcion,precio,stock)}
+\Ren{P(pId,d,pr,st)}{Productos(productoId,descripcion,precio,stock)}
 $$
 
 $$
@@ -151,60 +140,206 @@ $$
 UPP \leftarrow U \NatJoin Ped \NatJoin P
 $$
 
+```mr-table
+UPP = { uId, n, prov, fa, pedId, pId, fc, c, d, pr, st }
+
+UPP = {
+	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe1, p1, "2019-05-13", 2, "Mi Band 3", 19.90, 50),
+	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe2, p3, "2019-05-13", 2, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 20),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(u3, "Raquel Lobato", "Granada", "2018-12-01", pe5, p4, "2019-06-15", 2, "Mi Scooter", 349.90, 25),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe6, p5, "2019-06-18", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe7, p6, "2019-06-18", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 50),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 25),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe9, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe10, p2, "2019-12-16", 1, "Mi Band 4", 29.90, 20),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe11, p3, "2019-12-17", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe12, p4, "2019-12-18", 1, "Mi Scooter", 349.90, 25),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe13, p5, "2019-12-19", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe14, p6, "2019-12-20", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 50),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50)
+}
+```
+
 - **Pedidos de usuarios de Málaga**: Filtramos los pedidos completos (UPP) seleccionando solo aquellos cuyo usuario tiene provincia Málaga.
 
 $$
-\Sel{U.p=\text{Málaga}}(UPP)
+\Sel{prov=\text{Málaga}}(UPP)
 $$
+
+```mr-table
+PedidosMalaga = { uId, n, prov, fa, pedId, pId, fc, c, d, pr, st }
+
+PedidosMalaga = {
+	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 20),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 25),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50)
+}
+```
 
 - **Descripción y stock de productos con stock < 100**: Proyectamos solo la descripción y stock de aquellos productos cuyo stock es inferior a 100 unidades.
 
 $$
-\Proj{P.d,P.s}\left(\Sel{P.s<100}(P)\right)
+\Proj{d,st}\left(\Sel{st<100}(P)\right)
 $$
+
+```mr-table
+StockBajo = { d, st }
+
+StockBajo = {
+	("Mi Band 3", 50),
+	("Mi Band 4", 20),
+	("Mi Scooter", 25),
+	("Rueda trasera de respuesto Mi Scooter", 50),
+	("Rueda delantera de respuesto Mi Scooter", 50)
+}
+```
 
 - **Número de pedidos por usuario**: Agrupamos por usuario (uId) y contamos cuántos pedidos tiene cada uno. El join con U asegura incluir a todos los usuarios que han hecho pedido.
 
 $$
-\Group{uId, \operatorname{COUNT}(pedId)}{uId}(U \NatJoin Ped)
+\Group{uId,n,\rho_{total}(\operatorname{COUNT}(pedId))}{uId,n}(U \NatJoin Ped)
 $$
+
+```mr-table
+NumPedidosUsuario = { uId, n, total }
+
+NumPedidosUsuario = {
+	(u1, "David Ruiz", 2),
+	(u2, "Marta López", 2),
+	(u3, "Raquel Lobato", 1),
+	(u4, "Antonio Gómez", 2),
+	(u5, "Inma Hernández", 1),
+	(u7, "Carlos Rivero", 6),
+	(u8, "Carlos Arévalo", 1)
+}
+```
 
 - **Importe total por usuario**: Agrupamos por usuario y sumamos el importe de todos sus pedidos (precio × cantidad). Solo incluye usuarios con pedidos.
 
 $$
-\Group{uId, \operatorname{SUM}(P.p\cdot Ped.c)}{uId}(P \NatJoin Ped)
+\Group{uId,n,\rho_{totalGasto}(\operatorname{SUM}(pr\cdot c))}{uId,n}(UPP)
 $$
+
+```mr-table
+ImporteTotalUsuario = { uId, n, totalGasto }
+
+ImporteTotalUsuario = {
+	(u1, "David Ruiz", 59.60),
+	(u2, "Marta López", 99.60),
+	(u3, "Raquel Lobato", 699.80),
+	(u4, "Antonio Gómez", 79.80),
+	(u5, "Inma Hernández", 699.80),
+	(u7, "Carlos Rivero", 489.40),
+	(u8, "Carlos Arévalo", 19.90)
+}
+```
 
 - **Pedidos por mes**: Agrupamos por mes (extrayendo el mes de la fecha de compra) y contamos cuántos pedidos hubo en cada mes.
 
 $$
-\Group{\operatorname{MES}(Ped.fc), \operatorname{COUNT}(pedId)}{\operatorname{MES}(Ped.fc)}(Ped)
+\Group{\operatorname{MES}(fc),\rho_{total}(\operatorname{COUNT}(pedId))}{\operatorname{MES}(fc)}(Ped)
 $$
+
+```mr-table
+PedidosPorMes = { mes, total }
+
+PedidosPorMes = {
+	(5, 2),
+	(6, 5),
+	(12, 8)
+}
+```
 
 - **Usuario que más gasta cada mes**: Primero calculamos el gasto total de cada usuario por mes. Luego obtenemos el máximo gasto de cada mes. Finalmente, filtramos para quedarnos solo con los usuarios cuyo gasto coincide con el máximo de su mes.
 
 $$
-GPUM(uId, mes, totalGasto) \leftarrow \Group{uId, \operatorname{MES}(Ped.fc), \operatorname{SUM}(P.p\cdot Ped.c)}{uId, \operatorname{MES}(Ped.fc)}(U \NatJoin P \NatJoin Ped)
+GPUM \leftarrow \Group{uId,n,\operatorname{MES}(fc),\rho_{totalGasto}(\operatorname{SUM}(pr\cdot c))}{uId,n,\operatorname{MES}(fc)}(UPP)
 $$
 
-$$
-MGPM(mes, maxGasto) \leftarrow \Group{mes, \operatorname{MAX}(totalGasto)}{mes}(GPUM)
-$$
+```mr-table
+GPUM = { uId, n, mes, totalGasto }
+
+GPUM = {
+	(u1, "David Ruiz", 5, 59.60),
+	(u2, "Marta López", 6, 99.60),
+	(u3, "Raquel Lobato", 6, 699.80),
+	(u4, "Antonio Gómez", 6, 79.80),
+	(u5, "Inma Hernández", 12, 699.80),
+	(u7, "Carlos Rivero", 12, 489.40),
+	(u8, "Carlos Arévalo", 12, 19.90)
+}
+```
 
 $$
-\Proj{U.n, GPUM.mes, GPUM.totalGasto}(\Sel{GPUM.totalGasto = MGPM.maxGasto}(GPUM \NatJoin MGPM \NatJoin U))
+MGPM \leftarrow \Group{mes,\rho_{maxGasto}(\operatorname{MAX}(totalGasto))}{mes}(GPUM)
 $$
+
+```mr-table
+MGPM = { mes, maxGasto }
+
+MGPM = {
+	(5, 59.60),
+	(6, 699.80),
+	(12, 699.80)
+}
+```
+
+$$
+\Proj{n,mes,totalGasto}(\Sel{totalGasto = maxGasto}(GPUM \NatJoin MGPM))
+$$
+
+```mr-table
+MasGastaPorMes = { n, mes, totalGasto }
+
+MasGastaPorMes = {
+	("David Ruiz", 5, 59.60),
+	("Raquel Lobato", 6, 699.80),
+	("Inma Hernández", 12, 699.80)
+}
+```
 
 - **Mes de máxima recaudación**: Primero calculamos la recaudación total de cada mes (sumando el importe de todos los pedidos). Luego obtenemos el mes con mayor recaudación.
 
 $$
-RPM(mes, recaudacion) \leftarrow \Group{\operatorname{MES}(Ped.fc), \operatorname{SUM}(P.p\cdot Ped.c)}{\operatorname{MES}(Ped.fc)}(P \NatJoin Ped)
+RPM \leftarrow \Group{\operatorname{MES}(fc),\rho_{recaudacion}(\operatorname{SUM}(pr\cdot c))}{\operatorname{MES}(fc)}(UPP)
 $$
 
+```mr-table
+RPM = { mes, recaudacion }
+
+RPM = {
+	(5, 59.60),
+	(6, 879.20),
+	(12, 1209.10)
+}
+```
+
 $$
-\Proj{RPM.mes, RPM.recaudacion}(\Sel{RPM.recaudacion = \operatorname{MAX}(RPM.recaudacion)}(RPM))
+MaxRecaudacion \leftarrow \Group{\rho_{maxRec}(\operatorname{MAX}(recaudacion))}{}(RPM)
 $$
 
+```mr-table
+MaxRecaudacion = { maxRec }
+
+MaxRecaudacion = {
+	(1209.10)
+}
+```
+
+$$
+\Proj{mes,recaudacion}(\Sel{recaudacion = maxRec}(RPM \times MaxRecaudacion))
+$$
+
+```mr-table
+MesMaxRecaudacion = { mes, recaudacion }
+
+MesMaxRecaudacion = {
+	(12, 1209.10)
+}
+```
 
 Enlaces:
 - [GIST](https://gist.github.com/druizcortes/24cc0583792178fe778335eb95b5e3d9)

@@ -101,72 +101,237 @@ PeriodosTareas = { periodoTareaId, empleadoId, tareaId, fInicio, fFin }
 	FK(empleadoId) / Empleados
 	FK(tareaId) / Tareas
 	AK(empleadoId, tareaId)
+
+Proyectos = {
+	(1, "Portal de alquileres", 50000.00),
+	(2, "Gestor interno", 90000.00)
+}
+
+Roles = {
+	(r1, 1, "Director"),
+	(r2, 1, "Analista"),
+	(r3, 2, "Responsable de pruebas")
+}
+
+Tareas = {
+	(t1, 1, 1, "T-01", "Diseño del modelo", 40),
+	(t2, 1, 2, "T-02", "Implementación de API", 80),
+	(t3, 2, 1, "T-10", "Plan de pruebas", 60)
+}
+
+Subtareas = {
+	(st1, t2, 1),
+	(st2, t2, 2),
+	(st3, t3, 1)
+}
+
+Empleados = {
+	(e1, "11111111A", "Ana García"),
+	(e2, "22222222B", "Luis Pérez"),
+	(e3, "33333333C", "Marta López")
+}
+
+PeriodosCargos = {
+	(pc1, e1, r1, "2024-01-01", NULL),
+	(pc2, e2, r2, "2024-01-15", NULL),
+	(pc3, e3, r3, "2024-02-01", NULL)
+}
+
+PeriodosTareas = {
+	(pt1, e2, t1, "2024-02-01", "2024-02-15"),
+	(pt2, e3, t2, "2024-02-16", NULL),
+	(pt3, e1, t3, "2024-03-01", NULL)
+}
 ```
 
 ## Álgebra relacional
 
+- Renombrado:
+
+$$
+P \leftarrow \Ren{P(pid,pn,pres)}(Proyectos)
+$$
+
+$$
+R \leftarrow \Ren{R(rid,pid,rn)}(Roles)
+$$
+
+$$
+T \leftarrow \Ren{T(tid,pid,ord,cod,tdesc,est)}(Tareas)
+$$
+
+$$
+E \leftarrow \Ren{E(eid,dni,en)}(Empleados)
+$$
+
+$$
+PC \leftarrow \Ren{PC(pcid,eid,rid,fi,ff)}(PeriodosCargos)
+$$
+
+$$
+PT \leftarrow \Ren{PT(ptid,eid,tid,fi,ff)}(PeriodosTareas)
+$$
+
+$$
+ST \leftarrow \Ren{ST(stid,tid,sord)}(Subtareas)
+$$
+
 - Empleados con roles en proyectos:
 
 $$
-ER \leftarrow Empleados \NatJoin PeriodosCargos \NatJoin Roles
+ER \leftarrow E \NatJoin PC \NatJoin R
 $$
+
+```mr-table
+ER = { eid, dni, en, pcid, rid, fi, ff, pid, rn }
+
+ER = {
+	(e1, "11111111A", "Ana García", pc1, r1, "2024-01-01", NULL, 1, "Director"),
+	(e2, "22222222B", "Luis Pérez", pc2, r2, "2024-01-15", NULL, 1, "Analista"),
+	(e3, "33333333C", "Marta López", pc3, r3, "2024-02-01", NULL, 2, "Responsable de pruebas")
+}
+```
 
 - Empleados con tareas en proyectos:
 
 $$
-ET \leftarrow Empleados \NatJoin PeriodosTareas \NatJoin Tareas
+ET \leftarrow E \NatJoin PT \NatJoin T
 $$
+
+```mr-table
+ET = { eid, dni, en, ptid, tid, fi, ff, pid, ord, cod, tdesc, est }
+
+ET = {
+	(e2, "22222222B", "Luis Pérez", pt1, t1, "2024-02-01", "2024-02-15", 1, 1, "T-01", "Diseño del modelo", 40),
+	(e3, "33333333C", "Marta López", pt2, t2, "2024-02-16", NULL, 1, 2, "T-02", "Implementación de API", 80),
+	(e1, "11111111A", "Ana García", pt3, t3, "2024-03-01", NULL, 2, 1, "T-10", "Plan de pruebas", 60)
+}
+```
 
 - Empleados que trabajan en proyectos (roles o tareas):
 
 $$
-EP \leftarrow ER \Union ET
+EP \leftarrow \Proj{eid,en,pid}(ER) \Union \Proj{eid,en,pid}(ET)
 $$
+
+```mr-table
+EP = { eid, en, pid }
+
+EP = {
+	(e1, "Ana García", 1),
+	(e1, "Ana García", 2),
+	(e2, "Luis Pérez", 1),
+	(e3, "Marta López", 1),
+	(e3, "Marta López", 2)
+}
+```
 
 - Empleados que trabajan en proyectos (roles y tareas):
 
 $$
-EP \leftarrow ER \Inter ET
+EP \leftarrow \Proj{eid,en,pid}(ER) \Inter \Proj{eid,en,pid}(ET)
 $$
+
+```mr-table
+EP = { eid, en, pid }
+
+EP = {
+	(e2, "Luis Pérez", 1)
+}
+```
 
 - Tareas asignadas a empleados en el proyecto 1:
 
 $$
-TareasEmpleadoP1 \leftarrow \Sel{proyectoId=1}(ET)
+TareasEmpleadoP1 \leftarrow \Sel{pid=1}(ET)
 $$
+
+```mr-table
+TareasEmpleadoP1 = { eid, dni, en, ptid, tid, fi, ff, pid, ord, cod, tdesc, est }
+
+TareasEmpleadoP1 = {
+	(e2, "22222222B", "Luis Pérez", pt1, t1, "2024-02-01", "2024-02-15", 1, 1, "T-01", "Diseño del modelo", 40),
+	(e3, "33333333C", "Marta López", pt2, t2, "2024-02-16", NULL, 1, 2, "T-02", "Implementación de API", 80)
+}
+```
 
 - Número de tareas por empleado (proyecto 1):
 
 $$
-NumTareasEmpleadoP1 \leftarrow \Group{\operatorname{COUNT}(*)}{empleadoId}(TareasEmpleadoP1)
+NumTareasEmpleadoP1 \leftarrow \Group{eid,en,\rho_{total}(\operatorname{COUNT}(*))}{eid,en}(TareasEmpleadoP1)
 $$
+
+```mr-table
+NumTareasEmpleadoP1 = { eid, en, total }
+
+NumTareasEmpleadoP1 = {
+	(e2, "Luis Pérez", 1),
+	(e3, "Marta López", 1)
+}
+```
 
 - Listado de roles por proyecto:
 
 $$
-ProyectosRoles \leftarrow \Group{\ }{empleadoId}(ER)
+ProyectosRoles \leftarrow P \NatJoin R
 $$
+
+```mr-table
+ProyectosRoles = { pid, pn, pres, rid, rn }
+
+ProyectosRoles = {
+	(1, "Portal de alquileres", 50000.00, r1, "Director"),
+	(1, "Portal de alquileres", 50000.00, r2, "Analista"),
+	(2, "Gestor interno", 90000.00, r3, "Responsable de pruebas")
+}
+```
 
 - Listado de tareas por proyecto:
 
 $$
-ProyectosTareas \leftarrow \Group{\ }{empleadoId}(ET)
+ProyectosTareas \leftarrow P \NatJoin T
 $$
+
+```mr-table
+ProyectosTareas = { pid, pn, pres, tid, ord, cod, tdesc, est }
+
+ProyectosTareas = {
+	(1, "Portal de alquileres", 50000.00, t1, 1, "T-01", "Diseño del modelo", 40),
+	(1, "Portal de alquileres", 50000.00, t2, 2, "T-02", "Implementación de API", 80),
+	(2, "Gestor interno", 90000.00, t3, 1, "T-10", "Plan de pruebas", 60)
+}
+```
 
 - Número de subtareas por tarea:
 
 $$
-Subtareas \leftarrow \Group{\operatorname{COUNT}(*)}{tareaId}(Tareas \NatJoin Subtareas)
+NumSubtareas \leftarrow \Group{tid,\rho_{total}(\operatorname{COUNT}(*))}{tid}(T \NatJoin ST)
 $$
+
+```mr-table
+NumSubtareas = { tid, total }
+
+NumSubtareas = {
+	(t2, 2),
+	(t3, 1)
+}
+```
 
 - Empleados con subtareas:
 
 $$
-EST \leftarrow ET \NatJoin Subtareas
+EST \leftarrow ET \NatJoin ST
 $$
 
-## Modelo Tecnológico (MariaDB)
+```mr-table
+EST = { eid, dni, en, ptid, tid, fi, ff, pid, ord, cod, tdesc, est, stid, sord }
 
+EST = {
+	(e3, "33333333C", "Marta López", pt2, t2, "2024-02-16", NULL, 1, 2, "T-02", "Implementación de API", 80, st1, 1),
+	(e3, "33333333C", "Marta López", pt2, t2, "2024-02-16", NULL, 1, 2, "T-02", "Implementación de API", 80, st2, 2),
+	(e1, "11111111A", "Ana García", pt3, t3, "2024-03-01", NULL, 2, 1, "T-10", "Plan de pruebas", 60, st3, 1)
+}
+```
 
 # Modelo tecnológico (MariaDB)
 
