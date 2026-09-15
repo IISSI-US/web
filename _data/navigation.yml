@@ -30,24 +30,24 @@ labs-iissi-1:
 mc2mr:
   - title: "MC → MR"
     children:
-      - title: "1. Composición y 1:N"
-        url: /iissi1/mc2mr/01_universidad/
-      - title: "2. Agregación y 1:N"
-        url: /iissi1/mc2mr/02_biblioteca/
-      - title: "3. Herencia completa disjunta"
-        url: /iissi1/mc2mr/03_herencia-completa-disjunta/
-      - title: "4. Herencia completa solapada"
-        url: /iissi1/mc2mr/04_herencia-completa-solapada/
-      - title: "5. Herencia incompleta disjunta"
-        url: /iissi1/mc2mr/05_herencia-incompleta-disjunta/
-      - title: "6. Herencia incompleta solapada"
-        url: /iissi1/mc2mr/06_herencia-incompleta-solapada/
-      - title: "7. Clase asociación"
-        url: /iissi1/mc2mr/07_clase-asociacion/
-      - title: "8. Relaciones M:N"
-        url: /iissi1/mc2mr/08_relaciones-mn/
-      - title: "9. Modelo complejo (tenis)"
-        url: /iissi1/mc2mr/09_torneo-tenis/
+      - title: "Asociaciones 1:N"
+        url: /iissi1/mc2mr/asociaciones-1n/
+      - title: "Asociaciones N:M"
+        url: /iissi1/mc2mr/asociaciones-mn/
+      - title: "Clase asociación"
+        url: /iissi1/mc2mr/clase-asociacion/
+      - title: "Asociación reflexiva"
+        url: /iissi1/mc2mr/asociacion-reflexiva/
+      - title: "Herencia completa disjunta"
+        url: /iissi1/mc2mr/herencia-completa-disjunta/
+      - title: "Herencia completa solapada"
+        url: /iissi1/mc2mr/herencia-completa-solapada/
+      - title: "Herencia incompleta disjunta"
+        url: /iissi1/mc2mr/herencia-incompleta-disjunta/
+      - title: "Herencia incompleta solapada"
+        url: /iissi1/mc2mr/herencia-incompleta-solapada/
+      - title: "Modelo integrado"
+        url: /iissi1/mc2mr/torneo-tenis/
 
 req2sql:
   - title: "Req → SQL"
@@ -96,6 +96,4 @@ labs-iissi-2:
         url: /iissi2/labs/lab2-8/
       - title: "Anexo - Entorno"
         url: /iissi2/labs/anexo-entorno/
-
-
 
