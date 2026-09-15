@@ -1,0 +1,18 @@
+group: "MC2MR - Herencia completa disjunta"
+description[[ Transformacion de una especializacion completa y disjunta de Personas en Empleados y Estudiantes. ]]
+
+Empleados = {
+  personaId:string, nombre:string, fechaNacimiento:date, numeroEmpleado:string, salario:number
+  "p1", "Juan Perez", 1985-03-15, "E001", 50000.0
+  "p3", "Carlos Ruiz", 1978-11-08, "E002", 65000.0
+  "p5", "Roberto Silva", 1982-09-30, "E003", 58000.0
+  "p7", "David Torres", 1975-06-25, "E004", 72000.0
+}
+
+Estudiantes = {
+  personaId:string, nombre:string, fechaNacimiento:date, numeroMatricula:string, anoIngreso:number
+  "p2", "Ana Garcia", 2000-07-22, "M2023001", 2023
+  "p4", "Maria Lopez", 1999-04-12, "M2023002", 2023
+  "p6", "Laura Martin", 2001-01-18, "M2024001", 2024
+  "p8", "Elena Vazquez", 2000-12-03, "M2024002", 2024
+}

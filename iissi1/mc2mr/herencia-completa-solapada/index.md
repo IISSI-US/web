@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-completa-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional. 
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/25911b71f9e995a0caeff728ca1aa08c)
 ```mr-table
 -- Intensión
 Contenidos = {

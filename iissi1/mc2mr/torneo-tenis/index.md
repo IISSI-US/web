@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/torneo-tenis-clases.png' | relative_url }})
 
-## Modelo Relacional. 
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/9d3aeff7ac8675cbeb0837bfd1c03da2)
 ```mr-table
 -- Intensión
 Personas = { personaId, nombre, apellido, fechaNacimiento, nacionalidad }

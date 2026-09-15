@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/clase-asociacion-clases.png' | relative_url }})
 
-## Modelo Relacional. 
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/eba328f198486f984dd4b06d9de8aa67)
 ```mr-table
 -- Intensión
 Estudiantes = { estudianteId, nombre, email, fechaNacimiento }

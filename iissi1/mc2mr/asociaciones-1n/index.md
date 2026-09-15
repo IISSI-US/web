@@ -11,7 +11,7 @@ toc_sticky: true
 
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociaciones-1n-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/320bad1e907e474d3a150db74530801e)
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/ed676104ddf97da32072088f817dd626)
 
 La transformación UML → Relacional genera tres relaciones con claves primarias y foráneas:
 

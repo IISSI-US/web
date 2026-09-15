@@ -1,0 +1,77 @@
+group: "MC2MR - Modelo integrado"
+description[[ Transformacion del modelo conceptual de un torneo de tenis al modelo relacional. ]]
+
+Personas = {
+  personaId:string, nombre:string, apellido:string, fechaNacimiento:date, nacionalidad:string
+  "p1", "Rafael", "Nadal", 1986-06-03, "Espana"
+  "p2", "Novak", "Djokovic", 1987-05-22, "Serbia"
+  "p3", "John", "Hawkins", 1975-03-15, "Reino Unido"
+  "p4", "Roger", "Federer", 1981-08-08, "Suiza"
+  "p5", "Carlos", "Ramos", 1971-11-13, "Portugal"
+  "p6", "Serena", "Williams", 1981-09-26, "Estados Unidos"
+  "p7", "Carlos", "Alcaraz", 2003-05-05, "Espana"
+  "p8", "Maria", "Gonzalez", 1970-08-20, "Argentina"
+  "p9", "Andy", "Murray", 1987-05-15, "Reino Unido"
+  "p10", "Elena", "Rybakina", 1999-06-17, "Kazajistan"
+  "p11", "James", "Mitchell", 1965-12-10, "Australia"
+  "p12", "Daniil", "Medvedev", 1996-02-11, "Rusia"
+}
+
+Tenistas = {
+  personaId:string, ranking:number
+  "p1", 2
+  "p2", 1
+  "p4", 3
+  "p6", 1
+  "p7", 4
+  "p9", 5
+  "p10", 2
+  "p12", 6
+}
+
+Arbitros = {
+  personaId:string, licencia:string
+  "p3", "ATP-001"
+  "p5", "ATP-002"
+  "p8", "WTA-003"
+  "p11", "ATP-004"
+}
+
+Partidos = {
+  partidoId:string, tenista1Id:string, tenista2Id:string, ganadorId:string, arbitroId:string, torneo:string, fecha:date, ronda:string, duracion:number
+  "par1", "p1", "p2", "p2", "p3", "Roland Garros 2025", 2025-07-11, "Final", 195
+  "par2", "p1", "p4", "p1", "p5", "Wimbledon 2025", 2025-07-08, "Semifinal", 168
+  "par3", "p6", "p10", "p6", "p8", "US Open 2025", 2025-09-12, "Final", 142
+  "par4", "p7", "p9", "p7", "p11", "Australian Open 2025", 2025-01-28, "Cuartos", 203
+  "par5", "p2", "p12", "p2", "p3", "Roland Garros 2025", 2025-07-09, "Semifinal", 256
+  "par6", "p4", "p7", "p4", "p5", "Wimbledon 2025", 2025-07-07, "Cuartos", 178
+  "par7", "p1", "p7", "p1", "p11", "US Open 2025", 2025-09-10, "Semifinal", 189
+  "par8", "p9", "p12", "p12", "p8", "Australian Open 2025", 2025-01-26, "Octavos", 234
+}
+
+Sets = {
+  setId:string, partidoId:string, ganadorId:string, orden:number, resultado:string
+  "s1", "par1", "p2", 1, "6-4"
+  "s2", "par1", "p1", 2, "7-5"
+  "s3", "par1", "p2", 3, "6-3"
+  "s4", "par2", "p1", 1, "6-2"
+  "s5", "par2", "p1", 2, "7-6"
+  "s6", "par3", "p6", 1, "6-1"
+  "s7", "par3", "p10", 2, "4-6"
+  "s8", "par3", "p6", 3, "6-4"
+  "s9", "par4", "p7", 1, "7-5"
+  "s10", "par4", "p9", 2, "3-6"
+  "s11", "par4", "p7", 3, "6-2"
+  "s12", "par4", "p7", 4, "6-4"
+  "s13", "par5", "p2", 1, "6-0"
+  "s14", "par5", "p12", 2, "6-7"
+  "s15", "par5", "p2", 3, "6-3"
+  "s16", "par6", "p4", 1, "6-3"
+  "s17", "par6", "p4", 2, "6-2"
+  "s18", "par7", "p1", 1, "7-6"
+  "s19", "par7", "p7", 2, "4-6"
+  "s20", "par7", "p1", 3, "6-1"
+  "s21", "par8", "p12", 1, "6-4"
+  "s22", "par8", "p9", 2, "7-5"
+  "s23", "par8", "p12", 3, "6-2"
+}

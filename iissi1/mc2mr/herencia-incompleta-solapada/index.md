@@ -13,7 +13,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-incompleta-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional.
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/66dc00f863772156d8b1ec14c7a4c23d)
 
 ```mr-table
 RecursosHumanos = { recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia }

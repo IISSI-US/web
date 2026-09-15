@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-incompleta-disjunta-clases.png' | relative_url }})
 
-## Modelo Relacional. Versión 1: una relación con discriminante
+## Modelo Relacional. Versión 1: una relación con discriminante [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/959b19de278e0879b2daf5abf8a97fcd)
 
 ```mr-table
 Vehículos = { vehículoId, marca, modelo, año, clase, numeroPuertas, tipoTransmisión, cilindrada, tipoManillar }

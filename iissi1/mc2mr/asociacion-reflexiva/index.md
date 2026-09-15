@@ -12,7 +12,7 @@ pdf_version: true
 
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociacion-reflexiva-clases.png' | relative_url }})
 
-# Modelo Relacional
+# Modelo Relacional [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/1a3b279c0d10d438dd2f626b7040597c)
 
 ```mr-table
 -- Intensión

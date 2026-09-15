@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-completa-disjunta-clases.png' | relative_url }})
 
-## Modelo Relacional. 
+## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/96b78f67ab21f756cce11a4c2839f663)
 ```mr-table
 -- Intensión
 Empleados = { personaId, nombre, fechaNacimiento, numeroEmpleado, salario }
