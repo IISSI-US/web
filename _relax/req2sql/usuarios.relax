@@ -1,0 +1,16 @@
+group:Usuarios
+description[[Data set para practicas con el ejercicio de Usuarios]]
+
+Usuarios = { usuarioId, nombre, edad, genero, email
+  'u1',  'David Ruiz',        45, 'MASCULINO', 'druiz@us.es'
+  'u2',  'Carlos Arevalo',    58, 'MASCULINO', 'carevalo@us.es'
+  'u3',  'Margarita Cruz',    58, 'FEMENINO',  'mcruz@us.es'
+  'u4',  'Inma Hernandez',    35, 'FEMENINO',  'inmahernandez@us.es'
+  'u5',  'Alfonso Marquez',   35, 'MASCULINO', 'amarquez@us.es'
+  'u6',  'Daniel Ayala',      28, 'MASCULINO', 'dayala1@us.es'
+  'u7',  'Raquel Sampedro',   55, 'FEMENINO',  'rsampedro@gmail.com'
+  'u8',  'Marta Lopez',       18, 'FEMENINO',  'mlopez@mail.com'
+  'u9',  'David Ruiz',        25, 'MASCULINO', 'druiz@mail.com'
+  'u10', 'Andrea Gomez',      27, 'OTRO',      'agomez@mail.es'
+  'u11', 'Ernesto Murillo',   55, 'OTRO',      'emurillo@correo.es'
+}

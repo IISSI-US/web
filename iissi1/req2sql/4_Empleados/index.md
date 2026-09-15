@@ -279,6 +279,8 @@ EstadisticasSalarioDep2 = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/577891c1673fd2e700d624179827fc5c)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/577891c1673fd2e700d624179827fc5c)
 
 ## Modelo Tecnológico (MariaDB)
 

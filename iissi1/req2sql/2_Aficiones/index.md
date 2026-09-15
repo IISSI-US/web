@@ -339,6 +339,9 @@ UsuTodasAfi = { nu, uid }
 UsuTodasAfi = {}
 ```
 
+- [GIST](https://gist.github.com/druizcortes/8c3ef43095809a478bc652609b2f5e4a)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/8c3ef43095809a478bc652609b2f5e4a)
+
 # Modelo tecnológico (MariaDB)
 
 ## Versión Estática
