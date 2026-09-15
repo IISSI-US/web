@@ -1,8 +1,7 @@
 @startuml asociaciones-1n-clases
+!include ../estilos/final.iuml
 title Asociaciones 1:N (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Universidad {
   nombre: String
@@ -29,10 +28,9 @@ Centro "1" -- "0..*" Estudiante : inscribe >
 
 
 @startuml asociaciones-mn-clases
+!include ../estilos/final.iuml
 title Asociaciones N:M (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Autor {
   nombre: String
@@ -58,10 +56,9 @@ Libro "1..*" -- "1..*" Categoría : pertenece >
 
 
 @startuml clase-asociacion-clases
+!include ../estilos/final.iuml
 title Clase Asociación (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Estudiante {
   nombre: String
@@ -87,10 +84,9 @@ Estudiante "0..*" -- "0..*" Curso
 
 
 @startuml asociacion-reflexiva-clases
+!include ../estilos/final.iuml
 title Asociación Reflexiva N:M (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Usuario {
   usuarioId: Integer
@@ -119,10 +115,9 @@ Usuario "0..*" -- "0..*" Usuario : sigue >
 
 
 @startuml herencia-completa-disjunta-clases
+!include ../estilos/final.iuml
 title Herencia Completa Disjunta (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Persona {
   nombre: String
@@ -145,10 +140,9 @@ Persona <|-- Estudiante
 
 
 @startuml herencia-completa-solapada-clases
+!include ../estilos/final.iuml
 title Herencia Completa Solapada (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Contenido {
   titulo: String
@@ -171,10 +165,9 @@ Contenido <|-- Video
 
 
 @startuml herencia-incompleta-disjunta-clases
+!include ../estilos/final.iuml
 title Herencia Incompleta Disjunta (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Vehículo {
   marca: String
@@ -198,10 +191,9 @@ Vehículo <|-- Moto : {incompleta,disjunta}
 
 
 @startuml herencia-incompleta-solapada-clases
+!include ../estilos/final.iuml
 title Herencia Incompleta Solapada (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class RecursoHumano {
   nombre: String
@@ -225,10 +217,9 @@ RecursoHumano <|-- Ingeniero : {incompleta,solapada}
 
 
 @startuml torneo-tenis-clases
+!include ../estilos/final.iuml
 title Torneo de Tenis (Diagrama de Clases)
 
-hide empty members
-hide circle
 
 class Persona {
   nombre: String
