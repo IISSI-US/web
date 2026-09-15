@@ -1108,15 +1108,15 @@ Estas consultas combinan múltiples conceptos vistos: `JOIN`, `GROUP BY`, `HAVIN
 
 ### Consulta 55: Top N con filtros
 
-Encuentra las tres asignaturas con más grupos de teoría en el año 2024.
+Encuentra las tres asignaturas con más grupos de laboratorio en el año 2024.
 
 ```sql
 SELECT 
     s.subject_name,
-    COUNT(*) AS total_theory_groups
+    COUNT(*) AS total_lab_groups
 FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
-WHERE gr.activity = 'Teoría' AND gr.academic_year = 2024
+WHERE gr.activity = 'Laboratorio' AND gr.academic_year = 2024
 GROUP BY s.subject_id, s.subject_name
 ORDER BY COUNT(*) DESC
 LIMIT 3;
@@ -1124,7 +1124,7 @@ LIMIT 3;
 
 Observe lo siguiente:
 
-- `WHERE` filtra antes de agrupar (solo grupos de teoría de 2024).
+- `WHERE` filtra antes de agrupar (solo grupos de laboratorio de 2024).
 - `GROUP BY` agrupa por asignatura.
 - `ORDER BY` ordena por el conteo.
 - `LIMIT` devuelve solo las 3 primeras.

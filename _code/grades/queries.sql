@@ -530,13 +530,13 @@ HAVING AVG(g.grade_value) > 6;
 -- CONSULTAS COMPLEJAS COMBINADAS
 -- ============================================================================
 
--- Consulta 55: Top 3 asignaturas con más grupos de teoría en 2024
+-- Consulta 55: Top 3 asignaturas con más grupos de laboratorio en 2024
 SELECT 
     s.subject_name,
-    COUNT(*) AS total_theory_groups
+    COUNT(*) AS total_lab_groups
 FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
-WHERE gr.activity = 'Teoría' AND gr.academic_year = 2024
+WHERE gr.activity = 'Laboratorio' AND gr.academic_year = 2024
 GROUP BY s.subject_id, s.subject_name
 ORDER BY COUNT(*) DESC
 LIMIT 3;
