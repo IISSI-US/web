@@ -28,6 +28,4 @@ organizacion_docente:
 
 {% include feature_row id="materiales" type="center" %}
 
-## Organización Docente
-
 {% include feature_row id="organizacion_docente" type="center" %}

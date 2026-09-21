@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /iissi1/mc2mr/
-title: "MC → MR"
+#title: "MC → MR"
 sidebar: false
 mc2mr:
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
@@ -68,9 +68,5 @@ mc2mr:
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
 ---
-
-## Ejercicios UML → Relacional
-
-Transformación de diagramas UML a modelos relacionales con álgebra relacional.
 
 {% include feature_row id="mc2mr" type="center" %}
