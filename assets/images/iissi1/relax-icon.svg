@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="95" fill="#0ea5e9" opacity="0.1"/>
+
+  <g fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="35" y="48" width="58" height="78" rx="4"/>
+    <line x1="35" y1="70" x2="93" y2="70"/>
+    <line x1="35" y1="92" x2="93" y2="92"/>
+    <line x1="54" y1="70" x2="54" y2="126"/>
+    <line x1="74" y1="70" x2="74" y2="126"/>
+
+    <rect x="107" y="48" width="58" height="78" rx="4"/>
+    <line x1="107" y1="70" x2="165" y2="70"/>
+    <line x1="107" y1="92" x2="165" y2="92"/>
+    <line x1="126" y1="70" x2="126" y2="126"/>
+    <line x1="146" y1="70" x2="146" y2="126"/>
+  </g>
+
+  <g fill="#0ea5e9" opacity="0.75">
+    <text x="100" y="156" font-family="monospace" font-size="34" font-weight="700" text-anchor="middle">R</text>
+  </g>
+
+  <g fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 72 147 H 58 Q 48 147 48 137 V 126"/>
+    <path d="M 128 147 H 142 Q 152 147 152 137 V 126"/>
+    <path d="M 84 147 H 116"/>
+  </g>
+</svg>

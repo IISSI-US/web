@@ -1,0 +1,16 @@
+group:Empleados
+description[[Data set para practicas con el ejercicio de Empleados]]
+
+Departamentos = { departamentoId, nombre, localidad
+  'd1', 'Arte', 'Cadiz'
+  'd2', 'Historia', null
+  'd3', 'Informatica', 'Sevilla'
+}
+
+Empleados = { empleadoId, departamentoId, jefeId, nombre, salario, fechaInicio, fechaFin, comision
+  'e1', 'd1', null, 'Pedro', 2300.00, 2017-09-15, null, 0.2
+  'e2', 'd1', null, 'Jose', 2500.00, 2018-08-15, null, 0.5
+  'e3', 'd2', null, 'Lola', 2300.00, 2018-08-15, null, 0.3
+  'e4', 'd1', 'e1', 'Luis', 1300.00, 2018-08-15, 2018-11-15, 0
+  'e5', 'd1', 'e1', 'Ana', 1300.00, 2018-08-15, 2018-11-15, 0
+}

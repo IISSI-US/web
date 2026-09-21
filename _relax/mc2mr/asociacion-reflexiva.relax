@@ -1,0 +1,28 @@
+group: "MC2MR - Asociacion reflexiva"
+description[[ Transformacion de una asociacion reflexiva dirigida entre usuarios. ]]
+
+Usuarios = {
+  usuarioId:string, nombreUsuario:string, edad:number, genero:string, ciudadOrigen:string, fechaRegistro:date
+  "u1", "Ana", 28, "FEMENINO", "Madrid", 2024-01-10
+  "u2", "Bruno", 34, "MASCULINO", "Sevilla", 2024-02-15
+  "u3", "Carla", 22, "FEMENINO", "Madrid", 2024-01-20
+  "u4", "Diego", 31, "MASCULINO", "Valencia", 2024-03-05
+  "u5", "Elena", 27, "NO_BINARIO", "Barcelona", 2024-02-01
+  "u6", "Fabio", 19, "MASCULINO", "Sevilla", 2024-04-10
+}
+
+Seguimientos = {
+  seguidorId:string, seguidoId:string, fechaInicio:date
+  "u1", "u2", 2024-02-20
+  "u1", "u3", 2024-02-21
+  "u1", "u5", 2024-02-22
+  "u2", "u1", 2024-03-01
+  "u2", "u3", 2024-03-02
+  "u3", "u1", 2024-02-25
+  "u3", "u2", 2024-02-26
+  "u3", "u5", 2024-02-27
+  "u4", "u1", 2024-03-10
+  "u4", "u2", 2024-03-11
+  "u5", "u2", 2024-02-10
+  "u5", "u3", 2024-02-11
+}

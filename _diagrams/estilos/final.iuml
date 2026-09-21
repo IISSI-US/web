@@ -1,0 +1,33 @@
+'-------------------
+'opciones de visualización
+'-------------------
+hide circle
+hide methods
+hide empty members
+
+'hide attributes
+'skinparam linetype ortho 
+skinparam defaultFontName Arial
+
+skinparam Arrow {
+    FontColor Blue 
+    FontSize 10
+}
+
+skinparam class {
+    BackgroundColor MintCream
+    ArrowColor Black
+    BorderColor Black
+    FontSize 14
+    AttributeFontColor Black
+    AttributeFontSize 12
+}
+
+skinparam note {
+    BackgroundColor Gold
+    ArrowColor Black
+    BorderColor Black
+    FontSize 9
+}
+
+'test

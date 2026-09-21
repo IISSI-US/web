@@ -1,0 +1,37 @@
+group:Apartamentos
+description[[Data set para practicas con el ejercicio de Apartamentos]]
+
+Usuarios = { usuarioId, dni, nombre, apellidos, correo, contrasena, direccion, telefono
+  'u1', '12345678A', 'Ana',  'Garcia', 'ana@example.com',  'pwd1', 'Calle Sol 1',  '600111222'
+  'u2', '87654321B', 'Luis', 'Perez',  'luis@example.com', 'pwd2', 'Calle Luna 2', '600333444'
+}
+
+Huespedes = { huespedId
+  'u2'
+}
+
+Propietarios = { propietarioId, fCompra
+  'u1', 2020-05-10
+}
+
+ZonasTuristicas = { zonaId, zona
+  'z1', 'Costa del Sol'
+}
+
+Alojamientos = { alojamientoId, propietarioId, zonaId, direccion, numDormitorios, numBanos, ocupacionMaxima
+  'a1', 'u1', 'z1', 'Calle Mayor 10', 3, 2, 6
+}
+
+Reservas = { reservaId, huespedId, alojamientoId, checkIn, checkOut, comentario, valoracion
+  'r1', 'u2', 'a1', 2024-10-01, 2024-10-10, 'Excelente estancia', 1
+}
+
+Fotos = { fotoId, alojamientoId, titulo, fotoURL
+  'f1', 'a1', 'Salon',  'Siempre-viva-salon.jpg'
+  'f2', 'a1', 'Cocina', 'Siempre-viva-cocina.jpg'
+}
+
+Servicios = { servicioId, alojamientoId, tipoServicio, disponible
+  's1', 'a1', 'Wifi',    true
+  's2', 'a1', 'Piscina', true
+}

@@ -333,6 +333,9 @@ EST = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/f9fad7d3c18e4b52cf96d58cfc669988)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/f9fad7d3c18e4b52cf96d58cfc669988)
+
 # Modelo tecnológico (MariaDB)
 
 ## Script SQL para crear la base de datos

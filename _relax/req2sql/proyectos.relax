@@ -1,0 +1,43 @@
+group:Proyectos
+description[[Data set para practicas con el ejercicio de Proyectos]]
+
+Proyectos = { proyectoId, nombre, presupuesto
+  '1', 'Portal de alquileres', 50000.00
+  '2', 'Gestor interno',      90000.00
+}
+
+Roles = { rolId, proyectoId, nombre
+  'r1', '1', 'Director'
+  'r2', '1', 'Analista'
+  'r3', '2', 'Responsable de pruebas'
+}
+
+Tareas = { tareaId, proyectoId, orden, id, descripcion, estimacion
+  't1', '1', 1, 'T-01', 'Diseno del modelo',      40
+  't2', '1', 2, 'T-02', 'Implementacion de API',  80
+  't3', '2', 1, 'T-10', 'Plan de pruebas',        60
+}
+
+Subtareas = { subtareaId, tareaId, orden
+  'st1', 't2', 1
+  'st2', 't2', 2
+  'st3', 't3', 1
+}
+
+Empleados = { empleadoId, dni, nombre
+  'e1', '11111111A', 'Ana Garcia'
+  'e2', '22222222B', 'Luis Perez'
+  'e3', '33333333C', 'Marta Lopez'
+}
+
+PeriodosCargos = { periodoCargoId, empleadoId, rolId, fInicio, fFin
+  'pc1', 'e1', 'r1', 2024-01-01, null
+  'pc2', 'e2', 'r2', 2024-01-15, null
+  'pc3', 'e3', 'r3', 2024-02-01, null
+}
+
+PeriodosTareas = { periodoTareaId, empleadoId, tareaId, fInicio, fFin
+  'pt1', 'e2', 't1', 2024-02-01, 2024-02-15
+  'pt2', 'e3', 't2', 2024-02-16, null
+  'pt3', 'e1', 't3', 2024-03-01, null
+}

@@ -243,6 +243,9 @@ EntradasInvitacion = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/3d965868905b8588704b5b71be2a8849)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/3d965868905b8588704b5b71be2a8849)
+
 # Modelo tecnológico (MariaDB)
 
 Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente script:

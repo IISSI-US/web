@@ -1,0 +1,76 @@
+group: "MC2MR - Asociaciones N:M"
+description[[ Transformacion del modelo conceptual Autores-Libros-Categorias al modelo relacional. ]]
+
+Autores = {
+  autorId:string, nombre:string, nacionalidad:string
+  "a1", "Gabriel Garcia Marquez", "Colombiana"
+  "a2", "Mario Vargas Llosa", "Peruana"
+  "a3", "Jorge Luis Borges", "Argentina"
+  "a4", "Adolfo Bioy Casares", "Argentina"
+  "a5", "Isabel Allende", "Chilena"
+  "a6", "Octavio Paz", "Mexicana"
+  "a7", "Carlos Fuentes", "Mexicana"
+  "a8", "Julio Cortazar", "Argentina"
+}
+
+Libros = {
+  libroId:string, isbn:string, titulo:string, anoPublicacion:number
+  "l1", "978-84-376-0494-7", "Cien anos de soledad", 1967
+  "l2", "978-84-204-6625-8", "La ciudad y los perros", 1963
+  "l3", "978-84-239-9876-5", "Antologia de la Literatura Fantastica", 1940
+  "l4", "978-84-204-8321-7", "Cuentos Breves y Extraordinarios", 1955
+  "l5", "978-84-204-9876-2", "La casa de los espiritus", 1982
+  "l6", "978-84-239-1234-8", "Laberinto de la Soledad", 1950
+  "l7", "978-84-204-5432-1", "La muerte de Artemio Cruz", 1962
+  "l8", "978-84-376-8765-4", "El llano en llamas", 1953
+  "l9", "978-84-204-2468-9", "Rayuela", 1963
+}
+
+Categorias = {
+  categoriaId:string, nombre:string, descripcion:string
+  "c1", "Ficcion", "Narrativa de ficcion"
+  "c2", "Realismo Magico", "Corriente literaria"
+  "c3", "Clasicos", "Literatura clasica"
+  "c4", "Fantasia", "Literatura fantastica"
+  "c5", "Ensayo", "Literatura ensayistica"
+}
+
+AutoresLibros = {
+  autoresLibrosId:string, autorId:string, libroId:string, orden:number
+  "al1", "a1", "l1", 1
+  "al2", "a2", "l2", 1
+  "al3", "a3", "l3", 1
+  "al4", "a4", "l3", 2
+  "al5", "a3", "l4", 1
+  "al6", "a4", "l4", 2
+  "al7", "a5", "l5", 1
+  "al8", "a6", "l6", 1
+  "al9", "a7", "l7", 1
+  "al10", "a1", "l8", 1
+  "al11", "a8", "l9", 1
+  "al12", "a6", "l8", 2
+}
+
+LibrosCategorias = {
+  librosCategoriasId:string, libroId:string, categoriaId:string
+  "lc1", "l1", "c1"
+  "lc2", "l1", "c2"
+  "lc3", "l1", "c3"
+  "lc4", "l2", "c1"
+  "lc5", "l2", "c3"
+  "lc6", "l3", "c1"
+  "lc7", "l3", "c4"
+  "lc8", "l3", "c3"
+  "lc9", "l4", "c1"
+  "lc10", "l4", "c4"
+  "lc11", "l5", "c1"
+  "lc12", "l5", "c2"
+  "lc13", "l6", "c5"
+  "lc14", "l6", "c3"
+  "lc15", "l7", "c1"
+  "lc16", "l7", "c3"
+  "lc17", "l8", "c1"
+  "lc18", "l8", "c5"
+  "lc19", "l9", "c1"
+  "lc20", "l9", "c3"
+}
