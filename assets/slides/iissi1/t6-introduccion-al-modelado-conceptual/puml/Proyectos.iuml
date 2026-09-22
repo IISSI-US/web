@@ -1,0 +1,9 @@
+object "<u><i>p1: Proyecto" as p1{
+nombre = "VORTEX"
+presupuesto = 1.5M €
+}
+
+object "<u><i>p2: Proyecto" as p2{
+nombre = "DESK"
+presupuesto = 845k €
+}

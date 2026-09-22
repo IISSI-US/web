@@ -1,0 +1,4 @@
+Class LineaDeFactura{
+cantidad
+precio
+}

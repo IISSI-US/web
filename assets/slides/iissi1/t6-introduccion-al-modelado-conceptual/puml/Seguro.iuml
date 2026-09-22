@@ -1,0 +1,6 @@
+Class Seguro{
+compañía
+numeroPóliza
+tipo
+precio
+}

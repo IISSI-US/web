@@ -1,0 +1,6 @@
+Class Matrícula << Entidad >>{
+número
+fecha
+tieneBeca
+...
+}

@@ -1,0 +1,7 @@
+object "<u><i>e1: Equipo" as e1{
+nombre = "Sevilla F.C."
+}
+
+object "<u><i>e2: Equipo" as e2{
+nombre = "Granada"
+}
