@@ -1,0 +1,15 @@
+object "<u><i>lf1: LineaDeFactura" as lf1 {
+cantidad = 3
+precio = 12,50 €
+}
+
+object "<u><i>lf2: LineaDeFactura" as lf2 {
+cantidad = 1
+precio = 63,05 €
+}
+
+object "<u><i>lf3: LineaDeFactura" as lf3 {
+cantidad = 1
+precio = 5,25 €
+}
+

@@ -1,0 +1,11 @@
+object "<u><i>p1: Producto" as p1{
+    ...
+}
+
+object "<u><i>p2: Producto" as p2{
+    ...
+}
+
+object "<u><i>p3: Producto" as p3{
+    ...
+}

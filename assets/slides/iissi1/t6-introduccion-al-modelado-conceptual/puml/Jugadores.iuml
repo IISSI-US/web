@@ -1,0 +1,23 @@
+object "<u><i>j1: Jugador" as j1 {
+nombre = "Vadillo"
+}
+
+object "<u><i>j2: Jugador" as j2 {
+nombre = "Soldado"
+}
+
+object "<u><i>j3: Jugador" as j3 {
+nombre = "Dabbur"
+}
+
+object "<u><i>j4: Jugador" as j4 {
+nombre = "Chicharito"
+}
+
+object "<u><i>j5: Jugador" as j5 {
+nombre = "Jesús Navas"
+}
+
+object "<u><i>j6: Jugador" as j6 {
+nombre = "Sergio Ramos"
+}
