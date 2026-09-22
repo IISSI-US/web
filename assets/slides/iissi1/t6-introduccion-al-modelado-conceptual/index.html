@@ -61,7 +61,7 @@
 <p>Independientemente del ciclo de vida, se utiliza durante el análisis.</p>
 <p><img src="./images/cuando-se-usa-01.png" alt="" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="two-col-7-3 v-align" data-theme="dr-iissi" lang="C" class="two-col-7-3 v-align" data-marpit-pagination="8" style="--paginate:true;--class:two-col-7-3 v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="8" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="trazabilidad-hacia-requisitos">Trazabilidad hacia requisitos</h1>
 <div class="col left">
 <p>Cada elemento del modelo conceptual debe justificarse mediante trazabilidad explícita con:</p>
@@ -147,7 +147,7 @@
 <h1 id="ejemplo-de-clases-uml">Ejemplo de clases UML</h1>
 <p><img src="./puml/dc-ejemplo-clases.svg" alt="" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="17" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-class="two-col-7-3 v-align" data-theme="dr-iissi" lang="C" class="two-col-7-3 v-align" data-marpit-pagination="17" style="--paginate:true;--class:two-col-7-3 v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="asociaci%C3%B3n-entre-clases-entidades">Asociación entre clases entidades</h1>
 <div class="col left">
 <p>Representa algún tipo de relación entre dos o más conceptos relevantes del dominio del problema que el sistema debe almacenar porque así se ha especificado (o se deduce) en uno o más requisitos.</p>
@@ -159,34 +159,42 @@
 </div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-class="three-col v-align fit-2" data-theme="dr-iissi" lang="C" class="three-col v-align fit-2" data-marpit-pagination="18" style="--paginate:true;--class:three-col v-align fit-2;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
-<h1 id="rol-de-un-extremo-de-una-asociaci%C3%B3n">Rol de un extremo de una asociación</h1>
+<h1 id="roles">Roles</h1>
 <div class="col left">
-<p>Papel que juega cada una de las clases que participan en una asociación.</p>
 <p>Solo es necesario indicarlo en asociaciones de <strong>una clase consigo misma</strong> o cuando existe <strong>más de una asociación entre dos clases</strong>.</p>
+<blockquote>
+<p>Una persona puede jugar el rol de padre o hijo en la asociación.</p>
+</blockquote>
+<blockquote>
+<p>Un aeropuerto puede ser de origen o de destino. Un vuelo puede ser de salida o de llegada.</p>
+</blockquote>
 </div>
 <div class="col center">
 <p><img src="./puml/dc-ejemplo-roles-I.svg" alt="" /></p>
-<blockquote>
-<p>Un padre tiene 0 o más hijos, y un hijo puede tener 0, 1 o 2 padres.</p>
-</blockquote>
 </div>
 <div class="col right">
 <p><img src="./puml/dc-ejemplo-roles-II.svg" alt="" /></p>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="19" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-class="three-col v-align fit-2" data-theme="dr-iissi" lang="C" class="three-col v-align fit-2" data-marpit-pagination="19" style="--paginate:true;--class:three-col v-align fit-2;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="multiplicidad">Multiplicidad</h1>
 <div class="col left">
 <p>Dado un objeto de una clase, indica los números <strong>mínimo</strong> y <strong>máximo</strong> número de <strong>objetos</strong> de la otra clase con los que puede estar asociado.</p>
 <blockquote>
-<p>Un jugador puede jugar en un equipo o no, y en un equipo juegan 0 o más jugadores (incluso más de 11)</p>
+<p>Un padre tiene 0 o más hijos. Un hijo tiene 0, 1 0 2 padres.</p>
+</blockquote>
+<blockquote>
+<p>Un vuelo sale/llega a 1 aeropuerto. Un aeropuerto tiene 0 o más vuelos.</p>
 </blockquote>
 </div>
+<div class="col center">
+<p><img src="./puml/dc-ejemplo-roles-I.svg" alt="" /></p>
+</div>
 <div class="col right">
-<p><img src="./puml/dc-equipos-futbol.svg" alt="" /></p>
+<p><img src="./puml/dc-ejemplo-roles-II.svg" alt="" /></p>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-class="two-col-3-7 v-align fit-3" data-theme="dr-iissi" lang="C" class="two-col-3-7 v-align fit-3" data-marpit-pagination="20" style="--paginate:true;--class:two-col-3-7 v-align fit-3;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="20" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="multiplicidad-1">Multiplicidad</h1>
 <div class="col left">
 <p>0..1: opcional</p>
@@ -213,15 +221,21 @@
 <p><img src="./images/generalizacion.png" alt="" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="23" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
-<h1 id="introducci%C3%B3n-al-modelado-conceptual">Introducción al Modelado Conceptual</h1>
-<p><img src="./puml/dc-ejemplo-fotos.svg" alt="" /></p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-class="two-col" data-theme="dr-iissi" lang="C" class="two-col" data-marpit-pagination="24" style="--paginate:true;--class:two-col;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="generalizaci%C3%B3nespecializaci%C3%B3n-1">Generalización/especialización</h1>
+<p><img src="./puml/dc-ejemplo-generalizacion-I.svg" alt="" /></p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-paginate="true" data-class="two-col fit-2" data-theme="dr-iissi" lang="C" class="two-col fit-2" data-marpit-pagination="24" style="--paginate:true;--class:two-col fit-2;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+<h1 id="generalizaci%C3%B3nespecializaci%C3%B3n-2">Generalización/especialización</h1>
 <div class="col left">
+<blockquote>
 <p>La clase más general (la superclase), contiene todas las propiedades (atributos y asociaciones) comunes, que son heredados por las clases más específicas (las subclases).</p>
+</blockquote>
+<blockquote>
 <p>Todas las instancias de las subclases se consideran también instancias de la superclase.</p>
+</blockquote>
+<blockquote>
 <p>La generalización es una relación transitiva y antisimétrica.</p>
+</blockquote>
 </div>
 <div class="col right">
 <p><img src="./puml/dc-ejemplo-generalizacion-II.svg" alt="" /></p>
@@ -230,7 +244,7 @@
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-paginate="true" data-class="two-col fit-3" data-theme="dr-iissi" lang="C" class="two-col fit-3" data-marpit-pagination="25" style="--paginate:true;--class:two-col fit-3;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-la-generalizaci%C3%B3n-en-uml">Notación para la generalización en UML</h1>
 <div class="col left">
-<p>Clasificación completa/incompleta (restricciones)</p>
+<p>Restricciones:</p>
 <ul>
 <li>{<strong>completa</strong>}: las instancias de la superclase deben ser instancias de al menos una subclase, la superclase es abstracta.</li>
 <li>{<strong>incompleta</strong>}: puede haber instancias de la superclase que no lo sean de ninguna subclase.</li>
@@ -246,15 +260,15 @@
 <h1 id="notaci%C3%B3n-para-la-generalizaci%C3%B3n-en-uml-1">Notación para la generalización en UML</h1>
 <div class="col left">
 <h3 id="completa-disjunta-implica-una-partici%C3%B3n-del-conjunto-de-instancias-de-la-superclase">{completa, disjunta} implica una partición del conjunto de instancias de la superclase.</h3>
-<p><img src="./puml/dc-ejemplo-generalizacion-II.svg" alt="" /></p>
+<p><img src="./images/notacion-para-la-generalizacion-en-uml.png" alt="" /></p>
 </div>
 <div class="col right">
-<p><img src="./puml/dc-notacion-clasificacion-uml-II.svg" alt="" /></p>
+<p><img src="./puml/dc-ejemplo-generalizacion-II.svg" alt="" /></p>
 </div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="27" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-la-generalizaci%C3%B3n-en-uml-2">Notación para la generalización en UML</h1>
-<p><img src="./puml/dc-notacion-clasificacion-uml-I.svg" alt="" /></p>
+<p><img src="./puml/dc-notacion-clasificacion-uml-II.svg" alt="" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="28" data-paginate="true" data-class="two-col-7-3 v-align" data-theme="dr-iissi" lang="C" class="two-col-7-3 v-align" data-marpit-pagination="28" style="--paginate:true;--class:two-col-7-3 v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="composici%C3%B3n">Composición</h1>
@@ -272,12 +286,18 @@
 <p><img src="./puml/dc-ejemplo-composicion.svg" alt="" /></p>
 </div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="29" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="29" data-paginate="true" data-class="three-col v-align fit-2" data-theme="dr-iissi" lang="C" class="three-col v-align fit-2" data-marpit-pagination="29" style="--paginate:true;--class:three-col v-align fit-2;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-la-composici%C3%B3n-en-uml">Notación para la composición en UML</h1>
+<div class="col left">
 <p><strong>Compuesto</strong>: El rombo negro identifica al compuesto. Su multiplicidad es siempre 1, por lo que no es necesario indicarla.</p>
 <p><strong>Componente</strong>: La multiplicidad del componente puede ser variable, por tanto, hay que indicarla</p>
-<p><img src="./puml/dc-notacion-composicion-uml.svg" alt="" /><br />
-<img src="./puml/dc-ejemplo-factura.svg" alt="" /></p>
+</div>
+<div class="col center">
+<p><img src="./puml/dc-notacion-composicion-uml.svg" alt="" /></p>
+</div>
+<div class="col right">
+<p><img src="./puml/dc-ejemplo-factura.svg" alt="" /></p>
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="30" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="30" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="agregaci%C3%B3n">Agregación</h1>
@@ -290,23 +310,41 @@
 </ul>
 <p><img src="./images/agregacion-01.png" alt="" /></p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="31" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="31" data-paginate="true" data-class="three-col v-align fit-2" data-theme="dr-iissi" lang="C" class="three-col v-align fit-2" data-marpit-pagination="31" style="--paginate:true;--class:three-col v-align fit-2;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-la-agregaci%C3%B3n-en-uml">Notación para la agregación en UML</h1>
+<div class="col left">
 <p><strong>Agregado</strong>: El rombo blanco identifica al agregado. A diferencia de la composición, puede tener cualquier multiplicidad (un componente puede pertenecer a más de un agregado)</p>
 <p><strong>Componente</strong>: La multiplicidad del componente puede ser variable, por tanto, hay que indicarla</p>
-<p><img src="./images/notacion-para-la-agregacion-en-uml-01.png" alt="" /><br />
-<img src="./images/notacion-para-la-agregacion-en-uml-02.png" alt="" /></p>
+</div>
+<div class="col center">
+<p><img src="./images/notacion-para-la-agregacion-en-uml-02.png" alt="" /></p>
+</div>
+<div class="col right">
+<p><img src="./images/notacion-para-la-agregacion-en-uml-01.png" alt="" /></p>
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="32" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="32" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="32" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-clases-asociaci%C3%B3n-en-uml">Notación para clases asociación en UML</h1>
+<div class="col left">
 <p><img src="./puml/dc-ejemplo-asociacion-I.svg" alt="" /></p>
+<h2 id="%C2%BFcu%C3%A1ntas-horas-trabaja-cada-empleado-en-cada-proyecto">¿Cuántas horas trabaja cada empleado en cada proyecto?</h2>
+</div>
+<div class="col right">
+<p><img src="./puml/dc-ejemplo-asociacion-II.svg" alt="" /></p>
+</div>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="33" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="33" data-paginate="true" data-class="three-col v-align" data-theme="dr-iissi" lang="C" class="three-col v-align" data-marpit-pagination="33" style="--paginate:true;--class:three-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-clases-asociaci%C3%B3n-en-uml-1">Notación para clases asociación en UML</h1>
-<p>La clase asociación puede modelarse como componente de cualquiera de las clases que participan en la asociación, pero sólo de una, ya que una parte sólo puede pertenecer a un todo.</p>
-<p><img src="./puml/dc-ejemplo-asociacion-II.svg" alt="" /><br />
-<img src="./puml/dc-ejemplo-composicion-II.svg" alt="" /></p>
+<div class="col left">
+<p><img src="./puml/dc-ejemplo-asociacion-II.svg" alt="" /></p>
+</div>
+<div class="col center">
+<h6 id="la-clase-asociaci%C3%B3n-puede-modelarse-como-componente-de-cualquiera-de-las-clases-que-participan-en-la-asociaci%C3%B3n-pero-s%C3%B3lo-de-una-ya-que-una-parte-s%C3%B3lo-puede-pertenecer-a-un-todo">La clase asociación puede modelarse como componente de cualquiera de las clases que participan en la asociación, pero sólo de una, ya que una parte sólo puede pertenecer a un todo.</h6>
 <h6 id="ambos-modelos-son-equivalentes">Ambos modelos son equivalentes.</h6>
+</div>
+<div class="col right">
+<p><img src="./puml/dc-ejemplo-composicion-II.svg" alt="" /></p>
+</div>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="34" data-paginate="true" data-class="two-col-7-3 v-align" data-theme="dr-iissi" lang="C" class="two-col-7-3 v-align" data-marpit-pagination="34" style="--paginate:true;--class:two-col-7-3 v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-restricciones">Notación para restricciones</h1>
@@ -356,7 +394,7 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="39" data-paginate="true" data-class="default" data-theme="dr-iissi" lang="C" class="default" data-marpit-pagination="39" style="--paginate:true;--class:default;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-objetos-y-enlaces-en-uml">Notación para objetos y enlaces en UML</h1>
-<p><img src="./puml/do-notacion-objetos-uml-I.svg" alt="" /></p>
+<p><img src="./images/notacion-para-objetos-y-enlaces-en-uml.png" alt="" /></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="40" data-paginate="true" data-class="two-col v-align" data-theme="dr-iissi" lang="C" class="two-col v-align" data-marpit-pagination="40" style="--paginate:true;--class:two-col v-align;--theme:dr-iissi;" data-marpit-pagination-total="50" data-size="16:9">
 <h1 id="notaci%C3%B3n-para-objetos-y-enlaces-en-uml-1">Notación para objetos y enlaces en UML</h1>

@@ -6,24 +6,52 @@ title Ejemplo trazabilidad
 !include Usuario.iuml
 
 note left of Usuario
-RI-01 - El
-sistema deberá
-almacenar la
-información
-correspondiente
-a los usuarios
-del sistema. En
-concreto: ...
+RI-01 - El sistema deberá
+almacenar la información
+correspondiente a los usuarios
+del sistema. En concreto: ...
 end note
 
 note bottom of Usuario
-RF-04 - El
-sistema deberá
-enviar
-automáticamente
-un email a los
-usuarios cuando ...
+RF-04 - El sistema deberá
+enviar automáticamente
+un email a los usuarios cuando ...
 end note
+
+note bottom of Usuario
+RN-03 - Los usuarios deben 
+ser mayores de edad y tener 
+un correo electrónico válido.    
+end note
+@enduml
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clases-uml-I
+title Notación para clases UML I
+!include ../../puml/teoria.iuml
+!include NombreClase.iuml 
+
+note top of NombreClase
+La zona del nombre es obligatoria.
+El estereotipo <<Entidad>> es opcional.
+end note
+
+note left of NombreClase
+La zona de los atributos es 
+opcional, se puede omitir 
+si se considera oportuno.
+end note
+
+@enduml
+
+
+'---------------------------------------------------------------------------
+
+@startuml dc-notacion-clases-uml-II
+title Notación para clases UML II
+!include ../../puml/teoria.iuml
+!include NombreClaseValor.iuml 
 @enduml
 
 '---------------------------------------------------------------------------
@@ -32,14 +60,16 @@ end note
 title Ejemplo de clases
 !include ../../puml/teoria.iuml
 
+!include Camion.iuml
+!include Motocicleta.iuml   
+!include Seguro.iuml
 !include Alumno.iuml
 !include Asignatura.iuml
 !include Matricula.iuml
-!include Jugador.iuml
-!include Equipo.iuml
 
-Alumno -[hidden]> Asignatura
-Asignatura -[hidden]> Matrícula
+
+' Alumno -[hidden]> Asignatura
+' Asignatura -[hidden]> Matrícula
 '-[hidden]> es un truco para poner una clase al lado de otra
 @enduml
 
@@ -52,7 +82,7 @@ title Ejemplo de asociación
 !include Asignatura.iuml
 !include Matricula.iuml
 
-Asignatura "0..*" -r- "0..*" Matrícula : apareceEn
+Asignatura "0..*" --- "0..*" Matrícula : apareceEn
 @enduml
 
 '---------------------------------------------------------------------------
@@ -61,21 +91,24 @@ Asignatura "0..*" -r- "0..*" Matrícula : apareceEn
 title Ejemplos de roles I
 !include ../../puml/teoria.iuml
 
-Persona "padre\n0..2" -- "0..*\nhijo" Persona : esPadreDe
+Persona "padre\n0..2"  -- "0..*\nhijo" Persona : esPadreDe
+
 @enduml
 
 @startuml dc-ejemplo-roles-II
 title Ejemplos de roles II
 !include ../../puml/teoria.iuml
 
-Vuelo "*\nsalida" --- "origen\n1" Aeropuerto : saleDe
-Vuelo "*\nllegada" --- "destino\n1" Aeropuerto : llegaA 
-@enduml
 
+Vuelo "salida *" --- "origen 1" Aeropuerto : saleDe
+Vuelo " * llegada" --- "1 destino" Aeropuerto : "llegaA"
+
+
+@enduml
 '---------------------------------------------------------------------------
 
 @startuml dc-equipos-futbol
-title Equipos de fútbol. Modelo
+title Equipos de fútbol
 !include ../../puml/teoria.iuml
 
 !include Jugador.iuml
@@ -88,7 +121,7 @@ Jugador "*" -r- "0..1" Equipo :juegaEn
 
 @startuml do-equipos-futbol
 title Equipos de fútbol. Objetos
-!include ../../puml/teoria.iuml
+!include ../../puml/final.iuml
 !include Jugadores.iuml
 !include Equipos.iuml
 
@@ -133,11 +166,13 @@ title Ejemplo de generalización II
 !include Seguro.iuml
 !include Vehiculo.iuml
 
+'skinparam groupInheritance 2
+
 Persona "0..1" -- "*" Vehículo :esPropietariaDe 
 Vehículo "1" -l- "0..1" Seguro :tiene > 
-Vehículo <|-- Motocicleta : {completa,disjunta} 
-Vehículo <|-- Camión 
-Vehículo <|-- Turismo
+Vehículo <|-- Motocicleta 
+Vehículo <|-- Camión : {completa,disjunta} 
+Vehículo <|-- Turismo 
 @enduml
 
 '---------------------------------------------------------------------------
@@ -147,22 +182,6 @@ title Ejemplo de composición
 !include ../../puml/teoria.iuml
 
 Factura *-- "1..*\n{ordered}" LineaDeFactura 
-@enduml
-
-'---------------------------------------------------------------------------
-
-@startuml dc-notacion-clases-uml-I
-title Notación para clases UML I
-!include ../../puml/teoria.iuml
-!include NombreClase.iuml 
-@enduml
-
-'---------------------------------------------------------------------------
-
-@startuml dc-notacion-clases-uml-II
-title Notación para clases UML II
-!include ../../puml/teoria.iuml
-!include NombreClaseValor.iuml 
 @enduml
 
 '---------------------------------------------------------------------------
@@ -178,36 +197,35 @@ title Notación para clases UML III
 
 @startuml do-notacion-objetos-uml-I
 title Notación para objetos y enlaces UML I
-!include ../../puml/teoria.iuml
+!include ../../puml/final.iuml
 
 !include Objetos.iuml
 
-obj1 -- obj2: __enlace__
-obj1 -- obj3: __enlace__
-obj1 -- obj4: __enlace__
+obj1 -- obj2: <u>enlace</u>
+obj1 -- obj3: <u>enlace</u>
+obj1 -- obj4: <u>enlace</u>
 
-' __Text__ también se puede usr para subrayar
 @enduml
 
 '---------------------------------------------------------------------------
 
 @startuml do-notacion-objetos-uml-II
 title Notación para objetos y enlaces UML II
-!include ../../puml/teoria.iuml
+!include ../../puml/final.iuml
 
 !include Facturas.iuml
 !include Productos.iuml
 !include LineaDeFacturas.iuml
 
-facturas -- c1: __posee__ <
-c1 -- f1: __emitidaA__ <
+facturas -- c1: <u>posee</u> <
+c1 -- f1: <u>emitidaA</u> <
 
 f1 *-- lf1
 f1 *-- lf2
 f1 *-- lf3
-lf1 -- p1: __contiene__
-lf2 -- p2: __contiene__
-lf3 -- p3: __contiene__
+lf1 -- p1: <u>contiene</u>
+lf2 -- p2: <u>contiene</u>
+lf3 -- p3: <u>contiene</u>
 @enduml
 
 '---------------------------------------------------------------------------
@@ -254,9 +272,9 @@ title Ejemplo Factura
 !include Factura.iuml
 !include LineaDeFactura.iuml
 
-Cliente "1" -r- "*" Factura: emitidaA <
-Factura *-- "1..*\n{ordered}" LineaDeFactura 
-LineaDeFactura "*" -r- "1" Producto :contiene
+Cliente "1" -- "*" Factura: emitidaA <
+Factura *-- "{ordered}1..*" LineaDeFactura 
+LineaDeFactura "*" -- "1" Producto :contiene
 @enduml
 
 '---------------------------------------------------------------------------
@@ -286,16 +304,16 @@ Empleado "*" -r- "*" Proyecto : trabajaEn
 
 @startuml do-ejemplo-asociacion
 title Diagrama de objetos con clases asociación
-!include ../../puml/teoria.iuml
+!include ../../puml/final.iuml
 !include Empleados.iuml
 !include Proyectos.iuml
 !include Esfuerzos.iuml
 
-juan -- p1: __trabajaEn__
-juan -- p2: __trabajaEn__
-ana -- p1: __trabajaEn__
-ana -- p2: __trabajaEn__
-cristina -- p2: __trabajaEn__
+juan -- p1: <u>trabajaEn</u>
+juan -- p2: <u>trabajaEn</u>
+ana -- p1: <u>trabajaEn</u>
+ana -- p2: <u>trabajaEn</u>
+cristina -- p2: <u>trabajaEn</u>
 
 (juan, p1) .. f1
 (juan, p2) .. f2
