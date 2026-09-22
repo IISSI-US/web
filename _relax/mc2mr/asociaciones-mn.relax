@@ -2,7 +2,7 @@ group: "MC2MR - Asociaciones N:M"
 description[[ Transformacion del modelo conceptual Autores-Libros-Categorias al modelo relacional. ]]
 
 Autores = {
-  autorId:string, nombre:string, nacionalidad:string
+  autorId:string, nombreAutor:string, nacionalidad:string
   "a1", "Gabriel Garcia Marquez", "Colombiana"
   "a2", "Mario Vargas Llosa", "Peruana"
   "a3", "Jorge Luis Borges", "Argentina"
@@ -27,7 +27,7 @@ Libros = {
 }
 
 Categorias = {
-  categoriaId:string, nombre:string, descripcion:string
+  categoriaId:string, nombreCategoria:string, descripcion:string
   "c1", "Ficcion", "Narrativa de ficcion"
   "c2", "Realismo Magico", "Corriente literaria"
   "c3", "Clasicos", "Literatura clasica"

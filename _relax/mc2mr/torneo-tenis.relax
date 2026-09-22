@@ -38,7 +38,7 @@ Arbitros = {
 }
 
 Partidos = {
-  partidoId:string, tenista1Id:string, tenista2Id:string, ganadorId:string, arbitroId:string, torneo:string, fecha:date, ronda:string, duracion:number
+  partidoId:string, tenista1Id:string, tenista2Id:string, ganadorPartidoId:string, arbitroId:string, torneo:string, fecha:date, ronda:string, duracion:number
   "par1", "p1", "p2", "p2", "p3", "Roland Garros 2025", 2025-07-11, "Final", 195
   "par2", "p1", "p4", "p1", "p5", "Wimbledon 2025", 2025-07-08, "Semifinal", 168
   "par3", "p6", "p10", "p6", "p8", "US Open 2025", 2025-09-12, "Final", 142
@@ -50,7 +50,7 @@ Partidos = {
 }
 
 Sets = {
-  setId:string, partidoId:string, ganadorId:string, orden:number, resultado:string
+  setId:string, partidoId:string, ganadorSetId:string, orden:number, resultado:string
   "s1", "par1", "p2", 1, "6-4"
   "s2", "par1", "p1", 2, "7-5"
   "s3", "par1", "p2", 3, "6-3"

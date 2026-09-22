@@ -12,13 +12,13 @@ Razas = { razaId, especieId, raza
   'r3', 'e2', 'Siamesa'
 }
 
-Animales = { animalId, razaId, chip, nombre, descripcion
+Animales = { animalId, razaId, chip, nombreAnimal, descripcion
   'a1', 'r1', '12345', 'Max',   'Perro marron'
   'a2', 'r1', '67890', 'Rocky', 'Perro negro'
   'a3', 'r3', '54321', 'Luna',  'Gata gris'
 }
 
-Personas = { personaId, nombre, direccion, email
+Personas = { personaId, nombrePersona, direccion, email
   'p1', 'Ana Garcia',   'Calle Sol 1',  'ana@example.com'
   'p2', 'Luis Perez',   'Calle Luna 2', 'luis@example.com'
   'p3', 'Marta Lopez',  'Calle Mar 3',  'marta@example.com'

@@ -1,12 +1,12 @@
 group:Bodegas
 description[[Data set para practicas con el ejercicio de Bodegas]]
 
-Bodegas = { bodegaId, nombre, denominacionOrigen
+Bodegas = { bodegaId, nombreBodega, denominacionOrigen
   'b1', 'Bodegas El Sol',  'Rioja'
   'b2', 'Bodegas La Luna', 'Ribera del Duero'
 }
 
-Vinos = { vinoId, bodegaId, nombre, grados
+Vinos = { vinoId, bodegaId, nombreVino, grados
   'v1', 'b1', 'Vino Blanco Joven',     12
   'v2', 'b2', 'Vino Tinto Joven',      13
   'v3', 'b1', 'Vino Crianza Especial', 14
@@ -23,7 +23,7 @@ Crianzas = { vinoId, tiempoBarrica, tiempoBotella
   'v4', 12, 12
 }
 
-Uvas = { uvaId, nombre
+Uvas = { uvaId, nombreUva
   'u1', 'Tempranillo'
   'u2', 'Garnacha'
   'u3', 'Albarino'

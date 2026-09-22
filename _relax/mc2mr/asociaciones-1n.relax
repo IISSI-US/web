@@ -2,13 +2,13 @@ group: "MC2MR - Asociaciones 1:N"
 description[[ Transformacion del modelo conceptual Universidad-Centros-Estudiantes al modelo relacional. ]]
 
 Universidades = {
-  universidadId:string, nombre:string, direccion:string, fundacion:date
+  universidadId:string, nombreUniversidad:string, direccion:string, fundacion:date
   "u1", "UNAM", "Ciudad de Mexico", 1910-09-22
   "u2", "ITESM", "Monterrey", 1943-01-01
 }
 
 Centros = {
-  centroId:string, universidadId:string, nombre:string, codigo:string, presupuesto:number
+  centroId:string, universidadId:string, nombreCentro:string, codigo:string, presupuesto:number
   "f1", "u1", "Ingenieria", "FI01", 5000000.50
   "f2", "u1", "Derecho", "FD02", 3500000.25
   "f3", "u1", "Medicina", "FM03", 7500000.75
@@ -17,7 +17,7 @@ Centros = {
 }
 
 Estudiantes = {
-  estudianteId:string, centroId:string, matricula:string, nombre:string, edad:number, promedio:number
+  estudianteId:string, centroId:string, matricula:string, nombreEstudiante:string, edad:number, promedio:number
   "e1", "f1", "2023001", "Ana", 20, 8.7
   "e2", "f1", "2023002", "Luis", 21, 8.1
   "e3", "f2", "2023003", "Maria", 19, 9.2
