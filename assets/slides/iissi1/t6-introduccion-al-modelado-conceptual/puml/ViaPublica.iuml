@@ -1,6 +1,0 @@
-Class VíaPública << Enumerado >>{
-calle
-plaza
-avenida
-carretera
-}

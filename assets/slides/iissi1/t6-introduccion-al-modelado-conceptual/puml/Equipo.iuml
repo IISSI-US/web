@@ -1,4 +1,0 @@
-Class Equipo << Entidad >>{
-nombre
-...
-}

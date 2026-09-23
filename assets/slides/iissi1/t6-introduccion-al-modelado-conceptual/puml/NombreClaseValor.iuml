@@ -1,6 +1,0 @@
-Class NombreClase{
-atributo1
-atributo2 [0..1]
-...
-atributoN
-}

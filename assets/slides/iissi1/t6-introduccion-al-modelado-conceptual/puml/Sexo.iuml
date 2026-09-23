@@ -1,4 +1,0 @@
-Class Sexo << Enumerado >>{
-    masculino
-    femenino
-}

@@ -1,6 +1,0 @@
-Class Usuario << Entidad >>{
-    nombre
-    apellidos
-    fechaNacimiento
-    email
-}
