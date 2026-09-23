@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /iissi1/teoria/
-title: "Teoria IISSI-1"
+#title: "Teoria IISSI-1"
 sidebar: false
 teoria:
   - image_path: /assets/images/iissi1/teoria-icon.svg

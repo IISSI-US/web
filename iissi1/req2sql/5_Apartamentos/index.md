@@ -326,6 +326,9 @@ NumReservasHuesped = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/67445e6fee6f0354cacd981393b8d63d)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/67445e6fee6f0354cacd981393b8d63d)
+
 # Modelo tecnológico (MariaDB)
 
 ## Script SQL para crear la base de datos

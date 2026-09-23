@@ -40,6 +40,15 @@ colecciones:
     btn_label: "Ver ejercicios"
     btn_class: "btn--primary"
 
+  - image_path: /assets/images/iissi1/relax-icon.svg
+    alt: "Relax"
+    title: "Relax"
+    excerpt: |
+      Enlaces centralizados a los datasets de RELAX para practicar álgebra relacional.
+    url: "/iissi1/relax/"
+    btn_label: "Ver enlaces"
+    btn_class: "btn--primary"
+
 organizacion_docente:
   - image_path: /assets/images/iissi1/planificacion-icon.svg
     alt: "Organización Docente"
@@ -58,4 +67,3 @@ organizacion_docente:
 <!-- ## Colecciones de materiales -->
 
 {% include feature_row id="colecciones" type="center" %}
-

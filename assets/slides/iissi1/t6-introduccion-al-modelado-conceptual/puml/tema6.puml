@@ -1,0 +1,866 @@
+' Transparencia: "Trazabilidad hacia requisitos"
+@startuml dc-trazabilidad
+title Ejemplo trazabilidad
+
+!include ../../puml/teoria.iuml
+
+Class Usuario << Entidad >>{
+  nombre
+  apellidos
+  fechaNacimiento
+  email
+}
+
+note left of Usuario
+RI-01 - El sistema deberá
+almacenar la información
+correspondiente a los usuarios
+del sistema. En concreto: ...
+end note
+
+note bottom of Usuario
+RF-04 - El sistema deberá
+enviar automáticamente
+un email a los usuarios cuando ...
+end note
+
+note bottom of Usuario
+RN-03 - Los usuarios deben 
+ser mayores de edad y tener 
+un correo electrónico válido.    
+end note
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para las clases entidades UML"
+@startuml dc-notacion-clases-uml-I
+title Notación para clases UML
+!include ../../puml/teoria.iuml
+Class NombreClase <<Entidad>>{
+  atributo1: Tipo1
+  atributo2: Tipo2
+  ...
+  atributoN: tipoN
+}
+
+note top of NombreClase
+La zona del nombre es obligatoria.
+El estereotipo <<Entidad>> es opcional.
+end note
+
+note left of NombreClase
+La zona de los atributos es 
+opcional, se puede omitir 
+si se considera oportuno.
+end note
+
+@enduml
+
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para las clases entidades UML"
+@startuml dc-notacion-clases-uml-II
+title Notación para clases UML
+!include ../../puml/teoria.iuml
+
+Class NombreClase{
+  atributo1
+  atributo2 [0..1]
+  ...
+  atributoN
+}
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Ejemplo de clases UML"
+@startuml dc-ejemplo-clases
+title Ejemplo de clases
+!include ../../puml/teoria.iuml
+
+Class Camión{
+  matrícula
+  númeroBastidor
+  modelo
+  tonelaje
+  ejes
+}
+Class Motocicleta{
+  matrícula
+  númeroBastidor
+  modelo
+  cilindrada
+}
+Class Seguro{
+  compañía
+  numeroPóliza
+  tipo
+  precio
+}
+Class Alumno << Entidad >>{
+nombre
+fechaNacimiento
+}
+Class Asignatura << Entidad >>{
+código
+nombre
+}
+Class Matrícula << Entidad >>{
+número
+fecha
+tieneBeca
+}
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Asociación entre clases entidades"
+@startuml dc-ejemplo-asociacion
+title Ejemplo de asociación
+!include ../../puml/teoria.iuml
+
+Class Asignatura << Entidad >>{
+código
+nombre
+}
+Class Matrícula << Entidad >>{
+número
+fecha
+tieneBeca
+}
+Asignatura "0..*" -r-- "0..*" Matrícula : apareceEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencias: "Roles" y "Multiplicidad"
+@startuml dc-ejemplo-roles-I
+title Ejemplo de roles 
+!include ../../puml/teoria.iuml
+
+Persona "padre\n0..2"  -- "0..*\nhijo" Persona : esPadreDe
+
+@enduml
+
+' Transparencias: "Roles" y "Multiplicidad"
+@startuml dc-ejemplo-roles-II
+title Ejemplo de roles
+!include ../../puml/teoria.iuml
+
+
+Vuelo "salida *" --- "origen 1" Aeropuerto : saleDe
+Vuelo " * llegada" --- "1 destino" Aeropuerto : "llegaA"
+
+
+@enduml
+'---------------------------------------------------------------------------
+
+' Transparencias: "Multiplicidad" y "Objetos y enlaces"
+@startuml dc-equipos-futbol
+title Equipos de fútbol
+!include ../../puml/teoria.iuml
+
+Class Jugador << Entidad >>{
+nombre
+}
+Class Equipo << Entidad >>{
+nombre
+...
+}
+Jugador "*" -r- "0..1" Equipo :juegaEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Objetos y enlaces"
+@startuml do-equipos-futbol
+title Equipos de fútbol. Objetos
+!include ../../puml/final.iuml
+object "<u><i>j1: Jugador" as j1 {
+nombre = "Vadillo"
+}
+
+object "<u><i>j2: Jugador" as j2 {
+nombre = "Soldado"
+}
+
+object "<u><i>j3: Jugador" as j3 {
+nombre = "Dabbur"
+}
+
+object "<u><i>j4: Jugador" as j4 {
+nombre = "Chicharito"
+}
+
+object "<u><i>j5: Jugador" as j5 {
+nombre = "Jesús Navas"
+}
+
+object "<u><i>j6: Jugador" as j6 {
+nombre = "Sergio Ramos"
+}
+
+object "<u><i>e1: Equipo" as e1{
+nombre = "Sevilla F.C."
+}
+
+object "<u><i>e2: Equipo" as e2{
+nombre = "Granada"
+}
+
+j1 --  e2: juegaEn
+j2 --  e2: juegaEn
+j3 --  e1: juegaEn
+j4 --  e1: juegaEn
+j5 --  e1: juegaEn
+j6 -[hidden]> j3
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Generalización/especialización"
+@startuml dc-ejemplo-generalizacion-I
+title Ejemplo de generalización
+!include ../../puml/teoria.iuml
+Class Turismo{
+matrícula
+númeroBastidor
+modelo
+plazas
+}
+Class Camión{
+matrícula
+númeroBastidor
+modelo
+tonelaje
+ejes
+}
+Class Motocicleta{
+matrícula
+númeroBastidor
+modelo
+cilindrada
+}
+Class Seguro{
+compañía
+numeroPóliza
+tipo
+precio
+}
+Persona "0..1" -- "*" Turismo : esPropietariaDe 
+Persona "0..1" -- "*" Motocicleta :esPropietariaDe
+Persona "0..1" -- "*" Camión :esPropietariaDe
+Turismo "1" -- "0..1" Seguro :tiene
+Motocicleta "1" -- "0..1" Seguro :tiene
+Camión "1" -- "0..1" Seguro :tiene
+
+Turismo -[hidden]> Camión
+Camión -[hidden]> Motocicleta
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencias: "Generalización/especialización" y "Notación para la generalización en UML" (esta última, actualmente comentada)
+@startuml dc-ejemplo-generalizacion-II
+title Ejemplo de generalización
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+Class Turismo{
+  plazas
+}
+Class Camión{
+  tonelaje
+  ejes
+}
+Class Motocicleta{
+  cilindrada
+}
+Class Seguro{
+  compañía
+  numeroPóliza
+  tipo
+  precio
+}
+Class Vehículo{
+  matrícula
+  númeroBastidor
+  modelo
+}
+
+Persona "0..1" -- "*" Vehículo :esPropietariaDe 
+Vehículo "1" -l- "0..1" Seguro :tiene > 
+Vehículo <|-- Motocicleta: {completa, disjuta}
+Vehículo <|-- Camión
+Vehículo <|-- Turismo 
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Composición"
+@startuml dc-ejemplo-composicion
+title Ejemplo de composición
+!include ../../puml/teoria.iuml
+
+Factura *-- "1..*\n{ordered}" LineaDeFactura 
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para asociaciones en UML"
+@startuml dc-notacion-clases-uml-III
+title Notación para asociaciones en UML
+!include ../../puml/teoria.iuml
+
+class "Clase A" as ClaseA
+class "Clase B" as ClaseB
+
+ClaseA "0..*\nrol A" -- "rol B\n1" ClaseB : seRelacionaCon >
+
+note as NotaRol
+  <b>Nombre de rol</b>
+  Indica el papel que juega 
+  cada clase. Solo es necesario
+  en asociaciones reflexivas o 
+  cuando existen varias 
+  asociaciones entre las 
+  mismas clases.
+end note
+
+note as NotaAsociacion
+  <b>Nombre de la asociación</b>
+  Es opcional y debe ser una
+  forma verbal. Se lee de izquierda 
+  a derecha y de arriba abajo; en 
+  otro caso, se indica la dirección 
+  de lectura.
+end note
+
+note as NotaMultiplicidad
+  <b>Multiplicidad</b>
+  Indica el mínimo y el máximo
+  de instancias relacionadas. 
+  Se puede indicar orden
+  mediante {ordered}.
+end note
+
+note as NotaValores
+  <b>Valores habituales</b>
+  0..1  opcional
+  1..1  obligatoria
+  0..*  múltiple opcional
+  1..*  múltiple obligatoria
+  <b>*</b> equivale a 0..*; 1 equivale a 1..1
+end note
+
+NotaRol -[hidden]right- ClaseA
+ClaseA -[hidden]right- NotaAsociacion
+NotaMultiplicidad -[hidden]right- ClaseB
+ClaseB -[hidden]right- NotaValores
+NotaRol -[hidden]down- NotaMultiplicidad
+NotaAsociacion -[hidden]down- NotaValores
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para objetos y enlaces en UML"
+@startuml do-notacion-objetos-uml-I
+title Notación para objetos y enlaces UML
+!include ../../puml/final.iuml
+
+object "<u><i>obj1: Clase1" as obj1 {
+atrib1 = valor1
+atrib2 = valor2
+...
+atribn = valorn
+}
+
+object "<u><i>obj2: Clase2" as obj2 {
+...
+}
+
+object "<u><i>obj3: Clase3" as obj3 {
+...
+}
+
+object "<u><i>obj4: Clase4" as obj4 {
+...
+}
+
+obj1 -- obj2: <u>enlace</u>
+obj1 -- obj3: <u>enlace</u>
+obj1 -- obj4: <u>enlace</u>
+
+
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para objetos y enlaces en UML"
+@startuml do-notacion-objetos-uml-II
+title Notación para objetos y enlaces UML
+!include ../../puml/final.iuml
+
+object "<u><i>f1: Factura" as f1 {
+numero = 8765
+fechaEmisión = 14/09/2019
+}
+
+object "<u><i>c1: Cliente" as c1 {
+    ...
+}
+
+object "<u><i>Facturas" as facturas
+
+object "<u><i>p1: Producto" as p1{
+    ...
+}
+
+object "<u><i>p2: Producto" as p2{
+    ...
+}
+
+object "<u><i>p3: Producto" as p3{
+    ...
+}
+
+object "<u><i>lf1: LineaDeFactura" as lf1 {
+cantidad = 3
+precio = 12,50 €
+}
+
+object "<u><i>lf2: LineaDeFactura" as lf2 {
+cantidad = 1
+precio = 63,05 €
+}
+
+object "<u><i>lf3: LineaDeFactura" as lf3 {
+cantidad = 1
+precio = 5,25 €
+}
+
+facturas -- c1: <u>posee</u> <
+c1 -- f1: <u>emitidaA</u> <
+
+f1 *-- lf1
+f1 *-- lf2
+f1 *-- lf3
+lf1 -- p1: <u>contiene</u>
+lf2 -- p2: <u>contiene</u>
+lf3 -- p3: <u>contiene</u>
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para la generalización en UML"
+@startuml dc-notacion-clasificacion-uml-I
+title Notación para clasificación UML
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+Class Superclase{
+  atribComún1
+  atribComún2
+  ...
+}
+Class Subclase1{
+  atribPropio1
+  atribPropio2
+  ...
+}
+Class SubclaseN{
+  atribPropioX
+  atribPropioY
+  ...
+}
+
+Superclase <|-- Subclase1 
+Superclase <|-- SubclaseN : {restricciones}
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para la generalización en UML" (actualmente comentada)
+@startuml dc-notacion-clasificacion-uml-II
+title Notación para clasificación UML
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+
+MiembroCU <|-- Alumno 
+MiembroCU <|-- Empleado : {completa, solapada}
+Empleado <|-- PAS 
+Empleado <|-- PDI : {completa, disjunta}
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Especializaciones disjuntas"
+@startuml dc-herencia-completa-disjunta
+title Especialización completa y disjunta
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+class Persona {
+  nombre
+  fechaNacimiento
+}
+
+class Empleado {
+  númeroEmpleado
+  salario
+}
+
+class Estudiante {
+  númeroMatrícula
+  añoIngreso
+}
+
+Persona <|-- Empleado 
+Persona <|-- Estudiante: {completa, disjunta}
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Especializaciones disjuntas"
+@startuml dc-herencia-incompleta-disjunta
+title Especialización incompleta y disjunta
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+class Vehículo {
+  marca
+  modelo
+  año
+}
+
+class Coche {
+  númeroPuertas
+}
+
+class Moto {
+  cilindrada
+}
+
+Vehículo <|-- Coche 
+Vehículo <|-- Moto: {incompleta, disjunta}
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Especializaciones solapadas"
+@startuml dc-herencia-completa-solapada
+title Especialización completa y solapada
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+class Contenido {
+  título
+  fechaPublicación
+}
+
+class Artículo {
+  texto
+  númeroPalabras
+}
+
+class Vídeo {
+  url
+  duración
+}
+
+Contenido <|-- Artículo 
+Contenido <|-- Vídeo: {completa, solapada}
+
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Especializaciones solapadas"
+@startuml dc-herencia-incompleta-solapada
+title Especialización incompleta y solapada
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+
+class RecursoHumano {
+  nombre
+  email
+  fechaContratación
+}
+
+class Gerente {
+  tamañoEquipo
+  presupuesto
+}
+
+class Ingeniero {
+  especialidad
+  añosExperiencia
+}
+
+RecursoHumano <|-- Gerente 
+RecursoHumano <|-- Ingeniero: {incompleta, solapada}
+
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para la composición en UML"
+@startuml dc-notacion-composicion-uml
+title Notación composición
+!include ../../puml/teoria.iuml
+
+Compuesto *-- "mult" Componente 
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para la composición en UML"
+@startuml dc-ejemplo-factura
+title Ejemplo Factura 
+!include ../../puml/teoria.iuml
+
+Class Factura{
+número
+fechaEmisión
+}
+Class LineaDeFactura{
+cantidad
+precio
+}
+Cliente "1" -- "*" Factura: emitidaA <
+Factura *-- "{ordered}1..*" LineaDeFactura 
+LineaDeFactura "*" -- "1" Producto :contiene
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para clases asociación en UML"
+@startuml dc-ejemplo-asociacion-I
+title Ejemplo clase asociación
+!include ../../puml/teoria.iuml
+
+Empleado "*" -r- "*" Proyecto : trabajaEn
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencias: "Notación para clases asociación en UML"
+@startuml dc-ejemplo-asociacion-II
+title Ejemplo clase asociación
+!include ../../puml/teoria.iuml
+
+Class Proyecto{
+nombre
+presupuesto
+}
+Class Empleado{
+nombre
+}
+Class Esfuerzo{
+horas
+}
+Empleado "*" -r- "*" Proyecto : trabajaEn
+(Empleado, Proyecto) .. Esfuerzo
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para clases asociación en UML" (diagrama de objetos)
+@startuml do-ejemplo-asociacion
+title Diagrama de objetos con clases asociación
+!include ../../puml/final.iuml
+object "<u><i>e1: Empleado" as juan{
+nombre = "Juan Marquéz"
+}
+
+object "<u><i>e2: Empleado" as ana{
+nombre = "Ana López"
+}
+
+object "<u><i>e3: Empleado" as cristina{
+nombre = "Cristina Fuentes"
+}
+
+object "<u><i>p1: Proyecto" as p1{
+nombre = "VORTEX"
+presupuesto = 1.5M €
+}
+
+object "<u><i>p2: Proyecto" as p2{
+nombre = "DESK"
+presupuesto = 845k €
+}
+
+object "<u><i>f1: Esfuerzo" as f1 {
+horas = 20
+}
+
+object "<u><i>f2: Esfuerzo" as f2 {
+horas = 15
+}
+
+object "<u><i>f3: Esfuerzo" as f3 {
+horas = 7,5
+}
+
+object "<u><i>f4: Esfuerzo" as f4 {
+horas = 25
+}
+
+object "<u><i>f5: Esfuerzo" as f5 {
+horas = 12
+}
+
+juan -- p1: <u>trabajaEn</u>
+juan -- p2: <u>trabajaEn</u>
+ana -- p1: <u>trabajaEn</u>
+ana -- p2: <u>trabajaEn</u>
+cristina -- p2: <u>trabajaEn</u>
+
+(juan, p1) .. f1
+(juan, p2) .. f2
+(ana, p1) .. f3
+(cristina, p2) .. f4
+(ana, p2) .. f5
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para clases asociación en UML"
+@startuml dc-ejemplo-composicion-II
+title Ejemplo clase asociación con composición
+!include ../../puml/teoria.iuml
+
+Class Proyecto{
+nombre
+presupuesto
+}
+Class Empleado{
+nombre
+}
+Class Esfuerzo{
+horas
+}
+Empleado *-r- "*" Esfuerzo
+Esfuerzo "*" -- "1" Proyecto
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para restricciones"
+@startuml dc-ejemplo-restriccion
+title Ejemplo de restricción
+!include ../../puml/teoria.iuml
+
+Class Factura{
+número
+fechaEmisión
+}
+Class LineaDeFactura{
+cantidad
+precio
+}
+Factura *-- "1..*\n{ordered}" LineaDeFactura 
+Factura "*" -- "1" Cliente :emitidaA
+LineaDeFactura "*" -- "1" Producto :contiene
+
+note as N1
+{factura sin duplicados.
+Un mismo producto
+no debe aparecer dos
+veces en la misma
+factura.}
+end note
+
+Factura .. N1
+N1 .. LineaDeFactura
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Transparencia: "Notación para tipos enumerados"
+@startuml dc-notacion-enumerados
+title Notación enumerados
+!include ../../puml/teoria.iuml
+
+Class Sexo << Enumerado >>{
+    masculino
+    femenino
+}
+Class VíaPública << Enumerado >>{
+calle
+plaza
+avenida
+carretera
+}
+Class Categoría << Enumerado >>{
+infantil
+aventuras
+cienciaFicción
+drama
+}
+Sexo -[hidden]> VíaPública
+VíaPública -[hidden]> Categoría
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Diagrama auxiliar de agregación sin transparencia activa
+@startuml dc-ejemplo-agregacion
+title Ejemplo de agregación
+!include ../../puml/teoria.iuml
+
+class GéneroMusical {
+    
+}
+class Canción {
+
+}
+GéneroMusical "*" o-- "*" Canción
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Diagrama auxiliar de agregación sin transparencia activa
+@startuml dc-notacion-agregacion-uml
+title Notación agregación
+!include ../../puml/teoria.iuml
+
+Agregado "multA" o-- "multB" Componente 
+@enduml
+
+'---------------------------------------------------------------------------
+
+' Diagrama auxiliar de agregación sin transparencia activa
+@startuml dc-ejemplo-fotos
+title Ejemplo fotos
+!include ../../puml/teoria.iuml
+
+Class Usuario << Entidad >>{
+    nombre
+    apellidos
+    fechaNacimiento
+    email
+}
+class Foto {
+    título
+    descripción
+}
+Class Categoría << Enumerado >>{
+infantil
+aventuras
+cienciaFicción
+drama
+}
+Usuario "1" -- "*" Foto: sube
+Foto "*" -l-o "*" Categoría: perteneceA
+
+@enduml

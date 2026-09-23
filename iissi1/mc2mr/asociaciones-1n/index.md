@@ -1,0 +1,253 @@
+---
+layout: single
+title: "Asociaciones 1:N"
+pdf_version: true
+toc: true
+toc_label: "Contenido"
+toc_icon: "fa-solid fa-list-ul"
+toc_sticky: true
+---
+## Modelo Conceptual
+
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociaciones-1n-clases.png' | relative_url }})
+
+## Modelo Relacional.
+
+La transformación UML → Relacional genera tres relaciones con claves primarias y foráneas:
+
+```mr-table
+-- Intensión
+Universidades = { universidadId, nombre, dirección, fundación }
+    PK(universidadId)
+
+Centros = { centroId, universidadId, nombre, código, presupuesto }
+    PK(centroId)
+    FK(universidadId)/Universidades
+    
+Estudiantes = { estudianteId, centroId, matrícula, nombre, edad, promedio }
+    PK(estudianteId)
+    AK(matrícula)
+    FK(centroId)/Centros
+
+-- Extensión
+
+Universidades = {  
+  (u1, 'UNAM', 'Ciudad de México', 1910-09-22),  
+  (u2, 'ITESM', 'Monterrey', 1943-01-01)  
+}
+
+Centros = {  
+  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),  
+  (f2, u1, 'Derecho', 'FD02', 3500000.25),  
+  (f3, u1, 'Medicina', 'FM03', 7500000.75),  
+  (f4, u2, 'Negocios', 'EN01', 4200000.00),  
+  (f5, u2, 'Ingeniería', 'IE02', 6100000.20)  
+}
+
+Estudiantes = {  
+  (e1, f1, '2023001', 'Ana', 20, 8.7),  
+  (e2, f1, '2023002', 'Luis', 21, 8.1),  
+  (e3, f2, '2023003', 'María', 19, 9.2),  
+  (e4, f2, '2023004', 'Carlos', 22, 7.8),  
+  (e5, f3, '2023005', 'Elena', 20, 9.5),  
+  (e6, f4, '2023006', 'Roberto', 23, 8.9),  
+  (e7, f5, '2023007', 'Sofia', 21, 9.1),  
+  (e8, f5, '2023008', 'Diego', 19, 8.3)  
+}
+```
+
+## Álgebra Relacional
+
+Para simplificar la notación hacemos los siguientes renombrados:
+
+$$ U \leftarrow \Ren{U(uid,un,d,f)}(Universidades)$$
+
+$$ C \leftarrow \Ren{C(cid,uid,cn,c,pres)}(Centros)$$
+
+$$ E \leftarrow \Ren{E(eid,cid,m,en,e,p)}(Estudiantes)$$
+
+### Enunciados de consultas:
+
+1. **Estudiantes con edad mayor a 20 años**
+2. **Centros con presupuesto superior a 5 millones**
+3. **Nombres y edades de estudiantes**
+4. **Universidades fundadas después del año 1940**
+5. **Estudiantes con promedio mayor o igual a 9.0**
+6. **Centros de la Universidad Nacional (uid = u1)**
+7. **Estudiantes con información de sus centros**
+8. **Número de estudiantes por centro**
+9. **Promedio de calificaciones por centro**
+10. **Mejor promedio por universidad**
+
+---
+
+### Soluciones:
+
+**1. Estudiantes con edad mayor a 20 años**
+
+$$\Sel{e > 20}(E)$$
+
+```mr-table
+Resultado = { eid, cid, m, en, e, p }
+
+Resultado = {
+  (e2, f1, '2023002', 'Luis', 21, 8.1), 
+  (e4, f2, '2023004', 'Carlos', 22, 7.8), 
+  (e6, f4, '2023006', 'Roberto', 23, 8.9), 
+  (e7, f5, '2023007', 'Sofia', 21, 9.1)
+}
+```
+
+**2. Centros con presupuesto superior a 5 millones**
+
+$$\Sel{pres > 5000000}(C)$$
+
+```mr-table
+Resultado = { cid, uid, cn, c, pres }
+
+Resultado = {
+  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (f3, u1, 'Medicina', 'FM03', 7500000.75), 
+  (f5, u2, 'Ingeniería', 'IE02', 6100000.20)
+}
+```
+
+**3. Nombres y edades de estudiantes**
+
+$$\Proj{en, e}(E)$$
+
+```mr-table
+Resultado = { en, e }
+
+Resultado = {
+  ('Ana', 20), ('Luis', 21), ('María', 19), ('Carlos', 22), 
+  ('Elena', 20), ('Roberto', 23), ('Sofia', 21), ('Diego', 19)
+}
+```
+
+**4. Universidades fundadas después del año 1940**
+
+$$\Sel{f > 1940-01-01}(U)$$
+
+```mr-table
+Resultado = { uid, un, d, f }
+
+Resultado = {
+  (u2, 'ITESM', 'Monterrey', 1943-01-01)
+}
+```
+
+**5. Estudiantes con promedio mayor o igual a 9.0**
+
+$$\Sel{p \geq 9.0}(E)$$
+
+```mr-table
+Resultado = { eid, cid, m, en, e, p }
+
+Resultado = {
+  (e3, f2, '2023003', 'María', 19, 9.2),
+  (e5, f3, '2023005', 'Elena', 20, 9.5),
+  (e7, f5, '2023007', 'Sofia', 21, 9.1)
+}
+```
+
+**6. Centros de la Universidad Nacional (uid = u1)**
+
+$$\Sel{uid = u1}(C)$$
+
+```mr-table
+Resultado = { cid, uid, cn, c, pres }
+
+Resultado = {
+  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (f2, u1, 'Derecho', 'FD02', 3500000.25),
+  (f3, u1, 'Medicina', 'FM03', 7500000.75)
+}
+```
+
+**7. Estudiantes con información de sus centros**
+
+$$E \NatJoin C$$
+
+```mr-table
+Resultado = { eid, cid, m, en, e, p, uid, cn, c, pres }
+
+Resultado = {
+  (e1, f1, '2023001', 'Ana', 20, 8.7, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (e2, f1, '2023002', 'Luis', 21, 8.1, u1, 'Ingeniería', 'FI01', 5000000.50),
+  (e3, f2, '2023003', 'María', 19, 9.2, u1, 'Derecho', 'FD02', 3500000.25),
+  (e4, f2, '2023004', 'Carlos', 22, 7.8, u1, 'Derecho', 'FD02', 3500000.25),
+  (e5, f3, '2023005', 'Elena', 20, 9.5, u1, 'Medicina', 'FM03', 7500000.75),
+  (e6, f4, '2023006', 'Roberto', 23, 8.9, u2, 'Negocios', 'EN01', 4200000.00),
+  (e7, f5, '2023007', 'Sofia', 21, 9.1, u2, 'Ingeniería', 'IE02', 6100000.20),
+  (e8, f5, '2023008', 'Diego', 19, 8.3, u2, 'Ingeniería', 'IE02', 6100000.20)
+}
+```
+
+**8. Número de estudiantes por centro**
+
+$$\Group{cid,\rho_{total}(COUNT(eid))}{cid}(E)$$
+
+```mr-table
+Resultado = { cid, total }
+
+Resultado = {
+  (f1, 2), (f2, 2), (f3, 1), (f4, 1), (f5, 2)
+}
+```
+
+**9. Promedio de calificaciones por centro**
+
+$$\Group{cid,\rho_{media}(AVG(p))}{cid}(E)$$
+
+```mr-table
+Resultado = { cid, media }
+
+Resultado = {
+  (f1, 8.4), (f2, 8.5), (f3, 9.5), (f4, 8.9), (f5, 8.7)
+}
+```
+
+**10. Mejor promedio por universidad**
+
+$$\Group{uid,\rho_{mejor}(MAX(p))}{uid}(E \NatJoin C \NatJoin U)$$
+
+```mr-table
+Resultado = { uid, mejor }
+
+Resultado = {
+  (u1, 9.5), (u2, 9.1)
+}
+```
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/ed676104ddf97da32072088f817dd626)
+
+```
+-- Estudiantes con edad mayor a 20 años
+-- σ edad>20 (Estudiantes)Centros con presupuesto superior a 5 millones
+
+-- Nombres y edades de estudiantes
+-- π nombreEstudiante,edad (Estudiantes)
+
+-- Universidades fundadas después del año 1940
+
+-- Estudiantes con promedio mayor o igual a 9.0
+-- σ promedio ≥ 9.0 (Estudiantes)
+
+-- Centros de la Universidad Nacional (uid = u1)
+-- σ universidadId='u1' (Centros)
+
+-- Estudiantes con información de sus centros
+-- Estudiantes ⨝ Centros
+
+-- Número de estudiantes por centro
+-- γ centroId; count(estudianteId) → total (Estudiantes)
+
+-- Promedio de calificaciones por centro
+-- γ centroId; avg(promedio) → media (Estudiantes)
+
+-- Mejor promedio por universidad
+-- ECU = Estudiantes ⨝ Centros ⨝ Universidades
+-- γ universidadId; max(promedio) → mejor (ECU)
+```
+
+> [Versión PDF disponible](./index.pdf)

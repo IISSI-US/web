@@ -1,9 +1,7 @@
+@startuml asociaciones-1n-clases
+!include ../estilos/final.iuml
+title Asociaciones 1:N (Diagrama de Clases)
 
-@startuml ejercicio-01-universidad-clases
-title Ejercicio 1: Universidad-Centro-Estudiante (Diagrama de Clases)
-
-hide empty members
-hide circle
 
 class Universidad {
   nombre: String
@@ -29,180 +27,10 @@ Centro "1" -- "0..*" Estudiante : inscribe >
 @enduml
 
 
-@startuml ejercicio-02-biblioteca-clases
-title Ejercicio 2: Biblioteca-Libro-Autor (Diagrama de Clases)
+@startuml asociaciones-mn-clases
+!include ../estilos/final.iuml
+title Asociaciones N:M (Diagrama de Clases)
 
-hide empty members
-hide circle
-
-class Biblioteca {
-  nombre: String
-  dirección: String
-  añoInauguración: Date
-}
-
-class Libro {
-  isbn: String
-  titulo: String
-  precio: Double
-  páginas: Integer
-}
-
-class Autor {
-  nombre: String
-  fechaNacimiento: Date
-}
-
-Biblioteca -- "0..*" Libro : contiene >
-Autor "1" -- "1..*" Libro : escribe >
-@enduml
-
-
-@startuml ejercicio-03-herencia-completa-disjunta-clases
-title Ejercicio 3: Herencia Completa Disjunta (Diagrama de Clases)
-
-hide empty members
-hide circle
-
-class Persona {
-  nombre: String
-  fechaNacimiento: Date
-}
-
-class Empleado {
-  numeroEmpleado: String
-  salario: Double
-}
-
-class Estudiante {
-  numeroMatricula: String
-  añoIngreso: Integer
-}
-
-Persona <|-- Empleado: {completa,disjunta}
-Persona <|-- Estudiante
-
-@enduml
-
-
-@startuml ejercicio-04-herencia-completa-solapada-clases
-title Ejercicio 4: Herencia Completa Solapada (Diagrama de Clases)
-
-hide empty members
-hide circle
-
-class Contenido {
-  titulo: String
-  fechaCreacion: Date
-}
-
-class Artículo {
-  textoMarkdown: String
-  númeroPalabras: Integer
-}
-
-class Video {
-  duracion: Integer
-  formato: String
-}
-
-Contenido <|-- Artículo :{completa,solapada}
-Contenido <|-- Video
-
-@enduml
-
-
-@startuml ejercicio-05-herencia-incompleta-disjunta-clases
-title Ejercicio 5: Herencia Incompleta Disjunta (Diagrama de Clases)
-
-hide empty members
-hide circle
-
-class Vehículo {
-  marca: String
-  modelo: String
-  año: Integer
-}
-
-class Coche {
-  numeroPuertas: Integer
-  tipoTransmision: String
-}
-
-class Moto {
-  cilindrada: Integer
-  tipoManillar: String
-}
-
-Vehículo <|-- Coche
-Vehículo <|-- Moto : {incompleta,disjunta}
-
-
-@enduml
-
-
-@startuml ejercicio-06-herencia-incompleta-solapada-clases
-title Ejercicio 6: Herencia Incompleta Solapada (Diagrama de Clases)
-
-hide empty members
-hide circle
-
-class RecursoHumano {
-  nombre: String
-  email: String
-  fechaContratacion: Date
-}
-
-class Gerente {
-  tamañoEquipo: Integer
-  presupuesto: Double
-}
-
-class Ingeniero {
-  especialidad: String
-  añosExperiencia: Integer
-}
-
-RecursoHumano <|-- Gerente
-RecursoHumano <|-- Ingeniero : {incompleta,solapada}
-
-@enduml
-
-
-@startuml ejercicio-07-clase-asociacion-clases
-title Ejercicio 7: Clase Asociación (Diagrama de Clases)
-
-hide empty members
-hide circle
-
-class Estudiante {
-  nombre: String
-  email: String
-  fechaNacimiento: Date
-}
-
-class Curso {
-  nombre: String
-  codigo: String
-  creditos: Integer
-}
-
-class Inscripción {
-  fechaInscripción: Date
-  calificacionFinal: Double
-  estado: String
-}
-
-Estudiante "0..*" -- "0..*" Curso
-(Estudiante, Curso) .. Inscripción
-@enduml
-
-
-@startuml ejercicio-08-relaciones-mn-clases
-title Ejercicio 8: Relaciones M:N (Diagrama de Clases)
-
-hide empty members
-hide circle
 
 class Autor {
   nombre: String
@@ -227,11 +55,171 @@ Libro "1..*" -- "1..*" Categoría : pertenece >
 @enduml
 
 
-@startuml ejercicio-09-torneo-tenis-clases
-title Ejercicio 9: Torneo de Tenis (Diagrama de Clases)
+@startuml clase-asociacion-clases
+!include ../estilos/final.iuml
+title Clase Asociación (Diagrama de Clases)
 
-hide empty members
-hide circle
+
+class Estudiante {
+  nombre: String
+  email: String
+  fechaNacimiento: Date
+}
+
+class Curso {
+  nombre: String
+  codigo: String
+  creditos: Integer
+}
+
+class Inscripción {
+  fechaInscripción: Date
+  calificacionFinal: Double
+  estado: String
+}
+
+Estudiante "0..*" -- "0..*" Curso
+(Estudiante, Curso) .. Inscripción
+@enduml
+
+
+@startuml asociacion-reflexiva-clases
+!include ../estilos/final.iuml
+title Asociación Reflexiva N:M (Diagrama de Clases)
+
+
+class Usuario {
+  usuarioId: Integer
+  nombreUsuario: String
+  edad: Integer
+  genero: Genero
+  ciudadOrigen: String
+  fechaRegistro: Date
+}
+
+enum Genero {
+  FEMENINO
+  MASCULINO
+  NO_BINARIO
+  NO_ESPECIFICADO
+}
+
+class Seguimiento {
+  fechaInicio: Date
+}
+
+Usuario "0..*" -- "0..*" Usuario : sigue >
+(Usuario, Usuario) .. Seguimiento
+
+@enduml
+
+
+@startuml herencia-completa-disjunta-clases
+!include ../estilos/final.iuml
+title Herencia Completa Disjunta (Diagrama de Clases)
+
+
+class Persona {
+  nombre: String
+  fechaNacimiento: Date
+}
+
+class Empleado {
+  numeroEmpleado: String
+  salario: Double
+}
+
+class Estudiante {
+  numeroMatricula: String
+  añoIngreso: Integer
+}
+
+Persona <|-- Empleado: {completa,disjunta}
+Persona <|-- Estudiante
+@enduml
+
+
+@startuml herencia-completa-solapada-clases
+!include ../estilos/final.iuml
+title Herencia Completa Solapada (Diagrama de Clases)
+
+
+class Contenido {
+  titulo: String
+  fechaCreacion: Date
+}
+
+class Artículo {
+  textoMarkdown: String
+  númeroPalabras: Integer
+}
+
+class Video {
+  duracion: Integer
+  formato: String
+}
+
+Contenido <|-- Artículo :{completa,solapada}
+Contenido <|-- Video
+@enduml
+
+
+@startuml herencia-incompleta-disjunta-clases
+!include ../estilos/final.iuml
+title Herencia Incompleta Disjunta (Diagrama de Clases)
+
+
+class Vehículo {
+  marca: String
+  modelo: String
+  año: Integer
+}
+
+class Coche {
+  numeroPuertas: Integer
+  tipoTransmision: String
+}
+
+class Moto {
+  cilindrada: Integer
+  tipoManillar: String
+}
+
+Vehículo <|-- Coche
+Vehículo <|-- Moto : {incompleta,disjunta}
+@enduml
+
+
+@startuml herencia-incompleta-solapada-clases
+!include ../estilos/final.iuml
+title Herencia Incompleta Solapada (Diagrama de Clases)
+
+
+class RecursoHumano {
+  nombre: String
+  email: String
+  fechaContratacion: Date
+}
+
+class Gerente {
+  tamañoEquipo: Integer
+  presupuesto: Double
+}
+
+class Ingeniero {
+  especialidad: String
+  añosExperiencia: Integer
+}
+
+RecursoHumano <|-- Gerente
+RecursoHumano <|-- Ingeniero : {incompleta,solapada}
+@enduml
+
+
+@startuml torneo-tenis-clases
+!include ../estilos/final.iuml
+title Torneo de Tenis (Diagrama de Clases)
+
 
 class Persona {
   nombre: String
@@ -265,10 +253,9 @@ Persona <|-- Árbitro : {completa,disjunta}
 
 ' Relaciones
 Tenista "0..*" -- "0..*" Tenista : juegaContra >
-(Tenista, Tenista) .. Partido  
+(Tenista, Tenista) .. Partido
 Tenista "0..1" -- "0..*" Partido : gana >
 Árbitro "1" -- "0..*" Partido : arbitra >
-Partido *-- "1..* {orden}" Set  
+Partido *-- "1..* {orden}" Set
 Tenista "1" -- "0..*" Set : gana >
-
 @enduml

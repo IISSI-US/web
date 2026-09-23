@@ -1,0 +1,50 @@
+group: "MC2MR - Herencia incompleta disjunta"
+description[[ Dataset con las dos transformaciones del ejercicio: relacion con discriminante y relacion por cada entidad. ]]
+
+VehiculosDiscriminante = {
+  vehiculoId:string, marca:string, modelo:string, ano:number, clase:string, numeroPuertas:number, tipoTransmision:string, cilindrada:number, tipoManillar:string
+  "v1", "Ford", "F-150", 2021, "V", null, null, null, null
+  "v2", "Toyota", "Corolla", 2022, "C", 4, "Automatica", null, null
+  "v3", "Honda", "CBR", 2023, "M", null, null, 600, "Deportivo"
+  "v4", "BMW", "320i", 2023, "C", 4, "Manual", null, null
+  "v5", "Yamaha", "R1", 2022, "M", null, null, 1000, "Deportivo"
+  "v6", "Chevrolet", "Silverado", 2020, "V", null, null, null, null
+  "v7", "Audi", "A4", 2023, "C", 2, "Automatica", null, null
+  "v8", "Kawasaki", "Ninja", 2021, "M", null, null, 650, "Cruiser"
+  "v9", "Mercedes", "Sprinter", 2022, "V", null, null, null, null
+  "v10", "Honda", "Civic", 2023, "C", 4, "CVT", null, null
+  "v11", "Ducati", "Panigale", 2023, "M", null, null, 1200, "Deportivo"
+  "v12", "Nissan", "Titan", 2021, "V", null, null, null, null
+}
+
+Vehiculos = {
+  vehiculoId:string, marca:string, modelo:string, ano:number
+  "v1", "Ford", "F-150", 2021
+  "v2", "Toyota", "Corolla", 2022
+  "v3", "Honda", "CBR", 2023
+  "v4", "BMW", "320i", 2023
+  "v5", "Yamaha", "R1", 2022
+  "v6", "Chevrolet", "Silverado", 2020
+  "v7", "Audi", "A4", 2023
+  "v8", "Kawasaki", "Ninja", 2021
+  "v9", "Mercedes", "Sprinter", 2022
+  "v10", "Honda", "Civic", 2023
+  "v11", "Ducati", "Panigale", 2023
+  "v12", "Nissan", "Titan", 2021
+}
+
+Coches = {
+  vehiculoId:string, numeroPuertas:number, tipoTransmision:string
+  "v2", 4, "Automatica"
+  "v4", 4, "Manual"
+  "v7", 2, "Automatica"
+  "v10", 4, "CVT"
+}
+
+Motos = {
+  vehiculoId:string, cilindrada:number, tipoManillar:string
+  "v3", 600, "Deportivo"
+  "v5", 1000, "Deportivo"
+  "v8", 650, "Cruiser"
+  "v11", 1200, "Deportivo"
+}

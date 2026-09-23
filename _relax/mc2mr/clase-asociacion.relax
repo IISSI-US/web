@@ -1,0 +1,38 @@
+group: "MC2MR - Clase asociacion"
+description[[ Transformacion de una clase asociacion entre Estudiantes y Cursos. ]]
+
+Estudiantes = {
+  estudianteId:string, nombreEstudiante:string, email:string, fechaNacimiento:date
+  "e1", "Ana Garcia", "ana@universidad.edu", 2000-05-15
+  "e2", "Carlos Lopez", "carlos@universidad.edu", 1999-11-22
+  "e3", "Maria Gonzalez", "maria@universidad.edu", 2001-03-08
+  "e4", "David Martin", "david@universidad.edu", 2000-09-12
+  "e5", "Laura Herrera", "laura@universidad.edu", 1999-07-25
+  "e6", "Pablo Ruiz", "pablo@universidad.edu", 2001-01-30
+}
+
+Cursos = {
+  cursoId:string, nombreCurso:string, codigo:string, creditos:number
+  "c1", "Programacion en Java", "CS101", 4
+  "c2", "Bases de Datos", "CS201", 3
+  "c3", "Algoritmos y Estructuras", "CS102", 4
+  "c4", "Sistemas Operativos", "CS301", 3
+  "c5", "Desarrollo Web", "CS250", 2
+  "c6", "Inteligencia Artificial", "CS401", 4
+}
+
+Inscripciones = {
+  inscripcionId:string, estudianteId:string, cursoId:string, fechaInscripcion:date, calificacionFinal:number, estado:string
+  "i1", "e1", "c1", 2023-08-15, 8.5, "Completado"
+  "i2", "e2", "c2", 2023-08-15, 9.2, "Completado"
+  "i3", "e2", "c1", 2023-08-20, null, "En Curso"
+  "i4", "e3", "c1", 2023-08-15, 7.8, "Completado"
+  "i5", "e3", "c3", 2023-09-01, 9.5, "Completado"
+  "i6", "e4", "c2", 2023-08-20, 6.2, "Completado"
+  "i7", "e4", "c4", 2023-09-10, null, "En Curso"
+  "i8", "e5", "c1", 2023-08-15, 9.8, "Completado"
+  "i9", "e5", "c5", 2023-09-05, 8.9, "Completado"
+  "i10", "e6", "c3", 2023-09-01, null, "En Curso"
+  "i11", "e1", "c2", 2023-09-15, null, "En Curso"
+  "i12", "e3", "c5", 2023-09-20, 7.5, "Completado"
+}

@@ -1,0 +1,35 @@
+group:Espectaculos
+description[[Data set para practicas con el ejercicio de Espectaculos]]
+
+TiposEspectaculos = { tipoEspectaculoId, tipo
+  'te1', 'Concierto'
+}
+
+Zonas = { zonaId, nombreZona
+  'z1', 'Patio'
+  'z2', 'Primera Balcon'
+}
+
+Precios = { precioId, zonaId, tipoEspectaculoId, precio
+  'p1', 'z1', 'te1', 50
+  'p2', 'z2', 'te1', 100
+}
+
+Localidades = { localidadId, zonaId, numFila, numButaca
+  'l1', 'z1', 5, 12
+  'l2', 'z2', 1, 6
+}
+
+Espectaculos = { espectaculoId, tipoEspectaculoId, nombre, denominacion, duracion
+  'e1', 'te1', 'AC/DC', 'Concierto de ACDC', 2.5
+}
+
+Representaciones = { representacionId, espectaculoId, fechaHoraInicio
+  'r1', 'e1', '2024-10-15 20:00'
+  'r2', 'e1', '2024-10-16 20:00'
+}
+
+Entradas = { entradaId, representacionId, localidadId, fHoraCompra, canal, pCompra
+  'en1', 'r1', 'l1', '2024-10-10 18:00', 'Web',        50
+  'en2', 'r2', 'l2', '2024-10-11 15:00', 'Invitacion', 0
+}

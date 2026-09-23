@@ -1,0 +1,46 @@
+group:Animales
+description[[Data set para practicas con el ejercicio de Animales]]
+
+Especies = { especieId, especie
+  'e1', 'Canino'
+  'e2', 'Felino'
+}
+
+Razas = { razaId, especieId, raza
+  'r1', 'e1', 'Labrador'
+  'r2', 'e1', 'Pastor Aleman'
+  'r3', 'e2', 'Siamesa'
+}
+
+Animales = { animalId, razaId, chip, nombreAnimal, descripcion
+  'a1', 'r1', '12345', 'Max',   'Perro marron'
+  'a2', 'r1', '67890', 'Rocky', 'Perro negro'
+  'a3', 'r3', '54321', 'Luna',  'Gata gris'
+}
+
+Personas = { personaId, nombrePersona, direccion, email
+  'p1', 'Ana Garcia',   'Calle Sol 1',  'ana@example.com'
+  'p2', 'Luis Perez',   'Calle Luna 2', 'luis@example.com'
+  'p3', 'Marta Lopez',  'Calle Mar 3',  'marta@example.com'
+}
+
+Ingresos = { ingresoId, personaId, animalId, fechaHoraEntrega
+  'i1', 'p1', 'a1', '2024-09-15 10:00'
+  'i2', 'p3', 'a2', '2024-10-01 09:30'
+  'i3', 'p2', 'a3', '2024-10-05 18:15'
+}
+
+Entregas = { ingresoId
+  'i1'
+  'i3'
+}
+
+Abandonos = { ingresoId, fechaHoraAbandono, lugar
+  'i2', '2024-10-01 08:45', 'Parque de Maria Luisa'
+}
+
+Adopciones = { adopcionId, personaId, animalId, fechaHoraAdopcion
+  'ad1', 'p2', 'a1', '2024-10-20 12:00'
+  'ad2', 'p3', 'a2', '2024-10-22 17:30'
+  'ad3', 'p1', 'a3', '2024-11-03 11:00'
+}

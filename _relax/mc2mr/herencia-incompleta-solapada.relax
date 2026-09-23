@@ -1,0 +1,16 @@
+group: "MC2MR - Herencia incompleta solapada"
+description[[ Transformacion de una especializacion incompleta y solapada de RecursosHumanos en Gerentes e Ingenieros. ]]
+
+RecursosHumanos = {
+  recursoId:string, nombre:string, email:string, fechaContratacion:date, esGerente:boolean, tamanoEquipo:number, presupuesto:number, esIngeniero:boolean, especialidad:string, anosExperiencia:number
+  "r1", "Carlos Ruiz", "carlos@empresa.com", 2020-01-15, true, 15, 500000.0, false, null, null
+  "r2", "Laura Gomez", "laura@empresa.com", 2021-03-10, false, null, null, true, "Backend", 5
+  "r3", "Miguel Torres", "miguel@empresa.com", 2019-06-01, true, 8, 200000.0, true, "Arquitectura", 10
+  "r4", "Patricia Lopez", "patricia@empresa.com", 2022-09-15, false, null, null, false, null, null
+  "r5", "Ana Martin", "ana@empresa.com", 2020-05-20, true, 12, 350000.0, false, null, null
+  "r6", "David Chen", "david@empresa.com", 2021-11-08, false, null, null, true, "Frontend", 3
+  "r7", "Sofia Herrera", "sofia@empresa.com", 2018-02-14, true, 20, 800000.0, true, "DevOps", 12
+  "r8", "Roberto Vega", "roberto@empresa.com", 2023-01-10, false, null, null, true, "Mobile", 2
+  "r9", "Carmen Diaz", "carmen@empresa.com", 2022-07-03, false, null, null, false, null, null
+  "r10", "Luis Moreno", "luis@empresa.com", 2019-09-25, true, 6, 180000.0, true, "Security", 8
+}

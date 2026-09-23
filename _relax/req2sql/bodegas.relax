@@ -1,0 +1,45 @@
+group:Bodegas
+description[[Data set para practicas con el ejercicio de Bodegas]]
+
+Bodegas = { bodegaId, nombreBodega, denominacionOrigen
+  'b1', 'Bodegas El Sol',  'Rioja'
+  'b2', 'Bodegas La Luna', 'Ribera del Duero'
+}
+
+Vinos = { vinoId, bodegaId, nombreVino, grados
+  'v1', 'b1', 'Vino Blanco Joven',     12
+  'v2', 'b2', 'Vino Tinto Joven',      13
+  'v3', 'b1', 'Vino Crianza Especial', 14
+  'v4', 'b2', 'Vino Crianza Reserva',  13.5
+}
+
+Jovenes = { vinoId, tiempoBarrica, tiempoBotella
+  'v1', 0, 6
+  'v2', 0, 12
+}
+
+Crianzas = { vinoId, tiempoBarrica, tiempoBotella
+  'v3', 6, 18
+  'v4', 12, 12
+}
+
+Uvas = { uvaId, nombreUva
+  'u1', 'Tempranillo'
+  'u2', 'Garnacha'
+  'u3', 'Albarino'
+}
+
+Cosechas = { cosechaId, crianzaId, ano, calidad
+  'c1', 'v3', 2020, 'Excelente'
+  'c2', 'v3', 2019, 'Buena'
+  'c3', 'v4', 2018, 'Muy buena'
+}
+
+VinosUvas = { vinoUvaId, vinoId, uvaId
+  'vu1', 'v1', 'u3'
+  'vu2', 'v2', 'u1'
+  'vu3', 'v3', 'u2'
+  'vu4', 'v3', 'u1'
+  'vu5', 'v4', 'u2'
+  'vu6', 'v4', 'u1'
+}

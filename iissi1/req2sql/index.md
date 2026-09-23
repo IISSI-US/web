@@ -1,7 +1,7 @@
 ---
 layout: single
 permalink: /iissi1/req2sql/
-title: "Req → SQL"
+#title: "Req → SQL"
 sidebar: false
 req2sql:
   - image_path: /assets/images/iissi1/req2sql-icon.svg
@@ -68,8 +68,6 @@ req2sql:
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
 ---
-
-# Ejercicios de ciclo completo
 
 {% include feature_row id="req2sql" type="center" %}
 

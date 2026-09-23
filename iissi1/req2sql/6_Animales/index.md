@@ -234,6 +234,9 @@ AdopcionesPorEspecie = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/753fec48689778552cfe528e694ae7e3)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/753fec48689778552cfe528e694ae7e3)
+
 # Modelo tecnológico (MariaDB)
 
 ## Script SQL para crear la base de datos

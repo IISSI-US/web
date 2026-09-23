@@ -1,5 +1,6 @@
 @startuml ejemplo-mdd
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
 
 class Laboratorio {
   cif
@@ -36,7 +37,7 @@ LineaCatalogo "*" -- "1" Producto : referencia
 
 
 @startuml transformacion-entidad-departamento
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
 
 class Departamento {
   denominacion
@@ -46,7 +47,7 @@ class Departamento {
 @enduml
 
 @startuml transformacion-asociacion-1n
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
 
 class Empleado {
   nif
@@ -64,7 +65,7 @@ Empleado "*" -- "1" Departamento: > trabajaEn
 @enduml
 
 @startuml transformacion-asociacion-1n-orden
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
 
 class Factura {
   numero
@@ -80,7 +81,7 @@ Factura *-- "{ordered} 1..*" LineaFactura
 @enduml
 
 @startuml transformacion-asociacion-11
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
 class Empleado {
   nif
   nombre
@@ -95,7 +96,7 @@ Empleado "1" -- "0..1" Solicitud: > presenta
 @enduml
 
 @startuml transformacion-asociacion-mn
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
 
 class Empleado {
   nif
@@ -113,8 +114,10 @@ Empleado "*" -- "*" Proyecto: participaEn
 @enduml
 
 @startuml herencia-completa-disjunta-persona
-!include ../../puml/final.iuml
-skinparam linkStyle ortho
+!include ../../puml/teoria.iuml
+
+skinparam linetype polyline
+skinparam InheritanceGrouping 2
 
 class Persona {
   nombre: String
@@ -131,8 +134,8 @@ class Estudiante {
   añoIngreso: Integer
 }
 
-Persona "{completa,disjunta}" --|>  Empleado
-Persona --|>  Estudiante
+Persona  <|--  Empleado
+Persona <|--  Estudiante : {completa,disjunta}
 
 note top of Persona
   Cada persona es un empleado o 
@@ -142,7 +145,9 @@ end note
 @enduml
 
 @startuml herencia-incompleta-disjunta-vehiculo
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+skinparam InheritanceGrouping 2
 
 class Vehículo {
   marca: String
@@ -160,10 +165,10 @@ class Moto {
   tipoManillar: String
 }
 
-Coche --|> "{incompleta,disjunta}" Vehículo
-Moto --|>  Vehículo
+Vehículo <|-- Coche
+Vehículo <|-- Moto : {incompleta,disjunta}
 
-note bottom of Vehículo
+note top of Vehículo
   Un vehículo puede ser un coche 
   o una moto, o ninguno de los dos.
 end note
@@ -171,7 +176,9 @@ end note
 
 
 @startuml herencia-incompleta-solapada-recurso-humano
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+skinparam InheritanceGrouping 2
 
 class RecursoHumano {
   nombre: String
@@ -189,18 +196,21 @@ class Ingeniero {
   añosExperiencia: Integer
 }
 
-Gerente --|> RecursoHumano
-Ingeniero --|> RecursoHumano
+RecursoHumano <|-- Gerente
+RecursoHumano <|-- Ingeniero:  {incompleta,solapada}
 
-note bottom of RecursoHumano
+note top of RecursoHumano
   Pueden existir RRHH que no sean 
   ni gerentes ni ingenieros, o 
   que sean ambos.
 end note
+
 @enduml
 
 @startuml ejemplo-vinos
-!include ../../puml/final.iuml
+!include ../../puml/teoria.iuml
+skinparam linetype polyline
+skinparam InheritanceGrouping 2
 
 class Bodega {
   nombre : String
@@ -232,17 +242,14 @@ class Cosecha {
 }
 
 Bodega "1" --> "1..*" Vino : produce
-Vino "0..*" -- "1..*" Uva : elaboradoCon
 
-Joven --|> Vino
-Crianza --|> Vino
-note left of Vino
-{completa,disjunta}
-end note
+Vino "0..*" -l- "1..*" Uva : elaboradoCon
+Vino <|-- Joven : {completa,disjunta}
+Vino <|-- Crianza
 
 Crianza "1" *-- "1..*" Cosecha
 
-note top of Bodega
+note left of Bodega
 RN-1: Los nombres de las bodegas,
 vinos y uvas son únicos
 end note
@@ -252,11 +259,11 @@ RN-3: la graduación está entre
 los 10 y 15 grados
 end note
 
-note top of Joven
+note bottom of Joven
 RN-2: Menos de 6 meses en barrica
 end note
 
-note top of Crianza
+note left of Crianza
 RN-2: 24 meses de crianza: 6 y 12 meses
 en barrica y el resto en botella
 end note

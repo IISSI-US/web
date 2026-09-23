@@ -1,0 +1,255 @@
+---
+layout: single
+title: "Herencia incompleta y solapada"
+toc: true
+toc_label: "Contenido"
+sidebar:
+    nav: mc2mr
+toc_sticky: true
+pdf_version: true
+---
+
+
+## Modelo Conceptual
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-incompleta-solapada-clases.png' | relative_url }})
+
+## Modelo Relacional
+
+```mr-table
+RecursosHumanos = { recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia }
+    PK(recursoId)
+
+RecursosHumanos = {
+    (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
+    (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
+    (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
+    (r4, 'Patricia López', 'patricia@empresa.com', 2022-09-15, false, null, null, false, null, null),
+    (r5, 'Ana Martín', 'ana@empresa.com', 2020-05-20, true, 12, 350000.0, false, null, null),
+    (r6, 'David Chen', 'david@empresa.com', 2021-11-08, false, null, null, true, 'Frontend', 3),
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12),
+    (r8, 'Roberto Vega', 'roberto@empresa.com', 2023-01-10, false, null, null, true, 'Mobile', 2),
+    (r9, 'Carmen Díaz', 'carmen@empresa.com', 2022-07-03, false, null, null, false, null, null),
+    (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
+}
+```
+
+## Álgebra relacional
+
+### Enunciados
+
+**1.** Obtener todos los recursos humanos que son gerentes
+
+**2.** Obtener todos los recursos humanos que son ingenieros
+
+**3.** Obtener recursos humanos que son tanto gerentes como ingenieros
+
+**4.** Obtener el nombre y especialidad de ingenieros con más de 5 años de experiencia
+
+**5.** Obtener gerentes con presupuesto superior a 300,000
+
+**6.** Obtener recursos humanos contratados en 2021
+
+**7.** Obtener el presupuesto promedio de todos los gerentes
+
+**8.** Obtener el gerente con el equipo más grande
+
+**9.** Obtener recursos humanos que no están especializados
+
+**10.** Obtener todas las especialidades de ingenieros únicas
+
+### Soluciones
+
+**Renombramiento de relación:**
+
+$$RH \leftarrow \Ren{RH(rid,nom,ema,fec,esG,tam,pre,esI,esp,exp)}(RecursosHumanos)$$
+
+**Relaciones intermedias:**
+
+$$Gerentes \leftarrow \Sel{esG = true}(RH)$$
+
+$$Ingenieros \leftarrow \Sel{esI = true}(RH)$$
+
+$$RecursosGenéricos \leftarrow \Sel{esG = false \land esI = false}(RH)$$
+
+**1. Obtener todos los recursos humanos que son gerentes**
+
+$$Gerentes$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
+    (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
+    (r5, 'Ana Martín', 'ana@empresa.com', 2020-05-20, true, 12, 350000.0, false, null, null),
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12),
+    (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
+}
+```
+
+**2. Obtener todos los recursos humanos que son ingenieros**
+
+$$Ingenieros$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
+    (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
+    (r6, 'David Chen', 'david@empresa.com', 2021-11-08, false, null, null, true, 'Frontend', 3),
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12),
+    (r8, 'Roberto Vega', 'roberto@empresa.com', 2023-01-10, false, null, null, true, 'Mobile', 2),
+    (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
+}
+```
+
+**3. Obtener recursos humanos que son tanto gerentes como ingenieros**
+
+$$Gerentes \Inter Ingenieros$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r3, 'Miguel Torres', 'miguel@empresa.com', 2019-06-01, true, 8, 200000.0, true, 'Arquitectura', 10),
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12),
+    (r10, 'Luis Moreno', 'luis@empresa.com', 2019-09-25, true, 6, 180000.0, true, 'Security', 8)
+}
+```
+
+**4. Obtener el nombre y especialidad de ingenieros con más de 5 años de experiencia**
+
+$$\Proj{nom, esp}\left(\Sel{exp > 5}(Ingenieros)\right)$$
+
+```mr-table
+Resultado = { nom, esp }
+
+Resultado = {
+    ('Miguel Torres', 'Arquitectura'),
+    ('Sofía Herrera', 'DevOps'),
+    ('Luis Moreno', 'Security')
+}
+```
+
+**5. Obtener gerentes con presupuesto superior a 300,000**
+
+$$\Sel{pre > 300000}(Gerentes)$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r1, 'Carlos Ruiz', 'carlos@empresa.com', 2020-01-15, true, 15, 500000.0, false, null, null),
+    (r5, 'Ana Martín', 'ana@empresa.com', 2020-05-20, true, 12, 350000.0, false, null, null),
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12)
+}
+```
+
+**6. Obtener recursos humanos contratados en 2021**
+
+$$\Sel{fec \geq '2021-01-01' \land fec < '2022-01-01'}(RH)$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r2, 'Laura Gómez', 'laura@empresa.com', 2021-03-10, false, null, null, true, 'Backend', 5),
+    (r6, 'David Chen', 'david@empresa.com', 2021-11-08, false, null, null, true, 'Frontend', 3)
+}
+```
+
+**7. Obtener el presupuesto promedio de todos los gerentes**
+
+$$\Group{\rho_{presupuestoMedio}(AVG(pre))}{}(Gerentes)$$
+
+```mr-table
+Resultado = { presupuestoMedio }
+
+Resultado = {
+    (406000.0)  -- (500000 + 200000 + 350000 + 800000 + 180000) / 5
+}
+```
+
+**8. Obtener el gerente con el equipo más grande**
+
+$$tamMax \leftarrow \Group{\rho_{tamMax}(MAX(tam))}{}(Gerentes)$$
+
+$$\Sel{tam = tamMax}(Gerentes)$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r7, 'Sofía Herrera', 'sofia@empresa.com', 2018-02-14, true, 20, 800000.0, true, 'DevOps', 12)
+}
+```
+
+**9. Obtener recursos humanos que no están especializados**
+
+$$RecursosGenéricos$$
+
+```mr-table
+Resultado = { rid, nom, ema, fec, esG, tam, pre, esI, esp, exp }
+
+Resultado = {
+    (r4, 'Patricia López', 'patricia@empresa.com', 2022-09-15, false, null, null, false, null, null),
+    (r9, 'Carmen Díaz', 'carmen@empresa.com', 2022-07-03, false, null, null, false, null, null)
+}
+```
+
+**10. Obtener todas las especialidades de ingenieros únicas**
+
+$$\Proj{esp}(Ingenieros)$$
+
+```mr-table
+Resultado = { esp }
+
+Resultado = {
+    ('Backend'),
+    ('Arquitectura'),
+    ('Frontend'),
+    ('DevOps'),
+    ('Mobile'),
+    ('Security')
+}
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/66dc00f863772156d8b1ec14c7a4c23d)
+
+```
+-- Recursos humanos que son gerentes
+-- Gerentes = σ esGerente = true (RecursosHumanos)
+-- Gerentes
+
+-- Recursos humanos que son ingenieros
+-- Ingenieros = σ esIngeniero = true (RecursosHumanos)
+-- Ingenieros
+
+-- Recursos que son tanto gerentes como ingenieros
+-- Gerentes ∩ Ingenieros
+
+-- Ingenieros con más de cinco años de experiencia
+-- π nombre, especialidad (σ añosExperiencia > 5 (Ingenieros))
+
+-- Gerentes con presupuesto superior a 300000
+-- σ presupuesto > 300000 (Gerentes)
+
+-- Recursos humanos contratados en 2021
+-- σ fechaContratacion >= date('2021-01-01') and fechaContratacion < date('2022-01-01') (RecursosHumanos)
+
+-- Presupuesto promedio de los gerentes
+-- γ avg(presupuesto) → presupuestoMedio (Gerentes)
+
+-- Gerente con el equipo más grande
+-- EquipoMaximo = γ max(tamañoEquipo) → tamMax (Gerentes)
+-- σ tamañoEquipo = tamMax (Gerentes × EquipoMaximo)
+
+-- Recursos humanos sin especialización
+-- σ esGerente = false and esIngeniero = false (RecursosHumanos)
+
+-- Especialidades únicas de ingenieros
+-- π especialidad (Ingenieros)
+```
+
+> [Versión PDF disponible](./index.pdf)

@@ -431,6 +431,9 @@ VinosUvasV1 = {
 }
 ```
 
+- [GIST](https://gist.github.com/druizcortes/5227f816a57344570783a1aa383e75ef)
+- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/5227f816a57344570783a1aa383e75ef)
+
 # Modelo tecnológico
 
 ## Script SQL para crear la base de datos

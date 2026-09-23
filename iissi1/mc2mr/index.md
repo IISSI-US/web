@@ -1,76 +1,72 @@
 ---
 layout: single
 permalink: /iissi1/mc2mr/
-title: "MC → MR"
+#title: "MC → MR"
 sidebar: false
 mc2mr:
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "01"
-    title: "01 - Universidad"
-    excerpt: "Composición y relaciones 1:N"
-    url: "/iissi1/mc2mr/01_universidad/"
+    alt: "Asociaciones 1:N"
+    title: "Asociaciones 1:N"
+    excerpt: "Universidad, centros y estudiantes"
+    url: "/iissi1/mc2mr/asociaciones-1n/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "02"
-    title: "02 - Biblioteca"
-    excerpt: "Agregación y relaciones 1:N"
-    url: "/iissi1/mc2mr/02_biblioteca/"
+    alt: "Asociaciones N:M"
+    title: "Asociaciones N:M"
+    excerpt: "Autores, libros y categorías"
+    url: "/iissi1/mc2mr/asociaciones-mn/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "03"
-    title: "03 - Herencia completa disjunta"
-    excerpt: "Herencia completa y disjunta"
-    url: "/iissi1/mc2mr/03_herencia-completa-disjunta/"
+    alt: "Clase asociación"
+    title: "Clase asociación"
+    excerpt: "Inscripción de estudiantes en cursos"
+    url: "/iissi1/mc2mr/clase-asociacion/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "04"
-    title: "04 - Herencia completa solapada"
-    excerpt: "Herencia completa y solapada"
-    url: "/iissi1/mc2mr/04_herencia-completa-solapada/"
+    alt: "Asociación reflexiva"
+    title: "Asociación reflexiva"
+    excerpt: "Seguimientos entre usuarios"
+    url: "/iissi1/mc2mr/asociacion-reflexiva/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "05"
-    title: "05 - Herencia incompleta disjunta"
-    excerpt: "Herencia incompleta y disjunta"
-    url: "/iissi1/mc2mr/05_herencia-incompleta-disjunta/"
+    alt: "Herencia completa disjunta"
+    title: "Herencia completa disjunta"
+    excerpt: "Personas, empleados y estudiantes"
+    url: "/iissi1/mc2mr/herencia-completa-disjunta/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "06"
-    title: "06 - Herencia incompleta solapada"
-    excerpt: "Herencia incompleta y solapada"
-    url: "/iissi1/mc2mr/06_herencia-incompleta-solapada/"
+    alt: "Herencia completa solapada"
+    title: "Herencia completa solapada"
+    excerpt: "Contenidos, artículos y vídeos"
+    url: "/iissi1/mc2mr/herencia-completa-solapada/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "07"
-    title: "07 - Clase asociación"
-    excerpt: "Clase asociación"
-    url: "/iissi1/mc2mr/07_clase-asociacion/"
+    alt: "Herencia incompleta disjunta"
+    title: "Herencia incompleta disjunta"
+    excerpt: "Vehículos, coches y motos"
+    url: "/iissi1/mc2mr/herencia-incompleta-disjunta/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "08"
-    title: "08 - Relaciones M:N"
-    excerpt: "Relaciones muchos a muchos"
-    url: "/iissi1/mc2mr/08_relaciones-mn/"
+    alt: "Herencia incompleta solapada"
+    title: "Herencia incompleta solapada"
+    excerpt: "Recursos humanos, gerentes e ingenieros"
+    url: "/iissi1/mc2mr/herencia-incompleta-solapada/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "09"
-    title: "09 - Torneo de tenis"
+    alt: "Modelo integrado"
+    title: "Modelo integrado"
     excerpt: "Torneo de tenis"
-    url: "/iissi1/mc2mr/09_torneo-tenis/"
+    url: "/iissi1/mc2mr/torneo-tenis/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
 ---
-
-## Ejercicios UML → Relacional
-
-Transformación de diagramas UML a modelos relacionales con álgebra relacional.
 
 {% include feature_row id="mc2mr" type="center" %}
