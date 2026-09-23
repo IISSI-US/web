@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-completa-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/25911b71f9e995a0caeff728ca1aa08c)
+## Modelo Relacional
 ```mr-table
 -- Intensión
 Contenidos = {
@@ -219,6 +219,43 @@ Resultado = {
     (c4, 'Guía de Python', 2023-03-25, true, 'Programación en Python desde cero...', 2500, false, null, null, null),
     (c7, 'Documentación API', 2023-04-20, true, 'Especificación completa de la API...', 3200, false, null, null, null)
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/25911b71f9e995a0caeff728ca1aa08c)
+
+```
+-- Contenidos que son artículos
+-- Articulos = σ esArtículo = true (Contenidos)
+-- Articulos
+
+-- Contenidos que son videos
+-- Videos = σ esVideo = true (Contenidos)
+-- Videos
+
+-- Contenidos que son tanto artículos como videos
+-- Articulos ∩ Videos
+
+-- Título y fecha de videos con duración mayor a 1800 segundos
+-- π título, fechaPublicación (σ duraciónSeg > 1800 (Videos))
+
+-- Artículos con más de 2000 palabras
+-- σ númeroPalabras > 2000 (Articulos)
+
+-- Videos en resolución 1080p
+-- σ resolución = '1080p' (Videos)
+
+-- Contenido con mayor número de palabras
+-- MaximoPalabras = γ max(númeroPalabras) → maxPalabras (Articulos)
+-- σ númeroPalabras = maxPalabras (Articulos × MaximoPalabras)
+
+-- Contenidos publicados en abril de 2023
+-- σ fechaPublicación >= date('2023-04-01') and fechaPublicación < date('2023-05-01') (Contenidos)
+
+-- Duración promedio de los videos
+-- γ avg(duraciónSeg) → duraciónMedia (Videos)
+
+-- Contenidos que son solo artículos
+-- Articulos - Videos
 ```
 
 > [Versión PDF disponible](./index.pdf)

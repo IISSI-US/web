@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociaciones-mn-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/f726ddb46c4ac7f95f724225910121c7)
+## Modelo Relacional
 ```mr-table
 -- Intensión
 Autores = { autorId, nombre, nacionalidad }
@@ -362,6 +362,53 @@ Resultado = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),
     (a6, 'Octavio Paz', 'Mexicana')
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/f726ddb46c4ac7f95f724225910121c7)
+
+```
+-- Libros con sus autores y la posición en la autoría
+-- π titulo, nombre, orden (Libros ⨝ AutoresLibros ⨝ Autores)
+
+-- Libros con múltiples autores
+-- LibrosMultiples = γ libroId; count(autorId) → numAutores (AutoresLibros)
+-- LibrosColaborativosIds = π libroId (σ numAutores > 1 (LibrosMultiples))
+-- LibrosColaborativosIds ⨝ Libros
+
+-- Primer autor de cada libro
+-- PrimerosAutores = σ orden = 1 (AutoresLibros)
+-- π titulo, nombre (Libros ⨝ PrimerosAutores ⨝ Autores)
+
+-- Categorías de Cien años de soledad
+-- CienAños = σ titulo = 'Cien años de soledad' (Libros)
+-- CategoriasLibroIds = π categoríaId (CienAños ⨝ LibrosCategorías)
+-- CategoriasLibroIds ⨝ Categorías
+
+-- Autores argentinos y sus libros
+-- AutoresArgentinos = σ nacionalidad = 'Argentina' (Autores)
+-- π nombre, titulo (AutoresArgentinos ⨝ AutoresLibros ⨝ Libros)
+
+-- Libros que pertenecen a más de dos categorías
+-- CategoriasPorLibro = γ libroId; count(categoríaId) → numCategorias (LibrosCategorías)
+-- LibrosMulticatIds = π libroId (σ numCategorias > 2 (CategoriasPorLibro))
+-- LibrosMulticatIds ⨝ Libros
+
+-- Colaboraciones entre Borges y Bioy Casares
+-- Borges = π libroId (σ nombre = 'Jorge Luis Borges' (Autores) ⨝ AutoresLibros)
+-- Bioy = π libroId (σ nombre = 'Adolfo Bioy Casares' (Autores) ⨝ AutoresLibros)
+-- (Borges ∩ Bioy) ⨝ Libros
+
+-- Libros de Realismo Mágico
+-- RealismoMagico = π libroId (σ nombre = 'Realismo Mágico' (Categorías) ⨝ LibrosCategorías)
+-- RealismoMagico ⨝ Libros
+
+-- Número de libros por autor
+-- γ autorId, nombre; count(libroId) → numLibros (Autores ⨝ AutoresLibros)
+
+-- Autores que han escrito ficción y ensayo
+-- AutoresFiccionIds = π autorId (AutoresLibros ⨝ LibrosCategorías ⨝ σ nombre = 'Ficción' (Categorías))
+-- AutoresEnsayoIds = π autorId (AutoresLibros ⨝ LibrosCategorías ⨝ σ nombre = 'Ensayo' (Categorías))
+-- (AutoresFiccionIds ∩ AutoresEnsayoIds) ⨝ Autores
 ```
 
 > [Versión PDF disponible](./index.pdf)

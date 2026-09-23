@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-incompleta-disjunta-clases.png' | relative_url }})
 
-## Modelo Relacional. Versión 1: una relación con discriminante [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/959b19de278e0879b2daf5abf8a97fcd)
+## Modelo Relacional. Versión 1: una relación con discriminante
 
 ```mr-table
 Vehículos = { vehículoId, marca, modelo, año, clase, numeroPuertas, tipoTransmisión, cilindrada, tipoManillar }
@@ -311,5 +311,81 @@ $$\Proj{mar}(V \NatJoin C \NatJoin M) $$
 **10. Obtener vehículos que no son especializados (solo vehículos genéricos)**
 
 $$ V $$
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/959b19de278e0879b2daf5abf8a97fcd)
+
+**Versión 1: una relación con discriminante**
+
+```
+-- Vehículos que son coches
+-- Coches = σ clase = 'C' (Vehículos)
+-- Coches
+
+-- Vehículos que son motos
+-- Motos = σ clase = 'M' (Vehículos)
+-- Motos
+
+-- Vehículos genéricos
+-- VehiculosGenericos = σ clase = 'V' (Vehículos)
+-- VehiculosGenericos
+
+-- Motos con cilindrada mayor a 800 cc
+-- π marca, modelo (σ cilindrada > 800 (Motos))
+
+-- Coches con transmisión automática
+-- σ tipoTransmisión = 'Automática' (Coches)
+
+-- Vehículos fabricados en 2023
+-- σ año = 2023 (Vehículos)
+
+-- Cilindrada promedio de las motos
+-- γ avg(cilindrada) → cilindradaMedia (Motos)
+
+-- Coche más antiguo
+-- AñoMinimo = γ min(año) → añoMin (Coches)
+-- σ año = añoMin (Coches × AñoMinimo)
+
+-- Marcas que fabrican coches y motos
+-- π marca (Coches) ∩ π marca (Motos)
+
+-- Vehículos no especializados
+-- VehiculosGenericos
+```
+
+**Versión 2: una relación por cada entidad**
+
+```
+-- Vehículos que son coches
+-- Vehículos ⨝ Coches
+
+-- Vehículos que son motos
+-- Vehículos ⨝ Motos
+
+-- Vehículos genéricos
+-- Vehículos - π vehículoId, marca, modelo, año (Vehículos ⨝ Coches) - π vehículoId, marca, modelo, año (Vehículos ⨝ Motos)
+
+-- Motos con cilindrada mayor a 800 cc
+-- π marca, modelo (σ cilindrada > 800 (Vehículos ⨝ Motos))
+
+-- Coches con transmisión automática
+-- σ tipoTransmisión = 'Automática' (Vehículos ⨝ Coches)
+
+-- Vehículos fabricados en 2023
+-- σ año = 2023 (Vehículos)
+
+-- Cilindrada promedio de las motos
+-- γ avg(cilindrada) → cilindradaMedia (Motos)
+
+-- Coche más antiguo
+-- CochesCompletos = Vehículos ⨝ Coches
+-- AñoMinimo = γ min(año) → añoMin (CochesCompletos)
+-- σ año = añoMin (CochesCompletos × AñoMinimo)
+
+-- Marcas que fabrican coches y motos
+-- π marca (Vehículos ⨝ Coches) ∩ π marca (Vehículos ⨝ Motos)
+
+-- Vehículos no especializados
+-- Vehículos - π vehículoId, marca, modelo, año (Vehículos ⨝ Coches) - π vehículoId, marca, modelo, año (Vehículos ⨝ Motos)
+```
 
 > [Versión PDF disponible](./index.pdf)

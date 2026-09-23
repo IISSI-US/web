@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/torneo-tenis-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/9d3aeff7ac8675cbeb0837bfd1c03da2)
+## Modelo Relacional
 ```mr-table
 -- Intensión
 Personas = { personaId, nombre, apellido, fechaNacimiento, nacionalidad }
@@ -302,6 +302,46 @@ Resultado = {
     (par1, 'Roland Garros 2025', 'Final'),
     (par2, 'Wimbledon 2025', 'Semifinal')
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/9d3aeff7ac8675cbeb0837bfd1c03da2)
+
+```
+-- Tenistas de nacionalidad española
+-- π nombre, apellido, ranking (σ nacionalidad = 'España' (Personas ⨝ Tenistas))
+
+-- Finales de Roland Garros 2025
+-- σ torneo = 'Roland Garros 2025' and ronda = 'Final' (Partidos)
+
+-- Árbitros con licencia ATP
+-- π nombre, apellido, licencia (σ licencia like 'ATP%' (Personas ⨝ Árbitros))
+
+-- Tenistas que ganaron algún partido en Wimbledon 2025
+-- GanadoresWimbledon = π ganadorId (σ torneo = 'Wimbledon 2025' (Partidos))
+-- π nombre, apellido (GanadoresWimbledon ⨝ ganadorId = personaId Personas)
+
+-- Sets con resultado 6-0
+-- σ resultado = '6-0' (Sets)
+
+-- Partidos con duración superior a 200 minutos
+-- π torneo, ronda, duración (σ duración > 200 (Partidos))
+
+-- Tenistas con ranking igual o mejor que 3
+-- π nombre, apellido, ranking (σ ranking <= 3 (Personas ⨝ Tenistas))
+
+-- Partidos arbitrados por árbitros de Reino Unido
+-- ArbitrosReinoUnido = π personaId (σ nacionalidad = 'Reino Unido' (Personas ⨝ Árbitros))
+-- π partidoId, torneo, fecha, ronda (ArbitrosReinoUnido ⨝ personaId = árbitroId Partidos)
+
+-- Número de sets ganados por cada tenista
+-- SetsGanados = γ ganadorId; count(setId) → numSets (Sets)
+-- π nombre, apellido, numSets (SetsGanados ⨝ ganadorId = personaId Personas)
+
+-- Partidos donde ambos tenistas tienen ranking igual o mejor que 3
+-- TenistasTop3 = π personaId (σ ranking <= 3 (Tenistas))
+-- T1 = ρ T1(tenista1Id) (TenistasTop3)
+-- T2 = ρ T2(tenista2Id) (TenistasTop3)
+-- π partidoId, torneo, ronda (Partidos ⨝ T1 ⨝ T2)
 ```
 
 > [Versión PDF disponible](./index.pdf)

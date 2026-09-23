@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/clase-asociacion-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/eba328f198486f984dd4b06d9de8aa67)
+## Modelo Relacional
 ```mr-table
 -- Intensión
 Estudiantes = { estudianteId, nombre, email, fechaNacimiento }
@@ -251,6 +251,50 @@ Resultado = { iid, eid, cid, fin, cal, est }
 Resultado = {
     (i8, e5, c1, 2023-08-15, 9.8, 'Completado')
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/eba328f198486f984dd4b06d9de8aa67)
+
+```
+-- Estudiantes inscritos en Programación en Java
+-- CursoJava = σ nombre = 'Programación en Java' (Cursos)
+-- EstudiantesJavaIds = π estudianteId (Inscripciones ⨝ CursoJava)
+-- EstudiantesJavaIds ⨝ Estudiantes
+
+-- Inscripciones completadas con calificación superior a 8
+-- σ estado = 'Completado' and calificacionFinal > 8.0 (Inscripciones)
+
+-- Estudiantes en cursos actualmente en curso
+-- EstudiantesEnCursoIds = π estudianteId (σ estado = 'En Curso' (Inscripciones))
+-- π nombre, email (EstudiantesEnCursoIds ⨝ Estudiantes)
+
+-- Cursos en los que está inscrita María González
+-- π cursoId, Cursos.nombre, codigo, creditos (σ Estudiantes.nombre = 'María González' (Estudiantes ⨝ Inscripciones ⨝ Cursos))
+
+-- Calificación promedio de los cursos completados
+-- γ avg(calificacionFinal) → calMedia (σ estado = 'Completado' (Inscripciones))
+
+-- Estudiantes que han completado más de dos cursos
+-- CursosCompletados = γ estudianteId; count(cursoId) → numCursos (σ estado = 'Completado' (Inscripciones))
+-- EstudiantesIds = π estudianteId (σ numCursos > 2 (CursosCompletados))
+-- EstudiantesIds ⨝ Estudiantes
+
+-- Curso con más inscripciones
+-- InscripcionesPorCurso = γ cursoId; count(inscripcionId) → numIns (Inscripciones)
+-- MaxInscripciones = γ max(numIns) → maxIns (InscripcionesPorCurso)
+-- CursoPopularId = π cursoId (σ numIns = maxIns (InscripcionesPorCurso × MaxInscripciones))
+-- CursoPopularId ⨝ Cursos
+
+-- Estudiantes nacidos en el año 2000
+-- σ fechaNacimiento >= date('2000-01-01') and fechaNacimiento < date('2001-01-01') (Estudiantes)
+
+-- Cursos sin inscripciones
+-- CursosConInscripcionId = π cursoId (Inscripciones)
+-- Cursos - (CursosConInscripcionId ⨝ Cursos)
+
+-- Inscripción con la calificación más alta
+-- CalificacionMaxima = γ max(calificacionFinal) → calMax (σ estado = 'Completado' (Inscripciones))
+-- σ calificacionFinal = calMax (Inscripciones × CalificacionMaxima)
 ```
 
 > [Versión PDF disponible](./index.pdf)

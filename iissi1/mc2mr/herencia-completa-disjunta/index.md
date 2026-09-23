@@ -11,7 +11,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-completa-disjunta-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/96b78f67ab21f756cce11a4c2839f663)
+## Modelo Relacional
 ```mr-table
 -- Intensión
 Empleados = { personaId, nombre, fechaNacimiento, numeroEmpleado, salario }
@@ -199,6 +199,42 @@ Resultado = {
   ('Carlos Ruiz', 'E002', 65000.0),
   ('David Torres', 'E004', 72000.0)
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/96b78f67ab21f756cce11a4c2839f663)
+
+```
+-- Todos los empleados
+-- Empleados
+
+-- Todos los estudiantes
+-- Estudiantes
+
+-- Todas las personas
+-- π personaId, nombre, fechaNacimiento (Empleados) ∪ π personaId, nombre, fechaNacimiento (Estudiantes)
+
+-- Empleados con salario mayor a 60000
+-- π nombre, numeroEmpleado, salario (σ salario > 60000 (Empleados))
+
+-- Estudiantes que ingresaron en 2023
+-- π nombre, numeroMatricula (σ añoIngreso = 2023 (Estudiantes))
+
+-- Personas nacidas después de 1990
+-- Personas = π nombre, fechaNacimiento (Empleados) ∪ π nombre, fechaNacimiento (Estudiantes)
+-- σ fechaNacimiento > date('1990-01-01') (Personas)
+
+-- Empleados más jóvenes que estudiantes
+-- σ Empleados.fechaNacimiento > Estudiantes.fechaNacimiento (Empleados × Estudiantes)
+
+-- Salario promedio de empleados
+-- γ avg(salario) → salarioMedio (Empleados)
+
+-- Número de estudiantes por año de ingreso
+-- γ añoIngreso; count(personaId) → total (Estudiantes)
+
+-- Empleados con salario superior al promedio
+-- SalarioPromedio = γ avg(salario) → salarioMedio (Empleados)
+-- π nombre, numeroEmpleado, salario (σ salario > salarioMedio (Empleados × SalarioPromedio))
 ```
 
 > [Versión PDF disponible](./index.pdf)

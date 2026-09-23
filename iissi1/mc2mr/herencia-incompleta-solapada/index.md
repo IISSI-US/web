@@ -13,7 +13,7 @@ pdf_version: true
 ## Modelo Conceptual
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/herencia-incompleta-solapada-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/66dc00f863772156d8b1ec14c7a4c23d)
+## Modelo Relacional
 
 ```mr-table
 RecursosHumanos = { recursoId, nombre, email, fechaContratacion, esGerente, tamañoEquipo, presupuesto, esIngeniero, especialidad, añosExperiencia }
@@ -213,6 +213,43 @@ Resultado = {
     ('Mobile'),
     ('Security')
 }
+```
+
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/66dc00f863772156d8b1ec14c7a4c23d)
+
+```
+-- Recursos humanos que son gerentes
+-- Gerentes = σ esGerente = true (RecursosHumanos)
+-- Gerentes
+
+-- Recursos humanos que son ingenieros
+-- Ingenieros = σ esIngeniero = true (RecursosHumanos)
+-- Ingenieros
+
+-- Recursos que son tanto gerentes como ingenieros
+-- Gerentes ∩ Ingenieros
+
+-- Ingenieros con más de cinco años de experiencia
+-- π nombre, especialidad (σ añosExperiencia > 5 (Ingenieros))
+
+-- Gerentes con presupuesto superior a 300000
+-- σ presupuesto > 300000 (Gerentes)
+
+-- Recursos humanos contratados en 2021
+-- σ fechaContratacion >= date('2021-01-01') and fechaContratacion < date('2022-01-01') (RecursosHumanos)
+
+-- Presupuesto promedio de los gerentes
+-- γ avg(presupuesto) → presupuestoMedio (Gerentes)
+
+-- Gerente con el equipo más grande
+-- EquipoMaximo = γ max(tamañoEquipo) → tamMax (Gerentes)
+-- σ tamañoEquipo = tamMax (Gerentes × EquipoMaximo)
+
+-- Recursos humanos sin especialización
+-- σ esGerente = false and esIngeniero = false (RecursosHumanos)
+
+-- Especialidades únicas de ingenieros
+-- π especialidad (Ingenieros)
 ```
 
 > [Versión PDF disponible](./index.pdf)
