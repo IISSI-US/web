@@ -11,7 +11,7 @@ toc_sticky: true
 
 ![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociaciones-1n-clases.png' | relative_url }})
 
-## Modelo Relacional. [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/ed676104ddf97da32072088f817dd626)
+## Modelo Relacional.
 
 La transformación UML → Relacional genera tres relaciones con claves primarias y foráneas:
 
@@ -218,6 +218,36 @@ Resultado = { uid, mejor }
 Resultado = {
   (u1, 9.5), (u2, 9.1)
 }
+```
+### [Relax](https://dbis-uibk.github.io/relax/calc/gist/ed676104ddf97da32072088f817dd626)
+
+```
+-- Estudiantes con edad mayor a 20 años
+-- σ edad>20 (Estudiantes)Centros con presupuesto superior a 5 millones
+
+-- Nombres y edades de estudiantes
+-- π nombreEstudiante,edad (Estudiantes)
+
+-- Universidades fundadas después del año 1940
+
+-- Estudiantes con promedio mayor o igual a 9.0
+-- σ promedio ≥ 9.0 (Estudiantes)
+
+-- Centros de la Universidad Nacional (uid = u1)
+-- σ universidadId='u1' (Centros)
+
+-- Estudiantes con información de sus centros
+-- Estudiantes ⨝ Centros
+
+-- Número de estudiantes por centro
+-- γ centroId; count(estudianteId) → total (Estudiantes)
+
+-- Promedio de calificaciones por centro
+-- γ centroId; avg(promedio) → media (Estudiantes)
+
+-- Mejor promedio por universidad
+-- ECU = Estudiantes ⨝ Centros ⨝ Universidades
+-- γ universidadId; max(promedio) → mejor (ECU)
 ```
 
 > [Versión PDF disponible](./index.pdf)
