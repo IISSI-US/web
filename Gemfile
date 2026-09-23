@@ -11,3 +11,6 @@ gem "faraday-retry", group: :jekyll_plugins
 
 # Nota: usamos Minimal Mistakes como remote_theme en _config.yml
 
+gem "bigdecimal"
+gem "csv"
+gem "logger"
