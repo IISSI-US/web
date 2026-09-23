@@ -339,9 +339,11 @@ Resultado = {
 
 -- Partidos donde ambos tenistas tienen ranking igual o mejor que 3
 -- TenistasTop3 = π personaId (σ ranking <= 3 (Tenistas))
--- T1 = ρ T1(tenista1Id) (TenistasTop3)
--- T2 = ρ T2(tenista2Id) (TenistasTop3)
--- π partidoId, torneo, ronda (Partidos ⨝ T1 ⨝ T2)
+
+-- T1 = ρ tenista1Id←personaId (TenistasTop3)
+-- T2 = ρ tenista2Id←personaId (TenistasTop3)
+
+-- π partidoId, torneo, ronda (Partidos ⋈ T1 ⋈ T2)
 ```
 
 > [Versión PDF disponible](./index.pdf)
