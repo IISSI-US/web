@@ -9,8 +9,8 @@ toc_icon: "fa-solid fa-list-ul"
 toc_sticky: true
 pdf_version: true
 ---
-> [Versión PDF disponible](./index.pdf)
 
+> [Versión PDF disponible](./index.pdf)
 
 ## Objetivo
 
@@ -121,7 +121,7 @@ A continuación, se reformulan los retos propuestos ajustándose al **esquema re
 
 > Las siguientes definiciones de endpoints en `JSON` son orientativas y deben ser creados desde `/admin/endpoints/new`. Si se desea se puede añadir el endpoint directamente desde su definición serializada (en JSON) haciendo un test `POST` al endpoint interno `/api/internal/admin/endpoint` o añadiéndolo al directorio `/endpoints` del proyecto (requiere reiniciar el runtime).
 
-> Para poder hacer los tests relacionados con obtener información del usuario es necesario realizar modificaciones a la base de datos, entre ellas añadir la siguiente relación:
+> Para poder hacer los tests relacionados con el uso de `|user_id|` es necesario realizar modificaciones a la base de datos, entre ellas añadir la siguiente relación:
 >
 > ```sql
 > ALTER TABLE people
@@ -134,8 +134,8 @@ A continuación, se reformulan los retos propuestos ajustándose al **esquema re
 
 Es fundamental distinguir dos tipos de parámetros:
 
-- **Parámetros de petición** (`{nombre}`): proceden directamente de la petición HTTP (segmentos de la ruta, _query params_ o campos del cuerpo JSON) y se referencian en la consulta SQL entre llaves.
-- **Parámetros inyectados en tiempo de ejecución** (`|nombre|`): los proporciona el propio framework a partir del contexto de la petición. El caso paradigmático es `|user_id|`, que Silence inyecta automáticamente a partir del token de autorización del usuario autenticado.
+- **Parámetros de petición** (`{param}`): proceden directamente de la petición HTTP (segmentos de la ruta, _query params_ o campos del cuerpo JSON) y se referencian en la consulta SQL entre llaves.
+- **Parámetros inyectados en tiempo de ejecución** (`|param|`): los proporciona el propio framework a partir del contexto de la petición. El caso paradigmático es `|user_id|`, que Silence inyecta automáticamente a partir del token de autorización del usuario autenticado.
 
 Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones inválidas devuelven **500 Internal Server Error**.
 
@@ -583,4 +583,4 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ### Notas
 
-- Para pruebas autenticadas, debe existir una prueba de Login previa cuyo token Silence reutiliza automáticamente.
+- Para pruebas autenticadas, se debe de haber realizado una prueba de login previa cuyo token reutiliza automáticamente.
