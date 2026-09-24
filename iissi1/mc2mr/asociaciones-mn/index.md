@@ -40,31 +40,31 @@ LibrosCategorías = { librosCategoríasId, libroId, categoríaId }
 Autores = {
     (a1, 'Gabriel García Márquez', 'Colombiana'),
     (a2, 'Mario Vargas Llosa', 'Peruana'),
-    (a3, 'Jorge Luis Borges', 'Argentina'),
-    (a4, 'Adolfo Bioy Casares', 'Argentina'),
+    (a3, 'Antonio Machado', 'Española'),
+    (a4, 'Manuel Machado', 'Española'),
     (a5, 'Isabel Allende', 'Chilena'),
     (a6, 'Octavio Paz', 'Mexicana'),
     (a7, 'Carlos Fuentes', 'Mexicana'),
-    (a8, 'Julio Cortázar', 'Argentina')
+    (a8, 'Rosa Montero', 'Española')
 }
 
 Libros = {
     (l1, '978-84-376-0494-7', 'Cien años de soledad', 1967),
     (l2, '978-84-204-6625-8', 'La ciudad y los perros', 1963),
-    (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940),
-    (l4, '978-84-204-8321-7', 'Cuentos Breves y Extraordinarios', 1955),
+    (l3, '978-84-206-5102-9', 'La Lola se va a los puertos', 1929),
+    (l4, '978-84-206-5103-6', 'Las adelfas', 1928),
     (l5, '978-84-204-9876-2', 'La casa de los espíritus', 1982),
-    (l6, '978-84-239-1234-8', 'Laberinto de la Soledad', 1950),
+    (l6, '978-84-239-1234-8', 'El laberinto de la soledad', 1950),
     (l7, '978-84-204-5432-1', 'La muerte de Artemio Cruz', 1962),
-    (l8, '978-84-376-8765-4', 'El llano en llamas', 1953),
-    (l9, '978-84-204-2468-9', 'Rayuela', 1963)
+    (l8, '978-84-322-1542-1', 'La ridícula idea de no volver a verte', 2013),
+    (l9, '978-84-204-4321-8', 'La hija del caníbal', 1997)
 }
 
 Categorías = {
     (c1, 'Ficción', 'Narrativa de ficción'),
     (c2, 'Realismo Mágico', 'Corriente literaria'),
     (c3, 'Clásicos', 'Literatura clásica'),
-    (c4, 'Fantasía', 'Literatura fantástica'),
+    (c4, 'Teatro', 'Obras dramáticas'),
     (c5, 'Ensayo', 'Literatura ensayística')
 }
 
@@ -78,9 +78,8 @@ AutoresLibros = {
     (al7, a5, l5, 1),
     (al8, a6, l6, 1),
     (al9, a7, l7, 1),
-    (al10, a1, l8, 1),
-    (al11, a8, l9, 1),
-    (al12, a6, l8, 2)
+    (al10, a8, l8, 1),
+    (al11, a8, l9, 1)
 }
 
 LibrosCategorías = {
@@ -92,18 +91,17 @@ LibrosCategorías = {
     (lc6, l3, c1),
     (lc7, l3, c4),
     (lc8, l3, c3),
-    (lc9, l4, c1),
-    (lc10, l4, c4),
+    (lc9, l4, c4),
+    (lc10, l4, c3),
     (lc11, l5, c1),
     (lc12, l5, c2),
     (lc13, l6, c5),
     (lc14, l6, c3),
     (lc15, l7, c1),
     (lc16, l7, c3),
-    (lc17, l8, c1),
-    (lc18, l8, c5),
-    (lc19, l9, c1),
-    (lc20, l9, c3)
+    (lc17, l8, c5),
+    (lc18, l9, c1),
+    (lc19, l9, c5)
 }
 ```
 
@@ -119,11 +117,11 @@ LibrosCategorías = {
 
 **4.** Obtener todas las categorías de 'Cien años de soledad'
 
-**5.** Obtener autores argentinos y sus libros
+**5.** Obtener autores españoles y sus libros
 
 **6.** Obtener libros que pertenecen a más de 2 categorías
 
-**7.** Obtener colaboraciones entre Jorge Luis Borges y Adolfo Bioy Casares
+**7.** Obtener colaboraciones entre Antonio Machado y Manuel Machado
 
 **8.** Obtener libros de la categoría 'Realismo Mágico'
 
@@ -153,18 +151,17 @@ $$\Proj{tit, nom, ord}(L \NatJoin AL \NatJoin A)$$
 Resultado = { tit, nom, ord }
 
 Resultado = {
-    ('Antología de la Literatura Fantástica', 'Jorge Luis Borges', 1),
-    ('Antología de la Literatura Fantástica', 'Adolfo Bioy Casares', 2),
     ('Cien años de soledad', 'Gabriel García Márquez', 1),
-    ('Cuentos Breves y Extraordinarios', 'Jorge Luis Borges', 1),
-    ('Cuentos Breves y Extraordinarios', 'Adolfo Bioy Casares', 2),
-    ('El llano en llamas', 'Gabriel García Márquez', 1),
-    ('El llano en llamas', 'Octavio Paz', 2),
+    ('El laberinto de la soledad', 'Octavio Paz', 1),
     ('La casa de los espíritus', 'Isabel Allende', 1),
     ('La ciudad y los perros', 'Mario Vargas Llosa', 1),
+    ('La hija del caníbal', 'Rosa Montero', 1),
+    ('La Lola se va a los puertos', 'Antonio Machado', 1),
+    ('La Lola se va a los puertos', 'Manuel Machado', 2),
     ('La muerte de Artemio Cruz', 'Carlos Fuentes', 1),
-    ('Laberinto de la Soledad', 'Octavio Paz', 1),
-    ('Rayuela', 'Julio Cortázar', 1)
+    ('La ridícula idea de no volver a verte', 'Rosa Montero', 1),
+    ('Las adelfas', 'Antonio Machado', 1),
+    ('Las adelfas', 'Manuel Machado', 2)
 }
 ```
 
@@ -183,7 +180,7 @@ LibrosMultiples = {
     (l5, 1),
     (l6, 1),
     (l7, 1),
-    (l8, 2),
+    (l8, 1),
     (l9, 1)
 }
 ```
@@ -195,8 +192,7 @@ LibrosColaborativosIDS = { lid }
 
 LibrosColaborativosIDS = {
     (l3),
-    (l4),
-    (l8)
+    (l4)
 }
 ```
 
@@ -206,9 +202,8 @@ $$LibrosColaborativosIDS \NatJoin L$$
 Resultado = { lid, isbn, tit, año }
 
 Resultado = {
-    (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940),
-    (l4, '978-84-204-8321-7', 'Cuentos Breves y Extraordinarios', 1955),
-    (l8, '978-84-376-8765-4', 'El llano en llamas', 1953)
+    (l3, '978-84-206-5102-9', 'La Lola se va a los puertos', 1929),
+    (l4, '978-84-206-5103-6', 'Las adelfas', 1928)
 }
 ```
 
@@ -224,13 +219,13 @@ Resultado = { tit, nom }
 Resultado = {
     ('Cien años de soledad', 'Gabriel García Márquez'),
     ('La ciudad y los perros', 'Mario Vargas Llosa'),
-    ('Antología de la Literatura Fantástica', 'Jorge Luis Borges'),
-    ('Cuentos Breves y Extraordinarios', 'Jorge Luis Borges'),
+    ('La Lola se va a los puertos', 'Antonio Machado'),
+    ('Las adelfas', 'Antonio Machado'),
     ('La casa de los espíritus', 'Isabel Allende'),
-    ('Laberinto de la Soledad', 'Octavio Paz'),
+    ('El laberinto de la soledad', 'Octavio Paz'),
     ('La muerte de Artemio Cruz', 'Carlos Fuentes'),
-    ('El llano en llamas', 'Gabriel García Márquez'),
-    ('Rayuela', 'Julio Cortázar')
+    ('La ridícula idea de no volver a verte', 'Rosa Montero'),
+    ('La hija del caníbal', 'Rosa Montero')
 }
 ```
 
@@ -252,20 +247,22 @@ Resultado = {
 }
 ```
 
-**5. Obtener autores argentinos y sus libros**
+**5. Obtener autores españoles y sus libros**
 
-$$AutoresArgentinos \leftarrow \Sel{nac = 'Argentina'}(A)$$
+$$AutoresEspanoles \leftarrow \Sel{nac = 'Española'}(A)$$
 
-$$\Proj{nom, tit}(AutoresArgentinos \NatJoin AL \NatJoin L)$$
+$$\Proj{nom, tit}(AutoresEspanoles \NatJoin AL \NatJoin L)$$
 
 ```mr-table
 Resultado = { nom, tit }
 
 Resultado = {
-    ('Jorge Luis Borges', 'Antología de la Literatura Fantástica'),
-    ('Adolfo Bioy Casares', 'Antología de la Literatura Fantástica'),
-    ('Jorge Luis Borges', 'Cuentos Breves y Extraordinarios'),
-    ('Adolfo Bioy Casares', 'Cuentos Breves y Extraordinarios')
+    ('Antonio Machado', 'La Lola se va a los puertos'),
+    ('Manuel Machado', 'La Lola se va a los puertos'),
+    ('Antonio Machado', 'Las adelfas'),
+    ('Manuel Machado', 'Las adelfas'),
+    ('Rosa Montero', 'La ridícula idea de no volver a verte'),
+    ('Rosa Montero', 'La hija del caníbal')
 }
 ```
 
@@ -282,21 +279,21 @@ Resultado = { lid, isbn, tit, año }
 
 Resultado = {
     (l1, '978-84-376-0494-7', 'Cien años de soledad', 1967),
-    (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940)
+    (l3, '978-84-206-5102-9', 'La Lola se va a los puertos', 1929)
 }
 ```
 
-**7. Obtener colaboraciones entre Jorge Luis Borges y Adolfo Bioy Casares**
+**7. Obtener colaboraciones entre Antonio Machado y Manuel Machado**
 
-$$Borges \leftarrow \Sel{nom = \text{'Jorge Luis Borges'}}(A)$$
+$$Antonio \leftarrow \Sel{nom = \text{'Antonio Machado'}}(A)$$
 
-$$Bioy \leftarrow \Sel{nom = \text{'Adolfo Bioy Casares'}}(A)$$
+$$Manuel \leftarrow \Sel{nom = \text{'Manuel Machado'}}(A)$$
 
-$$LibrosBorgesIDS \leftarrow \Proj{lid}(Borges \NatJoin AL)$$
+$$LibrosAntonioIDS \leftarrow \Proj{lid}(Antonio \NatJoin AL)$$
 
-$$LibrosBioyIDS \leftarrow \Proj{lid}(Bioy \NatJoin AL)$$
+$$LibrosManuelIDS \leftarrow \Proj{lid}(Manuel \NatJoin AL)$$
 
-$$ColaboracionesIDS \leftarrow LibrosBorgesIDS \Inter LibrosBioyIDS$$
+$$ColaboracionesIDS \leftarrow LibrosAntonioIDS \Inter LibrosManuelIDS$$
 
 $$ColaboracionesIDS \NatJoin L$$
 
@@ -304,8 +301,8 @@ $$ColaboracionesIDS \NatJoin L$$
 Resultado = { lid, isbn, tit, año }
 
 Resultado = {
-    (l3, '978-84-239-9876-5', 'Antología de la Literatura Fantástica', 1940),
-    (l4, '978-84-204-8321-7', 'Cuentos Breves y Extraordinarios', 1955)
+    (l3, '978-84-206-5102-9', 'La Lola se va a los puertos', 1929),
+    (l4, '978-84-206-5103-6', 'Las adelfas', 1928)
 }
 ```
 
@@ -334,14 +331,14 @@ $$\Group{aid,nom,\rho_{numLibros}(COUNT(*))}{aid,nom}(A \NatJoin AL)$$
 Resultado = { aid, nom, numLibros }
 
 Resultado = {
-    (a1, 'Gabriel García Márquez', 2),
+    (a1, 'Gabriel García Márquez', 1),
     (a2, 'Mario Vargas Llosa', 1),
-    (a3, 'Jorge Luis Borges', 2),
-    (a4, 'Adolfo Bioy Casares', 2),
+    (a3, 'Antonio Machado', 2),
+    (a4, 'Manuel Machado', 2),
     (a5, 'Isabel Allende', 1),
-    (a6, 'Octavio Paz', 2),
+    (a6, 'Octavio Paz', 1),
     (a7, 'Carlos Fuentes', 1),
-    (a8, 'Julio Cortázar', 1)
+    (a8, 'Rosa Montero', 2)
 }
 ```
 
@@ -359,8 +356,7 @@ $$AutoresVersatilesIDS \NatJoin A$$
 Resultado = { aid, nom, nac }
 
 Resultado = {
-    (a1, 'Gabriel García Márquez', 'Colombiana'),
-    (a6, 'Octavio Paz', 'Mexicana')
+    (a8, 'Rosa Montero', 'Española')
 }
 ```
 
@@ -384,19 +380,19 @@ Resultado = {
 -- CategoriasLibroIds = π categoríaId (CienAños ⨝ LibrosCategorías)
 -- CategoriasLibroIds ⨝ Categorías
 
--- Autores argentinos y sus libros
--- AutoresArgentinos = σ nacionalidad = 'Argentina' (Autores)
--- π nombre, titulo (AutoresArgentinos ⨝ AutoresLibros ⨝ Libros)
+-- Autores españoles y sus libros
+-- AutoresEspanoles = σ nacionalidad = 'Española' (Autores)
+-- π nombre, titulo (AutoresEspanoles ⨝ AutoresLibros ⨝ Libros)
 
 -- Libros que pertenecen a más de dos categorías
 -- CategoriasPorLibro = γ libroId; count(categoríaId) → numCategorias (LibrosCategorías)
 -- LibrosMulticatIds = π libroId (σ numCategorias > 2 (CategoriasPorLibro))
 -- LibrosMulticatIds ⨝ Libros
 
--- Colaboraciones entre Borges y Bioy Casares
--- Borges = π libroId (σ nombre = 'Jorge Luis Borges' (Autores) ⨝ AutoresLibros)
--- Bioy = π libroId (σ nombre = 'Adolfo Bioy Casares' (Autores) ⨝ AutoresLibros)
--- (Borges ∩ Bioy) ⨝ Libros
+-- Colaboraciones entre Antonio Machado y Manuel Machado
+-- Antonio = π libroId (σ nombre = 'Antonio Machado' (Autores) ⨝ AutoresLibros)
+-- Manuel = π libroId (σ nombre = 'Manuel Machado' (Autores) ⨝ AutoresLibros)
+-- (Antonio ∩ Manuel) ⨝ Libros
 
 -- Libros de Realismo Mágico
 -- RealismoMagico = π libroId (σ nombre = 'Realismo Mágico' (Categorías) ⨝ LibrosCategorías)
