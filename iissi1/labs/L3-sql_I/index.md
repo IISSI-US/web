@@ -81,10 +81,6 @@ USE GradesDB;
 
 La consulta de datos es la operación fundamental en bases de datos. El resultado de una consulta es siempre una tabla con filas y columnas determinadas por la consulta. La estructura básica de una consulta es:
 
-## SELECT: La consulta básica
-
-La consulta de datos es la operación fundamental en bases de datos. El resultado de una consulta es siempre una tabla con filas y columnas determinadas por la consulta. La estructura básica de una consulta es:
-
 ```sql
 SELECT columnas FROM tabla WHERE condiciones;
 ```
