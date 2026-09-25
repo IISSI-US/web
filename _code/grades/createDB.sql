@@ -28,7 +28,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Tabla: people
 -- ============================================================================
 CREATE TABLE people (
-    person_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    person_id INT AUTO_INCREMENT,
     dni CHAR(9) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(150) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE people (
 -- Tabla: professors
 -- ============================================================================
 CREATE TABLE professors (
-    professor_id INT UNSIGNED NOT NULL,
+    professor_id INT,
     category VARCHAR(30) NOT NULL,
     PRIMARY KEY (professor_id),
     FOREIGN KEY (professor_id) REFERENCES people(person_id)
@@ -51,7 +51,7 @@ CREATE TABLE professors (
 -- Tabla: students
 -- ============================================================================
 CREATE TABLE students (
-    student_id INT UNSIGNED NOT NULL,
+    student_id INT,
     access_method VARCHAR(20) NOT NULL,
     PRIMARY KEY (student_id),
     FOREIGN KEY (student_id) REFERENCES people(person_id)
@@ -61,7 +61,7 @@ CREATE TABLE students (
 -- Tabla: degrees
 -- ============================================================================
 CREATE TABLE degrees (
-    degree_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    degree_id INT AUTO_INCREMENT,
     degree_name VARCHAR(80) NOT NULL,
     duration_years TINYINT NOT NULL,
     PRIMARY KEY (degree_id)
@@ -71,8 +71,8 @@ CREATE TABLE degrees (
 -- Tabla: subjects
 -- ============================================================================
 CREATE TABLE subjects (
-    subject_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    degree_id INT UNSIGNED NOT NULL,
+    subject_id INT AUTO_INCREMENT,
+    degree_id INT NOT NULL,
     subject_name VARCHAR(120) NOT NULL,
     acronym VARCHAR(12) NOT NULL,
     credits TINYINT NOT NULL,
@@ -86,8 +86,8 @@ CREATE TABLE subjects (
 -- Tabla: subject_enrollments
 -- ============================================================================
 CREATE TABLE subject_enrollments (
-    student_id INT UNSIGNED NOT NULL,
-    subject_id INT UNSIGNED NOT NULL,
+    student_id INT,
+    subject_id INT,
     PRIMARY KEY (student_id, subject_id),
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
@@ -97,8 +97,8 @@ CREATE TABLE subject_enrollments (
 -- Tabla: groups
 -- ============================================================================
 CREATE TABLE groups (
-    group_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    subject_id INT UNSIGNED NOT NULL,
+    group_id INT AUTO_INCREMENT,
+    subject_id INT NOT NULL,
     group_name VARCHAR(40) NOT NULL,
     activity VARCHAR(15) NOT NULL,
     academic_year YEAR NOT NULL,
@@ -110,8 +110,8 @@ CREATE TABLE groups (
 -- Tabla: group_enrollments
 -- ============================================================================
 CREATE TABLE group_enrollments (
-    student_id INT UNSIGNED NOT NULL,
-    group_id INT UNSIGNED NOT NULL,
+    student_id INT,
+    group_id INT,
     PRIMARY KEY (student_id, group_id),
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (group_id) REFERENCES groups(group_id)
@@ -121,8 +121,8 @@ CREATE TABLE group_enrollments (
 -- Tabla: teaching_loads
 -- ============================================================================
 CREATE TABLE teaching_loads (
-    professor_id INT UNSIGNED NOT NULL,
-    group_id INT UNSIGNED NOT NULL,
+    professor_id INT,
+    group_id INT,
     credits DECIMAL(4,1) NOT NULL,
     PRIMARY KEY (professor_id, group_id),
     FOREIGN KEY (professor_id) REFERENCES professors(professor_id),
@@ -133,9 +133,9 @@ CREATE TABLE teaching_loads (
 -- Tabla: grades
 -- ============================================================================
 CREATE TABLE grades (
-    grade_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    student_id INT UNSIGNED NOT NULL,
-    group_id INT UNSIGNED NOT NULL,
+    grade_id INT AUTO_INCREMENT,
+    student_id INT NOT NULL,
+    group_id INT NOT NULL,
     grade_value DECIMAL(4,2) NOT NULL,
     exam_call VARCHAR(20) NOT NULL,
     with_honors BOOLEAN NOT NULL DEFAULT 0,

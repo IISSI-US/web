@@ -49,6 +49,8 @@ La gestión de endpoints se realiza a través de la interfaz administrativa. En 
 
 Para crear un nuevo endpoint, se selecciona la opción "Create new endpoint". El sistema permite definir endpoints que surtirán efecto inmediatamente sin necesidad de reiniciar el servidor.
 
+> _Nota: se pueden concatenar queries SQL usando `;` (e.g.: al crear un nuevo alumno se crea un nuevo usuario Silence con un rol asociado)._
+
 ![Creación de endpoint]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/endpoint_creation.png' | relative_url }})
 
 > Ejemplos:
@@ -86,7 +88,13 @@ Posteriormente, en la sección "Tests", se podrá acceder a un listado de todas 
 
 ### 4. Sistema de Usuarios y Roles
 
-La administración de usuarios se gestiona desde la sección "Users". En esta vista se muestra un listado de los usuarios registrados, detallando su ID, nombre, correo electrónico, rol y contraseña (debidamente ofuscada). Los roles permiten segmentar los permisos, distinguiendo entre administradores (`admin`), mantenedores (`maintain`), probadores (`tester`) o usuarios sin rol asignado.
+La administración de usuarios se gestiona desde la sección "Users". En esta vista se muestra un listado de los usuarios registrados, detallando su ID, nombre, correo electrónico, rol y contraseña (debidamente ofuscada). Los roles permiten segmentar los permisos, distinguiendo entre administradores (`admin`), mantenedores (`maintain`), probadores (`tester`) o usuarios sin rol asignado. En este contexto, en `GradesDB` usaremos los roles: `admin`, `profesor`, `alumno`.
+
+> También es posible añadir roles directamente desde _HeidiSQL_. Conéctese a la base de datos `silence`, y ejecute el siguiente query (reemplazando `user_id` por el id de usuario que se ha creado anteriormente y `role_name` por su rol):
+>
+> ```sql
+> INSERT INTO silence_roles(user_id, role) VALUES (user_id, 'profesor');
+> ```
 
 ![Lista de usuarios]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/users_list.png' | relative_url }})
 
@@ -102,22 +110,20 @@ Finalmente, la interfaz de Silence cuenta con una consola integrada en la parte 
 
 ![Consola]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/console.png' | relative_url }})
 
-## Retos de Generación de Endpoints y Pruebas en Silence
+## Ejercicios de Generación de Endpoints y Pruebas en Silence
 
-A continuación, se proponen una serie de retos progresivos cuyo objetivo es afianzar el dominio de Silence para la definición de endpoints personalizados, la construcción de consultas SQL con JOINs y agregaciones, y la elaboración de pruebas de aceptación coherentes con las reglas de negocio del esquema `GradesDB`.
+A continuación, se proponen una serie de Ejercicios progresivos cuyo objetivo es afianzar el dominio de Silence para la definición de endpoints personalizados, la construcción de consultas SQL con JOINs y agregaciones, y la elaboración de pruebas de aceptación coherentes con las reglas de negocio del esquema `GradesDB`.
 
 Es fundamental distinguir dos tipos de parámetros:
 
 - Parámetros de petición (`{param_id}`): proceden directamente de la petición HTTP (segmentos de la ruta, query params o campos del cuerpo JSON) y se referencian en la consulta SQL entre llaves.
 - Parámetros inyectados en tiempo de ejecución (`|param_id|`): los proporciona el propio framework a partir del contexto de la petición. El caso paradigmático es `|user_id|`, que Silence inyecta automáticamente a partir del token de autorización del usuario autenticado.
 
-Cada reto incluye: el enunciado, la definición del endpoint en formato JSON, la solución SQL propuesta y la suite de pruebas asociada. Recuérdese que, en el entorno actual de Silence, las operaciones exitosas devuelven **200 OK** y las operaciones inválidas devuelven **500 Internal Server Error**.
+Cada Ejercicio incluye: el enunciado, la definición del endpoint en formato JSON, la solución SQL propuesta y la suite de pruebas asociada. Recuérdese que, en el entorno actual de Silence, las operaciones exitosas devuelven **200 OK** y las operaciones inválidas devuelven **500 Internal Server Error**.
 
 ---
 
-# Retos de generación de endpoints y pruebas
-
-A continuación, se reformulan los retos propuestos ajustándose al **esquema real de definición de endpoints** del runtime de Silence.
+# Ejercicios de generación de endpoints y pruebas
 
 > Las siguientes definiciones de endpoints en `JSON` son orientativas y deben ser creados desde `/admin/endpoints/new`. Si se desea se puede añadir el endpoint directamente desde su definición serializada (en JSON) haciendo un test `POST` al endpoint interno `/api/internal/admin/endpoint` o añadiéndolo al directorio `/endpoints` del proyecto (requiere reiniciar el runtime).
 
@@ -130,9 +136,9 @@ A continuación, se reformulan los retos propuestos ajustándose al **esquema re
 >   ON DELETE CASCADE ON UPDATE CASCADE;
 > ```
 >
-> Asegúrese de que `silence_users` tiene exactamente las mismas `PRIMARY KEY`s que `people`.
+> Asegúrese de que `silence_users` tiene exactamente el mismo tipo de `PRIMARY KEY`s que `people` (`INT UNSIGNED`).
 
-Es fundamental distinguir dos tipos de parámetros:
+Es fundamental distinguir entre dos tipos de parámetros:
 
 - **Parámetros de petición** (`{param}`): proceden directamente de la petición HTTP (segmentos de la ruta, _query params_ o campos del cuerpo JSON) y se referencian en la consulta SQL entre llaves.
 - **Parámetros inyectados en tiempo de ejecución** (`|param|`): los proporciona el propio framework a partir del contexto de la petición. El caso paradigmático es `|user_id|`, que Silence inyecta automáticamente a partir del token de autorización del usuario autenticado.
@@ -141,7 +147,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 1: Asignaturas de un Grado
+## Ejercicio 1: Asignaturas de un Grado
 
 **Enunciado.** Diseñar un endpoint público que, dado el identificador de un grado (parámetro de ruta), devuelva todas sus asignaturas.
 
@@ -176,7 +182,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 2: Alumnos Matriculados en una Asignatura
+## Ejercicio 2: Alumnos Matriculados en una Asignatura
 
 **Enunciado.** Construir un endpoint público que, dada una asignatura, devuelva los datos personales de los alumnos matriculados en ella.
 
@@ -210,7 +216,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 3: Nota Media de una Asignatura
+## Ejercicio 3: Nota Media de una Asignatura
 
 **Enunciado.** Implementar un endpoint público que devuelva la nota media de todas las calificaciones de una asignatura concreta.
 
@@ -244,7 +250,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 4: Alumnos con Matrícula de Honor
+## Ejercicio 4: Alumnos con Matrícula de Honor
 
 **Enunciado.** Crear un endpoint público que devuelva todos los alumnos con matrícula de honor, incluyendo el nombre de la asignatura y la nota.
 
@@ -277,7 +283,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 5: Carga Docente por Profesor
+## Ejercicio 5: Carga Docente por Profesor
 
 **Enunciado.** Diseñar un endpoint público que devuelva, por profesor, la suma total de créditos impartidos, ordenado de mayor a menor.
 
@@ -310,7 +316,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 6: Grupos de una Asignatura en un Año Académico
+## Ejercicio 6: Grupos de una Asignatura en un Año Académico
 
 **Enunciado.** Implementar un endpoint público que combine el identificador de asignatura (parámetro de ruta) y el año académico (_query parameter_).
 
@@ -346,7 +352,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 7: Búsqueda de Alumnos por Apellido
+## Ejercicio 7: Búsqueda de Alumnos por Apellido
 
 **Enunciado.** Definir un endpoint público que permita buscar alumnos cuyo apellido contenga una subcadena recibida como _query parameter_.
 
@@ -382,7 +388,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 8: Alumnos con más de N Asignaturas Matriculadas
+## Ejercicio 8: Alumnos con más de N Asignaturas Matriculadas
 
 **Enunciado.** Crear un endpoint público que devuelva los alumnos matriculados en más de N asignaturas, con N recibido como _query parameter_.
 
@@ -418,7 +424,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 9: Crear Nota con Validación de Reglas de Negocio
+## Ejercicio 9: Crear Nota con Validación de Reglas de Negocio
 
 **Enunciado.** Definir un endpoint para crear notas que respete las reglas `RN01`, `RN02`, `RN05`, `RN08`, `RN11` y `RN18`, requiriendo autenticación. Los campos del cuerpo (`student_id`, `group_id`, `grade_value`, `exam_call`, `with_honors`) se referencian entre llaves.
 
@@ -447,7 +453,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
         },
         "description": "Crea una nota aplicando todas las reglas de negocio.",
         "require_auth": true,
-        "allowed_roles": ["admin", "maintain"]
+        "allowed_roles": ["admin", "profesor"]
     }
 ]
 ```
@@ -465,7 +471,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 10 (Avanzado): Mis Calificaciones (uso de `|user_id|`)
+## Ejercicio 10 (Avanzado): Mis Calificaciones (uso de `|user_id|`)
 
 **Enunciado.** Implementar un endpoint autenticado que devuelva **las calificaciones del propio usuario autenticado**, sin recibir su identificador por parámetro. Silence inyecta el identificador del usuario autenticado en la variable `|user_id|`, disponible en la consulta SQL. Este endpoint sólo requiere que el usuario esté autenticado, sin restricción adicional de rol.
 
@@ -486,8 +492,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
             ]
         },
         "description": "Obtiene las calificaciones del usuario autenticado.",
-        "require_auth": true,
-        "allowed_roles": ["*"]
+        "require_auth": true
     }
 ]
 ```
@@ -502,9 +507,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 11 (Avanzado): Matriculación con Restricciones de Rol
+## Ejercicio 11 (Avanzado): Matriculación con Restricciones de Rol
 
-**Enunciado.** Implementar un endpoint `POST /students/{studentId}/enroll` que matricule al alumno en una asignatura. El identificador del alumno se recibe como parámetro de ruta (`{studentId}`) y el de la asignatura en el cuerpo (`{subject_id}`). El endpoint exige autenticación y sólo está disponible para `admin` y `maintain`.
+**Enunciado.** Implementar un endpoint `POST /students/{studentId}/enroll` que matricule al alumno en una asignatura. El identificador del alumno se recibe como parámetro de ruta (`{studentId}`) y el de la asignatura en el cuerpo (`{subject_id}`). El endpoint exige autenticación y sólo está disponible para `admin` y `profesor`.
 
 **Definición (`endpoints/students.json`):**
 
@@ -525,7 +530,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
         },
         "description": "Matricula a un alumno en una asignatura.",
         "require_auth": true,
-        "allowed_roles": ["admin", "maintain"]
+        "allowed_roles": ["admin", "profesor"]
     }
 ]
 ```
@@ -542,9 +547,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ---
 
-## Reto 12 (Avanzado): Uso combinado de `{param}` y `|user_id|`
+## Ejercicio 12 (Avanzado): Uso combinado de `{param}` y `|user_id|`
 
-**Enunciado.** Crear un endpoint autenticado que devuelva las notas del usuario autenticado **en una convocatoria concreta**, recibida como _query parameter_. Este reto combina un parámetro de petición (`{examCall}`) con un parámetro inyectado por el framework (`|user_id|`).
+**Enunciado.** Crear un endpoint autenticado que devuelva las notas del usuario autenticado **en una convocatoria concreta**, recibida como _query parameter_. Este Ejercicio combina un parámetro de petición (`{examCall}`) con un parámetro inyectado por el framework (`|user_id|`).
 
 **Definición (`endpoints/grades.json`):**
 
@@ -564,8 +569,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
             ]
         },
         "description": "Obtiene las calificaciones del usuario autenticado en una convocatoria.",
-        "require_auth": true,
-        "allowed_roles": ["*"]
+        "require_auth": true
     }
 ]
 ```
