@@ -358,7 +358,7 @@ CREATE TABLE students (
 );
 ```
 
-Fíjese que aún no estamos definiendo ningún tipo de restricción sobre los datos, eso lo dejaremos para el siguiente laboratorio. Para añadir datos a esta tabla, escribiremos en `populatedb.sql` los siguiente:
+Fíjese que aquí solo hemos definido restricciones básicas (`NOT NULL`); las reglas de negocio más complejas (`CHECK`, `UNIQUE`, valores enumerados) las añadiremos en el siguiente laboratorio. Para añadir datos a esta tabla, escribiremos en `populatedb.sql` los siguiente:
 
 ```sql
 -- Recuerde hacer primero el DELETE de los datos.

@@ -32,27 +32,27 @@ Estudiantes = { estudianteId, centroId, matrícula, nombre, edad, promedio }
 -- Extensión
 
 Universidades = {  
-  (u1, 'UNAM', 'Ciudad de México', 1910-09-22),  
-  (u2, 'ITESM', 'Monterrey', 1943-01-01)  
+  (u1, 'Universidad de Sevilla', 'Calle San Fernando, 4, Sevilla', 1505-07-12),  
+  (u2, 'Universidad de Granada', 'Avenida del Hospicio, s/n, Granada', 1531-07-14)  
 }
 
 Centros = {  
-  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),  
-  (f2, u1, 'Derecho', 'FD02', 3500000.25),  
-  (f3, u1, 'Medicina', 'FM03', 7500000.75),  
-  (f4, u2, 'Negocios', 'EN01', 4200000.00),  
-  (f5, u2, 'Ingeniería', 'IE02', 6100000.20)  
+  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),  
+  (f2, u1, 'Facultad de Derecho', 'FD', 4300000.25),  
+  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75),  
+  (f4, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),  
+  (f5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)  
 }
 
 Estudiantes = {  
-  (e1, f1, '2023001', 'Ana', 20, 8.7),  
-  (e2, f1, '2023002', 'Luis', 21, 8.1),  
-  (e3, f2, '2023003', 'María', 19, 9.2),  
-  (e4, f2, '2023004', 'Carlos', 22, 7.8),  
+  (e1, f1, '2023001', 'Carmen', 20, 8.7),  
+  (e2, f1, '2023002', 'Pablo', 21, 8.1),  
+  (e3, f2, '2023003', 'Lucía', 19, 9.2),  
+  (e4, f2, '2023004', 'Álvaro', 22, 7.8),  
   (e5, f3, '2023005', 'Elena', 20, 9.5),  
-  (e6, f4, '2023006', 'Roberto', 23, 8.9),  
-  (e7, f5, '2023007', 'Sofia', 21, 9.1),  
-  (e8, f5, '2023008', 'Diego', 19, 8.3)  
+  (e6, f4, '2023006', 'Javier', 23, 8.9),  
+  (e7, f5, '2023007', 'Sofía', 21, 9.1),  
+  (e8, f5, '2023008', 'Daniel', 19, 8.3)  
 }
 ```
 
@@ -71,9 +71,9 @@ $$ E \leftarrow \Ren{E(eid,cid,m,en,e,p)}(Estudiantes)$$
 1. **Estudiantes con edad mayor a 20 años**
 2. **Centros con presupuesto superior a 5 millones**
 3. **Nombres y edades de estudiantes**
-4. **Universidades fundadas después del año 1940**
+4. **Universidades fundadas antes del año 1550**
 5. **Estudiantes con promedio mayor o igual a 9.0**
-6. **Centros de la Universidad Nacional (uid = u1)**
+6. **Centros de la Universidad de Sevilla (uid = u1)**
 7. **Estudiantes con información de sus centros**
 8. **Número de estudiantes por centro**
 9. **Promedio de calificaciones por centro**
@@ -91,10 +91,10 @@ $$\Sel{e > 20}(E)$$
 Resultado = { eid, cid, m, en, e, p }
 
 Resultado = {
-  (e2, f1, '2023002', 'Luis', 21, 8.1), 
-  (e4, f2, '2023004', 'Carlos', 22, 7.8), 
-  (e6, f4, '2023006', 'Roberto', 23, 8.9), 
-  (e7, f5, '2023007', 'Sofia', 21, 9.1)
+  (e2, f1, '2023002', 'Pablo', 21, 8.1), 
+  (e4, f2, '2023004', 'Álvaro', 22, 7.8), 
+  (e6, f4, '2023006', 'Javier', 23, 8.9), 
+  (e7, f5, '2023007', 'Sofía', 21, 9.1)
 }
 ```
 
@@ -106,9 +106,9 @@ $$\Sel{pres > 5000000}(C)$$
 Resultado = { cid, uid, cn, c, pres }
 
 Resultado = {
-  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
-  (f3, u1, 'Medicina', 'FM03', 7500000.75), 
-  (f5, u2, 'Ingeniería', 'IE02', 6100000.20)
+  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75), 
+  (f5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
 }
 ```
 
@@ -120,20 +120,21 @@ $$\Proj{en, e}(E)$$
 Resultado = { en, e }
 
 Resultado = {
-  ('Ana', 20), ('Luis', 21), ('María', 19), ('Carlos', 22), 
-  ('Elena', 20), ('Roberto', 23), ('Sofia', 21), ('Diego', 19)
+  ('Carmen', 20), ('Pablo', 21), ('Lucía', 19), ('Álvaro', 22), 
+  ('Elena', 20), ('Javier', 23), ('Sofía', 21), ('Daniel', 19)
 }
 ```
 
-**4. Universidades fundadas después del año 1940**
+**4. Universidades fundadas antes del año 1550**
 
-$$\Sel{f > 1940-01-01}(U)$$
+$$\Sel{f < 1550-01-01}(U)$$
 
 ```mr-table
 Resultado = { uid, un, d, f }
 
 Resultado = {
-  (u2, 'ITESM', 'Monterrey', 1943-01-01)
+  (u1, 'Universidad de Sevilla', 'Calle San Fernando, 4, Sevilla', 1505-07-12),
+  (u2, 'Universidad de Granada', 'Avenida del Hospicio, s/n, Granada', 1531-07-14)
 }
 ```
 
@@ -145,13 +146,13 @@ $$\Sel{p \geq 9.0}(E)$$
 Resultado = { eid, cid, m, en, e, p }
 
 Resultado = {
-  (e3, f2, '2023003', 'María', 19, 9.2),
+  (e3, f2, '2023003', 'Lucía', 19, 9.2),
   (e5, f3, '2023005', 'Elena', 20, 9.5),
-  (e7, f5, '2023007', 'Sofia', 21, 9.1)
+  (e7, f5, '2023007', 'Sofía', 21, 9.1)
 }
 ```
 
-**6. Centros de la Universidad Nacional (uid = u1)**
+**6. Centros de la Universidad de Sevilla (uid = u1)**
 
 $$\Sel{uid = u1}(C)$$
 
@@ -159,9 +160,9 @@ $$\Sel{uid = u1}(C)$$
 Resultado = { cid, uid, cn, c, pres }
 
 Resultado = {
-  (f1, u1, 'Ingeniería', 'FI01', 5000000.50),
-  (f2, u1, 'Derecho', 'FD02', 3500000.25),
-  (f3, u1, 'Medicina', 'FM03', 7500000.75)
+  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (f2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75)
 }
 ```
 
@@ -173,14 +174,14 @@ $$E \NatJoin C$$
 Resultado = { eid, cid, m, en, e, p, uid, cn, c, pres }
 
 Resultado = {
-  (e1, f1, '2023001', 'Ana', 20, 8.7, u1, 'Ingeniería', 'FI01', 5000000.50),
-  (e2, f1, '2023002', 'Luis', 21, 8.1, u1, 'Ingeniería', 'FI01', 5000000.50),
-  (e3, f2, '2023003', 'María', 19, 9.2, u1, 'Derecho', 'FD02', 3500000.25),
-  (e4, f2, '2023004', 'Carlos', 22, 7.8, u1, 'Derecho', 'FD02', 3500000.25),
-  (e5, f3, '2023005', 'Elena', 20, 9.5, u1, 'Medicina', 'FM03', 7500000.75),
-  (e6, f4, '2023006', 'Roberto', 23, 8.9, u2, 'Negocios', 'EN01', 4200000.00),
-  (e7, f5, '2023007', 'Sofia', 21, 9.1, u2, 'Ingeniería', 'IE02', 6100000.20),
-  (e8, f5, '2023008', 'Diego', 19, 8.3, u2, 'Ingeniería', 'IE02', 6100000.20)
+  (e1, f1, '2023001', 'Carmen', 20, 8.7, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (e2, f1, '2023002', 'Pablo', 21, 8.1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (e3, f2, '2023003', 'Lucía', 19, 9.2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (e4, f2, '2023004', 'Álvaro', 22, 7.8, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (e5, f3, '2023005', 'Elena', 20, 9.5, u1, 'Facultad de Medicina', 'FM', 7600000.75),
+  (e6, f4, '2023006', 'Javier', 23, 8.9, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),
+  (e7, f5, '2023007', 'Sofía', 21, 9.1, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20),
+  (e8, f5, '2023008', 'Daniel', 19, 8.3, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
 }
 ```
 
@@ -228,12 +229,12 @@ Resultado = {
 -- Nombres y edades de estudiantes
 -- π nombreEstudiante,edad (Estudiantes)
 
--- Universidades fundadas después del año 1940
+-- Universidades fundadas antes del año 1550
 
 -- Estudiantes con promedio mayor o igual a 9.0
 -- σ promedio ≥ 9.0 (Estudiantes)
 
--- Centros de la Universidad Nacional (uid = u1)
+-- Centros de la Universidad de Sevilla (uid = u1)
 -- σ universidadId='u1' (Centros)
 
 -- Estudiantes con información de sus centros
