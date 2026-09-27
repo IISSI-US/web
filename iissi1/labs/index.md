@@ -54,16 +54,17 @@ labs:
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    title: "Lab7 - Framework Silence"
+    alt: "Lab6"
+    title: "Lab6 - Framework Silence"
     excerpt: "Introducción al framework Python para APIs REST sobre bases de datos"
-    url: "/iissi1/labs/L7-silence/"
+    url: "/iissi1/labs/L6-silence/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
-    alt: "Lab8"
-    title: "Lab8 - Transacciones"
+    alt: "Lab7"
+    title: "Lab7 - Transacciones"
     excerpt: "Control de transacciones, concurrencia y propiedades ACID"
-    url: "/iissi1/labs/L8-transacciones/"
+    url: "/iissi1/labs/L7-transacciones/"
     btn_label: "Ver laboratorio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg

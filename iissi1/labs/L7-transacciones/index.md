@@ -2,7 +2,7 @@
 layout: single
 sidebar:
   nav: labs-iissi-1
-title: "Lab8 - Transacciones"
+title: "Lab7 - Transacciones"
 toc: true
 toc_label: "Contenido"
 toc_icon: "fa-solid fa-list-ul"
@@ -36,14 +36,14 @@ Continuaremos trabajando con el repositorio `GradesDB` creado en L1.
 
 ```bash
 git add transactions.sql
-git commit -m "Añadido archivo transactions.sql para L8"
+git commit -m "Añadido archivo transactions.sql para L7"
 ```
 
 **Al finalizar el laboratorio**, haz push al repositorio remoto:
 
 ```bash
 git add transactions.sql
-git commit -m "Completado L8: Transacciones SQL"
+git commit -m "Completado L7: Transacciones SQL"
 git push origin main
 ```
 

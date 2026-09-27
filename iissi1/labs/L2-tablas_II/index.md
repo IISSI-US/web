@@ -297,7 +297,7 @@ Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "
 ```sql
 ALTER TABLE grades
     ADD CONSTRAINT rn11_grades_value CHECK (grade_value BETWEEN 0 AND 10),
-    ADD CONSTRAINT rn08_grades_with_honors CHECK (
+    ADD CONSTRAINT rn01_grades_with_honors CHECK (
         with_honors = 0 OR grade_value >= 9
     ),
     ADD CONSTRAINT rn18_grades_exam_call CHECK (
@@ -308,7 +308,7 @@ ALTER TABLE grades
 Observaciones:
 
 - RN11 valida que las notas estén en el rango estándar (0 a 10).
-- RN08 implementa la regla: si `with_honors = 1`, entonces `grade_value >= 9`.
+- RN01 implementa la regla: si `with_honors = 1`, entonces `grade_value >= 9`.
   - La expresión `with_honors = 0 OR grade_value >= 9` se cumple si:
     - No es matrícula de honor (with_honors = 0), o
     - Si es matrícula de honor, la nota es >= 9
@@ -323,7 +323,7 @@ INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
 VALUES (1, 1, 8.5, 'Primera', 1);
 ```
 
-**Error esperado**: `Check constraint 'rn08_grades_with_honors' is violated`
+**Error esperado**: `Check constraint 'rn01_grades_with_honors' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla grades"`.
 {: .notice--info}

@@ -184,7 +184,7 @@ ALTER TABLE teaching_loads
 
 ALTER TABLE grades
     ADD CONSTRAINT rn11_grades_value CHECK (grade_value BETWEEN 0 AND 10),
-    ADD CONSTRAINT rn08_grades_with_honors CHECK (
+    ADD CONSTRAINT rn01_grades_with_honors CHECK (
         with_honors = 0 OR grade_value >= 9
     ),
     ADD CONSTRAINT rn18_grades_exam_call CHECK (

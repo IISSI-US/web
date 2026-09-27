@@ -13,15 +13,13 @@ labs-iissi-1:
       - title: "Lab3 - Consultas simples y avanzadas"
         url: /iissi1/labs/L3-sql_I/
       - title: "Lab4 - Procedimientos y tests SQL"
-        url: /iissi1/labs/L4-sql_II/
+        url: /iissi1/labs/L4-proc-tests/
       - title: "Lab5 - Funciones y disparadores"
-        url: /iissi1/labs/L5-proc_func_trig/
-      - title: "Lab6 - Pruebas SQL"
-        url: /iissi1/labs/L6-pruebas/
-      - title: "Lab7 - Framework Silence"
-        url: /iissi1/labs/L7-silence/
-      - title: "Lab8 - Transacciones"
-        url: /iissi1/labs/L8-transacciones/
+        url: /iissi1/labs/L5-func_trig/
+      - title: "Lab6 - Framework Silence"
+        url: /iissi1/labs/L6-silence/
+      - title: "Lab7 - Transacciones"
+        url: /iissi1/labs/L7-transacciones/
       - title: "Anexo A · Entorno de trabajo"
         url: /iissi1/labs/AN-A-entorno/
       - title: "Anexo B - Scripts"
