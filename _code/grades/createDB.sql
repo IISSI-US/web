@@ -1,8 +1,8 @@
--- 
+--
 -- Autor: David Ruiz
 -- Fecha: Noviembre de 2024
 -- Descripción: Script para crear la BD de Grados
--- 
+--
 
 DROP DATABASE IF EXISTS GradesDB;
 CREATE DATABASE GradesDB;
