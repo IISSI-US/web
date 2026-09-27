@@ -190,7 +190,7 @@
 // título y autor desde YAML
 #let doc-title = or-default(get-field(meta, "title"), "Documento")
 #set document(title:doc-title)
-#let DEFAULT_AUTHORS = "Pepe Calderón, Fernando Sola, Daniel Ayala, Inma Hernández, Margarita Cruz, Carlos Arévalo, David Ruiz"
+#let DEFAULT_AUTHORS = "Pepe Calderón, Fernando Sola, Daniel Ayala, Ana Belén Sánchez, Inma Hernández, Margarita Cruz, Carlos Arévalo, David Ruiz"
 #let doc-author = or-default(get-field(meta, "author"), DEFAULT_AUTHORS)
 #let compiled-at = datetime.today().display("[day]/[month]/[year]")
 
