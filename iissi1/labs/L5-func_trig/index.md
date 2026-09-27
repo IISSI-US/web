@@ -91,24 +91,7 @@ DELIMITER ;
 
 Esta función calcula el promedio de todas las notas de un estudiante.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE FUNCTION f_student_average(
-    p_student_id INT
-) RETURNS DECIMAL(4,2)
-DETERMINISTIC
-READS SQL DATA
-BEGIN
-    DECLARE v_average DECIMAL(4,2) DEFAULT 0;
-    
-    SELECT AVG(grade_value) INTO v_average
-    FROM grades
-    WHERE student_id = p_student_id;
-    
-    RETURN v_average;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/f_student_average.sql' label='f_student_average.sql' collapsed=false %}
 
 **Para ejecutarla:**
 

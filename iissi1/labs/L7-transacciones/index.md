@@ -201,34 +201,7 @@ Los procedimientos almacenados permiten implementar transacciones robustas con m
 
 Crearemos un procedimiento que inserta un nuevo grado y una asignatura asociada. Sin control transaccional, si falla la inserción de la asignatura, el grado quedará insertado (inconsistencia).
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_insert_degree_subject(
-    IN p_degree_name VARCHAR(80),
-    IN p_degree_years TINYINT,
-    IN p_subject_name VARCHAR(120),
-    IN p_subject_acronym VARCHAR(12),
-    IN p_subject_credits TINYINT,
-    IN p_subject_course TINYINT,
-    IN p_subject_type VARCHAR(30)
-)
-BEGIN
-    DECLARE v_new_degree_id INT;
-    
-    -- Insertar el grado
-    INSERT INTO degrees (degree_name, duration_years)
-    VALUES (p_degree_name, p_degree_years);
-    
-    -- Obtener el ID del grado recién insertado
-    SET v_new_degree_id = LAST_INSERT_ID();
-    
-    -- Insertar la asignatura asociada
-    INSERT INTO subjects (degree_id, subject_name, acronym, credits, course, subject_type)
-    VALUES (v_new_degree_id, p_subject_name, p_subject_acronym, 
-            p_subject_credits, p_subject_course, p_subject_type);
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_insert_degree_subject.sql' label='p_insert_degree_subject.sql' collapsed=false %}
 
 **Probar con datos válidos:**
 
@@ -252,26 +225,28 @@ SELECT * FROM subjects WHERE acronym = 'AA';
 **Probar con datos erróneos:**
 
 ```sql
--- Intentar insertar con nombre de grado duplicado (violará restricción UNIQUE)
+-- El grado es nuevo, pero el acrónimo AA ya existe
 CALL p_insert_degree_subject(
-    'Grado en Inteligencia Artificial',  -- Nombre duplicado
+    'Grado en Ciberseguridad',
     4,
     'Redes Neuronales',
-    'RN',
+    'AA',  -- Acrónimo duplicado: falla el segundo INSERT
     6,
     3,
     'Obligatoria'
 );
 
--- Verificar el problema
-SELECT * FROM subjects WHERE acronym = 'RN';
--- ¡La asignatura SÍ se insertó aunque el grado falló! (PROBLEMA)
+-- El grado queda insertado, aunque su asignatura no se haya creado
+SELECT * FROM degrees WHERE degree_name = 'Grado en Ciberseguridad';
+SELECT * FROM subjects WHERE subject_name = 'Redes Neuronales';
+```
 
 **Problema identificado:**
-- La primera instrucción (INSERT del grado) falla porque el nombre ya existe.
-- El procedimiento termina con error.
-- Sin embargo, si el error ocurriera en la segunda instrucción (INSERT de la asignatura), el grado quedaría insertado.
-- **Inconsistencia potencial**: operaciones interdependientes no se ejecutan atómicamente.
+
+- La primera instrucción crea correctamente el nuevo grado.
+- La segunda instrucción falla porque el acrónimo `AA` ya existe.
+- Al no haber una transacción, el grado permanece insertado sin su asignatura.
+- **Inconsistencia**: las operaciones interdependientes no se ejecutan atómicamente.
 
 **Limpiar:**
 
@@ -288,52 +263,7 @@ DELETE FROM degrees WHERE degree_name IN ('Grado en Inteligencia Artificial', 'G
 
 Ahora implementaremos una versión transaccional que garantiza atomicidad: o se insertan ambos (grado y asignatura) o ninguno.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_insert_degree_subject_transactional(
-    IN p_degree_name VARCHAR(80),
-    IN p_degree_years TINYINT,
-    IN p_subject_name VARCHAR(120),
-    IN p_subject_acronym VARCHAR(12),
-    IN p_subject_credits TINYINT,
-    IN p_subject_course TINYINT,
-    IN p_subject_type VARCHAR(30)
-)
-BEGIN
-    -- Iniciar la transacción
-    START TRANSACTION;
-    
-    -- Bloque con manejo de excepciones
-    tblock: BEGIN
-        DECLARE v_new_degree_id INT;
-        
-        -- Declarar manejador de excepciones
-        DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
-        BEGIN
-            -- Si ocurre un error, deshacer todos los cambios
-            ROLLBACK;
-            -- Relanzar la excepción para que el llamador la vea
-            RESIGNAL;
-        END;
-        
-        -- Insertar el grado
-        INSERT INTO degrees (degree_name, duration_years)
-        VALUES (p_degree_name, p_degree_years);
-        
-        -- Obtener el ID del grado recién insertado
-        SET v_new_degree_id = LAST_INSERT_ID();
-        
-        -- Insertar la asignatura asociada
-        INSERT INTO subjects (degree_id, subject_name, acronym, credits, course, subject_type)
-        VALUES (v_new_degree_id, p_subject_name, p_subject_acronym, 
-                p_subject_credits, p_subject_course, p_subject_type);
-        
-        -- Si llegamos aquí, todo fue exitoso: confirmar cambios
-        COMMIT;
-    END tblock;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_insert_degree_subject_transactional.sql' label='p_insert_degree_subject_transactional.sql' collapsed=false %}
 
 **Observe lo siguiente:**
 
@@ -366,21 +296,21 @@ SELECT * FROM subjects WHERE acronym = 'AA';
 **Probar con datos erróneos:**
 
 ```sql
--- Intentar insertar con nombre de grado duplicado
+-- El grado es nuevo, pero el acrónimo AA ya existe
 CALL p_insert_degree_subject_transactional(
-    'Grado en Inteligencia Artificial',  -- Nombre duplicado (violará UNIQUE)
+    'Grado en Ciberseguridad',
     4,
     'Redes Neuronales',
-    'RN',
+    'AA',  -- Acrónimo duplicado: falla el segundo INSERT
     6,
     3,
     'Obligatoria'
 );
--- Obtendrás un error y se hace ROLLBACK automático
+-- Se obtiene un error y el manejador ejecuta ROLLBACK
 
--- Verificar que NO se insertó nada nuevo
-SELECT * FROM subjects WHERE acronym = 'RN';
--- ¡La asignatura NO se insertó! (CORRECTO - atomicidad garantizada)
+-- Comprobar que no se insertó ni el grado ni la asignatura
+SELECT * FROM degrees WHERE degree_name = 'Grado en Ciberseguridad';
+SELECT * FROM subjects WHERE subject_name = 'Redes Neuronales';
 ```
 
 **Resultado:**

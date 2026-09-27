@@ -236,37 +236,19 @@ DELIMITER ;
 
 Este procedimiento borra todas las notas de un estudiante dado su DNI. Muestra cómo usar variables locales y consultas dentro de un procedimiento.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_delete_student_grades(
-    IN p_student_dni CHAR(9)
-)
-BEGIN
-    DECLARE v_student_id INT;
-    
-    -- Buscar el ID del estudiante con el DNI proporcionado
-    SELECT student_id INTO v_student_id
-    FROM people p
-    JOIN students s ON s.student_id = p.person_id
-    WHERE p.dni = p_student_dni;
-    
-    -- Borrar todas las notas del estudiante
-    DELETE FROM grades WHERE student_id = v_student_id;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_delete_student_grades.sql' label='p_delete_student_grades.sql' collapsed=false %}
 
 **Para ejecutarlo:**
 
 ```sql
--- Borrar las notas del estudiante con DNI '12345678A'
-CALL p_delete_student_grades('12345678A');
+-- Borrar las notas del estudiante con DNI '10000006F'
+CALL p_delete_student_grades('10000006F');
 
 -- Verificar que se borraron
 SELECT * FROM grades g
 JOIN students s ON s.student_id = g.student_id
 JOIN people p ON p.person_id = s.student_id
-WHERE p.dni = '12345678A';
+WHERE p.dni = '10000006F';
 ```
 
 **Observe lo siguiente:**
@@ -280,24 +262,7 @@ WHERE p.dni = '12345678A';
 
 Este procedimiento borra todos los datos de la base de datos respetando el orden de dependencias entre tablas. Es útil para limpiar la base de datos durante pruebas.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_delete_all_data()
-BEGIN
-    -- Borrar datos en orden inverso de dependencias
-    DELETE FROM grades;
-    DELETE FROM teaching_loads;
-    DELETE FROM group_enrollments;
-    DELETE FROM subject_enrollments;
-    DELETE FROM groups;
-    DELETE FROM subjects;
-    DELETE FROM students;
-    DELETE FROM professors;
-    DELETE FROM degrees;
-    DELETE FROM people;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_delete_all_data.sql' label='p_delete_all_data.sql' collapsed=false %}
 
 **Para ejecutarlo:**
 
@@ -322,19 +287,7 @@ SELECT COUNT(*) AS total_people FROM people;
 
 Este procedimiento calcula la nota media de un estudiante y la devuelve mediante un parámetro de salida (OUT).
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_student_average(
-    IN p_student_id INT,
-    OUT p_average DECIMAL(4,2)
-)
-BEGIN
-    SELECT AVG(grade_value) INTO p_average
-    FROM grades
-    WHERE student_id = p_student_id;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_student_average.sql' label='p_student_average.sql' collapsed=false %}
 
 **Para ejecutarlo:**
 
@@ -362,30 +315,7 @@ SELECT @avg_student_6, @avg_student_7, @avg_student_8;
 
 Este procedimiento incrementa en un 15% las notas de los estudiantes de un grupo específico en una convocatoria determinada, pero solo si la nota está entre 4.5 y 8. Demuestra el uso de `UPDATE` con condiciones y cálculos dentro de un procedimiento.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_boost_group_grades(
-    IN p_group_id INT,
-    IN p_exam_call VARCHAR(20)
-)
-BEGIN
-    DECLARE v_affected_rows INT;
-    
-    -- Obtener información del grupo
-    SELECT group_name INTO v_group_name
-    FROM groups
-    WHERE group_id = p_group_id;
-    
-    -- Actualizar las notas que cumplen los criterios
-    UPDATE grades
-    SET grade_value = LEAST(grade_value * 1.15, 10.0)
-    WHERE group_id = p_group_id
-      AND exam_call = p_exam_call
-      AND grade_value BETWEEN 4.5 AND 8.0;
-
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_boost_group_grades.sql' label='p_boost_group_grades.sql' collapsed=false %}
 
 **Para ejecutarlo:**
 
@@ -416,59 +346,14 @@ ORDER BY g.grade_value;
 - Se usa `UPDATE` con condiciones múltiples en la cláusula `WHERE` para seleccionar solo las notas que cumplen los criterios.
 - `LEAST(grade_value * 1.15, 10.0)` garantiza que ninguna nota supere el máximo permitido (10.0), incluso después del incremento del 15%.
 - `grade_value BETWEEN 4.5 AND 8.0` filtra solo las notas en el rango especificado.
-- `ROW_COUNT()` es una función especial que devuelve el número de filas afectadas por la última operación DML.
+- `ROW_COUNT()` devuelve el número de filas afectadas por el `UPDATE`; debe consultarse inmediatamente después de esta operación.
+- El `SELECT` final informa del grupo procesado y del número de notas actualizadas.
 
 ### Ejemplo 5: Procedimiento para asignar matrículas de honor
 
 Este procedimiento asigna matrícula de honor al top 5% de estudiantes de un grupo en una convocatoria específica, respetando la restricción de que solo puede haber un máximo del 5% de MH y que la nota debe ser >= 9. Demuestra el uso de subconsultas, `LIMIT` y cálculos dentro de procedimientos.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_assign_honors(
-    IN p_group_id INT,
-    IN p_exam_call VARCHAR(20)
-)
-BEGIN
-    DECLARE v_total_students INT;
-    DECLARE v_max_honors INT;
-    
-    -- Contar el total de estudiantes matriculados en este grupo
-    -- (tengan o no calificación asignada)
-    SELECT COUNT(*) INTO v_total_students
-    FROM group_enrollments
-    WHERE group_id = p_group_id;
-    
-    -- Calcular el 5% máximo de matrículas (truncado hacia abajo)
-    SET v_max_honors = FLOOR(v_total_students * 0.05);
-    
-    -- Si el 5% es 0, no se pueden asignar matrículas
-    IF v_max_honors = 0 THEN
-        SELECT CONCAT('No se pueden asignar matrículas de honor: ',
-                      'el 5% de ', v_total_students, 
-                      ' estudiantes matriculados es 0') AS mensaje;
-    ELSE
-        -- Primero quitar todas las matrículas de honor de este grupo/convocatoria
-        UPDATE grades
-        SET with_honors = 0
-        WHERE group_id = p_group_id
-          AND exam_call = p_exam_call;
-        
-        -- Asignar MH a los mejores estudiantes con nota >= 9
-        UPDATE grades
-        SET with_honors = 1
-        WHERE grade_id IN (
-            SELECT grade_id
-            FROM grades
-            WHERE group_id = p_group_id
-              AND exam_call = p_exam_call
-              AND grade_value >= 9.0
-            ORDER BY grade_value DESC
-            LIMIT v_max_honors
-        );
-    END IF;
-END //
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/p_assign_honors.sql' label='p_assign_honors.sql' collapsed=false %}
 
 **Para ejecutarlo:**
 
@@ -502,7 +387,7 @@ ORDER BY g.grade_value DESC;
 - `FLOOR(v_total_students * 0.05)` trunca hacia abajo el cálculo del 5%, garantizando que nunca se supere el límite.
 - Se usa `IF ... THEN ... ELSE ... END IF` para manejar el caso especial donde el 5% resulta en 0 estudiantes.
 - Primero se quitan todas las MH existentes (`with_honors = 0`) para evitar inconsistencias.
-- La subconsulta en el `UPDATE` selecciona los `grade_id` de los mejores estudiantes que cumplen los requisitos.
+- La tabla derivada `selected_grades` selecciona los `grade_id` de los mejores estudiantes y permite aplicar `ORDER BY ... LIMIT` de forma compatible con MariaDB.
 - `ORDER BY grade_value DESC` ordena las notas de mayor a menor.
 - `LIMIT v_max_honors` limita la selección al número máximo calculado.
 - Solo se consideran notas >= 9.0, cumpliendo con la restricción de matrícula de honor.
