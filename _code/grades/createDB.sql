@@ -369,11 +369,10 @@ BEGIN
     RETURN v_exists > 0;
 END//
 
-CREATE OR REPLACE FUNCTION f_count_subject_groups(
+CREATE OR REPLACE FUNCTION f_subject_group_limit_reached(
     p_subject_id INT,
     p_activity VARCHAR(15),
-    p_academic_year YEAR,
-    p_excluded_group INT
+    p_academic_year YEAR
 )
 RETURNS BOOLEAN
 DETERMINISTIC
@@ -381,23 +380,19 @@ READS SQL DATA
 BEGIN
     DECLARE v_count INT;
     DECLARE v_result BOOLEAN DEFAULT FALSE;
+
+    SELECT COUNT(*) INTO v_count
+    FROM groups
+    WHERE subject_id = p_subject_id
+      AND activity = p_activity
+      AND academic_year = p_academic_year;
+
     IF p_activity = 'Teoría' THEN
-        SELECT COUNT(*) INTO v_count
-        FROM groups
-        WHERE subject_id = p_subject_id
-          AND activity = 'Teoría'
-          AND academic_year = p_academic_year
-          AND (p_excluded_group IS NULL OR group_id <> p_excluded_group);
         SET v_result = (v_count >= 1);
     ELSEIF p_activity = 'Laboratorio' THEN
-        SELECT COUNT(*) INTO v_count
-        FROM groups
-        WHERE subject_id = p_subject_id
-          AND activity = 'Laboratorio'
-          AND academic_year = p_academic_year
-          AND (p_excluded_group IS NULL OR group_id <> p_excluded_group);
         SET v_result = (v_count >= 2);
     END IF;
+
     RETURN v_result;
 END//
 
@@ -458,7 +453,7 @@ CREATE OR REPLACE TRIGGER t_bi_groups_rn06
 BEFORE INSERT ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, NULL) THEN
+    IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
         IF NEW.activity = 'Teoría' THEN
             SIGNAL SQLSTATE '45000'
                 SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
@@ -473,13 +468,17 @@ CREATE OR REPLACE TRIGGER t_bu_groups_rn06
 BEFORE UPDATE ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, OLD.group_id) THEN
-        IF NEW.activity = 'Teoría' THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
-        ELSE
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+    IF NEW.subject_id <> OLD.subject_id
+       OR NEW.activity <> OLD.activity
+       OR NEW.academic_year <> OLD.academic_year THEN
+        IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
+            IF NEW.activity = 'Teoría' THEN
+                SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
+            ELSE
+                SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+            END IF;
         END IF;
     END IF;
 END//

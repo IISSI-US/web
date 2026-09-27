@@ -174,7 +174,7 @@ Esta función verifica si una asignatura ha alcanzado el número máximo de grup
 
 ```sql
 DELIMITER //
-CREATE OR REPLACE FUNCTION f_count_subject_groups(
+CREATE OR REPLACE FUNCTION f_subject_group_limit_reached(
     p_subject_id INT,
     p_activity VARCHAR(15),
     p_academic_year YEAR
@@ -184,21 +184,19 @@ READS SQL DATA
 BEGIN
     DECLARE v_count INT;
     DECLARE v_result BOOLEAN DEFAULT FALSE;
-    
-    -- Contar grupos del tipo especificado
+
     SELECT COUNT(*) INTO v_count
     FROM groups
     WHERE subject_id = p_subject_id
       AND activity = p_activity
       AND academic_year = p_academic_year;
-    
-    -- Verificar si se alcanzó el límite
+
     IF p_activity = 'Teoría' THEN
-        SET v_result = (v_count >= 1);  -- Máximo 1 grupo de teoría
+        SET v_result = (v_count >= 1);
     ELSEIF p_activity = 'Laboratorio' THEN
-        SET v_result = (v_count >= 2);  -- Máximo 2 grupos de laboratorio
+        SET v_result = (v_count >= 2);
     END IF;
-    
+
     RETURN v_result;
 END //
 DELIMITER ;
@@ -208,12 +206,12 @@ DELIMITER ;
 
 ```sql
 -- Verificar si la asignatura 1 ya tiene el máximo de grupos de teoría en 2025
-SELECT f_count_subject_groups(1, 'Teoría', 2025, NULL) AS 'Límite alcanzado';
+SELECT f_subject_group_limit_reached(1, 'Teoría', 2025) AS 'Límite alcanzado';
 
 -- Listar asignaturas que han alcanzado el límite de grupos de teoría
 SELECT s.subject_id, s.subject_name, s.acronym
 FROM subjects s
-WHERE f_count_subject_groups(s.subject_id, 'Teoría', 2025, NULL) = TRUE;
+WHERE f_subject_group_limit_reached(s.subject_id, 'Teoría', 2025) = TRUE;
 ```
 
 **Observe lo siguiente:**
@@ -221,7 +219,7 @@ WHERE f_count_subject_groups(s.subject_id, 'Teoría', 2025, NULL) = TRUE;
 - Usa lógica condicional `IF ... THEN ... ELSEIF ... END IF` dentro de la función.
 - Implementa lógica de negocio: diferentes límites para teoría (1) y laboratorio (2).
 - Retorna un booleano indicando si se alcanzó el límite máximo.
-- La condición `p_excluded_group IS NULL OR group_id <> p_excluded_group` permite usar la misma función tanto para INSERT (NULL) como UPDATE (grupo actual).
+- La función recibe únicamente los datos que identifican el conjunto de grupos que debe contar.
 
 ## Funciones auxiliares para triggers
 
@@ -274,7 +272,7 @@ DELIMITER ;
 
 **Resumen de funciones auxiliares para triggers**:
 - `f_is_student_enrolled`: Verifica matrícula en asignatura (vista en Ejemplo 2)
-- `f_count_subject_groups`: Verifica límites de grupos por asignatura (vista en Ejemplo 3)
+- `f_subject_group_limit_reached`: Verifica límites de grupos por asignatura (vista en Ejemplo 3)
 - `f_student_group_limit`: Verifica límites de grupos por estudiante (recién definida)
 
 ## Disparadores (Triggers)
@@ -558,7 +556,7 @@ CREATE OR REPLACE TRIGGER t_bi_groups_rn06
 BEFORE INSERT ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, NULL) THEN
+    IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
         IF NEW.activity = 'Teoría' THEN
             SIGNAL SQLSTATE '45000'
                 SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
@@ -573,13 +571,17 @@ CREATE OR REPLACE TRIGGER t_bu_groups_rn06
 BEFORE UPDATE ON groups
 FOR EACH ROW
 BEGIN
-    IF f_count_subject_groups(NEW.subject_id, NEW.activity, NEW.academic_year, OLD.group_id) THEN
-        IF NEW.activity = 'Teoría' THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
-        ELSE
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+    IF NEW.subject_id <> OLD.subject_id
+       OR NEW.activity <> OLD.activity
+       OR NEW.academic_year <> OLD.academic_year THEN
+        IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
+            IF NEW.activity = 'Teoría' THEN
+                SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
+            ELSE
+                SIGNAL SQLSTATE '45000'
+                    SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
+            END IF;
         END IF;
     END IF;
 END//
@@ -588,9 +590,9 @@ DELIMITER ;
 
 **Observe lo siguiente:**
 
-- Usa la función `f_count_subject_groups` para verificar el límite.
-- El trigger de INSERT pasa `NULL` como grupo a excluir.
-- El trigger de UPDATE pasa `OLD.group_id` para excluir el grupo actual del conteo.
+- Usa la función `f_subject_group_limit_reached` para verificar el límite.
+- El trigger de INSERT comprueba siempre si la combinación ha alcanzado su límite.
+- El trigger de UPDATE solo comprueba el límite cuando cambian la asignatura, la actividad o el año académico; cambiar otros atributos no altera el conjunto contado.
 - Diferentes mensajes de error según el tipo de actividad.
 - La función encapsula la lógica compleja de conteo y validación.
 
