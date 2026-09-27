@@ -20,7 +20,7 @@ El objetivo de esta práctica es aprender a implementar restricciones de integri
 - Implementar tipos ENUM para atributos con valores predefinidos.
 - Aplicar reglas de negocio mediante restricciones de base de datos.
 
-En el laboratorio anterior creamos el esquema relacional básico de la base de datos GradesDB con sus tablas, claves primarias y claves ajenas. En este laboratorio completaremos el diseño añadiendo las restricciones de integridad que implementan las reglas de negocio documentadas en el laboratorio L0 (Requisitos).
+En el laboratorio anterior creamos el esquema relacional básico de la base de datos GradesDB con sus tablas, claves primarias y claves ajenas. En este laboratorio completaremos el diseño añadiendo las restricciones de integridad que implementan las reglas de negocio documentadas en el catálogo de requisitos iniciales.
 
 ## Preparación del entorno
 
@@ -45,6 +45,8 @@ Las restricciones de integridad garantizan que los datos almacenados en la base 
 - **NOT NULL**: Impide valores nulos (ya lo usamos en L1)
 
 Estas restricciones se pueden definir al crear la tabla (inline) o añadirse posteriormente con `ALTER TABLE`.
+
+En los nombres de las restricciones usaremos el prefijo `rnNN_` cuando implementen una regla de negocio numerada en el catálogo de requisitos y el prefijo `ck_` para otras validaciones de dominio que no tengan una RN propia.
 
 ## Restricciones en la tabla `people`
 
@@ -106,7 +108,7 @@ Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "
 
 ```sql
 ALTER TABLE professors
-    ADD CONSTRAINT rn20_professors_category CHECK (
+    ADD CONSTRAINT ck_professors_category CHECK (
         category IN ('Ayudante','AyudanteDoctor','Titular','Catedrático')
     );
 ```
@@ -131,7 +133,7 @@ INSERT INTO professors (professor_id, category)
 VALUES (1000, 'Adjunto');
 ```
 
-**Error esperado**: `Check constraint 'rn20_professors_category' is violated`
+**Error esperado**: `Check constraint 'ck_professors_category' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla professors"`.
 {: .notice--info}
@@ -140,7 +142,7 @@ Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "
 
 ```sql
 ALTER TABLE students
-    ADD CONSTRAINT rn19_students_access_method CHECK (
+    ADD CONSTRAINT ck_students_access_method CHECK (
         access_method IN ('Selectividad','Ciclo','Mayor','Titulado','Extranjero')
     );
 ```
@@ -164,7 +166,7 @@ INSERT INTO students (student_id, access_method)
 VALUES (2000, 'Erasmus');
 ```
 
-**Error esperado**: `Check constraint 'rn19_students_access_method' is violated`
+**Error esperado**: `Check constraint 'ck_students_access_method' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla students"`.
 {: .notice--info}
@@ -270,12 +272,12 @@ Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "
 
 ```sql
 ALTER TABLE teaching_loads
-    ADD CONSTRAINT rn21_teaching_loads_credits CHECK (credits > 0);
+    ADD CONSTRAINT ck_teaching_loads_credits CHECK (credits > 0);
 ```
 
 Observaciones:
 
-- RN21 garantiza que las cargas docentes sean positivas.
+- La restricción `ck_teaching_loads_credits` garantiza que las cargas docentes sean positivas.
 - Un profesor debe impartir al menos algún crédito en un grupo.
 
 Validación:
@@ -287,7 +289,7 @@ INSERT INTO teaching_loads (professor_id, group_id, credits)
 VALUES (1, 1, 0);
 ```
 
-**Error esperado**: `Check constraint 'rn21_teaching_loads_credits' is violated`
+**Error esperado**: `Check constraint 'ck_teaching_loads_credits' is violated`
 
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla teaching_loads"`.
 {: .notice--info}

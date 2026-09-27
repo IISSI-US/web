@@ -4,7 +4,7 @@ main: []
 labs-iissi-1:
   - title: "Labs IISSI-1"
     children:
-      - title: "Lab0 - Requisitos"
+      - title: "Lab0 - Requisitos iniciales"
         url: /iissi1/labs/L0-requisitos/
       - title: "Lab1 - Creación de tablas"
         url: /iissi1/labs/L1-tablas_I/

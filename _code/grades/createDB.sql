@@ -154,12 +154,12 @@ ALTER TABLE people
     ADD CONSTRAINT rn14_people_dni CHECK (dni REGEXP '^[0-9]{8}[A-Za-z]$');
 
 ALTER TABLE professors
-    ADD CONSTRAINT rn20_professors_category CHECK (
+    ADD CONSTRAINT ck_professors_category CHECK (
         category IN ('Ayudante','AyudanteDoctor','Titular','Catedrático')
     );
 
 ALTER TABLE students
-    ADD CONSTRAINT rn19_students_access_method CHECK (
+    ADD CONSTRAINT ck_students_access_method CHECK (
         access_method IN ('Selectividad','Ciclo','Mayor','Titulado','Extranjero')
     );
 
@@ -180,7 +180,7 @@ ALTER TABLE groups
     );
 
 ALTER TABLE teaching_loads
-    ADD CONSTRAINT rn21_teaching_loads_credits CHECK (credits > 0);
+    ADD CONSTRAINT ck_teaching_loads_credits CHECK (credits > 0);
 
 ALTER TABLE grades
     ADD CONSTRAINT rn11_grades_value CHECK (grade_value BETWEEN 0 AND 10),

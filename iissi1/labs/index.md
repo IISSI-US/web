@@ -13,7 +13,7 @@ labs:
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/laboratorios-icon.svg
     alt: "Lab0"
-    title: "Lab0 - Documento de requisitos iniciales"
+    title: "Lab0 - Requisitos iniciales"
     excerpt: "Requisitos, diagramas de clases y pruebas de aceptación"
     url: "/iissi1/labs/L0-requisitos/"
     btn_label: "Ver laboratorio"

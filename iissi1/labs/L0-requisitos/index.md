@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Lab0 - Requisitos"
+title: "Lab0 - Requisitos iniciales"
 pdf_version: true
 toc: true
 toc_label: "Contenido"
