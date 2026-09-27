@@ -94,16 +94,20 @@ Ejecuta el siguiente código que inserta tres notas, siendo la tercera errónea 
 -- Verificar que AUTOCOMMIT está activado
 SET AUTOCOMMIT=1;
 
+-- Limpiar una posible ejecución anterior del ejemplo
+DELETE FROM grades
+WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria';
+
 -- Insertar tres notas (la tercera fallará)
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (6, 1, 4.5, 'Primera', 0);
+VALUES (6, 1, 4.5, 'Extraordinaria', 0);
 
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (7, 1, 7.5, 'Primera', 0);
+VALUES (7, 1, 7.5, 'Extraordinaria', 0);
 
 -- Esta instrucción fallará (valor negativo)
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (8, 1, -7.5, 'Primera', 0);
+VALUES (8, 1, -7.5, 'Extraordinaria', 0);
 ```
 
 **Resultado:**
@@ -116,7 +120,7 @@ VALUES (8, 1, -7.5, 'Primera', 0);
 ```sql
 -- Ver las notas insertadas
 SELECT * FROM grades
-WHERE student_id IN (6, 7, 8) AND exam_call = 'Primera'
+WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria'
 ORDER BY student_id;
 -- Verás las dos primeras notas insertadas
 ```
@@ -134,7 +138,7 @@ Cuando necesitamos agrupar varias instrucciones en una única transacción atóm
 
 ```sql
 -- Primero eliminar las notas del ejemplo anterior
-DELETE FROM grades WHERE student_id IN (6, 7, 8) AND exam_call = 'Primera';
+DELETE FROM grades WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria';
 
 -- Desactivar AUTOCOMMIT
 SET AUTOCOMMIT=0;
@@ -144,14 +148,14 @@ START TRANSACTION;
 
 -- Insertar tres notas (la tercera fallará)
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (6, 1, 4.5, 'Primera', 0);
+VALUES (6, 1, 4.5, 'Extraordinaria', 0);
 
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (7, 1, 7.5, 'Primera', 0);
+VALUES (7, 1, 7.5, 'Extraordinaria', 0);
 
 -- Esta instrucción fallará (valor negativo)
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (8, 1, -7.5, 'Primera', 0);
+VALUES (8, 1, -7.5, 'Extraordinaria', 0);
 
 COMMIT;
 ```
@@ -167,7 +171,7 @@ COMMIT;
 ```sql
 -- Consultar dentro de la misma sesión (verás las dos notas)
 SELECT * FROM grades
-WHERE student_id IN (6, 7, 8) AND exam_call = 'Primera'
+WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria'
 ORDER BY student_id;
 
 -- Hacer ROLLBACK manual para deshacer
@@ -175,7 +179,7 @@ ROLLBACK;
 
 -- Consultar de nuevo (ya no habrá notas)
 SELECT * FROM grades
-WHERE student_id IN (6, 7, 8) AND exam_call = 'Primera'
+WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria'
 ORDER BY student_id;
 
 -- Restaurar AUTOCOMMIT
@@ -339,6 +343,11 @@ Abriremos dos ventanas de consulta en HeidiSQL para simular dos sesiones concurr
 **Ventana 1 (Sesión A) - Iniciar transacción sin confirmar:**
 
 ```sql
+-- Limpiar una posible ejecución anterior del ejemplo
+SET AUTOCOMMIT=1;
+DELETE FROM grades
+WHERE student_id IN (10, 11) AND exam_call = 'Extraordinaria';
+
 -- Desactivar AUTOCOMMIT para control manual
 SET AUTOCOMMIT=0;
 
@@ -347,17 +356,18 @@ START TRANSACTION;
 
 -- Insertar dos notas
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (10, 1, 8.5, 'Primera', 0);
+VALUES (10, 1, 8.5, 'Extraordinaria', 0);
 
 INSERT INTO grades (student_id, group_id, grade_value, exam_call, with_honors)
-VALUES (11, 1, 9.2, 'Primera', 1);
+VALUES (11, 1, 9.2, 'Extraordinaria', 1);
 
 -- Consultar dentro de la transacción
 SELECT g.grade_id, p.first_name, p.last_name, g.grade_value, g.with_honors
 FROM grades g
 JOIN students s ON s.student_id = g.student_id
 JOIN people p ON p.person_id = s.student_id
-WHERE g.student_id IN (10, 11);
+WHERE g.student_id IN (10, 11)
+  AND g.exam_call = 'Extraordinaria';
 ```
 
 **Resultado en Sesión A:**
@@ -371,7 +381,8 @@ SELECT g.grade_id, p.first_name, p.last_name, g.grade_value, g.with_honors
 FROM grades g
 JOIN students s ON s.student_id = g.student_id
 JOIN people p ON p.person_id = s.student_id
-WHERE g.student_id IN (10, 11);
+WHERE g.student_id IN (10, 11)
+  AND g.exam_call = 'Extraordinaria';
 ```
 
 **Resultado en Sesión B:**
@@ -396,7 +407,8 @@ SELECT g.grade_id, p.first_name, p.last_name, g.grade_value, g.with_honors
 FROM grades g
 JOIN students s ON s.student_id = g.student_id
 JOIN people p ON p.person_id = s.student_id
-WHERE g.student_id IN (10, 11);
+WHERE g.student_id IN (10, 11)
+  AND g.exam_call = 'Extraordinaria';
 ```
 
 **Resultado en Sesión B:**
