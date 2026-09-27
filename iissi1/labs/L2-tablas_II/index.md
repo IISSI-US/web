@@ -430,12 +430,10 @@ FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE CASCADE
 ```
 
 **Comportamiento resultante:**
-
-- Si borramos una asignatura: `DELETE FROM subjects WHERE subject_id = 5;`
-- Automáticamente se borrarán todos los grupos asociados: `groups.subject_id = 5`
-- También se borrarán las matrículas en esos grupos (`group_enrollments`)
-- Y las cargas docentes (`teaching_loads`)
-- Y las notas (`grades`)
+- Si borramos una asignatura sin grupos referenciados desde otras tablas, se borrarán automáticamente sus grupos asociados.
+- La cascada se limita a la relación `subjects` → `groups`: no se propaga a `group_enrollments`, `teaching_loads` ni `grades`, cuyas claves ajenas mantienen el comportamiento `RESTRICT`.
+- Si alguno de los grupos está referenciado desde esas tablas, el borrado de la asignatura falla y no se elimina ninguna fila, porque la sentencia `DELETE` es atómica.
+- Para borrar la asignatura en ese caso, primero hay que eliminar explícitamente sus datos dependientes.
 
 ### Ejemplo: RESTRICT (comportamiento por defecto)
 
