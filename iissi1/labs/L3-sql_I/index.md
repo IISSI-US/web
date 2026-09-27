@@ -1104,25 +1104,27 @@ Estas consultas combinan múltiples conceptos vistos: `JOIN`, `GROUP BY`, `HAVIN
 
 ### Consulta 55: Top N con filtros
 
-Encuentra las tres asignaturas con más grupos de teoría en el año 2024.
+Encuentra las tres asignaturas con más estudiantes matriculados en grupos del año 2024.
 
 ```sql
 SELECT 
     s.subject_name,
-    COUNT(*) AS total_theory_groups
+    COUNT(DISTINCT ge.student_id) AS total_students
 FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
-WHERE gr.activity = 'Teoría' AND gr.academic_year = 2024
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+WHERE gr.academic_year = 2024
 GROUP BY s.subject_id, s.subject_name
-ORDER BY COUNT(*) DESC
+ORDER BY total_students DESC, s.subject_name ASC
 LIMIT 3;
 ```
 
 Observe lo siguiente:
 
-- `WHERE` filtra antes de agrupar (solo grupos de teoría de 2024).
+- `WHERE` filtra antes de agrupar (solo grupos de 2024).
 - `GROUP BY` agrupa por asignatura.
-- `ORDER BY` ordena por el conteo.
+- `COUNT(DISTINCT ge.student_id)` evita contar varias veces a un estudiante que pertenezca a más de un grupo de la misma asignatura.
+- `ORDER BY` ordena por el conteo y utiliza el nombre de la asignatura para resolver empates de forma determinista.
 - `LIMIT` devuelve solo las 3 primeras.
 - Secuencia: FROM → WHERE → GROUP BY → ORDER BY → LIMIT.
 

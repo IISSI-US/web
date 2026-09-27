@@ -530,15 +530,16 @@ HAVING AVG(g.grade_value) > 6;
 -- CONSULTAS COMPLEJAS COMBINADAS
 -- ============================================================================
 
--- Consulta 55: Top 3 asignaturas con más grupos de teoría en 2024
+-- Consulta 55: Top 3 asignaturas con más estudiantes en 2024
 SELECT 
     s.subject_name,
-    COUNT(*) AS total_theory_groups
+    COUNT(DISTINCT ge.student_id) AS total_students
 FROM subjects s
 JOIN groups gr ON s.subject_id = gr.subject_id
-WHERE gr.activity = 'Teoría' AND gr.academic_year = 2024
+JOIN group_enrollments ge ON gr.group_id = ge.group_id
+WHERE gr.academic_year = 2024
 GROUP BY s.subject_id, s.subject_name
-ORDER BY COUNT(*) DESC
+ORDER BY total_students DESC, s.subject_name ASC
 LIMIT 3;
 
 -- Consulta 56: Estudiantes con más de 3 matrículas de honor
