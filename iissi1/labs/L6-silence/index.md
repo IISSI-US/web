@@ -86,23 +86,97 @@ Posteriormente, en la sección "Tests", se podrá acceder a un listado de todas 
 
 ![Lista de tests]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/tests_list.png' | relative_url }})
 
-### 4. Sistema de Usuarios y Roles
+### 4. Usuarios, roles y permisos de RNF001
 
-La administración de usuarios se gestiona desde la sección "Users". En esta vista se muestra un listado de los usuarios registrados, detallando su ID, nombre, correo electrónico, rol y contraseña (debidamente ofuscada). Los roles permiten segmentar los permisos, distinguiendo entre administradores (`admin`), mantenedores (`maintain`), probadores (`tester`) o usuarios sin rol asignado. En este contexto, en `GradesDB` usaremos los roles: `admin`, `profesor`, `alumno`.
+Silence separa los datos académicos de la autenticación. `GradesDB.people` almacena DNI, nombre, edad y correo, pero no contiene roles ni contraseñas. Estas credenciales se delegan en la base interna de Silence:
 
-> También es posible añadir roles directamente desde _HeidiSQL_. Conéctese a la base de datos `silence`, y ejecute el siguiente query (reemplazando `user_id` por el id de usuario que se ha creado anteriormente y `role_name` por su rol):
->
-> ```sql
-> INSERT INTO silence_roles(user_id, role) VALUES (user_id, 'profesor');
-> ```
+| Tabla interna | Responsabilidad |
+| --- | --- |
+| `silence_users` | Identificador, nombre, correo y contraseña del usuario |
+| `silence_roles` | Rol asignado a cada usuario |
+| `silence_sessions` | Tokens de las sesiones autenticadas |
+
+La versión docente de Silence envía y almacena las contraseñas en texto plano por requisitos académicos. Utiliza únicamente contraseñas de prueba creadas para las prácticas.
+
+#### Alta desde la interfaz de Silence
+
+1. Accede a `/auth/signup` y registra el primer usuario. Al ser el primero, Silence le asignará el rol `admin`.
+2. Inicia sesión con ese usuario y abre la sección **Users** del panel de administración.
+3. Pulsa **Create new user** e introduce nombre, correo, contraseña y uno de los roles definidos por RNF001: `admin`, `teacher` o `student`.
+4. Comprueba en el listado que cada usuario tiene el identificador y el rol esperados.
 
 ![Lista de usuarios]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/users_list.png' | relative_url }})
 
-Para dar de alta a un nuevo usuario, se selecciona "Create new user" y se completa el formulario con los datos requeridos: nombre, correo electrónico, rol y contraseña.
-
 ![Nuevo usuario]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/user_new.png' | relative_url }})
 
-Adicionalmente, el sistema cuenta con una página de registro público ("Sign up") (`/auth/signup`). Tenga en cuenta que el primer usuario que sea registrado le será asignado el rol de administrador automáticamente.
+#### Alta mediante SQL en la base interna
+
+También se pueden crear los usuarios desde HeidiSQL. Conéctate a la base `silence` e inserta por separado la cuenta y su rol. En los usuarios asociados a una persona de `GradesDB`, conserva el mismo `user_id` que `person_id`; así, el parámetro `|user_id|` identificará a la persona autenticada.
+
+```sql
+USE silence;
+
+INSERT INTO silence_users (user_id, name, email, password) VALUES
+    (1, 'David Ruiz', 'druiz@us.es', 'druiz-clase'),
+    (2, 'Inma Hernández', 'inmahernandez@us.es', 'inma-clase'),
+    (6, 'David Romero', 'david.romero@alum.us.es', 'romero-clase');
+
+INSERT INTO silence_roles (user_id, role) VALUES
+    (1, 'admin'),
+    (2, 'teacher'),
+    (6, 'student');
+```
+
+Las contraseñas y los roles pertenecen exclusivamente a la base interna de Silence; no se añaden columnas `role` ni `password_hash` a `GradesDB.people`.
+
+#### Capa de aplicación: autorización en Silence
+
+RNF001 se implementa protegiendo los endpoints con `require_auth` y `allowed_roles`:
+
+Silence ejecuta todas las consultas con la cuenta técnica configurada en `databases_conn.main`. Esta cuenta necesita acceso a las operaciones utilizadas por los endpoints; no se sustituye por una cuenta MariaDB distinta para cada usuario autenticado.
+
+| Operación | Roles permitidos |
+| --- | --- |
+| Lectura de cualquier tabla | `admin`, `teacher`, `student` |
+| Crear, modificar o borrar notas | `admin`, `teacher` |
+| Crear, modificar o borrar otros datos | `admin` |
+
+Para un endpoint de lectura, configura `"require_auth": true` y `"allowed_roles": ["admin", "teacher", "student"]`. En las escrituras sobre `grades`, usa `"allowed_roles": ["admin", "teacher"]`; para el resto de escrituras, limita la lista a `["admin"]`. Silence valida el token y el rol antes de ejecutar el SQL sobre `GradesDB`.
+
+#### Capa SQL: usuarios, roles y permisos en MariaDB
+
+Para el acceso directo al backend mediante HeidiSQL o el cliente `mariadb`, RNF001 se implementa también con las cuentas y roles propios del SGBD. Esta capa es independiente de los usuarios internos de Silence.
+
+La creación de cuentas y la concesión de privilegios requieren una cuenta administradora de MariaDB con `CREATE USER`, `CREATE ROLE` y `GRANT OPTION`; `iissi_user` no dispone de esos permisos. Ejecuta `grants.sql` por separado como administrador, no como parte de la carga ordinaria de `GradesDB`.
+
+```sql
+CREATE ROLE IF NOT EXISTS grades_admin;
+CREATE ROLE IF NOT EXISTS grades_teacher;
+CREATE ROLE IF NOT EXISTS grades_student;
+
+GRANT ALL PRIVILEGES ON GradesDB.* TO grades_admin;
+
+GRANT SELECT ON GradesDB.* TO grades_teacher;
+GRANT INSERT, UPDATE, DELETE ON GradesDB.grades TO grades_teacher;
+
+GRANT SELECT ON GradesDB.* TO grades_student;
+
+CREATE USER IF NOT EXISTS 'admin_grades'@'localhost' IDENTIFIED BY 'grades$admin';
+CREATE USER IF NOT EXISTS 'teacher_grades'@'localhost' IDENTIFIED BY 'grades$teacher';
+CREATE USER IF NOT EXISTS 'student_grades'@'localhost' IDENTIFIED BY 'grades$student';
+
+GRANT grades_admin TO 'admin_grades'@'localhost';
+GRANT grades_teacher TO 'teacher_grades'@'localhost';
+GRANT grades_student TO 'student_grades'@'localhost';
+GRANT grades_admin TO 'iissi_user'@'localhost';
+
+SET DEFAULT ROLE grades_admin FOR 'admin_grades'@'localhost';
+SET DEFAULT ROLE grades_teacher FOR 'teacher_grades'@'localhost';
+SET DEFAULT ROLE grades_student FOR 'student_grades'@'localhost';
+SET DEFAULT ROLE grades_admin FOR 'iissi_user'@'localhost';
+```
+
+Las contraseñas siguen la misma convención que las cuentas del entorno de prácticas: `grades$admin`, `grades$teacher` y `grades$student`. La cuenta técnica `iissi_user`, utilizada por Silence, también pertenece a `grades_admin` y tiene este rol activado de forma predeterminada. Las cuentas se limitan a `localhost`; si MariaDB se ejecuta en otro contenedor o equipo, adapta el host al entorno de prácticas sin usar comodines innecesarios. El script completo está disponible en el Anexo B como `grants.sql`.
 
 ### 5. La Consola Integrada
 
@@ -123,33 +197,18 @@ Cada Ejercicio incluye: el enunciado, la definición del endpoint en formato JSO
 
 ---
 
-# Ejercicios de generación de endpoints y pruebas
 
 > Las siguientes definiciones de endpoints en `JSON` son orientativas y deben ser creados desde `/admin/endpoints/new`. Si se desea se puede añadir el endpoint directamente desde su definición serializada (en JSON) haciendo un test `POST` al endpoint interno `/api/internal/admin/endpoint` o añadiéndolo al directorio `/endpoints` del proyecto (requiere reiniciar el runtime).
 
-> Para poder hacer los tests relacionados con el uso de `|user_id|` es necesario realizar modificaciones a la base de datos, entre ellas añadir la siguiente relación:
->
-> ```sql
-> ALTER TABLE people
->   ADD CONSTRAINT people_silence_users
->   FOREIGN KEY (person_id) REFERENCES silence.silence_users(user_id)
->   ON DELETE CASCADE ON UPDATE CASCADE;
-> ```
->
-> Asegúrese de que `silence_users` tiene exactamente el mismo tipo de `PRIMARY KEY`s que `people` (`INT UNSIGNED`).
+> Para los endpoints que usan `|user_id|`, el usuario de Silence debe tener el mismo `user_id` que el `person_id` correspondiente en `GradesDB`. No es necesario crear una clave ajena entre ambas bases: no todas las personas del catálogo académico tienen que disponer de una cuenta de acceso.
 
-Es fundamental distinguir entre dos tipos de parámetros:
-
-- **Parámetros de petición** (`{param}`): proceden directamente de la petición HTTP (segmentos de la ruta, _query params_ o campos del cuerpo JSON) y se referencian en la consulta SQL entre llaves.
-- **Parámetros inyectados en tiempo de ejecución** (`|param|`): los proporciona el propio framework a partir del contexto de la petición. El caso paradigmático es `|user_id|`, que Silence inyecta automáticamente a partir del token de autorización del usuario autenticado.
-
-Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones inválidas devuelven **500 Internal Server Error**.
+Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones inválidas devuelven **500 Internal Server Error**. Para probar cualquiera de los endpoints siguientes, inicia sesión primero y reutiliza el token generado por Silence.
 
 ---
 
 ## Ejercicio 1: Asignaturas de un Grado
 
-**Enunciado.** Diseñar un endpoint público que, dado el identificador de un grado (parámetro de ruta), devuelva todas sus asignaturas.
+**Enunciado.** Diseñar un endpoint autenticado que, dado el identificador de un grado (parámetro de ruta), devuelva todas sus asignaturas.
 
 **Definición (`endpoints/degrees.json`):**
 
@@ -167,7 +226,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene todas las asignaturas de un grado."
+        "description": "Obtiene todas las asignaturas de un grado.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -184,7 +245,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 2: Alumnos Matriculados en una Asignatura
 
-**Enunciado.** Construir un endpoint público que, dada una asignatura, devuelva los datos personales de los alumnos matriculados en ella.
+**Enunciado.** Construir un endpoint autenticado que, dada una asignatura, devuelva los datos personales de los alumnos matriculados en ella.
 
 **Definición (`endpoints/subjects.json`):**
 
@@ -202,7 +263,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene los alumnos matriculados en una asignatura."
+        "description": "Obtiene los alumnos matriculados en una asignatura.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -218,7 +281,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 3: Nota Media de una Asignatura
 
-**Enunciado.** Implementar un endpoint público que devuelva la nota media de todas las calificaciones de una asignatura concreta.
+**Enunciado.** Implementar un endpoint autenticado que devuelva la nota media de todas las calificaciones de una asignatura concreta.
 
 **Definición (`endpoints/subjects.json`):**
 
@@ -236,7 +299,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene la nota media de una asignatura."
+        "description": "Obtiene la nota media de una asignatura.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -252,7 +317,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 4: Alumnos con Matrícula de Honor
 
-**Enunciado.** Crear un endpoint público que devuelva todos los alumnos con matrícula de honor, incluyendo el nombre de la asignatura y la nota.
+**Enunciado.** Crear un endpoint autenticado que devuelva todos los alumnos con matrícula de honor, incluyendo el nombre de la asignatura y la nota.
 
 **Definición (`endpoints/grades.json`):**
 
@@ -270,7 +335,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene los alumnos con matrícula de honor."
+        "description": "Obtiene los alumnos con matrícula de honor.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -285,7 +352,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 5: Carga Docente por Profesor
 
-**Enunciado.** Diseñar un endpoint público que devuelva, por profesor, la suma total de créditos impartidos, ordenado de mayor a menor.
+**Enunciado.** Diseñar un endpoint autenticado que devuelva, por profesor, la suma total de créditos impartidos, ordenado de mayor a menor.
 
 **Definición (`endpoints/professors.json`):**
 
@@ -303,7 +370,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene la carga docente por profesor."
+        "description": "Obtiene la carga docente por profesor.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -318,7 +387,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 6: Grupos de una Asignatura en un Año Académico
 
-**Enunciado.** Implementar un endpoint público que combine el identificador de asignatura (parámetro de ruta) y el año académico (_query parameter_).
+**Enunciado.** Implementar un endpoint autenticado que combine el identificador de asignatura (parámetro de ruta) y el año académico (_query parameter_).
 
 **Definición (`endpoints/subjects.json`):**
 
@@ -337,7 +406,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene los grupos de una asignatura en un año académico."
+        "description": "Obtiene los grupos de una asignatura en un año académico.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -354,7 +425,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 7: Búsqueda de Alumnos por Apellido
 
-**Enunciado.** Definir un endpoint público que permita buscar alumnos cuyo apellido contenga una subcadena recibida como _query parameter_.
+**Enunciado.** Definir un endpoint autenticado que permita buscar alumnos cuyo apellido contenga una subcadena recibida como _query parameter_.
 
 **Definición (`endpoints/students.json`):**
 
@@ -373,7 +444,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Busca alumnos por subcadena del apellido."
+        "description": "Busca alumnos por subcadena del apellido.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -390,7 +463,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 
 ## Ejercicio 8: Alumnos con más de N Asignaturas Matriculadas
 
-**Enunciado.** Crear un endpoint público que devuelva los alumnos matriculados en más de N asignaturas, con N recibido como _query parameter_.
+**Enunciado.** Crear un endpoint autenticado que devuelva los alumnos matriculados en más de N asignaturas, con N recibido como _query parameter_.
 
 **Definición (`endpoints/students.json`):**
 
@@ -409,7 +482,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
                 }
             ]
         },
-        "description": "Obtiene los alumnos con más de N asignaturas matriculadas."
+        "description": "Obtiene los alumnos con más de N asignaturas matriculadas.",
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
@@ -453,7 +528,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
         },
         "description": "Crea una nota aplicando todas las reglas de negocio.",
         "require_auth": true,
-        "allowed_roles": ["admin", "profesor"]
+        "allowed_roles": ["admin", "teacher"]
     }
 ]
 ```
@@ -465,9 +540,9 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 | R9.1 | [P]  | Crear nota válida                   | `{"student_id": 1, "group_id": 1, "grade_value": 7.5, "exam_call": "Primera", "with_honors": false}`  | 200             |
 | R9.2 | [N]  | Alumno no pertenece al grupo (RN02) | `{"student_id": 2, "group_id": 1, "grade_value": 8.0, "exam_call": "Primera", "with_honors": false}`  | 500             |
 | R9.3 | [N]  | Valor de nota fuera de rango (RN11) | `{"student_id": 1, "group_id": 1, "grade_value": 11.0, "exam_call": "Segunda", "with_honors": false}` | 500             |
-| R9.4 | [N]  | Honor con nota < 9 (RN08)           | `{"student_id": 1, "group_id": 1, "grade_value": 8.0, "exam_call": "Segunda", "with_honors": true}`   | 500             |
+| R9.4 | [N]  | Honor con nota < 9 (RN001)           | `{"student_id": 1, "group_id": 1, "grade_value": 8.0, "exam_call": "Segunda", "with_honors": true}`   | 500             |
 | R9.5 | [N]  | Convocatoria inválida (RN18)        | `{"student_id": 1, "group_id": 1, "grade_value": 7.0, "exam_call": "Cuarta", "with_honors": false}`   | 500             |
-| R9.6 | [N]  | Nota duplicada (RN01)               | `{"student_id": 1, "group_id": 1, "grade_value": 6.0, "exam_call": "Primera", "with_honors": false}`  | 500             |
+| R9.6 | [N]  | Nota duplicada (RN017)               | `{"student_id": 1, "group_id": 1, "grade_value": 6.0, "exam_call": "Primera", "with_honors": false}`  | 500             |
 
 ---
 
@@ -492,24 +567,25 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
             ]
         },
         "description": "Obtiene las calificaciones del usuario autenticado.",
-        "require_auth": true
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```
 
 **Pruebas:**
 
-| ID    | Tipo | Descripción                                      | Cabecera `Token`              | Código esperado   |
+| ID    | Tipo | Descripción                                      | Cabecera `Authorization`              | Código esperado   |
 | ----- | ---- | ------------------------------------------------ | ----------------------------- | ----------------- |
 | R10.1 | [P]  | Consulta con token válido de un alumno con notas | Token del usuario autenticado | 200               |
 | R10.2 | [P]  | Consulta con token válido de un alumno sin notas | Token de otro usuario         | 200 (lista vacía) |
-| R10.3 | [N]  | Sin cabecera `Token`                             | —                             | 401               |
+| R10.3 | [N]  | Sin cabecera `Authorization`                             | —                             | 401               |
 
 ---
 
 ## Ejercicio 11 (Avanzado): Matriculación con Restricciones de Rol
 
-**Enunciado.** Implementar un endpoint `POST /students/{studentId}/enroll` que matricule al alumno en una asignatura. El identificador del alumno se recibe como parámetro de ruta (`{studentId}`) y el de la asignatura en el cuerpo (`{subject_id}`). El endpoint exige autenticación y sólo está disponible para `admin` y `profesor`.
+**Enunciado.** Implementar un endpoint autenticado `POST /students/{studentId}/enroll` que matricule al alumno en una asignatura. El identificador del alumno se recibe como parámetro de ruta (`{studentId}`) y el de la asignatura en el cuerpo (`{subject_id}`). El endpoint exige autenticación y sólo está disponible para `admin`.
 
 **Definición (`endpoints/students.json`):**
 
@@ -530,7 +606,7 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
         },
         "description": "Matricula a un alumno en una asignatura.",
         "require_auth": true,
-        "allowed_roles": ["admin", "profesor"]
+        "allowed_roles": ["admin"]
     }
 ]
 ```
@@ -542,8 +618,8 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 | R11.1 | [P]  | Matriculación válida (rol autorizado) | `POST /students/1/enroll` · `{"subject_id": 5}`    | 200             |
 | R11.2 | [N]  | Matrícula duplicada                   | `POST /students/1/enroll` · `{"subject_id": 1}`    | 500             |
 | R11.3 | [N]  | Alumno inexistente                    | `POST /students/9999/enroll` · `{"subject_id": 5}` | 500             |
-| R11.4 | [N]  | Sin cabecera `Token`                  | `POST /students/1/enroll` · `{"subject_id": 5}`    | 401             |
-| R11.5 | [N]  | Rol no autorizado (`tester`)          | `POST /students/1/enroll` · `{"subject_id": 5}`    | 403             |
+| R11.4 | [N]  | Sin cabecera `Authorization`                  | `POST /students/1/enroll` · `{"subject_id": 5}`    | 401             |
+| R11.5 | [N]  | Rol no autorizado (`teacher`)          | `POST /students/1/enroll` · `{"subject_id": 5}`    | 403             |
 
 ---
 
@@ -569,7 +645,8 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
             ]
         },
         "description": "Obtiene las calificaciones del usuario autenticado en una convocatoria.",
-        "require_auth": true
+        "require_auth": true,
+        "allowed_roles": ["admin", "teacher", "student"]
     }
 ]
 ```

@@ -1,6 +1,6 @@
 -- BD de Grados
 SELECT '>>> Creando BD GradosDB';
 SOURCE createDB.sql
-SOURCE populate.sql
-SOURCE grants.sql
+SOURCE populateDB.sql
+-- grants.sql se ejecuta por separado con una cuenta administradora de MariaDB.
 

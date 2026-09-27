@@ -209,14 +209,9 @@ ALTER TABLE groups
     ADD CONSTRAINT rn_uq_groups_name UNIQUE (subject_id, group_name, academic_year);
 
 -- ============================================================================
--- RNF01 - Control de acceso: Añadir atributos role y password_hash a people
--- ============================================================================
-
--- Primero añadimos los atributos role y password_hash que son necesarios
--- para el control de acceso (RNF001) pero no forman parte del modelo relacional básico
--- ALTER TABLE people
---     ADD COLUMN role ENUM('student','professor') NOT NULL AFTER email,
---     ADD COLUMN password_hash VARCHAR(255) NOT NULL AFTER role;
+-- RNF001 se implementa en la aplicación mediante Silence y, para acceso SQL directo,
+-- mediante los usuarios y roles definidos en grants.sql. Las credenciales de Silence se almacenan en su base
+-- interna y no forman parte del esquema académico GradesDB.
 
 -- ============================================================================
 -- TRIGGERS PARA LAS RN COMPLEJAS

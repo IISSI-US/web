@@ -136,8 +136,8 @@ BEGIN
 
     CALL p_populate();
 
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-        VALUES (102, '20000002B', 'Test', 'Alumno', 20, 'nuevo@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
+    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+        VALUES (102, '20000002B', 'Test', 'Alumno', 20, 'nuevo@alum.us.es');
     INSERT INTO students (student_id, access_method) VALUES (102, 'Selectividad');
     INSERT INTO group_enrollments (student_id, group_id) VALUES (102, 1);
 
@@ -154,8 +154,8 @@ BEGIN
 
     CALL p_populate();
 
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-        VALUES (104, '20000004D', 'Test', 'Menor', 15, 'menor@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
+    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+        VALUES (104, '20000004D', 'Test', 'Menor', 15, 'menor@alum.us.es');
     INSERT INTO students (student_id, access_method) VALUES (104, 'Selectividad');
 
     CALL p_log_test('RN008', 'ERROR: Se permitió Selectividad para un menor', 'FAIL');
@@ -171,8 +171,8 @@ BEGIN
 
     CALL p_populate();
 
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-        VALUES (103, '20000003C', NULL, 'Campos', 22, 'null@alum.us.es', 'student', 'pbkdf2_sha256$1$00$00');
+    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+        VALUES (103, '20000003C', NULL, 'Campos', 22, 'null@alum.us.es');
 
     CALL p_log_test('RN009', 'ERROR: Se permitió dejar atributos obligatorios a NULL', 'FAIL');
 END //
@@ -219,8 +219,8 @@ BEGIN
 
     CALL p_populate();
 
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-        VALUES (105, '20000005E', 'Edad', 'Fuera', 80, 'edad@us.es', 'student', 'pbkdf2_sha256$1$00$00');
+    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+        VALUES (105, '20000005E', 'Edad', 'Fuera', 80, 'edad@us.es');
 
     CALL p_log_test('RN012', 'ERROR: Se permitió una edad fuera de rango', 'FAIL');
 END //
@@ -251,8 +251,8 @@ BEGIN
 
     CALL p_populate();
 
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-        VALUES (106, 'INVALIDO', 'DNI', 'Incorrecto', 30, 'dni@us.es', 'student', 'pbkdf2_sha256$1$00$00');
+    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+        VALUES (106, 'INVALIDO', 'DNI', 'Incorrecto', 30, 'dni@us.es');
 
     CALL p_log_test('RN014', 'ERROR: Se permitió un DNI con formato inválido', 'FAIL');
 END //

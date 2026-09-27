@@ -40,9 +40,9 @@ Ejemplos de consultas SQL sobre la base de datos GradesDB.
 
 {% include sql-embed.html src='_code/grades/queries.sql' label='queries.sql' collapsed=true %}
 
-## Permisos y usuarios
+## Autenticación y permisos
 
-Script para configurar los permisos y crear los usuarios necesarios para trabajar con la base de datos.
+Script administrativo para crear los usuarios y roles de MariaDB usados en el acceso SQL directo y asignarles los permisos de RNF001. Debe ejecutarse por separado con una cuenta que disponga de `CREATE USER`, `CREATE ROLE` y `GRANT OPTION`.
 
 {% include sql-embed.html src='_code/grades/grants.sql' label='grants.sql' collapsed=true %}
 

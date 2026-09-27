@@ -77,8 +77,8 @@ Ejecuta el script `createdb.sql` completo en HeidiSQL (F9) para aplicar estas re
 **Prueba 1: Edad fuera de rango**
 
 ```sql
-INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
-VALUES ('99999999Z', 'Juan', 'Test', 15, 'juan@test.es', 'student', 'hash123');
+INSERT INTO people (dni, first_name, last_name, age, email)
+VALUES ('99999999Z', 'Juan', 'Test', 15, 'juan@test.es');
 ```
 
 **Error esperado**: `Check constraint 'rn12_people_age' is violated`
@@ -88,15 +88,15 @@ VALUES ('99999999Z', 'Juan', 'Test', 15, 'juan@test.es', 'student', 'hash123');
 Primero inserta una persona válida:
 
 ```sql
-INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
-VALUES ('88888888A', 'Ana', 'Test', 25, 'ana@test.es', 'student', 'hash456');
+INSERT INTO people (dni, first_name, last_name, age, email)
+VALUES ('88888888A', 'Ana', 'Test', 25, 'ana@test.es');
 ```
 
 Ahora intenta insertar otra con el mismo DNI:
 
 ```sql
-INSERT INTO people (dni, first_name, last_name, age, email, role, password_hash)
-VALUES ('88888888A', 'Pedro', 'Test', 30, 'pedro@test.es', 'student', 'hash789');
+INSERT INTO people (dni, first_name, last_name, age, email)
+VALUES ('88888888A', 'Pedro', 'Test', 30, 'pedro@test.es');
 ```
 
 **Error esperado**: `Duplicate entry '88888888A' for key 'rn_uq_people_dni'`
@@ -125,8 +125,8 @@ Prueba a insertar un profesor con una categoría no válida:
 
 ```sql
 -- Primero necesitamos una persona en la tabla people
-INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-VALUES (1000, '11111111A', 'Carlos', 'Profesor', 45, 'carlos@us.es', 'professor', 'hash');
+INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+VALUES (1000, '11111111A', 'Carlos', 'Profesor', 45, 'carlos@us.es');
 
 -- Ahora intentamos crear el profesor con categoría inválida
 INSERT INTO professors (professor_id, category)
@@ -158,8 +158,8 @@ Prueba a insertar un estudiante con método de acceso no válido:
 
 ```sql
 -- Primero necesitamos una persona
-INSERT INTO people (person_id, dni, first_name, last_name, age, email, role, password_hash)
-VALUES (2000, '22222222B', 'María', 'Estudiante', 20, 'maria@us.es', 'student', 'hash');
+INSERT INTO people (person_id, dni, first_name, last_name, age, email)
+VALUES (2000, '22222222B', 'María', 'Estudiante', 20, 'maria@us.es');
 
 -- Intentamos crear estudiante con método inválido
 INSERT INTO students (student_id, access_method)

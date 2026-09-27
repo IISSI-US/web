@@ -1,69 +1,27 @@
+-- Usuarios, roles y permisos de MariaDB para acceso SQL directo (RNF001).
+-- Las contraseñas siguen la convención utilizada en el entorno de prácticas.
 
---
--- Usuarios, roles y permisos para la BD de Grados
---
-USE GradesDB;
+CREATE ROLE IF NOT EXISTS grades_admin;
+CREATE ROLE IF NOT EXISTS grades_teacher;
+CREATE ROLE IF NOT EXISTS grades_student;
 
-CREATE TABLE IF NOT EXISTS credentials (
-    credential_id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    role ENUM('admin','teacher','student') NOT NULL DEFAULT 'student',
-    password_hash VARCHAR(256) NOT NULL DEFAULT '',
-    CONSTRAINT ak_email UNIQUE(email)
-);
+GRANT ALL PRIVILEGES ON GradesDB.* TO grades_admin;
 
--- INSERT INTO credentials (email, role)
--- VALUES
---     ('druiz@us.es', 'admin'),
---     ('inmahernandez@us.es', 'teacher'),
---     ('david.romero@alum.us.es', 'student');
+GRANT SELECT ON GradesDB.* TO grades_teacher;
+GRANT INSERT, UPDATE, DELETE ON GradesDB.grades TO grades_teacher;
 
--- -- Comentado para Silence
--- -- ROLES
+GRANT SELECT ON GradesDB.* TO grades_student;
 
--- -- Admin: todos los privilegios sobre la BD
--- CREATE ROLE IF NOT EXISTS role_admin;
+CREATE USER IF NOT EXISTS 'admin_grades'@'localhost' IDENTIFIED BY 'grades$admin';
+CREATE USER IF NOT EXISTS 'teacher_grades'@'localhost' IDENTIFIED BY 'grades$teacher';
+CREATE USER IF NOT EXISTS 'student_grades'@'localhost' IDENTIFIED BY 'grades$student';
 
--- -- Teacher: lectura de toda la BD y escritura limitada en 'grades'
--- CREATE ROLE IF NOT EXISTS role_teacher;
+GRANT grades_admin TO 'admin_grades'@'localhost';
+GRANT grades_teacher TO 'teacher_grades'@'localhost';
+GRANT grades_student TO 'student_grades'@'localhost';
+GRANT grades_admin TO 'iissi_user'@'localhost';
 
--- -- Student: lectura de toda la BD
--- CREATE ROLE IF NOT EXISTS role_student;
-
--- -- 3) PRIVILEGIOS A LOS ROLES (en este orden)
--- -- Admin (total sobre la BD)
--- GRANT ALL PRIVILEGES ON GradesDB.* TO role_admin;
-
--- -- Teacher:
--- --   - Lectura de toda la BD (para que pueda navegar y hacer SELECT en todas las tablas)
--- --   - Modificaciones SOLO en 'grades'
--- GRANT SELECT ON GradesDB.* TO role_teacher;
--- GRANT INSERT, UPDATE ON GradesDB.grades TO role_teacher;
-
--- -- Student: solo lectura en toda la BD
--- GRANT SELECT ON GradesDB.* TO role_student;
-
--- -- USUARIOS y asignación de roles
-
--- CREATE USER IF NOT EXISTS 'admin_grados'@'%' IDENTIFIED BY 'druiz';
--- GRANT role_admin TO 'admin_grados'@'%';
-
--- CREATE USER IF NOT EXISTS 'teacher_grados'@'%' IDENTIFIED BY 'inmahernandez';
--- GRANT role_teacher TO 'teacher_grados'@'%';
-
--- CREATE USER IF NOT EXISTS 'student_grados'@'%' IDENTIFIED BY 'david.romero';
--- GRANT role_student TO 'student_grados'@'%';
-
--- -- Activar ROL por defecto (clave para que funcione al iniciar sesión)
--- -- Al iniciar sesión desde HeidiSQL odesde la línea de comando, debe activarse el rol
--- -- por defecto para que el usuario tenga los permisos asignados al rol.
-
--- -- Ejecuta los siguientes escenarios de test
--- -- SET ROLE role_admin TO 'admin_grados'@'%';
--- -- SOURCE test_admin.sql;
-
--- -- SET ROLE role_teacher TO 'teacher_grados'@'%';
--- -- SOURCE test_teacher.sql;
-
--- -- SET ROLE role_student TO 'student_grados'@'%';  
--- -- SOURCE test_student.sql;
+SET DEFAULT ROLE grades_admin FOR 'admin_grades'@'localhost';
+SET DEFAULT ROLE grades_teacher FOR 'teacher_grades'@'localhost';
+SET DEFAULT ROLE grades_student FOR 'student_grades'@'localhost';
+SET DEFAULT ROLE grades_admin FOR 'iissi_user'@'localhost';
