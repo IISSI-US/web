@@ -18,9 +18,21 @@ Este anexo contiene todos los scripts SQL necesarios para trabajar con la base d
 
 ## Creación de la base de datos
 
-Script principal para crear el esquema de la base de datos, incluyendo todas las tablas, claves, restricciones, funciones y disparadores (triggers).
+Script principal para crear el esquema de la base de datos, incluyendo las tablas, claves y restricciones declarativas.
 
 {% include sql-embed.html src='_code/grades/createDB.sql' label='createDB.sql' collapsed=false %}
+
+## Funciones
+
+Funciones auxiliares utilizadas por los triggers para implementar las reglas de negocio que requieren consultar otras filas o tablas.
+
+{% include sql-embed.html src='_code/grades/functions.sql' label='functions.sql' collapsed=true %}
+
+## Triggers
+
+Disparadores que implementan las reglas de negocio no expresables mediante restricciones declarativas. Deben cargarse después de `functions.sql`.
+
+{% include sql-embed.html src='_code/grades/triggers.sql' label='triggers.sql' collapsed=true %}
 
 ## Carga inicial de datos
 
@@ -46,9 +58,15 @@ Script administrativo para crear los usuarios y roles de MariaDB usados en el ac
 
 {% include sql-embed.html src='_code/grades/grants.sql' label='grants.sql' collapsed=true %}
 
-## Tests
+## Tests de restricciones declarativas
 
-Script con procedimientos de prueba para validar el funcionamiento de la base de datos.
+Batería utilizada en L4 antes de incorporar las funciones y triggers.
+
+{% include sql-embed.html src='_code/grades/tests_constraints.sql' label='tests_constraints.sql' collapsed=true %}
+
+## Tests completos
+
+Batería completa utilizada en L5 después de cargar `functions.sql` y `triggers.sql`.
 
 {% include sql-embed.html src='_code/grades/tests.sql' label='tests.sql' collapsed=true %}
 

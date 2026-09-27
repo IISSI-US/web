@@ -332,7 +332,7 @@ Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "
 
 ## Reglas de negocio que requieren triggers
 
-Las restricciones anteriores pueden expresarse mediante claves, `CHECK` y `UNIQUE`. Sin embargo, las reglas que necesitan comparar varias filas o consultar otras tablas no pueden implementarse de ese modo en MariaDB. En el script completo `createDB.sql`, las reglas RN02, RN03, RN04, RN05, RN06, RN07 y RN17 se implementan mediante triggers.
+Las restricciones anteriores pueden expresarse mediante claves, `CHECK` y `UNIQUE`. Sin embargo, las reglas que necesitan comparar varias filas o consultar otras tablas no pueden implementarse de ese modo en MariaDB. Las reglas RN02, RN03, RN04, RN05, RN06, RN07 y RN17 se implementarán mediante los triggers de `triggers.sql` en L5.
 
 Estos triggers se estudian y construyen en el [Lab5 - Funciones y triggers](/iissi1/labs/L5-func_trig/). En particular, RN017 impide que un alumno tenga más de una nota para la misma asignatura, convocatoria y año académico mediante el trigger `t_biu_grades_rn17`.
 

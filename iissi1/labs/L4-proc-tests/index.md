@@ -31,7 +31,7 @@ Los procedimientos almacenados permiten encapsular lógica de negocio en el serv
 
 Abre HeidiSQL y conéctate con el usuario `iissi_user` a la base de datos `GradesDB`. Asegúrate de haber ejecutado previamente los scripts `createDB.sql` y `populateDB.sql` de los laboratorios anteriores.
 
-Crea un nuevo archivo `tests.sql` en tu repositorio donde implementarás los tests de este laboratorio.
+Crea un nuevo archivo `tests_constraints.sql` en tu repositorio donde implementarás los tests de este laboratorio.
 
 ## Control de versiones
 
@@ -40,14 +40,14 @@ Continuaremos trabajando con el repositorio `GradesDB` creado en L1.
 **Al inicio del laboratorio**, añade el archivo de tests y haz commit:
 
 ```bash
-git add tests.sql
-git commit -m "Añadido archivo tests.sql para L4"
+git add tests_constraints.sql
+git commit -m "Añadido archivo tests_constraints.sql para L4"
 ```
 
 **Al finalizar el laboratorio**, haz push al repositorio remoto:
 
 ```bash
-git add tests.sql
+git add tests_constraints.sql
 git commit -m "Completado L4: Tests SQL para validación de reglas de negocio"
 git push origin main
 ```
@@ -407,591 +407,41 @@ Utilizaremos **tests negativos** para validar que las restricciones funcionan:
 
 Los **tests positivos** (operaciones válidas) se asumen validados si `populateDB.sql` se ejecuta sin errores, ya que ese script contiene datos que cumplen todas las reglas.
 
-## Estructura del archivo tests.sql
+## Tests de restricciones declarativas
 
-El archivo `tests.sql` que vamos a crear contendrá:
+En este laboratorio se prueban las reglas implementadas hasta L2 mediante claves, atributos obligatorios y restricciones `CHECK`. Las reglas que requieren funciones o triggers se incorporarán a la batería completa en L5, después de construir esos objetos.
 
-```sql
---
--- Autor: [Tu Nombre]
--- Fecha: Enero 2026
--- Descripción: Tests negativos para la BD de Grados
---
-USE GradesDB;
+El archivo `tests_constraints.sql` contiene:
 
--- 1. Tabla de resultados (test_results)
--- 2. Procedimiento auxiliar (p_log_test)
--- 3. Tests individuales (p_test_rn001, p_test_rn002, ...)
--- 4. Procedimiento orquestador (p_run_grados_tests)
--- 5. Llamada al orquestador
-```
+1. La tabla `test_results`.
+2. El procedimiento auxiliar `p_log_test`.
+3. Los tests de RN001 y RN009-RN016.
+4. El procedimiento orquestador `p_run_constraint_tests`.
 
-## Tabla de resultados
-
-La tabla `test_results` almacena los resultados de cada test ejecutado:
-
-```sql
--- =============================================================
--- TABLA DE RESULTADOS
--- =============================================================
-CREATE OR REPLACE TABLE test_results (
-    test_id VARCHAR(20) PRIMARY KEY,
-    test_name VARCHAR(200) NOT NULL,
-    test_message VARCHAR(500) NOT NULL,
-    test_status ENUM('PASS','FAIL','ERROR') NOT NULL,
-    execution_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-**Observe lo siguiente:**
-
-- `test_id`: Identificador único del test (ej: 'RN001', 'RN002').
-- `test_name`: Nombre descriptivo extraído del mensaje.
-- `test_message`: Mensaje completo que describe el test.
-- `test_status`: Estado del test:
-  - `PASS`: El test pasó (la restricción funcionó)
-  - `FAIL`: El test falló (la restricción NO funciona)
-  - `ERROR`: Error inesperado
-- `execution_time`: Marca temporal de ejecución.
-
-## Procedimiento auxiliar
-
-El procedimiento `p_log_test` facilita insertar resultados:
-
-```sql
--- =============================================================
--- PROCEDIMIENTO AUXILIAR
--- =============================================================
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_log_test(
-    IN p_test_id VARCHAR(20),
-    IN p_message VARCHAR(500),
-    IN p_status ENUM('PASS','FAIL','ERROR')
-)
-BEGIN
-    INSERT INTO test_results(test_id, test_name, test_message, test_status)
-    VALUES (p_test_id, SUBSTRING_INDEX(p_message, ':', 1), p_message, p_status);
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Recibe el ID, mensaje y estado del test.
-- `SUBSTRING_INDEX(p_message, ':', 1)` extrae el nombre antes del primer `:`.
-- Ejemplo: `'RN001: La MH requiere nota >= 9'` → extrae `'RN001'`.
-
-## Tests (RN001 - RN016)
-
-A continuación implementaremos los 16 tests, uno para cada regla de negocio. Copia cada uno en tu archivo `tests.sql`.
-
-### Test RN001: Matrícula de honor requiere nota >= 9
-
-```sql
--- =============================================================
--- TESTS (RN001 - RN016)
--- =============================================================
-
--- Test RN001: Matrícula de honor requiere nota >= 9
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn001_mh_requirement()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN001', 'RN001: La MH requiere nota >= 9', 'PASS');
-
-    CALL p_populate();
-
-    UPDATE grades SET with_honors = 1 WHERE grade_id = 21;
-
-    CALL p_log_test('RN001', 'ERROR: Se permitió MH con nota inferior a 9', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- `DECLARE EXIT HANDLER FOR SQLEXCEPTION`: Captura cualquier error SQL.
-- Si el UPDATE falla (esperado), el handler registra PASS.
-- Si el UPDATE tiene éxito (no debería), se registra FAIL.
-- `grade_id = 21` tiene nota 6.2 (< 9), por lo que no puede ser MH.
-
-### Test RN017: No se permiten notas duplicadas
-
-```sql
--- Test RN017: No se permiten notas duplicadas por asignatura/convocatoria
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn017_duplicate_grade()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN017', 'RN017: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
-        VALUES (101, 6, 1, 6.0, 'Primera', 0);
-
-    CALL p_log_test('RN017', 'ERROR: Se permitió duplicar nota en la misma convocatoria', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- El estudiante 6 ya tiene nota en grupo 1, convocatoria 'Primera'.
-- El trigger `t_biu_grades_rn17` debe detectar y rechazar esta duplicación.
-
-### Test RN003: Máximo 2 profesores por grupo
-
-```sql
--- Test RN003: Un grupo no puede tener más de 2 profesores
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn003_professors_per_group()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN003', 'RN003: No se permite añadir un tercer profesor al grupo', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO teaching_loads (professor_id, group_id, credits) VALUES (5, 1, 1.0);
-
-    CALL p_log_test('RN003', 'ERROR: Se asignó un tercer profesor al grupo', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- El grupo 1 ya tiene 2 profesores (IDs 1 y 2).
-- Intentamos asignar el profesor 5 como tercero.
-- El trigger `t_bi_teaching_loads_rn03` debe rechazar esto.
-
-### Test RN004: Límite de grupos por alumno
-
-```sql
--- Test RN004: Un alumno no puede pertenecer a más de un grupo de teoría y uno de laboratorio por asignatura
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn004_student_group_limit()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN004', 'RN004: Un alumno no puede pertenecer a más grupos de los permitidos', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO group_enrollments (student_id, group_id) VALUES (6, 3);
-
-    CALL p_log_test('RN004', 'ERROR: Se permitió un alumno en más grupos de los permitidos', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- El estudiante 6 ya está en grupo 2 (L1 - laboratorio).
-- El grupo 3 es L2 (también laboratorio) de la misma asignatura.
-- Solo se permite 1 grupo de laboratorio por asignatura.
-
-### Test RN005: Cambios bruscos en notas
-
-```sql
--- Test RN005: Una nota no puede alterarse en más de 4 puntos
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn005_grade_delta()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN005', 'RN005: No se puede modificar la nota en más de 4 puntos', 'PASS');
-
-    CALL p_populate();
-
-    UPDATE grades SET grade_value = 0.5 WHERE grade_id = 1;
-
-    CALL p_log_test('RN005', 'ERROR: Se permitió modificar la nota en más de 4 puntos', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- `grade_id = 1` tiene valor 9.8.
-- Intentamos cambiarla a 0.5 (diferencia de 9.3 puntos).
-- El trigger `t_bu_grades_rn05` valida que la diferencia sea ≤ 4.
-
-### Test RN006: Grupos por asignatura y año
-
-```sql
--- Test RN006: No puede haber más de un grupo de teoría y dos de laboratorio por asignatura
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn006_extra_group()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN006', 'RN006: No se permite crear un segundo grupo de teoría para la asignatura', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year)
-        VALUES (11, 11, 'T2', 'Teoría', 2024);
-
-    CALL p_log_test('RN006', 'ERROR: Se creó un segundo grupo de teoría para la misma asignatura', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- La asignatura 11 (IISSI-1) ya tiene grupo T1 de teoría en 2024.
-- Intentamos crear T2 (segundo grupo de teoría).
-- El trigger `t_bi_groups_rn06` debe rechazar esto.
-
-### Test RN007: Matrícula previa requerida
-
-```sql
--- Test RN007: Un alumno sólo puede pertenecer a grupos de asignaturas en las que está matriculado
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn007_subject_enrollment()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN007', 'RN007: No se puede añadir a un grupo sin matrícula en la asignatura', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-        VALUES (102, '20000002B', 'Test', 'Alumno', 20, 'nuevo@alum.us.es');
-    INSERT INTO students (student_id, access_method) VALUES (102, 'Selectividad');
-    INSERT INTO group_enrollments (student_id, group_id) VALUES (102, 1);
-
-    CALL p_log_test('RN007', 'ERROR: Se permitió unir a un grupo sin matrícula en la asignatura', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Creamos estudiante 102.
-- NO lo matriculamos en la asignatura (`subject_enrollments`).
-- Intentamos añadirlo directamente al grupo 1.
-- El trigger debe rechazar esto.
-
-### Test RN008: Edad mínima para selectividad
-
-```sql
--- Test RN008: Un alumno no puede acceder por selectividad con menos de 16 años
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn008_min_age()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN008', 'RN008: No se permite Selectividad con menos de 16 años', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-        VALUES (104, '20000004D', 'Test', 'Menor', 15, 'menor@alum.us.es');
-    INSERT INTO students (student_id, access_method) VALUES (104, 'Selectividad');
-
-    CALL p_log_test('RN008', 'ERROR: Se permitió Selectividad para un menor', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Persona de 15 años.
-- Método de acceso 'Selectividad'.
-- El trigger `t_biu_students_rn08` debe rechazar esto.
-
-### Test RN009: Atributos NOT NULL
-
-```sql
--- Test RN009: Los atributos obligatorios no pueden quedar a NULL
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn009_not_null_attributes()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN009', 'RN009: Los atributos obligatorios no pueden quedar a NULL', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-        VALUES (103, '20000003C', NULL, 'Campos', 22, 'null@alum.us.es');
-
-    CALL p_log_test('RN009', 'ERROR: Se permitió dejar atributos obligatorios a NULL', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- `first_name` es NOT NULL.
-- Intentamos insertar NULL.
-- El constraint de la columna debe rechazar esto.
-
-### Test RN010: Créditos válidos
-
-```sql
--- Test RN010: Los créditos de una asignatura pueden ser 6 o 12
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn010_subject_credits()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN010', 'RN010: Los créditos de una asignatura pueden ser 6 o 12', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, course, subject_type)
-        VALUES (31, 3, 'Asignatura Créditos Inválidos', 'ACI', 8, 2, 'Obligatoria');
-
-    CALL p_log_test('RN010', 'ERROR: Se permitió una asignatura con créditos inválidos', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Créditos = 8 (no permitido).
-- El CHECK constraint `rn10_subjects_credits` valida `credits IN (6, 12)`.
-
-### Test RN011: Rango de notas
-
-```sql
--- Test RN011: El valor de la nota está comprendido entre 0 y 10
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn011_grade_range()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN011', 'RN011: La nota debe estar entre 0 y 10', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
-        VALUES (201, 6, 1, 11.0, 'Primera', 0);
-
-    CALL p_log_test('RN011', 'ERROR: Se permitió una nota fuera de rango', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Valor 11.0 (fuera del rango 0-10).
-- El CHECK constraint `rn11_grades_value` debe rechazar esto.
-
-### Test RN012: Edad de personas
-
-```sql
--- Test RN012: La edad de las personas está entre 16 y 70 años
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn012_people_age()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN012', 'RN012: La edad de las personas debe estar entre 16 y 70', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-        VALUES (105, '20000005E', 'Edad', 'Fuera', 80, 'edad@us.es');
-
-    CALL p_log_test('RN012', 'ERROR: Se permitió una edad fuera de rango', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Edad = 80 (fuera del rango 16-70).
-- El CHECK constraint `rn12_people_age` debe rechazar esto.
-
-### Test RN013: Duración de grados
-
-```sql
--- Test RN013: Los años de un grado están entre 3 y 6
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn013_degree_years()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN013', 'RN013: Los grados deben tener entre 3 y 6 años', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO degrees (degree_id, degree_name, duration_years)
-        VALUES (10, 'Grado Experimental', 2);
-
-    CALL p_log_test('RN013', 'ERROR: Se permitió un grado con años fuera de rango', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Duración = 2 años (fuera del rango 3-6).
-- El CHECK constraint `rn13_degree_duration` debe rechazar esto.
-
-### Test RN014: Formato de DNI
-
-```sql
--- Test RN014: El DNI está formado por 8 números y una letra
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn014_dni_format()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN014', 'RN014: El DNI debe tener 8 dígitos y una letra', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO people (person_id, dni, first_name, last_name, age, email)
-        VALUES (106, 'INVALIDO', 'DNI', 'Incorrecto', 30, 'dni@us.es');
-
-    CALL p_log_test('RN014', 'ERROR: Se permitió un DNI con formato inválido', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- DNI 'INVALIDO' no cumple el patrón.
-- El CHECK constraint `rn14_people_dni` usa REGEXP: `'^[0-9]{8}[A-Za-z]$'`.
-
-### Test RN015: Rango de año académico
-
-```sql
--- Test RN015: El año académico está entre 2000 y 2100
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn015_academic_year()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN015', 'RN015: El año académico debe estar entre 2000 y 2100', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year)
-        VALUES (20, 12, 'MD-T2025', 'Teoría', 1999);
-
-    CALL p_log_test('RN015', 'ERROR: Se permitió un año académico fuera de rango', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Año 1999 (fuera del rango 2000-2100).
-- El CHECK constraint `rn15_groups_year` debe rechazar esto.
-
-### Test RN016: Rango de curso
-
-```sql
--- Test RN016: El curso de una asignatura está entre 1 y 6
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn016_course_range()
-BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN016', 'RN016: El curso de una asignatura debe estar entre 1 y 6', 'PASS');
-
-    CALL p_populate();
-
-    INSERT INTO subjects (subject_id, degree_id, subject_name, acronym, credits, course, subject_type)
-        VALUES (30, 3, 'Asignatura Fuera de Curso', 'AFC', 6, 0, 'Obligatoria');
-
-    CALL p_log_test('RN016', 'ERROR: Se permitió un curso fuera de rango', 'FAIL');
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- Curso = 0 (fuera del rango 1-6).
-- El CHECK constraint `rn16_subjects_course` debe rechazar esto.
-
-## Procedimiento orquestador
-
-El procedimiento `p_run_grados_tests` ejecuta todos los tests y muestra resultados:
-
-```sql
--- =============================================================
--- ORQUESTADOR
--- =============================================================
-DELIMITER //
-CREATE OR REPLACE PROCEDURE p_run_grados_tests()
-BEGIN
-    -- Si los casos positivos fallan, no ejecutar los negativos
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        SELECT 'ERROR: El populate falló. No se ejecutaron los tests positivos.';
-
-    -- Ejecutar populate una sola vez para casos positivos
-    CALL p_populate();
-
-    -- Si llegamos aquí, el populate funcionó correctamente y se han pasado los tests positivos
-    DELETE FROM test_results;
-    CALL p_test_rn001_mh_requirement();
-    CALL p_test_rn017_duplicate_grade();
-    CALL p_test_rn003_professors_per_group();
-    CALL p_test_rn004_student_group_limit();
-    CALL p_test_rn005_grade_delta();
-    CALL p_test_rn006_extra_group();
-    CALL p_test_rn007_subject_enrollment();
-    CALL p_test_rn008_min_age();
-    CALL p_test_rn009_not_null_attributes();
-    CALL p_test_rn010_subject_credits();
-    CALL p_test_rn011_grade_range();
-    CALL p_test_rn012_people_age();
-    CALL p_test_rn013_degree_years();
-    CALL p_test_rn014_dni_format();
-    CALL p_test_rn015_academic_year();
-    CALL p_test_rn016_course_range();
-
-    SELECT * FROM test_results ORDER BY execution_time, test_id;
-    SELECT test_status, COUNT(*) AS total FROM test_results GROUP BY test_status;
-END //
-DELIMITER ;
-```
-
-**Observe lo siguiente:**
-
-- `p_populate` ejecuta los tests positivos, si falla no se deben ejecutar tests negativos
-- `DELETE FROM test_results`: Limpia ejecuciones anteriores.
-- Llama a los 16 tests en orden.
-- Primera consulta: resultados detallados.
-- Segunda consulta: resumen por estado.
+{% include sql-embed.html src='_code/grades/tests_constraints.sql' label='tests_constraints.sql' collapsed=false %}
 
 ## Ejecución de los tests
 
-Al final del archivo añade:
+Ejecuta el script después de `createDB.sql` y `populateDB.sql`:
 
 ```sql
-CALL p_run_grados_tests();
+SOURCE tests_constraints.sql;
 ```
 
-Para ejecutar todos los tests:
-1. Abre `tests.sql` en HeidiSQL.
-2. Presiona F9 o haz clic en "Ejecutar".
-3. Observa los resultados.
+El resultado esperado es:
 
-## Interpretación de resultados
+| Estado | Total |
+|--------|------:|
+| PASS | 9 |
 
-Obtendrás dos tablas de resultados:
+Un resultado `PASS` indica que la base de datos rechazó la operación inválida. Un resultado `FAIL` indica que la operación fue aceptada y la restricción debe revisarse.
 
-### Tabla 1: Resultados detallados
-
-| test_id | test_name | test_message | test_status | execution_time |
-|---------|-----------|--------------|-------------|----------------|
-| RN001 | RN001 | RN001: La MH requiere nota >= 9 | PASS | 2026-01-14 10:30:01 |
-| RN017 | RN017 | RN017: No se permiten notas duplicadas... | PASS | 2026-01-14 10:30:02 |
-| ... | ... | ... | ... | ... |
-
-### Tabla 2: Resumen
-
-| test_status | total |
-|-------------|-------|
-| PASS | 16 |
-
-**Interpretación:**
-
-- **PASS** ✅: La restricción funciona (rechazó operación inválida).
-- **FAIL** ❌: La restricción NO funciona (permitió operación inválida).
-- **ERROR** ⚠️: Error inesperado.
-
-**Resultado esperado**: Los 16 tests deben mostrar PASS.
+En L5 se crearán `functions.sql` y `triggers.sql`; después se ejecutará `tests.sql`, que amplía esta batería con las reglas procedurales y debe producir 16 resultados `PASS`.
 
 ## Push final
 
 ```bash
-git add tests.sql
+git add tests_constraints.sql
 git commit -m "Completado L4: Tests SQL para validación de reglas de negocio"
 git push origin main
 ```

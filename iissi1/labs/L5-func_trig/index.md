@@ -27,7 +27,7 @@ Los procedimientos almacenados ya se han visto en el L4. En este laboratorio nos
 
 Abre HeidiSQL y conéctate con el usuario `iissi_user` a la base de datos `GradesDB`. Asegúrate de haber ejecutado previamente los scripts `createDB.sql` y `populateDB.sql`.
 
-Crea un archivo `functions.sql` para las funciones que implementarás en este laboratorio.
+Crea dos archivos: `functions.sql` para las funciones auxiliares y `triggers.sql` para los disparadores. Se ejecutarán en ese orden porque los triggers llaman a las funciones.
 
 ## Control de versiones
 
@@ -36,14 +36,14 @@ Continuaremos trabajando con el repositorio `GradesDB` creado en L1.
 **Al inicio del laboratorio**, añade el archivo y haz commit:
 
 ```bash
-git add functions.sql
-git commit -m "Añadido archivo functions.sql para L5"
+git add functions.sql triggers.sql
+git commit -m "Añadidos functions.sql y triggers.sql para L5"
 ```
 
 **Al finalizar el laboratorio**, haz push al repositorio remoto:
 
 ```bash
-git add functions.sql
+git add functions.sql triggers.sql
 git commit -m "Completado L5: Funciones y disparadores SQL"
 git push origin main
 ```
@@ -123,28 +123,7 @@ WHERE f_student_average(s.student_id) >= 7.0;
 
 ### Ejemplo 2: Función para verificar si un estudiante está matriculado en una asignatura
 
-Esta es una función booleana (devuelve TRUE/FALSE) útil para validaciones.
-
-```sql
-DELIMITER //
-CREATE OR REPLACE FUNCTION f_is_student_enrolled(
-    p_student_id INT,
-    p_subject_id INT
-) RETURNS BOOLEAN
-DETERMINISTIC
-READS SQL DATA
-BEGIN
-    DECLARE v_exists INT;
-    
-    SELECT COUNT(*) INTO v_exists
-    FROM subject_enrollments
-    WHERE student_id = p_student_id
-      AND subject_id = p_subject_id;
-    
-    RETURN v_exists > 0;
-END //
-DELIMITER ;
-```
+Esta es una función booleana (devuelve TRUE/FALSE) útil para validaciones. Su definición se incorpora al archivo `functions.sql`, mostrado al final de esta sección.
 
 **Para ejecutarla:**
 
@@ -170,37 +149,7 @@ WHERE f_is_student_enrolled(6, s.subject_id) = TRUE;
 
 ### Ejemplo 3: Función para verificar límite de grupos por asignatura
 
-Esta función verifica si una asignatura ha alcanzado el número máximo de grupos permitidos para un tipo de actividad (1 para Teoría, 2 para Laboratorio) en un año académico específico.
-
-```sql
-DELIMITER //
-CREATE OR REPLACE FUNCTION f_subject_group_limit_reached(
-    p_subject_id INT,
-    p_activity VARCHAR(15),
-    p_academic_year YEAR
-) RETURNS BOOLEAN
-DETERMINISTIC
-READS SQL DATA
-BEGIN
-    DECLARE v_count INT;
-    DECLARE v_result BOOLEAN DEFAULT FALSE;
-
-    SELECT COUNT(*) INTO v_count
-    FROM groups
-    WHERE subject_id = p_subject_id
-      AND activity = p_activity
-      AND academic_year = p_academic_year;
-
-    IF p_activity = 'Teoría' THEN
-        SET v_result = (v_count >= 1);
-    ELSEIF p_activity = 'Laboratorio' THEN
-        SET v_result = (v_count >= 2);
-    END IF;
-
-    RETURN v_result;
-END //
-DELIMITER ;
-```
+Esta función verifica si una asignatura ha alcanzado el número máximo de grupos permitidos para un tipo de actividad (1 para Teoría, 2 para Laboratorio) en un año académico específico. Su definición también forma parte de `functions.sql`.
 
 **Para ejecutarla:**
 
@@ -229,44 +178,13 @@ Antes de implementar los triggers, necesitamos definir una función auxiliar adi
 
 Verifica si un estudiante ha alcanzado el límite de grupos permitidos para una actividad en una asignatura (1 grupo de teoría o 1 grupo de laboratorio por asignatura).
 
-```sql
-DELIMITER //
-CREATE OR REPLACE FUNCTION f_student_group_limit(
-    p_student_id INT,
-    p_subject_id INT,
-    p_activity VARCHAR(15),
-    p_excluded_group INT
-)
-RETURNS BOOLEAN
-DETERMINISTIC
-READS SQL DATA
-BEGIN
-    DECLARE v_count INT;
-    DECLARE v_result BOOLEAN DEFAULT FALSE;
-    
-    SELECT COUNT(*) INTO v_count
-    FROM group_enrollments ge
-    JOIN groups g ON g.group_id = ge.group_id
-    WHERE ge.student_id = p_student_id
-      AND g.subject_id = p_subject_id
-      AND g.activity = p_activity
-      AND (p_excluded_group IS NULL OR ge.group_id <> p_excluded_group);
+Las tres funciones auxiliares se reúnen en un único script, que debe ejecutarse antes de crear los triggers:
 
-    IF p_activity = 'Teoría' THEN
-        SET v_result = (v_count >= 1);
-    ELSEIF p_activity = 'Laboratorio' THEN
-        SET v_result = (v_count >= 1);
-    END IF;
-    
-    RETURN v_result;
-END//
-DELIMITER ;
-```
+{% include sql-embed.html src='_code/grades/functions.sql' label='functions.sql' collapsed=false %}
 
 **Observe lo siguiente:**
 
 - Cuenta los grupos en los que el estudiante está matriculado para una asignatura y actividad específicas.
-- El parámetro `p_excluded_group` permite excluir un grupo del conteo (útil en UPDATEs).
 - Retorna TRUE si el estudiante ya alcanzó el límite para esa actividad.
 - Se usa en los triggers RN04 para validar límites de grupos por estudiante.
 
@@ -321,29 +239,14 @@ En GradesDB, **todos los triggers son BEFORE** porque se usan para validar regla
 
 ## Triggers en GradesDB
 
-A continuación se presentan los disparadores implementados en `createDB.sql` para validar las reglas de negocio de GradesDB.
+Añade a `triggers.sql` los disparadores que validan las reglas de negocio de GradesDB. El script completo es el siguiente y debe ejecutarse después de `functions.sql`.
+
+{% include sql-embed.html src='_code/grades/triggers.sql' label='triggers.sql' collapsed=false %}
 
 ### Trigger RN08: Edad mínima para selectividad
 
 **Regla de negocio**: Un alumno que accede por selectividad debe tener al menos 16 años.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_biu_students_rn08
-BEFORE INSERT OR UPDATE ON students
-FOR EACH ROW
-BEGIN
-    DECLARE v_age TINYINT;
-    IF NEW.access_method = 'Selectividad' THEN
-        SELECT age INTO v_age FROM people WHERE person_id = NEW.student_id;
-        IF v_age < 16 THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN08: No se puede acceder por Selectividad con menos de 16 años';
-        END IF;
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -358,25 +261,6 @@ DELIMITER ;
 
 **Regla de negocio**: Un alumno solo puede tener notas en grupos a los que pertenece.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_biu_grades_rn02
-BEFORE INSERT OR UPDATE ON grades
-FOR EACH ROW
-BEGIN
-    DECLARE v_count INT;
-    SELECT COUNT(*) INTO v_count
-    FROM group_enrollments
-    WHERE student_id = NEW.student_id
-      AND group_id = NEW.group_id;
-
-    IF v_count = 0 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN02: El alumno no pertenece al grupo indicado';
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -388,36 +272,6 @@ DELIMITER ;
 
 **Regla de negocio**: Un alumno no puede tener más de una nota para la misma asignatura, convocatoria y año académico.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_biu_grades_rn17
-BEFORE INSERT OR UPDATE ON grades
-FOR EACH ROW
-BEGIN
-    DECLARE v_subject_id INT;
-    DECLARE v_academic_year YEAR;
-    DECLARE v_exists INT;
-
-    SELECT subject_id, academic_year INTO v_subject_id, v_academic_year
-    FROM groups
-    WHERE group_id = NEW.group_id;
-
-    SELECT COUNT(*) INTO v_exists
-    FROM grades g
-    JOIN groups gr ON gr.group_id = g.group_id
-    WHERE g.student_id = NEW.student_id
-      AND g.exam_call = NEW.exam_call
-      AND gr.subject_id = v_subject_id
-      AND gr.academic_year = v_academic_year
-      AND (NEW.grade_id IS NULL OR g.grade_id <> NEW.grade_id);
-
-    IF v_exists > 0 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN17: Ya existe una nota para la misma asignatura, convocatoria y año académico';
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -430,19 +284,6 @@ DELIMITER ;
 
 **Regla de negocio**: Una nota no puede modificarse en más de 4 puntos.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bu_grades_rn05
-BEFORE UPDATE ON grades
-FOR EACH ROW
-BEGIN
-    IF ABS(NEW.grade_value - OLD.grade_value) > 4 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN05: No se puede modificar la nota en más de 4 puntos';
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -455,42 +296,6 @@ DELIMITER ;
 
 **Regla de negocio**: Un grupo no puede tener más de 2 profesores asignados.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bi_teaching_loads_rn03
-BEFORE INSERT ON teaching_loads
-FOR EACH ROW
-BEGIN
-    DECLARE v_count INT;
-
-    SELECT COUNT(*) INTO v_count
-    FROM teaching_loads
-    WHERE group_id = NEW.group_id;
-
-    IF v_count >= 2 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN03: El grupo ya tiene 2 profesores asignados';
-    END IF;
-END//
-
-CREATE OR REPLACE TRIGGER t_bu_teaching_loads_rn03
-BEFORE UPDATE ON teaching_loads
-FOR EACH ROW
-BEGIN
-    DECLARE v_count INT;
-
-    SELECT COUNT(*) INTO v_count
-    FROM teaching_loads
-    WHERE group_id = NEW.group_id
-      AND NOT (professor_id = OLD.professor_id AND group_id = OLD.group_id);
-
-    IF v_count >= 2 THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN03: El grupo ya tiene 2 profesores asignados';
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -508,35 +313,6 @@ DELIMITER ;
 
 Estos triggers **usan funciones auxiliares** para código más limpio:
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bi_group_enrollments_rn04
-BEFORE INSERT ON group_enrollments
-FOR EACH ROW
-BEGIN
-    DECLARE v_subject_id INT;
-    DECLARE v_activity VARCHAR(15);
-    SELECT subject_id, activity INTO v_subject_id, v_activity
-    FROM groups
-    WHERE group_id = NEW.group_id;
-
-    IF NOT f_is_student_enrolled(NEW.student_id, v_subject_id) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN07: El alumno debe estar matriculado en la asignatura';
-    END IF;
-
-    IF f_student_group_limit(NEW.student_id, v_subject_id, v_activity, NULL) THEN
-        IF v_activity = 'Teoría' THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN04: Solo puede haber un grupo de teoría por asignatura y alumno';
-        ELSE
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN04: Solo puede haber dos grupos de laboratorio por asignatura y alumno';
-        END IF;
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -544,49 +320,12 @@ DELIMITER ;
 - Esto hace el código más mantenible y reutilizable.
 - Valida primero la matrícula en la asignatura (RN07).
 - Luego valida el límite de grupos según el tipo de actividad (RN04).
-- Las funciones fueron definidas previamente en `createDB.sql`.
+- Las funciones se definen previamente en `functions.sql`.
 
 ### Triggers RN06: Límites de grupos por asignatura
 
 **Regla de negocio**: Solo puede haber 1 grupo de teoría y 2 de laboratorio por asignatura y año académico.
 
-```sql
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bi_groups_rn06
-BEFORE INSERT ON groups
-FOR EACH ROW
-BEGIN
-    IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
-        IF NEW.activity = 'Teoría' THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
-        ELSE
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
-        END IF;
-    END IF;
-END//
-
-CREATE OR REPLACE TRIGGER t_bu_groups_rn06
-BEFORE UPDATE ON groups
-FOR EACH ROW
-BEGIN
-    IF NEW.subject_id <> OLD.subject_id
-       OR NEW.activity <> OLD.activity
-       OR NEW.academic_year <> OLD.academic_year THEN
-        IF f_subject_group_limit_reached(NEW.subject_id, NEW.activity, NEW.academic_year) THEN
-            IF NEW.activity = 'Teoría' THEN
-                SIGNAL SQLSTATE '45000'
-                    SET MESSAGE_TEXT = 'RN06: Solo puede existir un grupo de teoría por asignatura y año académico';
-            ELSE
-                SIGNAL SQLSTATE '45000'
-                    SET MESSAGE_TEXT = 'RN06: Solo pueden existir dos grupos de laboratorio por asignatura y año académico';
-            END IF;
-        END IF;
-    END IF;
-END//
-DELIMITER ;
-```
 
 **Observe lo siguiente:**
 
@@ -595,6 +334,29 @@ DELIMITER ;
 - El trigger de UPDATE solo comprueba el límite cuando cambian la asignatura, la actividad o el año académico; cambiar otros atributos no altera el conjunto contado.
 - Diferentes mensajes de error según el tipo de actividad.
 - La función encapsula la lógica compleja de conteo y validación.
+
+## Carga y verificación
+
+Guarda las funciones y triggers anteriores en sus respectivos archivos. Si ya existen objetos con el mismo nombre, `CREATE OR REPLACE` los actualizará.
+
+```sql
+SOURCE functions.sql;
+SOURCE triggers.sql;
+```
+
+Una vez instaladas las reglas procedurales, ejecuta la batería completa. `tests.sql` incorpora a los tests declarativos de L4 los casos correspondientes a RN003-RN008 y RN017.
+
+{% include sql-embed.html src='_code/grades/tests.sql' label='tests.sql' collapsed=true %}
+
+```sql
+SOURCE tests.sql;
+```
+
+El resultado esperado es:
+
+| Estado | Total |
+|--------|------:|
+| PASS | 16 |
 
 ## Buenas prácticas con Triggers y Funciones
 
@@ -629,7 +391,7 @@ Cuando la misma lógica se necesita en múltiples lugares:
 
 ## Ejercicios propuestos
 
-Implementa las siguientes funciones y triggers en tu archivo `functions.sql`:
+Implementa las siguientes funciones en `functions.sql` y los triggers en `triggers.sql`:
 
 1. **Función**: `f_count_student_grades(p_student_id INT, p_exam_call VARCHAR(20))` que cuente cuántas notas tiene un estudiante en una convocatoria específica.
 
