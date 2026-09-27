@@ -328,6 +328,12 @@ VALUES (1, 1, 8.5, 'Primera', 1);
 Recuerda: al finalizar este apartado, haz commit: `git add -A && git commit -m "Añadidas restricciones para tabla grades"`.
 {: .notice--info}
 
+## Reglas de negocio que requieren triggers
+
+Las restricciones anteriores pueden expresarse mediante claves, `CHECK` y `UNIQUE`. Sin embargo, las reglas que necesitan comparar varias filas o consultar otras tablas no pueden implementarse de ese modo en MariaDB. En el script completo `createDB.sql`, las reglas RN02, RN03, RN04, RN05, RN06, RN07 y RN17 se implementan mediante triggers.
+
+Estos triggers se estudian y construyen en el [Lab5 - Funciones y triggers](/iissi1/labs/L5-func_trig/). En particular, RN017 impide que un alumno tenga más de una nota para la misma asignatura, convocatoria y año académico mediante el trigger `t_biu_grades_rn17`.
+
 ## Modificación y borrado de datos: UPDATE y DELETE
 
 Hasta ahora hemos trabajado con `INSERT` para añadir datos. SQL también proporciona `UPDATE` para modifica filas existentes y `DELETE` para eliminar filas.

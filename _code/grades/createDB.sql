@@ -256,7 +256,8 @@ BEGIN
     END IF;
 END//
 
-CREATE OR REPLACE TRIGGER t_biu_grades_rn01
+-- RN17: Un alumno no puede tener más de una nota para la misma asignatura, convocatoria y año académico
+CREATE OR REPLACE TRIGGER t_biu_grades_rn17
 BEFORE INSERT OR UPDATE ON grades
 FOR EACH ROW
 BEGIN
@@ -279,7 +280,7 @@ BEGIN
 
     IF v_exists > 0 THEN
         SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'RN01: Ya existe una nota para la misma asignatura, convocatoria y año académico';
+            SET MESSAGE_TEXT = 'RN17: Ya existe una nota para la misma asignatura, convocatoria y año académico';
     END IF;
 END//
 

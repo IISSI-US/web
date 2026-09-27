@@ -630,22 +630,22 @@ DELIMITER ;
 - Si el UPDATE tiene éxito (no debería), se registra FAIL.
 - `grade_id = 21` tiene nota 6.2 (< 9), por lo que no puede ser MH.
 
-### Test RN002: No se permiten notas duplicadas
+### Test RN017: No se permiten notas duplicadas
 
 ```sql
--- Test RN002: No se permiten notas duplicadas por asignatura/convocatoria
+-- Test RN017: No se permiten notas duplicadas por asignatura/convocatoria
 DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn002_duplicate_grade()
+CREATE OR REPLACE PROCEDURE p_test_rn017_duplicate_grade()
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN002', 'RN002: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
+        CALL p_log_test('RN017', 'RN017: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
 
     CALL p_populate();
 
     INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
         VALUES (101, 6, 1, 6.0, 'Primera', 0);
 
-    CALL p_log_test('RN002', 'ERROR: Se permitió duplicar nota en la misma convocatoria', 'FAIL');
+    CALL p_log_test('RN017', 'ERROR: Se permitió duplicar nota en la misma convocatoria', 'FAIL');
 END //
 DELIMITER ;
 ```
@@ -653,7 +653,7 @@ DELIMITER ;
 **Observe lo siguiente:**
 
 - El estudiante 6 ya tiene nota en grupo 1, convocatoria 'Primera'.
-- El trigger `t_biu_grades_rn01` debe detectar y rechazar esta duplicación.
+- El trigger `t_biu_grades_rn17` debe detectar y rechazar esta duplicación.
 
 ### Test RN003: Máximo 2 profesores por grupo
 
@@ -1034,7 +1034,7 @@ BEGIN
     -- Si llegamos aquí, el populate funcionó correctamente y se han pasado los tests positivos
     DELETE FROM test_results;
     CALL p_test_rn001_mh_requirement();
-    CALL p_test_rn002_duplicate_grade();
+    CALL p_test_rn017_duplicate_grade();
     CALL p_test_rn003_professors_per_group();
     CALL p_test_rn004_student_group_limit();
     CALL p_test_rn005_grade_delta();
@@ -1086,7 +1086,7 @@ Obtendrás dos tablas de resultados:
 | test_id | test_name | test_message | test_status | execution_time |
 |---------|-----------|--------------|-------------|----------------|
 | RN001 | RN001 | RN001: La MH requiere nota >= 9 | PASS | 2026-01-14 10:30:01 |
-| RN002 | RN002 | RN002: No se permiten notas duplicadas... | PASS | 2026-01-14 10:30:02 |
+| RN017 | RN017 | RN017: No se permiten notas duplicadas... | PASS | 2026-01-14 10:30:02 |
 | ... | ... | ... | ... | ... |
 
 ### Tabla 2: Resumen

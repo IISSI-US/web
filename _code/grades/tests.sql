@@ -50,19 +50,19 @@ BEGIN
 END //
 DELIMITER ;
 
--- Test RN002: No se permiten notas duplicadas por asignatura/convocatoria
+-- Test RN017: No se permiten notas duplicadas por asignatura/convocatoria
 DELIMITER //
-CREATE OR REPLACE PROCEDURE p_test_rn002_duplicate_grade()
+CREATE OR REPLACE PROCEDURE p_test_rn017_duplicate_grade()
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN002', 'RN002: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
+        CALL p_log_test('RN017', 'RN017: No se permiten notas duplicadas por asignatura/convocatoria', 'PASS');
 
     CALL p_populate();
 
     INSERT INTO grades (grade_id, student_id, group_id, grade_value, exam_call, with_honors)
         VALUES (101, 6, 1, 6.0, 'Primera', 0);
 
-    CALL p_log_test('RN002', 'ERROR: Se permitió duplicar nota en la misma convocatoria', 'FAIL');
+    CALL p_log_test('RN017', 'ERROR: Se permitió duplicar nota en la misma convocatoria', 'FAIL');
 END //
 DELIMITER ;
 
@@ -299,7 +299,7 @@ BEGIN
     DELETE FROM test_results;
 
     CALL p_test_rn001_mh_requirement();
-    CALL p_test_rn002_duplicate_grade();
+    CALL p_test_rn017_duplicate_grade();
     CALL p_test_rn003_professors_per_group();
     CALL p_test_rn004_student_group_limit();
     CALL p_test_rn005_grade_delta();
