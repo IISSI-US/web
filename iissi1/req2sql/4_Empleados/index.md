@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Empleados
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 Se pretende realizar un pequeño sistema de información para gestionar los empleados de los departamentos de una empresa. Cada empleado pertenece a un departamento y puede tener un jefe. Cada departamento pertenece a una localidad. Cada empleado tiene un salario y una comisión, además se almacena la fecha de inicio y de finalización de su contrato.
 
@@ -43,16 +37,13 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 - **Quiero:** Un empleado no puede ser jefe de si mismo, la comisión es un porcentaje del salario y no puede ser negativa, ni modificarse en más de un 20% de golpe
 - **Para:** Que el alumno practique con restricciones simples
 
-## Modelo Conceptual
-
-
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Empleados/empleados-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ```mr-table
 Departamentos = { departamentoId, nombre, localidad }
@@ -279,13 +270,7 @@ EstadisticasSalarioDep2 = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/577891c1673fd2e700d624179827fc5c)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/577891c1673fd2e700d624179827fc5c)
-
-## Modelo Tecnológico (MariaDB)
-
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -299,7 +284,7 @@ EstadisticasSalarioDep2 = {
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/queries.sql' label='Empleados/queries.sql' collapsed=true %}
 
-## SQL Avanzado
+## SQL avanzado
 
 ### Procedimientos almacenados
 
@@ -350,5 +335,9 @@ Implemente un disparador que evite que un departamento tenga más de cinco emple
 Implemente un disparador que en caso de insertar un empleado sin fecha de inicio, le ponga como fecha de inicio la fecha actual:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/t_default_start_date.sql' label='Empleados/t_default_start_date.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/tests/tests.sql' label='Empleados/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

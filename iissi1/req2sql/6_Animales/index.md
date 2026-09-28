@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Animales
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos 
+# Requisitos
 
 ## Objetivos
 
@@ -53,13 +47,13 @@ pdf_version: true
 - Quiero: Si un animal es hallado “abandonado” en la vía pública, entonces es obligatorio especificar el “lugar, fecha y hora de encuentro”, en caso contrario se trata de una “entrega” y hay que identificar la persona que la realiza (nombre, dirección y email)
 - Para: Facilitar las búsquedas de sus dueños
 
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Animales/animales-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ```mr-table
 Especies = { especieId, especie }
@@ -234,10 +228,7 @@ AdopcionesPorEspecie = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/753fec48689778552cfe528e694ae7e3)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/753fec48689778552cfe528e694ae7e3)
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -250,5 +241,13 @@ AdopcionesPorEspecie = {
 ## Consultas
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/queries.sql' label='Animales/queries.sql' collapsed=true %}
+
+## Triggers
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/triggers.sql' label='Animales/triggers.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/tests/tests.sql' label='Animales/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

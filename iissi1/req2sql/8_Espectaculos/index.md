@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Espectáculos
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos 
+# Requisitos
 
 La transcripción que aparece a continuación corresponde a una entrevista realizada al gerente de un teatro para determinar los objetivos y requisitos de una aplicación web que gestione la programación anual de espectáculos y venta de entradas a dichos espectáculos.
 
@@ -54,13 +48,13 @@ La transcripción que aparece a continuación corresponde a una entrevista reali
 - Cuestión: ¿Algo más?
   - Respuesta: Creo que en principio es todo. Como ya le comenté, queremos que tanto la planificación de espectáculos como la venta de entradas estén gestionados por la aplicación y se puedan consultar a través de Internet.
 
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Espectaculos/espectaculos-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ## Intensión
 
@@ -243,10 +237,7 @@ EntradasInvitacion = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/3d965868905b8588704b5b71be2a8849)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/3d965868905b8588704b5b71be2a8849)
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente script:
 
@@ -266,10 +257,14 @@ Para crear las consultas SQL de las expresiones en Álgebra relacional se puede 
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/queries.sql' label='Espectaculos/queries.sql' collapsed=true %}
 
-## SQL Avanzado
+## SQL avanzado
 
-Para comprobar que la fecha de compra de una entrada es anterior a la fecha de la representación tenemos que usar triggers. El siguiente script muestra cómo se implementa un procedimiento almacenado que hace la comprobación y después se crean dos triggers, uno que hace la comprobación al insertar y otro al actualizar:
+Para implementar las restricciones que no pueden expresarse de forma declarativa usamos triggers. El siguiente script comprueba RN-01 y la condición temporal de RN-02; la otra condición de RN-02, relativa al precio de las invitaciones, se declara en `createDB.sql`:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/tFechaCompra.sql' label='Espectaculos/tFechaCompra.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/triggers.sql' label='Espectaculos/triggers.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/tests/tests.sql' label='Espectaculos/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

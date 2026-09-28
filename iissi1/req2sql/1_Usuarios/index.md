@@ -11,9 +11,7 @@ toc_label: "Contenido"
 toc_sticky: true
 pdf_version: true
 ---
-## Requisitos
-
-# Catálogo de Requisitos 
+# Requisitos
 
 ## Requisitos de información (RI)
 
@@ -70,14 +68,13 @@ pdf_version: true
   6. ❌ Crear un nuevo usuario con el correo repetido.
   7. ❌ Crear un nuevo usuario menor de edad.
 
-## Modelo Conceptual
+# Modelo Conceptual
 
-
-### Diagrama de clases
+## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Usuarios/usuarios-dc.png' | relative_url }})
 
-## Modelo Relacional
+# Modelo Relacional
 
 ```mr-table
 -- Intensión
@@ -286,101 +283,27 @@ UsuariosMayoresGenero = {
 }
 ```
 
-### RelaX
-
-RelaX permite **reutilizar expresiones** mediante asignaciones. El funcionamiento es el siguiente:
-
-1. **Asignaciones**: Usa `relación = expresion` para guardar el resultado de una expresión con un nombre
-2. **Reutilización**: Las relaciones asignadas pueden usarse en expresiones posteriores
-3. **Visualización**: Escribe el nombre de la relación (sin asignación) para mostrar su resultado
-4. **Comentarios**: Puedes incluir comentarios con `--` para documentar cada paso
-
-**Ejemplo:** Si defines `U` con el renombrado, luego puedes usar `U` en lugar de repetir toda la expresión de renombrado en cada consulta.
-
-Enlaces:
-- [GIST](https://gist.github.com/druizcortes/44df3153b7b1dfba92bdcb7c3777a8bb)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/44df3153b7b1dfba92bdcb7c3777a8bb)
-- Expresiones:
-
-```text
--- Primero renombramos la tabla para usar nombres más cortos
-U = ρuid←usuarioId, n←nombreUsuario, ed←edad, g←genero, em←email(Usuarios)
-
--- Mujeres
-Mujeres = πn,em(σg='FEMENINO'(U))
--- Mujeres
-
--- Usuarios con dominio @us.es (guardado para reutilizar)
-UsuariosUS = σem like '%@us.es'(U)
--- UsuariosUS
-
--- Edad media y total de usuarios
-MedTotUsuarios = γavg(ed)→media, count(*)→total(U)
--- MedTotUsuarios
-
--- Edad media y total de usuarios US
-MedTotUsuariosUS = γavg(ed)→media, count(*)→total(UsuariosUS)
--- MedTotUsuariosUS
-
--- Edad media por género
-MediaGenero = γg;avg(ed)→media(U)
--- MediaGenero
-
--- Total por género
-TotalGenero = γg;count(*)→total(U)
--- TotalGenero
-
--- Edad máxima
-EdadMaxima = γmax(ed)→maxEdad(U)
--- EdadMaxima
-
--- Edad máxima por género
-MaximaGenero = γg;max(ed)→mayor(U)
--- MaximaGenero
-
--- Usuarios de mayor edad (usando EdadMaxima)
-(πed, n(U)) ⨝ (EdadMaxima)
-```
-
-## Pruebas HTTP
-
-Para llevar a cabo las pruebas HTTP usaremos silence, que nos facilitará la labor. Hay que tener en cuenta los siguientes aspectos:
-
-- Configurar el proyecto para trabajar con la BD de Usuarios. En el archivo `settings.py` hay que proporcionar los datos de la conexión a la BD y los archivos SQL para crear la BD.
-- Ejecutar `silence createdb`.
-- Ejecutar `silence createapi`. Esto crea un archivo JSON en la carpeta `endpoints/auto` por cada tabla en la que se define el API Rest para acceder a la BD.
-- En el primer cuatrimestre no usamos autenticación, por lo que hay que modificar el API creado automáticamente, haciendo una copia, para poner el atributo `auth_required` a false en todos los casos.
-- Ejecutar `silence createtest`. Este comando crea un archivo `.http` en la carpeta `tests/auto` para cada tabla de la BD. Estos tests generados automáticamente sirven de guía para personalizar los tests.
-
-A partir de las pruebas de aceptación definidas en el catálogo de requisitos las peticiones HTTP serían:
-
-<div class="http-file" data-src="{{ '/silence-db/tests/Usuarios/usuarios.http' | relative_url }}"></div>
-
-La respuesta que se obtendría para cada petición es la siguiente:
-
-<div class="http-file" data-src="{{ '/silence-db/tests/Usuarios/usuarios.response' | relative_url }}"></div>
-
-## Modelo Tecnológico (MariaDB)
+# Modelo Tecnológico
 
 Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente script:
 
-### Script SQL para crear la base de datos
+## Script SQL para crear la base de datos
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/createDB.sql' label='Usuarios/createDB.sql'  collapsed=true %}
 
-### Script SQL para la carga inicial de datos
+## Script SQL para la carga inicial de datos
 
 Para cargar los datos de prueba se puede usar el siguiente script:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/populateDB.sql' label='Usuarios/populateDB.sql'  collapsed=true %}
 
-### Consultas
+## Consultas
 
 Para crear las consultas que implementan los requisitos funcionales se puede usar el siguiente script:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/queries.sql' label='Usuarios/queries.sql'  collapsed=true %}
 
-### SQL Avanzado
+## SQL avanzado
 
 Tenemos que implementar una función que calcula la edad de un usuario a partir de su fecha de nacimiento, y un trigger que comprueba que la fecha de nacimiento es anterior a la fecha actual y, además el usuario es mayor de edad.
 
@@ -388,16 +311,19 @@ El script para la función es el siguiente:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/fGetAge.sql' label='Usuarios/fGetAge.sql'  collapsed=true %}
 
+El script para obtener el dominio de un correo electrónico es el siguiente:
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/fEmailDomain.sql' label='Usuarios/fEmailDomain.sql' collapsed=true %}
+
 El script para el trigger es el siguiente:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/tCheckAge.sql' label='Usuarios/tCheckAge.sql'  collapsed=true %}
 
-### Fecha de nacimiento en lugar de la edad
+## Fecha de nacimiento en lugar de la edad
 
 En la creación de la tabla ahora hay que añadir que sustituir la edad por la fecha de nacimiento, pero ya no se puede comprobar que el Usuario es mayor de edad con un simple CHECK, y es necesario usar un TRIGGER, además para calcular la edad definiremos una función. 
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/sql/version2.sql' label='Usuarios/version2.sql'  collapsed=true %}
-
 
 <!-- Ahora el script para la creación de la tabla es el siguiente:
 
@@ -414,5 +340,9 @@ Para las consultas podemos usar la función definida para calcular la edad o cre
 El trigger quedaría de la siguiente forma:
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/_sql/_Usuarios2/tCheckAge.sql' label='Usuarios2/tCheckAge.sql'  collapsed=true %} -->
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Usuarios/tests/tests.sql' label='Usuarios/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

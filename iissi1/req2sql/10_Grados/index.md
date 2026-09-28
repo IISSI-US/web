@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Grados
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 Un centro universitario desea desarrollar un sistema para automatizar el servicio de gestión académica con la información relativa a alumnos y asignaturas impartidas en el centro, incluidas las notas. Iniciado el estudio del dominio del problema, de las necesidades de negocio y de la situación actual y realizadas varias entrevistas, se han desarrollado los siguientes requisitos que debe cumplir el sistema de información a desarrollar.
 
@@ -227,14 +221,13 @@ Un centro universitario desea desarrollar un sistema para automatizar el servici
 48. ❌ Se asigna un alumno a dos grupos de teoría de la misma asignatura.
 49. ✅ Se asigna un alumno a un grupo de laboratorio. El alumno ya tiene asignado un grupo de teoría de esa asignatura.
 
-## Modelo Conceptual
+# Modelo Conceptual
 
-
-## Modelo conceptual
+## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Grados/grados-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ## Intensión
 
@@ -282,10 +275,7 @@ $$
 \Group{\operatorname{AVG}(value)}{studentId}(Grades)
 $$
 
-## Modelo Tecnológico (MariaDB)
-
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -293,10 +283,26 @@ $$
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/sql/populateDB.sql' label='Grados/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/sql/populate.sql' label='Grados/populate.sql' collapsed=true %}
 
 ## Consultas
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/sql/queries.sql' label='Grados/queries.sql' collapsed=true %}
+
+## Usuarios, roles y permisos
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/sql/grants.sql' label='Grados/grants.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/tests/tests.sql' label='Grados/tests/tests.sql' collapsed=true %}
+
+### Pruebas de permisos
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/tests/test_admin.sql' label='Grados/tests/test_admin.sql' collapsed=true %}
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/tests/test_teacher.sql' label='Grados/tests/test_teacher.sql' collapsed=true %}
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Grados/tests/test_student.sql' label='Grados/tests/test_student.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

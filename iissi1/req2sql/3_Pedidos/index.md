@@ -9,10 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 ## Requisitos de información (RI)
 
@@ -59,16 +56,13 @@ pdf_version: true
   5. ❌ Crear un nuevo pedido en el mes de agosto.
   6. ❌ Crear un nuevo pedido sin stock suficiente.
 
-
-## Modelo Conceptual
-
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases 
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Pedidos/pedidos-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ```mr-table
 Usuarios = { usuarioId, nombre, provincia, fechaAlta }
@@ -341,52 +335,7 @@ MesMaxRecaudacion = {
 }
 ```
 
-Enlaces:
-- [GIST](https://gist.github.com/druizcortes/24cc0583792178fe778335eb95b5e3d9)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/24cc0583792178fe778335eb95b5e3d9)
-- Expresiones:
-
-```text
- U = rho uId<-usuarioId, n<-nombre, prov<-provincia, fa<-fechaAlta (Usuarios)
-P = rho pId<-productoId, d<-descripcion, pr<-precio, st<-stock (Productos)
-Ped = rho pedId<-pedidoId, uId<-usuarioId, pId<-productoId, fc<-fechaCompra, c<-cantidad (Pedidos)
-UPP = U join Ped join P
-
-Q1_UPP = UPP
--- Q1_UPP
-
-Q2_PedidosMalaga = sigma prov='Malaga' (UPP)
--- Q2_PedidosMalaga
-
-Q3_StockBajo = pi d, st (sigma st < 100 (P))
--- Q3_StockBajo
-
-Q4_NumPedidosUsuario = gamma uId, n ; count(pedId) -> total (U join Ped)
--- Q4_NumPedidosUsuario
-
-Importes = pi uId, n, importe <- pr * c (UPP)
-Q5_ImporteTotalUsuario = gamma uId, n ; sum(importe) -> totalGasto (Importes)
--- Q5_ImporteTotalUsuario
-
-PedMes = pi pedId, mes <- month(fc) (Ped)
-Q6_PedidosPorMes = gamma mes ; count(pedId) -> total (PedMes)
--- Q6_PedidosPorMes
-
-ImportesMesUsuario = pi uId, n, mes <- month(fc), importe <- pr * c (UPP)
-GPUM = gamma uId, n, mes ; sum(importe) -> totalGasto (ImportesMesUsuario)
-MGPM = gamma mes ; max(totalGasto) -> maxGasto (GPUM)
-Q7_MasGastaPorMes = pi n, mes, totalGasto (sigma totalGasto = maxGasto (GPUM join MGPM))
--- Q7_MasGastaPorMes
-
-ImportesMes = pi mes <- month(fc), importe <- pr * c (UPP)
-RPM = gamma mes ; sum(importe) -> recaudacion (ImportesMes)
-MaxRecaudacion = gamma ; max(recaudacion) -> maxRec (RPM)
-Q8_MesMaxRecaudacion = pi mes, recaudacion (sigma recaudacion = maxRec (RPM join MaxRecaudacion))
-Q8_MesMaxRecaudacion
-
-```
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -404,9 +353,8 @@ Q8_MesMaxRecaudacion
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/procedures.sql' label='Pedidos/procedures.sql' collapsed=true %}
 
-## Tests
+## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/tests.sql' label='Pedidos/tests.sql' collapsed=true %}
-
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/tests/tests.sql' label='Pedidos/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Proyectos
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 La trascripción que aparece a continuación corresponde a una entrevista a una ingeniera de software que necesita un
 sistema de información para ayudarle en la gestión de sus proyectos.
@@ -63,14 +57,13 @@ sistema de información para ayudarle en la gestión de sus proyectos.
   Tenemos definidos los roles según la norma ISO-9001.
 - P: Muy bien, creo que con eso tengo para una primera versión. Gracias.
 
-
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Proyectos/proyectos-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ## Intensión
 
@@ -333,10 +326,7 @@ EST = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/f9fad7d3c18e4b52cf96d58cfc669988)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/f9fad7d3c18e4b52cf96d58cfc669988)
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -349,5 +339,9 @@ EST = {
 ## Consultas
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/queries.sql' label='Proyectos/queries.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/tests/tests.sql' label='Proyectos/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

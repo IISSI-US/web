@@ -9,25 +9,23 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Aficiones
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 Añada los siguientes requisitos al ejercicio Usuarios:
 
-## RI-1: Usuarios
+## Requisitos de información
+
+### RI-1: Usuarios
 - Mismo que ejercicio de Usuarios
 
-## RI-02: Aficiones
+### RI-02: Aficiones
 - Como: Profesor de la asignatura
 - Quiero: Almacenar las aficiones de los usuarios, que pueden ser: literatura, cine, deporte o gastronomía. Los usuarios pueden varias aficiones o ninguna.
 - Para: Que el estudiante tenga en cuenta este requisito en el modelo conceptual, relacional y tecnológico
 
-## RF-03: Informes sobre aficiones
+## Requisitos funcionales
+
+### RF-03: Informes sobre aficiones
 - Como: Profesor de la asignatura
 - Quiero: Que el sistema sea capaz de generar los siguientes informes:
     - Listado de usuarios con sus aficiones.
@@ -38,28 +36,27 @@ Añada los siguientes requisitos al ejercicio Usuarios:
     - Usuarios con el máximo número de aficiones.
 - Para: Que el alumno realice consultas en Álgebra Relacional y SQL.
 
-## Modificación solicitada: 
+## Modificación solicitada
 
 Modifique el RI-02 de la versión estática/cerrada del ejercicio de Aficiones para que las aficiones de los Usuarios sean dinámicas/abierta.
 
-## Modelo Conceptual
+# Modelo Conceptual
 
+## Versión estática
 
-# Modelo conceptual (Versión estática)
-
-## Diagrama de clases
+### Diagrama de clases
 
 ![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-est-dc.png' | relative_url }})
 
-# Modelo conceptual (Versión dinámica)
+## Versión dinámica
 
-## Diagrama de clases
+### Diagrama de clases
 
 En la versión dinámica, las aficiones se convierten en entidad propia para permitir un catálogo abierto y gestionable. Normalmente aparecen las entidades Usuario y Afición, y una asociación Usuario–Afición para resolver la relación *..**.
 
 ![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-din-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ## Variante estática (Aficiones como atributos en su relación)
 
@@ -339,12 +336,9 @@ UsuTodasAfi = { nu, uid }
 UsuTodasAfi = {}
 ```
 
-- [GIST](https://gist.github.com/druizcortes/8c3ef43095809a478bc652609b2f5e4a)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/8c3ef43095809a478bc652609b2f5e4a)
+# Modelo Tecnológico
 
-# Modelo tecnológico (MariaDB)
-
-## Versión Estática
+## Versión estática
 
 ### Script SQL para crear la base de datos
 
@@ -358,7 +352,15 @@ UsuTodasAfi = {}
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/queries.sql' label='AficionesEst/queries.sql' collapsed=true %}
 
-## Versión Dinámica
+### SQL avanzado
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/fCinePorDeporte.sql' label='AficionesEst/fCinePorDeporte.sql' collapsed=true %}
+
+### Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/tests/tests.sql' label='AficionesEst/tests/tests.sql' collapsed=true %}
+
+## Versión dinámica
 
 ### Script SQL para crear la base de datos
 
@@ -372,11 +374,13 @@ UsuTodasAfi = {}
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/queries.sql' label='AficionesDin/queries.sql' collapsed=true %}
 
-### SQL Avanzado
+### SQL avanzado
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/procedures.sql' label='AficionesDin/procedures.sql' collapsed=true %}
 
 Realice un procedimiento para insertar en la tabla de usuarios e implemente la siguiente prueba de aceptación:
 
-# Pruebas de aceptación
+### Pruebas de aceptación
 
 **PA-001: Usuarios**
 1. ✅ Insertar un usuario con datos correctos.
@@ -384,45 +388,14 @@ Realice un procedimiento para insertar en la tabla de usuarios e implemente la s
 3. ❌ Insertar un usuario con un email repetido.
 4. ❌ Insertar un usuario menor de edad.
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
-
-
-# Transacciones
+### Transacciones
 
 Realice un procedimiento para insertar una afición a un usuario nuevo, es decir, que inserte en las tres tablas:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
-
 Realice el mismo procedimiento pero de forma transaccional:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
+### Pruebas SQL
 
-## Pruebas SQL
-
-
-# Pruebas de aceptación SQL
-
-**PA-001: Usuarios**
-1. ✅ Insertar un usuario con datos correctos.
-2. ✅ Insertar un usuario sin género.
-3. ❌ Insertar un usuario con un email repetido.
-4. ❌ Insertar un usuario menor de edad.
-
-Para hacer esta prueba crearemos un procedimiento para insertar un único Usuario, después usamos este procedimiento para insertar los datos de la prueba, teniendo en cuenta que antes hay que hacer la carga inicial de datos.
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pTestUsuario.sql' label='AficionesDin/pTestUsuario.sql' collapsed=true %}
-
-## Transacciones
-
-
-# Transacciones
-
-Realice un procedimiento para insertar una afición a un usuario nuevo, es decir, que inserte en las tres tablas:
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevo.sql' label='AficionesDin/pInsertarAficionUsuarioNuevo.sql' collapsed=true %}
-
-Realice el mismo procedimiento pero de forma transaccional:
-
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/pInsertarAficionUsuarioNuevoTrans.sql' label='AficionesDin/pInsertarAficionUsuarioNuevoTrans.sql' collapsed=true %}
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/tests/tests.sql' label='AficionesDin/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

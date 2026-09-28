@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Bodegas
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos 
+# Requisitos
 
 ## Requisitos de información (RI)
 
@@ -76,7 +70,6 @@ pdf_version: true
 3. ❌ Crear una nueva bodega con el nombre repetido.
 4. ❌ Crear una nueva bodega sin denominación de origen.
 
-
 ### PA-2: Vinos
 1. ✅ Crear un nuevo vino Joven con todos los datos correctos según las reglas de negocio
 2. ✅ Crear un nuevo vino Crianza con todos los datos correctos según las reglas de negocio
@@ -91,8 +84,7 @@ pdf_version: true
 11. ❌ Crear un nuevo vino Joven sin bodega.
 12. ❌ Crear un nuevo vino Crianza sin bodega.
 
-
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
@@ -167,7 +159,7 @@ VinosUvas = {
 }
 ```
 
-### Álgebra relacional
+## Álgebra relacional
 
 -Renombrado:
 
@@ -431,10 +423,7 @@ VinosUvasV1 = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/5227f816a57344570783a1aa383e75ef)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/5227f816a57344570783a1aa383e75ef)
-
-# Modelo tecnológico
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -448,5 +437,8 @@ VinosUvasV1 = {
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/sql/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
 
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/tests/tests.sql' label='Bodegas/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

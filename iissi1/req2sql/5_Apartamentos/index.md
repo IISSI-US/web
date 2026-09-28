@@ -9,13 +9,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-# Apartamentos
-
-
-## Requisitos
-
-
-# Catálogo de Requisitos
+# Requisitos
 
 La transcripción que aparece a continuación corresponde a una entrevista con una emprendedora que quiere crear una empresa de gestión de alquileres de apartamentos turísticos.
 
@@ -66,13 +60,13 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 - P: ¿Más funcionalidades que necesite del portal?
   - R: Quedan muchos más temas por tratar, como la disponibilidad, la gestión de los pagos, etc., pero para una primera versión creo que puede ser suficiente.
 
-# Modelo conceptual
+# Modelo Conceptual
 
 ## Diagrama de clases
 
 ![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Apartamentos/apartamentos-dc.png' | relative_url }})
 
-# Modelo relacional
+# Modelo Relacional
 
 ## Opción A: una relación por subclase (partición completa y disjunta):
 
@@ -326,10 +320,7 @@ NumReservasHuesped = {
 }
 ```
 
-- [GIST](https://gist.github.com/druizcortes/67445e6fee6f0354cacd981393b8d63d)
-- [RELAX Calculator](https://dbis-uibk.github.io/relax/calc/gist/67445e6fee6f0354cacd981393b8d63d)
-
-# Modelo tecnológico (MariaDB)
+# Modelo Tecnológico
 
 ## Script SQL para crear la base de datos
 
@@ -342,5 +333,13 @@ NumReservasHuesped = {
 ## Consultas
 
 {% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}
+
+## Triggers
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/triggers.sql' label='Apartamentos/triggers.sql' collapsed=true %}
+
+## Pruebas SQL
+
+{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/tests/tests.sql' label='Apartamentos/tests/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)
