@@ -10,9 +10,9 @@ profesores:
     alt: "Inma Hernández"
     title: "Inma Hernández"
     role: "Coordinadora de Tecnologías Informáticas y Doble Grado"
-    email: inmahernadez@us.es
+    email: inmahernandez@us.es
     groups: "IS-5 (Teoría inglés), TI-1 (Teoría) e IC-2 (laboratorio)"
-    url: "mailto:inmahernadez@us.es"
+    url: "mailto:inmahernandez@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
 
@@ -38,9 +38,9 @@ profesores:
   - image_path: /assets/images/profesores/dayala.png
     alt: "Daniel Ayala"
     title: "Daniel Ayala"
-    email: dayala@us.es
+    email: dayala1@us.es
     groups: "IC-2 (Teoría), TI-1 (laboratorio)"
-    url: "mailto:dayala@us.es"
+    url: "mailto:dayala1@us.es"
     btn_label: "Contactar"
     btn_class: "btn--primary"
 
