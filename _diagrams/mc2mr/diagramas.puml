@@ -261,4 +261,10 @@ Tenista "0..1" -- "0..*" Partido : gana >
 Árbitro "1" -- "0..*" Partido : arbitra >
 Partido *-- "1..* {orden}" Set
 Tenista "1" -- "0..*" Set : gana >
+
+note as Restricciones
+  - Cada partido tiene dos tenistas distintos.
+  - La misma pareja puede disputar varios partidos.
+end note
+
 @enduml

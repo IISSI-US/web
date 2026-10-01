@@ -23,7 +23,6 @@ Tenistas = { personaId, ranking }
 
 Árbitros = { personaId, licencia }
     PK(personaId)
-    AK(licencia) -- no lo indica el modelo, parece lógico
     FK(personaId)/Personas
 
 Partidos = { partidoId, tenista1Id, tenista2Id, ganadorId, árbitroId, torneo, fecha, ronda, duración }

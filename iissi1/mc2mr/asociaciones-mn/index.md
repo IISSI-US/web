@@ -26,9 +26,10 @@ Categorías = { categoríaId, nombre, descripción }
 
 AutoresLibros = { autoresLibrosId, autorId, libroId, orden }
     PK(autoresLibrosId)
-    AK(autorId, libroId)
     FK(autorId)/Autores
     FK(libroId)/Libros
+    AK(autorId, libroId)
+    AK(libroId, orden)
 
 LibrosCategorías = { librosCategoríasId, libroId, categoríaId }
     PK(librosCategoríasId)
