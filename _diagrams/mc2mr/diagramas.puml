@@ -22,7 +22,7 @@ class Estudiante {
   promedio: Double
 }
 
-Universidad *-- Centro : contiene >
+Universidad *-- "0..*" Centro : contiene >
 Centro "1" -- "0..*" Estudiante : inscribe >
 @enduml
 

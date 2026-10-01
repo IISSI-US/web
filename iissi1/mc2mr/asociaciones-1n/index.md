@@ -37,22 +37,22 @@ Universidades = {
 }
 
 Centros = {  
-  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),  
-  (f2, u1, 'Facultad de Derecho', 'FD', 4300000.25),  
-  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75),  
-  (f4, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),  
-  (f5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)  
+  (c1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (c2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (c3, u1, 'Facultad de Medicina', 'FM', 7600000.75),
+  (c4, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),
+  (c5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
 }
 
 Estudiantes = {  
-  (e1, f1, '2023001', 'Carmen', 20, 8.7),  
-  (e2, f1, '2023002', 'Pablo', 21, 8.1),  
-  (e3, f2, '2023003', 'Lucía', 19, 9.2),  
-  (e4, f2, '2023004', 'Álvaro', 22, 7.8),  
-  (e5, f3, '2023005', 'Elena', 20, 9.5),  
-  (e6, f4, '2023006', 'Javier', 23, 8.9),  
-  (e7, f5, '2023007', 'Sofía', 21, 9.1),  
-  (e8, f5, '2023008', 'Daniel', 19, 8.3)  
+  (e1, c1, '2023001', 'Carmen', 20, 8.7),
+  (e2, c1, '2023002', 'Pablo', 21, 8.1),
+  (e3, c2, '2023003', 'Lucía', 41, 9.2),
+  (e4, c2, '2023004', 'Álvaro', 41, 7.8),
+  (e5, c3, '2023005', 'Elena', 20, 9.5),
+  (e6, c4, '2023006', 'Javier', 23, 8.9),
+  (e7, c5, '2023007', 'Sofía', 21, 9.1),
+  (e8, c5, '2023008', 'Daniel', 19, 8.3)
 }
 ```
 
@@ -78,6 +78,7 @@ $$ E \leftarrow \Ren{E(eid,cid,m,en,e,p)}(Estudiantes)$$
 8. **Número de estudiantes por centro**
 9. **Promedio de calificaciones por centro**
 10. **Mejor promedio por universidad**
+11. **Centros que tienen a todos los estudiantes con edad mayor de 40 años**
 
 ---
 
@@ -91,10 +92,11 @@ $$\Sel{e > 20}(E)$$
 Resultado = { eid, cid, m, en, e, p }
 
 Resultado = {
-  (e2, f1, '2023002', 'Pablo', 21, 8.1), 
-  (e4, f2, '2023004', 'Álvaro', 22, 7.8), 
-  (e6, f4, '2023006', 'Javier', 23, 8.9), 
-  (e7, f5, '2023007', 'Sofía', 21, 9.1)
+  (e2, c1, '2023002', 'Pablo', 21, 8.1),
+  (e3, c2, '2023003', 'Lucía', 41, 9.2),
+  (e4, c2, '2023004', 'Álvaro', 41, 7.8),
+  (e6, c4, '2023006', 'Javier', 23, 8.9),
+  (e7, c5, '2023007', 'Sofía', 21, 9.1)
 }
 ```
 
@@ -106,9 +108,9 @@ $$\Sel{pres > 5000000}(C)$$
 Resultado = { cid, uid, cn, c, pres }
 
 Resultado = {
-  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
-  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75), 
-  (f5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
+  (c1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (c3, u1, 'Facultad de Medicina', 'FM', 7600000.75),
+  (c5, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
 }
 ```
 
@@ -120,7 +122,7 @@ $$\Proj{en, e}(E)$$
 Resultado = { en, e }
 
 Resultado = {
-  ('Carmen', 20), ('Pablo', 21), ('Lucía', 19), ('Álvaro', 22), 
+  ('Carmen', 20), ('Pablo', 21), ('Lucía', 41), ('Álvaro', 41),
   ('Elena', 20), ('Javier', 23), ('Sofía', 21), ('Daniel', 19)
 }
 ```
@@ -146,9 +148,9 @@ $$\Sel{p \geq 9.0}(E)$$
 Resultado = { eid, cid, m, en, e, p }
 
 Resultado = {
-  (e3, f2, '2023003', 'Lucía', 19, 9.2),
-  (e5, f3, '2023005', 'Elena', 20, 9.5),
-  (e7, f5, '2023007', 'Sofía', 21, 9.1)
+  (e3, c2, '2023003', 'Lucía', 41, 9.2),
+  (e5, c3, '2023005', 'Elena', 20, 9.5),
+  (e7, c5, '2023007', 'Sofía', 21, 9.1)
 }
 ```
 
@@ -160,9 +162,9 @@ $$\Sel{uid = u1}(C)$$
 Resultado = { cid, uid, cn, c, pres }
 
 Resultado = {
-  (f1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
-  (f2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
-  (f3, u1, 'Facultad de Medicina', 'FM', 7600000.75)
+  (c1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (c2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (c3, u1, 'Facultad de Medicina', 'FM', 7600000.75)
 }
 ```
 
@@ -174,14 +176,14 @@ $$E \NatJoin C$$
 Resultado = { eid, cid, m, en, e, p, uid, cn, c, pres }
 
 Resultado = {
-  (e1, f1, '2023001', 'Carmen', 20, 8.7, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
-  (e2, f1, '2023002', 'Pablo', 21, 8.1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
-  (e3, f2, '2023003', 'Lucía', 19, 9.2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
-  (e4, f2, '2023004', 'Álvaro', 22, 7.8, u1, 'Facultad de Derecho', 'FD', 4300000.25),
-  (e5, f3, '2023005', 'Elena', 20, 9.5, u1, 'Facultad de Medicina', 'FM', 7600000.75),
-  (e6, f4, '2023006', 'Javier', 23, 8.9, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),
-  (e7, f5, '2023007', 'Sofía', 21, 9.1, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20),
-  (e8, f5, '2023008', 'Daniel', 19, 8.3, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
+  (e1, c1, '2023001', 'Carmen', 20, 8.7, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (e2, c1, '2023002', 'Pablo', 21, 8.1, u1, 'Escuela Técnica Superior de Ingeniería', 'ETSI', 8200000.50),
+  (e3, c2, '2023003', 'Lucía', 41, 9.2, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (e4, c2, '2023004', 'Álvaro', 41, 7.8, u1, 'Facultad de Derecho', 'FD', 4300000.25),
+  (e5, c3, '2023005', 'Elena', 20, 9.5, u1, 'Facultad de Medicina', 'FM', 7600000.75),
+  (e6, c4, '2023006', 'Javier', 23, 8.9, u2, 'Facultad de Ciencias Económicas y Empresariales', 'FCEE', 4800000.00),
+  (e7, c5, '2023007', 'Sofía', 21, 9.1, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20),
+  (e8, c5, '2023008', 'Daniel', 19, 8.3, u2, 'Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación', 'ETSIIT', 6900000.20)
 }
 ```
 
@@ -193,7 +195,7 @@ $$\Group{cid,\rho_{total}(COUNT(eid))}{cid}(E)$$
 Resultado = { cid, total }
 
 Resultado = {
-  (f1, 2), (f2, 2), (f3, 1), (f4, 1), (f5, 2)
+  (c1, 2), (c2, 2), (c3, 1), (c4, 1), (c5, 2)
 }
 ```
 
@@ -205,7 +207,7 @@ $$\Group{cid,\rho_{media}(AVG(p))}{cid}(E)$$
 Resultado = { cid, media }
 
 Resultado = {
-  (f1, 8.4), (f2, 8.5), (f3, 9.5), (f4, 8.9), (f5, 8.7)
+  (c1, 8.4), (c2, 8.5), (c3, 9.5), (c4, 8.9), (c5, 8.7)
 }
 ```
 
@@ -220,6 +222,21 @@ Resultado = {
   (u1, 9.5), (u2, 9.1)
 }
 ```
+
+**11. Centros que tienen a todos los estudiantes con edad mayor de 40 años**
+
+$$EstudiantesMayores40 \leftarrow \Proj{eid}\left(\Sel{e > 40}(E)\right)$$
+
+$$CentrosConTodos \leftarrow (\Proj{cid,eid}(E) \Div EstudiantesMayores40) \NatJoin C$$
+
+```mr-table
+Resultado = { cid, uid, cn, c, pres }
+
+Resultado = {
+  (c2, u1, 'Facultad de Derecho', 'FD', 4300000.25)
+}
+```
+
 ### [Relax](https://dbis-uibk.github.io/relax/calc/gist/ed676104ddf97da32072088f817dd626)
 
 ```
@@ -249,6 +266,11 @@ Resultado = {
 -- Mejor promedio por universidad
 -- ECU = Estudiantes ⨝ Centros ⨝ Universidades
 -- γ universidadId; max(promedio) → mejor (ECU)
+
+-- Centros que tienen a todos los estudiantes con edad mayor de 40 años
+-- EstudiantesMayores40 = π estudianteId (σ edad > 40 (Estudiantes))
+-- CentrosConTodos = (π centroId, estudianteId (Estudiantes) ÷ EstudiantesMayores40)
+-- CentrosConTodos ⨝ Centros
 ```
 
 > [Versión PDF disponible](./index.pdf)

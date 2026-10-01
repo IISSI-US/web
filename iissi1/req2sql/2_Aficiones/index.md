@@ -327,7 +327,7 @@ USinAfi = {
 - Usuarios con todas las aficiones: 
 
 $$
-UsuTodasAfi \leftarrow \Proj{nu,uid}\left(\left(\frac{\Proj{uid,aid}(UA)}{\Proj{aid}(A)}\right) \NatJoin U\right)
+UsuTodasAfi \leftarrow \Proj{nu,uid}\left(\left({\Proj{uid,aid}(UA)}\Div{\Proj{aid}(A)}\right) \NatJoin U\right)
 $$
 
 ```mr-table

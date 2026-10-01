@@ -412,7 +412,7 @@ BodegasMasVinos = {
 - Vinos que tienen, al menos, las mismas uvas que el vino 'v1':
 
 $$
-VinosUvasV1 \leftarrow \Proj{vid,nv}\left(\frac{\Proj{vid,uid}(VU)}{\Proj{uid}\big(\Sel{vid=v1}(VU)\big)} \NatJoin V\right)
+VinosUvasV1 \leftarrow \Proj{vid,nv}\left(\left({\Proj{vid,uid}(VU)}\Div{\Proj{uid}\left(\Sel{vid=v1}(VU)\right)}\right) \NatJoin V \right)
 $$
 
 ```mr-table
