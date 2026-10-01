@@ -130,6 +130,8 @@ LibrosCategorías = {
 
 **10.** Obtener autores que han escrito tanto ficción como ensayo
 
+**11.** Obtener autores que han escrito todos los libros de Teatro
+
 ### Soluciones
 
 **Renombramiento de relaciones:**
@@ -361,6 +363,23 @@ Resultado = {
 }
 ```
 
+**11. Obtener autores que han escrito todos los libros de Teatro**
+
+$$LibrosTeatroIDS \leftarrow \Proj{lid}\left(LC \NatJoin \Sel{nom = 'Teatro'}(C)\right)$$
+
+$$AutoresTodosTeatroIDS \leftarrow \Proj{aid,lid}(AL) \Div LibrosTeatroIDS$$
+
+$$AutoresTodosTeatroIDS \NatJoin A$$
+
+```mr-table
+Resultado = { aid, nom, nac }
+
+Resultado = {
+    (a3, 'Antonio Machado', 'Española'),
+    (a4, 'Manuel Machado', 'Española')
+}
+```
+
 ### [Relax](https://dbis-uibk.github.io/relax/calc/gist/f726ddb46c4ac7f95f724225910121c7)
 
 ```
@@ -406,6 +425,11 @@ Resultado = {
 -- AutoresFiccionIds = π autorId (AutoresLibros ⨝ LibrosCategorías ⨝ σ nombre = 'Ficción' (Categorías))
 -- AutoresEnsayoIds = π autorId (AutoresLibros ⨝ LibrosCategorías ⨝ σ nombre = 'Ensayo' (Categorías))
 -- (AutoresFiccionIds ∩ AutoresEnsayoIds) ⨝ Autores
+
+-- Autores que han escrito todos los libros de Teatro
+-- LibrosTeatroIds = π libroId (LibrosCategorías ⨝ σ nombreCategoria = 'Teatro' (Categorias))
+-- AutoresTodosTeatroIds = π autorId, libroId (AutoresLibros) ÷ LibrosTeatroIds
+-- AutoresTodosTeatroIds ⨝ Autores
 ```
 
 > [Versión PDF disponible](./index.pdf)

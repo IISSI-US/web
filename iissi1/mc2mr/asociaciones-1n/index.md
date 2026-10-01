@@ -227,7 +227,7 @@ Resultado = {
 
 $$EstudiantesMayores40 \leftarrow \Proj{eid}\left(\Sel{e > 40}(E)\right)$$
 
-$$CentrosConTodos \leftarrow (\Proj{cid,eid}(E) \Div EstudiantesMayores40) \NatJoin C$$
+$$CentrosConTodos \leftarrow \left(\Proj{cid,eid}(E) \Div EstudiantesMayores40\right) \NatJoin C$$
 
 ```mr-table
 Resultado = { cid, uid, cn, c, pres }
