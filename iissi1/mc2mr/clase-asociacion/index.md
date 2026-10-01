@@ -25,7 +25,7 @@ Inscripciones = { inscripcionId, estudianteId, cursoId, fechaInscripcion, califi
     PK(inscripcionId)
     FK(estudianteId)/Estudiantes
     FK(cursoId)/Cursos
-    AK(estudianteId,cursoId) -- el modelo no lo indica, pero parece lógico
+    AK(estudianteId,cursoId)
 
 -- Extensión
 Estudiantes = {
@@ -87,6 +87,8 @@ Inscripciones = {
 **9.** Obtener cursos que no tienen ninguna inscripción
 
 **10.** Obtener la inscripción con la calificación más alta
+
+**11.** Obtener estudiantes que han completado todos los cursos de 2 créditos
 
 ### Soluciones
 
@@ -153,7 +155,7 @@ Resultado = {
 **4. Obtener todos los cursos en los que está inscrita 'María González'**
 
 $$
-\Proj{cid, cn, cod, cre}\left(\Sel{en='\\text{María González}'}(E \NatJoin I \NatJoin C)\right)
+\Proj{cid, cn, cod, cre}\left(\Sel{en='\text{María González}'}(E \NatJoin I \NatJoin C)\right)
 $$
 
 ```mr-table
@@ -253,6 +255,21 @@ Resultado = {
 }
 ```
 
+**11. Obtener estudiantes que han completado todos los cursos de 2 créditos**
+
+$$EstudiantesTodosDosCreditos \leftarrow  \Proj{eid,cid}\left(\Sel{est = 'Completado'}(I)\right) \Div \Proj{cid}\left(\Sel{cre = 2}(C)\right)$$
+
+$$EstudiantesTodosDosCreditos \NatJoin E$$
+
+```mr-table
+Resultado = { eid, en, ema, fna }
+
+Resultado = {
+    (e3, 'María González', 'maria@universidad.edu', 2001-03-08),
+    (e5, 'Laura Herrera', 'laura@universidad.edu', 1999-07-25)
+}
+```
+
 ### [Relax](https://dbis-uibk.github.io/relax/calc/gist/eba328f198486f984dd4b06d9de8aa67)
 
 ```
@@ -295,6 +312,10 @@ Resultado = {
 -- Inscripción con la calificación más alta
 -- CalificacionMaxima = γ max(calificacionFinal) → calMax (σ estado = 'Completado' (Inscripciones))
 -- σ calificacionFinal = calMax (Inscripciones × CalificacionMaxima)
+
+-- Estudiantes que han completado todos los cursos de 2 créditos
+-- EstudiantesTodosDosCreditosIds = (π estudianteId, cursoId (σ estado = 'Completado' (Inscripciones))) ÷ (π cursoId (σ creditos = 2 (Cursos)))
+-- EstudiantesTodosDosCreditosIds ⨝ Estudiantes
 ```
 
 > [Versión PDF disponible](./index.pdf)
