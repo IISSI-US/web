@@ -30,15 +30,15 @@ Partidos = { partidoId, tenista1Id, tenista2Id, ganadorId, árbitroId, torneo, f
     PK(partidoId)
     FK(tenista1Id)/Tenistas
     FK(tenista2Id)/Tenistas
-    FK(ganadorId)/Tenistas -- ganadorId = tenista1Id OR tenista2Id
+    FK(ganadorId)/Tenistas 
     FK(árbitroId)/Árbitros
-
-     
+    AK(partidoId, tenista1Id, tenista2Id)
 
 Sets = { setId, partidoId, ganadorId, orden, resultado }
     PK(setId)
     FK(partidoId)/Partidos
     FK(ganadorId)/Tenistas
+    AK(partidoId, orden)
 
 -- Extensión
 Personas = {

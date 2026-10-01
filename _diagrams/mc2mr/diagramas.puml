@@ -218,33 +218,36 @@ RecursoHumano <|-- Ingeniero : {incompleta,solapada}
 
 @startuml torneo-tenis-clases
 !include ../estilos/final.iuml
+
+skinparam groupInheritance 2
+
 title Torneo de Tenis (Diagrama de Clases)
 
 
 class Persona {
-  nombre: String
-  apellido: String
-  fechaNacimiento: Date
-  nacionalidad: String
+  nombre
+  apellido
+  fechaNacimiento
+  nacionalidad
 }
 
 class Tenista {
-  ranking: Integer
+  ranking
 }
 
 class Árbitro {
-  licencia: String
+  licencia
 }
 
 class Partido {
-  torneo: String
-  fecha: Date
-  ronda: String
-  duracion: Integer
+  torneo
+  fecha
+  ronda
+  duracion
 }
 
 class Set {
-  resultado: String
+  resultado
 }
 
 ' Herencia completa disjunta
