@@ -225,29 +225,29 @@ title Torneo de Tenis (Diagrama de Clases)
 
 
 class Persona {
-  nombre
-  apellido
-  fechaNacimiento
-  nacionalidad
+  nombre: String
+  apellido: String
+  fechaNacimiento: Date
+  nacionalidad: String
 }
 
 class Tenista {
-  ranking
+  ranking: Integer
 }
 
 class Árbitro {
-  licencia
+  licencia: String
 }
 
 class Partido {
-  torneo
-  fecha
-  ronda
-  duracion
+  torneo: String
+  fecha: Date
+  ronda: String
+  duracion: Integer
 }
 
 class Set {
-  resultado
+  resultado: String
 }
 
 ' Herencia completa disjunta
