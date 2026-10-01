@@ -10,7 +10,7 @@ toc_sticky: true
 pdf_version: true
 ---
 
-> [Versión PDF disponible](./index.pdf)
+
 
 ## Objetivo
 
@@ -23,9 +23,7 @@ El objetivo de esta práctica es usar el framework de backend Silence para imple
 
 ---
 
-Silence constituye un framework de propósito educacional desarrollado en la Universidad de Sevilla, diseñado para simplificar la construcción de APIs RESTful y aplicaciones web a partir de una base de datos relacional. Su instalación puede efectuarse a través de su repositorio oficial en GitHub o, en macOS/LinuxOSs, mediante el gestor de paquetes Homebrew ejecutando el comando `$ brew install IISSI-US/tap/silence`.
-
-A continuación, se presenta un tutorial exhaustivo y formal sobre el uso de Silence, abarcando desde la configuración inicial hasta la gestión avanzada de endpoints, pruebas y usuarios.
+Silence constituye un framework de propósito educacional desarrollado en la Universidad de Sevilla, diseñado para simplificar la construcción de APIs RESTful y aplicaciones web a partir de una base de datos relacional. Su instalación puede efectuarse a través de su repositorio [oficial en GitHub](https://github.com/IISSI-US/SilenceEvolution) o, en macOS/LinuxOSs, mediante el gestor de paquetes Homebrew ejecutando el comando `$ brew install IISSI-US/tap/silence`.
 
 ### 1. Inicialización del Proyecto y Configuración del Entorno
 
@@ -43,7 +41,7 @@ Una vez configurado el entorno, se procede a iniciar el servidor local ejecutand
 
 ### 2. Creación de Endpoints (GET y POST con Parámetros)
 
-La gestión de endpoints se realiza a través de la interfaz administrativa. En la sección "Endpoints", se despliega un listado de todos los puntos de acceso disponibles, detallando su ID, ruta, versión, método HTTP, parámetros del cuerpo, si requieren autenticación y los roles permitidos. Cabe destacar que los endpoints internos no se listan en esta vista.
+La gestión de endpoints se realiza a través de la interfaz administrativa, disponible en [http://127.0.0.1:8080/admin](http://127.0.0.1:8080/admin), en el primer acceso será necesario crear un usuario que tendrá el rol de administrador. En la sección "Endpoints", se despliega un listado de todos los puntos de acceso disponibles, detallando su ID, ruta, versión, método HTTP, parámetros del cuerpo, si requieren autenticación y los roles permitidos. Cabe destacar que los endpoints internos no se listan en esta vista.
 
 ![Lista de endpoints]({{ '/assets/images/iissi1/laboratorios/fig/lab1-6/endpoints_list.png' | relative_url }})
 
@@ -665,3 +663,5 @@ Recuérdese que las operaciones exitosas devuelven **200 OK** y las operaciones 
 ### Notas
 
 - Para pruebas autenticadas, se debe de haber realizado una prueba de login previa cuyo token reutiliza automáticamente.
+
+> [Versión PDF disponible](./index.pdf)
