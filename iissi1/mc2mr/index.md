@@ -26,10 +26,17 @@ mc2mr:
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg
-    alt: "Asociación reflexiva"
-    title: "Asociación reflexiva"
+    alt: "Asociación reflexiva 1:N"
+    title: "Asociación reflexiva 1:N"
+    excerpt: "Jerarquía de empleados y jefes"
+    url: "/iissi1/mc2mr/asociacion-reflexiva-1n/"
+    btn_label: "Ver ejercicio"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/iissi1/mc2mr-icon.svg
+    alt: "Asociación reflexiva N:M"
+    title: "Asociación reflexiva N:M"
     excerpt: "Seguimientos entre usuarios"
-    url: "/iissi1/mc2mr/asociacion-reflexiva/"
+    url: "/iissi1/mc2mr/asociacion-reflexiva-nm/"
     btn_label: "Ver ejercicio"
     btn_class: "btn--primary"
   - image_path: /assets/images/iissi1/mc2mr-icon.svg

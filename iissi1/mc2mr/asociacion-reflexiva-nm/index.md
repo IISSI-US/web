@@ -10,7 +10,7 @@ pdf_version: true
 
 # Modelo Conceptual
 
-![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociacion-reflexiva-clases.png' | relative_url }})
+![Diagrama de Clases]({{ '/assets/images/iissi1/mc2mr/asociacion-reflexiva-nm-clases.png' | relative_url }})
 
 # Modelo Relacional
 

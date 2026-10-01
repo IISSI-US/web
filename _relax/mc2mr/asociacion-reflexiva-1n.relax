@@ -1,0 +1,16 @@
+group: "MC2MR - Asociacion reflexiva 1:N"
+description[[ Transformacion de una asociacion reflexiva Empleado-Jefe. ]]
+
+Empleados = {
+  empleadoId:string, jefeId:string, nombreEmpleado:string, edad:number, genero:string, salario:number
+  "e1", null, "Ana Torres", 52, "FEMENINO", 95000.0
+  "e2", "e1", "Bruno Diaz", 42, "MASCULINO", 72000.0
+  "e3", "e1", "Carla Ruiz", 39, "FEMENINO", 70000.0
+  "e4", "e2", "Diego Martin", 29, "MASCULINO", 52000.0
+  "e5", "e2", "Elena Gomez", 33, "NO_BINARIO", 51000.0
+  "e6", "e3", "Fabio Ortiz", 24, "MASCULINO", 44000.0
+  "e7", "e3", "Gabriela Soto", 23, "FEMENINO", 46000.0
+  "e8", "e4", "Hector Vega", 22, "MASCULINO", 52000.0
+  "e9", null, "Isabel Nunez", 45, "FEMENINO", 58000.0
+  "e10", null, "Javier Silva", 36, "MASCULINO", 54000.0
+}

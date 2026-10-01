@@ -83,7 +83,7 @@ Estudiante "0..*" -- "0..*" Curso
 @enduml
 
 
-@startuml asociacion-reflexiva-clases
+@startuml asociacion-reflexiva-nm-clases
 !include ../estilos/final.iuml
 title Asociación Reflexiva N:M (Diagrama de Clases)
 
@@ -111,6 +111,27 @@ Usuario "0..*" -- "0..*" Usuario : sigue >
 
 @enduml
 
+@startuml asociacion-reflexiva-1n-clases
+!include ../estilos/final.iuml
+title Asociación Reflexiva 1:M (Diagrama de Clases)
+
+class Empleado {
+  nombre: String
+  edad: Integer
+  genero: Genero
+  salario: Double
+}
+
+enum Genero {
+  FEMENINO
+  MASCULINO
+  NO_BINARIO
+  NO_ESPECIFICADO
+}
+
+Empleado "0..1" -- "0..*" Empleado : esJefeDe >
+
+@enduml
 
 @startuml herencia-completa-disjunta-clases
 !include ../estilos/final.iuml
