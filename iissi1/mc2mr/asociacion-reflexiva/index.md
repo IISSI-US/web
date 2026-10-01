@@ -20,10 +20,11 @@ Usuarios = { usuarioId, nombre, edad, genero, ciudadOrigen, fechaRegistro }
     PK(usuarioId)
     AK(nombre)
 
-Seguimientos = { seguidorId, seguidoId, fechaInicio }
-    PK(seguidorId, seguidoId)
+Seguimientos = { seguimientoId, seguidorId, seguidoId, fechaInicio }
+    PK(seguimientoId)
     FK(seguidorId)/Usuarios
     FK(seguidoId)/Usuarios
+    AK(seguidorId, seguidoId)
 
 -- Extensión
 Usuarios = {
@@ -36,18 +37,18 @@ Usuarios = {
 }
 
 Seguimientos = {
-    (u1, u2, 2024-02-20),
-    (u1, u3, 2024-02-21),
-    (u1, u5, 2024-02-22),
-    (u2, u1, 2024-03-01),
-    (u2, u3, 2024-03-02),
-    (u3, u1, 2024-02-25),
-    (u3, u2, 2024-02-26),
-    (u3, u5, 2024-02-27),
-    (u4, u1, 2024-03-10),
-    (u4, u2, 2024-03-11),
-    (u5, u2, 2024-02-10),
-    (u5, u3, 2024-02-11)
+    (s1, u1, u2, 2024-02-20),
+    (s2, u1, u3, 2024-02-21),
+    (s3, u1, u5, 2024-02-22),
+    (s4, u2, u1, 2024-03-01),
+    (s5, u2, u3, 2024-03-02),
+    (s6, u3, u1, 2024-02-25),
+    (s7, u3, u2, 2024-02-26),
+    (s8, u3, u5, 2024-02-27),
+    (s9, u4, u1, 2024-03-10),
+    (s10, u4, u2, 2024-03-11),
+    (s11, u5, u2, 2024-02-10),
+    (s12, u5, u3, 2024-02-11)
 }
 ```
 
@@ -79,19 +80,21 @@ La clase asociación `Seguimiento` se transforma en la relación `Seguimientos`.
 
 **11.** Obtener los usuarios mayores de 25 años de Madrid o Valencia.
 
+**12.** Obtener los usuarios que siguen a todas las mujeres.
+
 ## Soluciones
 
 **Renombramiento de relaciones:**
 
 $$U \leftarrow \Ren{U(uid,nom,edad,gen,ciu,freg)}(Usuarios)$$
 
-$$S \leftarrow \Ren{S(seg,seguid,fin)}(Seguimientos)$$
+$$S \leftarrow \Ren{S(seguimientoId,seguidorId,seguidoId,fechaInicio)}(Seguimientos)$$
 
 **1. Obtener los usuarios que sigue Ana**
 
 Como Ana tiene identificador `u1`:
 
-$$\Proj{nom, edad, gen, ciu}\left(\Sel{seg = u1}(S) \JoinR{seguid = uid} U\right)$$
+$$\Proj{nom, edad, gen, ciu}\left(\Sel{seguidorId = u1}(S) \JoinR{seguidoId = uid} U\right)$$
 
 ```mr-table
 Resultado = { nom, edad, gen, ciu }
@@ -107,7 +110,7 @@ Resultado = {
 
 Como Bruno tiene identificador `u2`:
 
-$$\Proj{nom, edad, gen, ciu}\left(\Sel{seguid = u2}(S) \JoinR{seg = uid} U\right)$$
+$$\Proj{nom, edad, gen, ciu}\left(\Sel{seguidoId = u2}(S) \JoinR{seguidorId = uid} U\right)$$
 
 ```mr-table
 Resultado = { nom, edad, gen, ciu }
@@ -126,10 +129,10 @@ $$U1 \leftarrow \Ren{U1}(U)$$
 
 $$U2 \leftarrow \Ren{U2}(U)$$
 
-$$\Proj{U1.nom, U1.ciu, U2.nom, U2.ciu, fin}\left(U1 \JoinR{U1.uid = seg} S \JoinR{seguid = U2.uid} U2\right)$$
+$$\Proj{U1.nom, U1.ciu, U2.nom, U2.ciu, fechaInicio}\left(U1 \JoinR{U1.uid = seguidorId} S \JoinR{seguidoId = U2.uid} U2\right)$$
 
 ```mr-table
-Resultado = { U1.nom, U1.ciu, U2.nom, U2.ciu, fin }
+Resultado = { U1.nom, U1.ciu, U2.nom, U2.ciu, fechaInicio }
 
 Resultado = {
     ('Ana', 'Madrid', 'Bruno', 'Sevilla', 2024-02-20),
@@ -149,29 +152,29 @@ Resultado = {
 
 **4. Obtener los seguimientos iniciados durante febrero de 2024**
 
-$$\Sel{fin \geq '2024-02-01' \land fin < '2024-03-01'}(S)$$
+$$\Sel{fechaInicio \geq '2024-02-01' \land fechaInicio < '2024-03-01'}(S)$$
 
 ```mr-table
-Resultado = { seg, seguid, fin }
+Resultado = { seguimientoId, seguidorId, seguidoId, fechaInicio }
 
 Resultado = {
-    (u1, u2, 2024-02-20),
-    (u1, u3, 2024-02-21),
-    (u1, u5, 2024-02-22),
-    (u3, u1, 2024-02-25),
-    (u3, u2, 2024-02-26),
-    (u3, u5, 2024-02-27),
-    (u5, u2, 2024-02-10),
-    (u5, u3, 2024-02-11)
+    (s1, u1, u2, 2024-02-20),
+    (s2, u1, u3, 2024-02-21),
+    (s3, u1, u5, 2024-02-22),
+    (s6, u3, u1, 2024-02-25),
+    (s7, u3, u2, 2024-02-26),
+    (s8, u3, u5, 2024-02-27),
+    (s11, u5, u2, 2024-02-10),
+    (s12, u5, u3, 2024-02-11)
 }
 ```
 
 **5. Obtener los usuarios que siguen a tres o más usuarios**
 
-$$SeguimientosPorUsuario \leftarrow \Group{seg,\rho_{numSeguidos}(COUNT(*))}{seg}(S)$$
+$$SeguimientosPorUsuario \leftarrow \Group{seguidorId,\rho_{numSeguidos}(COUNT(*))}{seguidorId}(S)$$
 
 ```mr-table
-SeguimientosPorUsuario = { seg, numSeguidos }
+SeguimientosPorUsuario = { seguidorId, numSeguidos }
 
 SeguimientosPorUsuario = {
     (u1, 3),
@@ -185,7 +188,7 @@ SeguimientosPorUsuario = {
 $$UsuariosMultiples \leftarrow \Sel{numSeguidos \geq 3}(SeguimientosPorUsuario)$$
 
 ```mr-table
-UsuariosMultiples = { seg, numSeguidos }
+UsuariosMultiples = { seguidorId, numSeguidos }
 
 UsuariosMultiples = {
     (u1, 3),
@@ -193,7 +196,7 @@ UsuariosMultiples = {
 }
 ```
 
-$$\Proj{nom, ciu, numSeguidos}\left(UsuariosMultiples \JoinR{seg = uid} U\right)$$
+$$\Proj{nom, ciu, numSeguidos}\left(UsuariosMultiples \JoinR{seguidorId = uid} U\right)$$
 
 ```mr-table
 Resultado = { nom, ciu, numSeguidos }
@@ -206,7 +209,7 @@ Resultado = {
 
 **6. Obtener los usuarios que no siguen a nadie**
 
-$$UsuariosConSeguimientos \leftarrow \Proj{uid}\left(S \JoinR{seg = uid} U\right)$$
+$$UsuariosConSeguimientos \leftarrow \Proj{uid}\left(S \JoinR{seguidorId = uid} U\right)$$
 
 $$U - \left(UsuariosConSeguimientos \NatJoin U\right)$$
 
@@ -224,10 +227,10 @@ $$S1 \leftarrow \Ren{S1}(S)$$
 
 $$S2 \leftarrow \Ren{S2}(S)$$
 
-$$\Proj{S1.seg, S1.seguid, S1.fin, S2.fin}\left(\Sel{S1.seg = S2.seguid \land S1.seguid = S2.seg}\left(S1 \times S2\right)\right)$$
+$$\Proj{S1.seguidorId, S1.seguidoId, S1.fechaInicio, S2.fechaInicio}\left(\Sel{S1.seguidorId = S2.seguidoId \land S1.seguidoId = S2.seguidorId}\left(S1 \times S2\right)\right)$$
 
 ```mr-table
-Resultado = { S1.seg, S1.seguid, S1.fin, S2.fin }
+Resultado = { S1.seguidorId, S1.seguidoId, S1.fechaInicio, S2.fechaInicio }
 
 Resultado = {
     (u1, u2, 2024-02-20, 2024-03-01),
@@ -241,11 +244,11 @@ Resultado = {
 
 **8. Obtener los usuarios que siguen a Carla y también a Bruno**
 
-$$Carla \leftarrow \Proj{seg}\left(\Sel{seguid = 'u3'}(S)\right)$$
+$$Carla \leftarrow \Proj{seguidorId}\left(\Sel{seguidoId = 'u3'}(S)\right)$$
 
-$$Bruno \leftarrow \Proj{seg}\left(\Sel{seguid = 'u2'}(S)\right)$$
+$$Bruno \leftarrow \Proj{seguidorId}\left(\Sel{seguidoId = 'u2'}(S)\right)$$
 
-$$\Proj{nom, ciu}\left(\left(Carla \Inter Bruno\right) \JoinR{seg = uid} U\right)$$
+$$\Proj{nom, ciu}\left(\left(Carla \Inter Bruno\right) \JoinR{seguidorId = uid} U\right)$$
 
 ```mr-table
 Resultado = { nom, ciu }
@@ -257,10 +260,10 @@ Resultado = {
 
 **9. Obtener el número de seguidores de cada usuario**
 
-$$SeguidoresPorUsuario \leftarrow \Group{seguid,\rho_{numSeguidores}(COUNT(*))}{seguid}(S)$$
+$$SeguidoresPorUsuario \leftarrow \Group{seguidoId,\rho_{numSeguidores}(COUNT(*))}{seguidoId}(S)$$
 
 ```mr-table
-SeguidoresPorUsuario = { seguid, numSeguidores }
+SeguidoresPorUsuario = { seguidoId, numSeguidores }
 
 SeguidoresPorUsuario = {
     (u1, 3),
@@ -270,7 +273,7 @@ SeguidoresPorUsuario = {
 }
 ```
 
-$$\Proj{nom, numSeguidores}\left(SeguidoresPorUsuario \JoinR{seguid = uid} U\right)$$
+$$\Proj{nom, numSeguidores}\left(SeguidoresPorUsuario \JoinR{seguidoId = uid} U\right)$$
 
 ```mr-table
 Resultado = { nom, numSeguidores }
@@ -287,18 +290,18 @@ Resultado = {
 
 $$Uenero \leftarrow \Sel{freg \geq '2024-01-01' \land freg < '2024-02-01'}(U)$$
 
-$$S \JoinR{seg = uid} Uenero$$
+$$\Proj{seguimientoId,seguidorId,seguidoId,fechaInicio}\left(S \JoinR{seguidorId = uid} Uenero\right)$$
 
 ```mr-table
-Resultado = { seg, seguid, fin }
+Resultado = { seguimientoId, seguidorId, seguidoId, fechaInicio }
 
 Resultado = {
-    (u1, u2, 2024-02-20),
-    (u1, u3, 2024-02-21),
-    (u1, u5, 2024-02-22),
-    (u3, u1, 2024-02-25),
-    (u3, u2, 2024-02-26),
-    (u3, u5, 2024-02-27)
+    (s1, u1, u2, 2024-02-20),
+    (s2, u1, u3, 2024-02-21),
+    (s3, u1, u5, 2024-02-22),
+    (s6, u3, u1, 2024-02-25),
+    (s7, u3, u2, 2024-02-26),
+    (s8, u3, u5, 2024-02-27)
 }
 ```
 
@@ -312,6 +315,22 @@ Resultado = { nom, edad, gen, ciu }
 Resultado = {
     ('Ana', 28, 'FEMENINO', 'Madrid'),
     ('Diego', 31, 'MASCULINO', 'Valencia')
+}
+```
+
+**12. Obtener los usuarios que siguen a todas las mujeres**
+
+$$MujeresAseguir \leftarrow \Ren{MujeresAseguir(seguidoId)}\left(\Proj{uid}\left(\Sel{gen = 'FEMENINO'}(U)\right)\right)$$
+
+$$UsuariosQueSiguenATodas \leftarrow \Proj{seguidorId,seguidoId}(S) \Div MujeresAseguir$$
+
+$$\Proj{seguidorId,nom,edad,gen,ciu}\left(UsuariosQueSiguenATodas \JoinR{seguidorId = uid} U\right)$$
+
+```mr-table
+Resultado = { seguidorId, nom, edad, gen, ciu }
+
+Resultado = {
+    (u2, 'Bruno', 34, 'MASCULINO', 'Sevilla')
 }
 ```
 
@@ -361,6 +380,11 @@ Resultado = {
 
 -- Usuarios mayores de 25 años de Madrid o Valencia
 -- π nombre, edad, genero, ciudadOrigen (σ edad > 25 and (ciudadOrigen = 'Madrid' or ciudadOrigen = 'Valencia') (Usuarios))
+
+-- Usuarios que siguen a todas las mujeres
+-- MujeresAseguir = ρ seguidoId←usuarioId (π usuarioId (σ genero = 'FEMENINO' (Usuarios)))
+-- UsuariosQueSiguenATodas = π seguidorId, seguidoId (Seguimientos) ÷ MujeresAseguir
+-- UsuariosQueSiguenATodas ⨝ seguidorId = usuarioId Usuarios
 ```
 
 > [Versión PDF disponible](./index.pdf)
