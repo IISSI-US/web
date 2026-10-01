@@ -1,0 +1,10 @@
+{
+  "plantuml.render": "Local",
+  "plantuml.jar": "_scripts/plantuml.jar",
+  "plantuml.diagramsRoot": "_diagrams",
+  "plantuml.exportOutDir": "assets/images/iissi1",
+  "plantuml.exportIncludeFolderHeirarchy": true,
+  "plantuml.exportSubFolder": false,
+  "plantuml.exportFormat": "png",
+  "plantuml.fileExtensions": ".puml"
+}

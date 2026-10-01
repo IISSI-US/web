@@ -2,7 +2,7 @@ group: "MC2MR - Asociacion reflexiva"
 description[[ Transformacion de una asociacion reflexiva dirigida entre usuarios. ]]
 
 Usuarios = {
-  usuarioId:string, nombreUsuario:string, edad:number, genero:string, ciudadOrigen:string, fechaRegistro:date
+  usuarioId:string, nombre:string, edad:number, genero:string, ciudadOrigen:string, fechaRegistro:date
   "u1", "Ana", 28, "FEMENINO", "Madrid", 2024-01-10
   "u2", "Bruno", 34, "MASCULINO", "Sevilla", 2024-02-15
   "u3", "Carla", 22, "FEMENINO", "Madrid", 2024-01-20

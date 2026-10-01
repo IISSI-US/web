@@ -87,10 +87,8 @@ Estudiante "0..*" -- "0..*" Curso
 !include ../estilos/final.iuml
 title Asociación Reflexiva N:M (Diagrama de Clases)
 
-
 class Usuario {
-  usuarioId: Integer
-  nombreUsuario: String
+  nombre: String
   edad: Integer
   genero: Genero
   ciudadOrigen: String

@@ -16,9 +16,9 @@ pdf_version: true
 
 ```mr-table
 -- Intensión
-Usuarios = { usuarioId, nombreUsuario, edad, genero, ciudadOrigen, fechaRegistro }
+Usuarios = { usuarioId, nombre, edad, genero, ciudadOrigen, fechaRegistro }
     PK(usuarioId)
-    AK(nombreUsuario)
+    AK(nombre)
 
 Seguimientos = { seguidorId, seguidoId, fechaInicio }
     PK(seguidorId, seguidoId)
@@ -319,15 +319,15 @@ Resultado = {
 
 ```
 -- Usuarios que sigue Ana
--- π nombreUsuario, edad, genero, ciudadOrigen (σ seguidorId = 'u1' (Seguimientos) ⨝ seguidoId = usuarioId Usuarios)
+-- π nombre, edad, genero, ciudadOrigen (σ seguidorId = 'u1' (Seguimientos) ⨝ seguidoId = usuarioId Usuarios)
 
 -- Usuarios que siguen a Bruno
--- π nombreUsuario, edad, genero, ciudadOrigen (σ seguidoId = 'u2' (Seguimientos) ⨝ seguidorId = usuarioId Usuarios)
+-- π nombre, edad, genero, ciudadOrigen (σ seguidoId = 'u2' (Seguimientos) ⨝ seguidorId = usuarioId Usuarios)
 
 -- Seguimientos con los nombres y ciudades de ambos usuarios
 -- U1 = ρ U1 (Usuarios)
 -- U2 = ρ U2 (Usuarios)
--- π U1.nombreUsuario, U1.ciudadOrigen, U2.nombreUsuario, U2.ciudadOrigen, fechaInicio (U1 ⨝ U1.usuarioId = seguidorId Seguimientos ⨝ seguidoId = U2.usuarioId U2)
+-- π U1.nombre, U1.ciudadOrigen, U2.nombre, U2.ciudadOrigen, fechaInicio (U1 ⨝ U1.usuarioId = seguidorId Seguimientos ⨝ seguidoId = U2.usuarioId U2)
 
 -- Seguimientos iniciados durante febrero de 2024
 -- σ fechaInicio >= date('2024-02-01') and fechaInicio < date('2024-03-01') (Seguimientos)
@@ -335,7 +335,7 @@ Resultado = {
 -- Usuarios que siguen a tres o más usuarios
 -- SeguimientosPorUsuario = γ seguidorId; count(seguidoId) → numSeguidos (Seguimientos)
 -- UsuariosMultiples = σ numSeguidos >= 3 (SeguimientosPorUsuario)
--- π nombreUsuario, ciudadOrigen, numSeguidos (UsuariosMultiples ⨝ seguidorId = usuarioId Usuarios)
+-- π nombre, ciudadOrigen, numSeguidos (UsuariosMultiples ⨝ seguidorId = usuarioId Usuarios)
 
 -- Usuarios que no siguen a nadie
 -- UsuariosConSeguimientos = π usuarioId (Seguimientos ⨝ seguidorId = usuarioId Usuarios)
@@ -349,18 +349,18 @@ Resultado = {
 -- Usuarios que siguen a Carla y también a Bruno
 -- Carla = π seguidorId (σ seguidoId = 'u3' (Seguimientos))
 -- Bruno = π seguidorId (σ seguidoId = 'u2' (Seguimientos))
--- π nombreUsuario, ciudadOrigen ((Carla ∩ Bruno) ⨝ seguidorId = usuarioId Usuarios)
+-- π nombre, ciudadOrigen ((Carla ∩ Bruno) ⨝ seguidorId = usuarioId Usuarios)
 
 -- Número de seguidores de cada usuario
 -- SeguidoresPorUsuario = γ seguidoId; count(seguidorId) → numSeguidores (Seguimientos)
--- π nombreUsuario, numSeguidores (SeguidoresPorUsuario ⨝ seguidoId = usuarioId Usuarios)
+-- π nombre, numSeguidores (SeguidoresPorUsuario ⨝ seguidoId = usuarioId Usuarios)
 
 -- Seguimientos cuyo seguidor se registró durante enero de 2024
 -- Uenero = σ fechaRegistro >= date('2024-01-01') and fechaRegistro < date('2024-02-01') (Usuarios)
 -- π seguidorId, seguidoId, fechaInicio (Seguimientos ⨝ seguidorId = usuarioId Uenero)
 
 -- Usuarios mayores de 25 años de Madrid o Valencia
--- π nombreUsuario, edad, genero, ciudadOrigen (σ edad > 25 and (ciudadOrigen = 'Madrid' or ciudadOrigen = 'Valencia') (Usuarios))
+-- π nombre, edad, genero, ciudadOrigen (σ edad > 25 and (ciudadOrigen = 'Madrid' or ciudadOrigen = 'Valencia') (Usuarios))
 ```
 
 > [Versión PDF disponible](./index.pdf)
