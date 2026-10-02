@@ -4,7 +4,7 @@ USE UsersDB;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_assert_test_results()
 BEGIN
-    IF (SELECT COUNT(*) FROM test_results) <> 2
+    IF (SELECT COUNT(*) FROM test_results) <> 3
        OR EXISTS (SELECT 1 FROM test_results WHERE test_status <> 'PASS') THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Usuarios: pruebas incompletas o fallidas';
     END IF;

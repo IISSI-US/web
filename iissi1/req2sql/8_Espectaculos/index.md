@@ -52,7 +52,7 @@ La transcripción que aparece a continuación corresponde a una entrevista reali
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/espectaculos/espectaculos-dc.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/espectaculos/espectaculos-dc.png' | relative_url }})
 
 # Modelo Relacional
 

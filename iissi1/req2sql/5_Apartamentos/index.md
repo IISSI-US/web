@@ -64,7 +64,7 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/apartamentos/apartamentos-dc.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/apartamentos/apartamentos-dc.png' | relative_url }})
 
 # Modelo Relacional
 

@@ -16,6 +16,6 @@ fi
 for project in "${selected[@]}"; do
   output_dir="$ROOT/assets/images/iissi1/req2sql/$project"
   mkdir -p "$output_dir"
-  java -jar "$ROOT/_scripts/plantuml.jar" -failfast2 -charset UTF-8 -tsvg \
+  java -jar "$ROOT/_scripts/plantuml.jar" -failfast2 -charset UTF-8 -tpng \
     -o "$output_dir" "$ROOT/_diagrams/$project/diagrams.puml"
 done

@@ -101,10 +101,10 @@ Animales dos y Bodegas dos. Los diagramas de Grados y de los laboratorios quedan
 fuera del alcance.
 
 Crear un exportador común en `_scripts/` con una lista explícita de proyectos y
-salidas. Propuesta: SVG bajo `assets/images/iissi1/req2sql/<proyecto>/`, con los
-identificadores de los bloques UML como nombres de archivo. Actualizar las páginas
-y comprobar su renderizado web y PDF. La alternativa de conservar PNG reduce los
-cambios de enlaces, pero debe igualmente usar las nuevas fuentes y el estilo común.
+salidas PNG bajo `assets/images/iissi1/req2sql/<proyecto>/`, usando los
+identificadores de los bloques UML como nombres de archivo. Las páginas enlazan a
+estas salidas y el renderizado queda fijado al exportar, sin depender de las fuentes
+disponibles en el navegador o en el generador de PDF.
 
 Retirar los estilos duplicados y `exporta`/`exportaTodo` de
 `_diagrams/req2sql`. Aunque el flujo antiguo ya no se utilice, el Makefile todavía

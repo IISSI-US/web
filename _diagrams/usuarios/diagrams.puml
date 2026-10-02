@@ -12,7 +12,7 @@
 
     Class Usuario << Entidad >> {
         nombre: String
-        genero: Genero
+        genero: Genero [0..1]
         edad: Integer
         email: String
     }
@@ -37,7 +37,7 @@
 
     Class Usuario << Entidad >> {
         nombre: String
-        genero: Genero
+        genero: Genero [0..1]
         edad: Integer
         email: String
     }
@@ -75,7 +75,7 @@
 
     Class Usuario << Entidad >> {
         nombre: String
-        genero: Genero
+        genero: Genero [0..1]
         edad: Integer
         email: String
     }

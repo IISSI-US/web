@@ -18,7 +18,7 @@ help:
 	@echo ""
 	@echo "=== Diagramas ==="
 	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR"
-	@echo "  req2sql-images    Renderiza los SVG de los ejercicios publicados de Req→SQL"
+	@echo "  req2sql-images    Renderiza los PNG de los ejercicios publicados de Req→SQL"
 	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)"
 	@echo "  images            Renderiza todos los diagramas"
 	@echo "  pdfs              Genera todos los PDF de index.md con pdf_version: true"
@@ -61,7 +61,9 @@ clean-mc2mr-images:
 	rm -f assets/images/iissi1/mc2mr/*.png || true
 
 clean-req2sql-images:
-	rm -f assets/images/iissi1/req2sql/*.png 2>/dev/null || true
+	for project in usuarios aficiones-est aficiones-din pedidos empleados apartamentos animales proyectos espectaculos bodegas; do \
+	  rm -f "assets/images/iissi1/req2sql/$$project"/*.png; \
+	done
 
 clean-grades-images:
 	rm -f assets/images/iissi1/laboratorios/fig/req/*.svg 2>/dev/null || true

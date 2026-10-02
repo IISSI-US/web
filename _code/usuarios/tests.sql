@@ -60,6 +60,28 @@ BEGIN
     CALL p_log_test('RN02', 'ERROR: Se permitió duplicar un email', 'FAIL');
 END //
 
+CREATE OR REPLACE PROCEDURE p_test_pa02_optional_gender()
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        CALL p_log_test('PA02', 'ERROR: No se permitió insertar un usuario sin género', 'ERROR');
+    END;
+
+    CALL p_populate();
+
+    INSERT INTO users (full_name, age, email)
+        VALUES ('Usuario Sin Genero', 30, 'sin-genero@example.com');
+
+    IF EXISTS (
+        SELECT 1 FROM users
+        WHERE email = 'sin-genero@example.com' AND gender IS NULL
+    ) THEN
+        CALL p_log_test('PA02', 'PA02: Se permite omitir el género', 'PASS');
+    ELSE
+        CALL p_log_test('PA02', 'ERROR: El género omitido no quedó en NULL', 'FAIL');
+    END IF;
+END //
+
 -- =============================================================
 -- ORQUESTADOR
 -- =============================================================
@@ -78,6 +100,7 @@ BEGIN
 
     CALL p_test_rn01_minimum_age();
     CALL p_test_rn02_unique_email();
+    CALL p_test_pa02_optional_gender();
 
     SELECT * FROM test_results ORDER BY execution_time, test_id;
     SELECT test_status, COUNT(*) AS total FROM test_results GROUP BY test_status;

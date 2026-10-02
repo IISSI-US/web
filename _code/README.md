@@ -27,7 +27,7 @@ El Makefile detiene la ejecución ante errores en archivos incluidos con SOURCE.
 
 ## Refinamiento pendiente
 
-- Usuarios: incidencias [#53](https://github.com/IISSI-US/web/issues/53), [#54](https://github.com/IISSI-US/web/issues/54), [#55](https://github.com/IISSI-US/web/issues/55) y [#56](https://github.com/IISSI-US/web/issues/56).
+- Usuarios: incidencias [#54](https://github.com/IISSI-US/web/issues/54), [#55](https://github.com/IISSI-US/web/issues/55) y [#56](https://github.com/IISSI-US/web/issues/56).
 - Aficiones: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/57).
 - Pedidos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/58).
 - Empleados: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/59).

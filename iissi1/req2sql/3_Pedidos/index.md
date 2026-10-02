@@ -60,7 +60,7 @@ pdf_version: true
 
 ## Diagrama de clases 
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/pedidos/pedidos-dc.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/pedidos/pedidos-dc.png' | relative_url }})
 
 # Modelo Relacional
 

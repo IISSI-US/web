@@ -46,7 +46,7 @@ Modifique el RI-02 de la versión estática/cerrada del ejercicio de Aficiones p
 
 ### Diagrama de clases
 
-![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/aficiones-est/aficiones-est-dc.svg' | relative_url }})
+![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/aficiones-est/aficiones-est-dc.png' | relative_url }})
 
 ## Versión dinámica
 
@@ -54,7 +54,7 @@ Modifique el RI-02 de la versión estática/cerrada del ejercicio de Aficiones p
 
 En la versión dinámica, las aficiones se convierten en entidad propia para permitir un catálogo abierto y gestionable. Normalmente aparecen las entidades Usuario y Afición, y una asociación Usuario–Afición para resolver la relación *..**.
 
-![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/aficiones-din/aficiones-din-dc.svg' | relative_url }})
+![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/aficiones-din/aficiones-din-dc.png' | relative_url }})
 
 # Modelo Relacional
 

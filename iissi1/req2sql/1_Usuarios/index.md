@@ -72,7 +72,7 @@ pdf_version: true
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/usuarios/usuarios-dc-base.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/usuarios/usuarios-dc-base.png' | relative_url }})
 
 # Modelo Relacional
 

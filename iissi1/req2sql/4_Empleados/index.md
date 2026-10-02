@@ -41,7 +41,7 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/empleados/empleados-dc.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/empleados/empleados-dc.png' | relative_url }})
 
 # Modelo Relacional
 

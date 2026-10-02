@@ -88,7 +88,7 @@ pdf_version: true
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc.svg' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc.png' | relative_url }})
 
 ## Posible extensión
 
@@ -97,7 +97,7 @@ pdf_version: true
 - Se mantienen Bodega–Vino (1..*), Crianza–Cosecha (1..*), y Vino–Uva (M:N) como en el modelo base.
 - RN‑5: Reserva 36 meses (12–24 en barrica; resto en botella). Además, se mantienen RN‑1..RN‑4.
 
-![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc-examen.svg' | relative_url }})
+![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc-examen.png' | relative_url }})
 
 # Modelo Relacional
 
