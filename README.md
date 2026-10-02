@@ -62,27 +62,23 @@ make serve-prod
 make help
 ```
 
-## 🛠️ Comandos útiles
-
-### Diagramas
-```bash
-make images              # Renderiza todos los diagramas PlantUML
-make mc2mr-images        # Solo diagramas MC→MR
-make req2sql-images      # Solo diagramas Req→SQL
-make grades-images       # Solo diagramas de requisitos
-make clean-images        # Elimina imágenes generadas
-```
-
-### PDFs
-```bash
-make pdfs                # Genera PDFs de cada index.md con pdf_version: true
-```
-
-### Build
+## 🛠️ Build del sitio
 ```bash
 make build               # Build estándar
 make build-prod          # Build con JEKYLL_ENV=production
 ```
+
+El servidor local de desarrollo se inicia con `make serve-dev`; `make serve-prod`
+lo sirve con el `baseurl` de producción para revisar las rutas localmente.
+
+### PDFs
+```bash
+make pdfs                # Genera PDFs de cada index.md con pdf_version: true
+make pdfs-incremental    # Regenera solo los PDFs con fuentes más recientes
+```
+
+Los exportadores de diagramas son scripts independientes documentados en
+`_scripts/README.md`.
 
 ## 📁 Estructura del proyecto
 

@@ -1,6 +1,6 @@
-# Simple Makefile for image exports and related tooling
+# Build and run the Jekyll site locally.
 
-.PHONY: help mc2mr-images req2sql-images grades-images images pdfs pdfs-incremental clean-images clean-mc2mr-images clean-req2sql-images clean-grades-images build serve serve-prod serve-dev build-prod
+.PHONY: help build build-prod serve serve-prod serve-dev pdfs pdfs-incremental
 
 .POSIX:
 
@@ -16,59 +16,12 @@ help:
 	@echo "  build             Construye el sitio web estático"
 	@echo "  build-prod        Build con JEKYLL_ENV=production y baseurl correcto"
 	@echo ""
-	@echo "=== Diagramas ==="
-	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR"
-	@echo "  req2sql-images    Renderiza los PNG de los ejercicios publicados de Req→SQL"
-	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)"
-	@echo "  images            Renderiza todos los diagramas"
+	@echo "=== PDFs ==="
 	@echo "  pdfs              Genera todos los PDF de index.md con pdf_version: true"
 	@echo "  pdfs-incremental  Regenera solo PDFs cuyo MD sea más reciente"
 	@echo ""
-	@echo "=== Limpieza ==="
-	@echo "  clean-mc2mr-images   Elimina los PNG generados para MC→MR"
-	@echo "  clean-req2sql-images Elimina los PNG generados para Req→SQL"
-	@echo "  clean-grades-images  Elimina los SVG generados para grades"
-	@echo "  clean-images         Ejecuta todos los clean"
-	@echo ""
 	@echo "=== Ayuda ==="
 	@echo "  help              Mostrar esta ayuda"
-
-# Render PlantUML diagrams and update public PNGs for MC2MR
-mc2mr-images:
-	bash _scripts/export_mc2mr.sh
-
-# Render migrated Req→SQL diagrams with the shared style
-req2sql-images:
-	bash _scripts/export_req2sql.sh
-
-# Render PlantUML diagrams for grades/requisitos
-grades-images:
-	bash _scripts/export_grades.sh
-
-# Alias to render all images
-images: mc2mr-images req2sql-images grades-images
-
-# Generate PDF versions from markdown indexes (requires pdf_version: true)
-pdfs:
-	python3 _scripts/build_pdfs.py
-
-# Generate PDFs only for modified markdown files (incremental build)
-pdfs-incremental:
-	python3 _scripts/build_pdfs.py --incremental
-
-# Remove generated PNGs from public assets
-clean-mc2mr-images:
-	rm -f assets/images/iissi1/mc2mr/*.png || true
-
-clean-req2sql-images:
-	for project in usuarios aficiones-est aficiones-din pedidos empleados apartamentos animales proyectos espectaculos bodegas; do \
-	  rm -f "assets/images/iissi1/req2sql/$$project"/*.png; \
-	done
-
-clean-grades-images:
-	rm -f assets/images/iissi1/laboratorios/fig/req/*.svg 2>/dev/null || true
-
-clean-images: clean-mc2mr-images clean-req2sql-images clean-grades-images
 
 # Build the static website
 build:
@@ -92,40 +45,10 @@ serve-prod:
 serve-dev:
 	bundle exec jekyll serve --livereload --config _config.yml,_config.dev.yml
 
-# Piloto de req2sql con fuentes unificadas y estilo compartido
-.PHONY: usuarios-images
-usuarios-images:
-	bash _scripts/export_exercise.sh usuarios
+# Generate PDF versions from markdown indexes (requires pdf_version: true)
+pdfs:
+	python3 _scripts/build_pdfs.py
 
-.PHONY: aficiones-images
-aficiones-images:
-	bash _scripts/export_exercise.sh aficiones-est
-	bash _scripts/export_exercise.sh aficiones-din
-
-.PHONY: pedidos-images
-pedidos-images:
-	bash _scripts/export_exercise.sh pedidos
-
-.PHONY: empleados-images
-empleados-images:
-	bash _scripts/export_exercise.sh empleados
-
-.PHONY: apartamentos-images
-apartamentos-images:
-	bash _scripts/export_exercise.sh apartamentos
-
-.PHONY: animales-images
-animales-images:
-	bash _scripts/export_exercise.sh animales
-
-.PHONY: proyectos-images
-proyectos-images:
-	bash _scripts/export_exercise.sh proyectos
-
-.PHONY: espectaculos-images
-espectaculos-images:
-	bash _scripts/export_exercise.sh espectaculos
-
-.PHONY: bodegas-images
-bodegas-images:
-	bash _scripts/export_exercise.sh bodegas
+# Generate PDFs only for modified markdown files (incremental build)
+pdfs-incremental:
+	python3 _scripts/build_pdfs.py --incremental

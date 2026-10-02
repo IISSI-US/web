@@ -305,12 +305,6 @@ Para crear las consultas que implementan los requisitos funcionales se puede usa
 
 ## SQL avanzado
 
-El modelo base almacena la edad y el trigger comprueba que sea de al menos 18 años. La función siguiente ilustra cómo calcular la edad a partir de una fecha de nacimiento; como depende de la fecha actual, su resultado no es determinista.
-
-El script para la función es el siguiente:
-
-{% include sql-embed.html src='/_code/usuarios/fGetAge.sql' label='usuarios/fGetAge.sql'  collapsed=true %}
-
 El script para obtener el dominio de un correo electrónico es el siguiente:
 
 {% include sql-embed.html src='/_code/usuarios/fEmailDomain.sql' label='usuarios/fEmailDomain.sql' collapsed=true %}
@@ -319,18 +313,45 @@ El trigger del modelo base es el siguiente:
 
 {% include sql-embed.html src='/_code/usuarios/tCheckAge.sql' label='usuarios/tCheckAge.sql'  collapsed=true %}
 
-## Fecha de nacimiento en lugar de la edad
-
-Esta variante ejecutable sustituye la edad almacenada por `birth_date`. Crea la base independiente `Users_v2DB`, con su tabla, población, función, triggers de inserción y actualización y consultas adaptadas; no modifica `UsersDB`.
-
-{% include sql-embed.html src='/_code/usuarios/version2.sql' label='usuarios/version2.sql'  collapsed=true %}
-
-Las pruebas de la variante cubren la fecha futura y el límite exacto de mayoría de edad:
-
-{% include sql-embed.html src='/_code/usuarios/tests_v2.sql' label='usuarios/tests_v2.sql'  collapsed=true %}
-
 ## Pruebas SQL
 
 {% include sql-embed.html src='/_code/usuarios/tests.sql' label='usuarios/tests.sql' collapsed=true %}
+
+**Fin de la versión 1.** A partir de aquí se proponen ampliaciones independientes.
+
+# Para trabajar más
+
+## Usar la fecha de nacimiento en lugar de la edad
+
+Modifica los modelos conceptual, relacional y tecnológico para almacenar la fecha
+de nacimiento en lugar de la edad. Calcula la edad cuando sea necesaria y rechaza
+fechas futuras y usuarios menores de edad, tanto al insertar como al actualizar.
+
+La función de edad debe tener en cuenta que depende de la fecha actual:
+
+{% include sql-embed.html src='/_code/usuarios/fGetAge.sql' label='usuarios/fGetAge.sql' collapsed=true %}
+
+Como referencia ejecutable, `version2.sql` crea la variante aislada `Users_v2DB`
+y `tests_v2.sql` comprueba los casos límite:
+
+{% include sql-embed.html src='/_code/usuarios/version2.sql' label='usuarios/version2.sql' collapsed=true %}
+
+{% include sql-embed.html src='/_code/usuarios/tests_v2.sql' label='usuarios/tests_v2.sql' collapsed=true %}
+
+## Añadir tutores
+
+Amplía los modelos para representar la relación de tutoría y cumplir las
+restricciones RA01–RA03 del diagrama. Actualiza el modelo relacional, el esquema
+y las pruebas negativas.
+
+![Diagrama de clases de Usuarios con tutores]({{ '/assets/images/iissi1/req2sql/usuarios/usuarios-dc-tutores.png' | relative_url }})
+
+## Añadir parejas
+
+Amplía los modelos para representar las parejas y cumplir las restricciones
+RA01–RA04 del diagrama. Actualiza el modelo relacional, el esquema y las pruebas
+negativas.
+
+![Diagrama de clases de Usuarios con parejas]({{ '/assets/images/iissi1/req2sql/usuarios/usuarios-dc-parejas.png' | relative_url }})
 
 > [Versión PDF disponible](./index.pdf)

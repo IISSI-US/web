@@ -7,20 +7,19 @@ conservados; los ajustes didácticos se realizarán después de la migración.
 Desde la raíz de Web:
 
 ```bash
-make -C _code load-aficiones-est
-make -C _code test-aficiones-est
-bash _scripts/export_exercise.sh aficiones-est
+(cd _code/aficiones-est && mariadb < loadDB.sql)
+(cd _code/aficiones-est && mariadb < tests.sql)
+bash _scripts/export_diagrams.sh aficiones-est
 ```
 
 La carga recrea `HobbiesStaticDB`. Usar una instancia de prácticas. Se puede indicar
-la conexión mediante `MYSQL="mariadb --socket=/ruta/al/socket -u usuario"`.
+la conexión con las opciones habituales de `mariadb`.
 Desde este directorio también se puede ejecutar `mariadb < loadDB.sql`,
-`mariadb < runTests.sql` y `mariadb < queries.sql`.
+`mariadb < tests.sql` y `mariadb < queries.sql`.
 
 El cargador mantiene la selección y el orden del original. Los demás SQL son
-auxiliares y no se añaden automáticamente a la carga. `assertTests.sql` exige
-los 3 resultados PASS de la suite heredada y convierte fallos o resultados
-incompletos en un error del cliente. Esto no amplía su cobertura funcional.
+auxiliares y no se añaden automáticamente a la carga. `tests.sql` muestra los
+resultados PASS/FAIL/ERROR para que el alumnado los revise.
 
 El UML se integra en `_diagrams/aficiones-est/diagrams.puml`, con el estilo compartido
 `final.iuml`. No se migran el frontend, endpoints ni configuraciones de Silence.

@@ -8,7 +8,7 @@ if [[ "${1:-}" == "all" && "$#" == 1 ]]; then
 elif [[ "$#" == 1 && " ${PROJECTS[*]} " == *" $1 "* ]]; then
   selected=("$1")
 else
-  echo "Uso: bash _scripts/export_exercise.sh <proyecto|all>" >&2
+  echo "Uso: bash _scripts/export_diagrams.sh <proyecto|all>" >&2
   echo "Proyectos: ${PROJECTS[*]}" >&2
   exit 2
 fi

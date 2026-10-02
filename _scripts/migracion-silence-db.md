@@ -158,7 +158,7 @@ Usuarios fue confirmado en `649369a`; el resto se ha trasladado con un commit po
 cada ejercicio (Aficiones incluye estática y dinámica). Los SQL originales se
 conservan, con cargadores y ejecutores en `_code/`. Todos los UML de los nueve
 ejercicios se han retirado de `_diagrams/req2sql/` y sustituido por archivos únicos
-con el estilo compartido. `make req2sql-images` exporta los diez proyectos locales.
+con el estilo compartido. `bash _scripts/export_req2sql.sh` exporta los diez proyectos locales.
 
 El material residual de `_diagrams/req2sql/` (Grados, Usuarios2, Teoria y
 BaseDatosPedidos, junto con sus utilidades/estilos antiguos) queda fuera de esta

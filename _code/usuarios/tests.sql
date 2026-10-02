@@ -1,7 +1,7 @@
 -- 
 -- Autor: David Ruiz
 -- Fecha: Noviembre 2024
--- Descripción: Tests negativos para la BD de Users
+-- Descripción: Pruebas de aceptación para la BD de Users
 -- 
 USE UsersDB;
 
@@ -31,13 +31,17 @@ BEGIN
 END //
 
 -- =============================================================
--- TESTS (RN01 - RN02)
+-- TESTS NEGATIVOS (PA03 - PA05, RN01 - RN02)
 -- =============================================================
 
 CREATE OR REPLACE PROCEDURE p_test_rn01_minimum_age()
 BEGIN
+    DECLARE EXIT HANDLER FOR 4025
+        CALL p_log_test('RN01', 'RN01: Se rechazan usuarios menores de edad', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLSTATE '45000'
+        CALL p_log_test('RN01', 'RN01: Se rechazan usuarios menores de edad', 'PASS');
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN01', 'RN01: Los usuarios deben ser mayores de edad', 'PASS');
+        CALL p_log_test('RN01', 'ERROR: No se produjo el error esperado para la edad mínima', 'ERROR');
 
     CALL p_populate();
 
@@ -49,8 +53,10 @@ END //
 
 CREATE OR REPLACE PROCEDURE p_test_rn02_unique_email()
 BEGIN
+    DECLARE EXIT HANDLER FOR 1062
+        CALL p_log_test('RN02', 'RN02: Se rechazan emails duplicados', 'PASS');
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
-        CALL p_log_test('RN02', 'RN02: No se permiten emails duplicados', 'PASS');
+        CALL p_log_test('RN02', 'ERROR: No se produjo el error esperado para el email duplicado', 'ERROR');
 
     CALL p_populate();
 
@@ -60,26 +66,49 @@ BEGIN
     CALL p_log_test('RN02', 'ERROR: Se permitió duplicar un email', 'FAIL');
 END //
 
-CREATE OR REPLACE PROCEDURE p_test_pa02_optional_gender()
+CREATE OR REPLACE PROCEDURE p_test_pa03_required_name()
 BEGIN
+    DECLARE EXIT HANDLER FOR 1048
+        CALL p_log_test('PA03', 'PA03: Se rechaza un usuario sin nombre', 'PASS');
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
-        CALL p_log_test('PA02', 'ERROR: No se permitió insertar un usuario sin género', 'ERROR');
-    END;
+        CALL p_log_test('PA03', 'ERROR: No se produjo el error esperado para el nombre', 'ERROR');
 
     CALL p_populate();
 
-    INSERT INTO users (full_name, age, email)
-        VALUES ('Usuario Sin Genero', 30, 'sin-genero@example.com');
+    INSERT INTO users (full_name, gender, age, email)
+        VALUES (NULL, 'MASCULINO', 30, 'sin-nombre@example.com');
 
-    IF EXISTS (
-        SELECT 1 FROM users
-        WHERE email = 'sin-genero@example.com' AND gender IS NULL
-    ) THEN
-        CALL p_log_test('PA02', 'PA02: Se permite omitir el género', 'PASS');
-    ELSE
-        CALL p_log_test('PA02', 'ERROR: El género omitido no quedó en NULL', 'FAIL');
-    END IF;
+    CALL p_log_test('PA03', 'ERROR: Se permitió insertar un usuario sin nombre', 'FAIL');
+END //
+
+CREATE OR REPLACE PROCEDURE p_test_pa04_required_age()
+BEGIN
+    DECLARE EXIT HANDLER FOR 1048
+        CALL p_log_test('PA04', 'PA04: Se rechaza un usuario sin edad', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('PA04', 'ERROR: No se produjo el error esperado para la edad', 'ERROR');
+
+    CALL p_populate();
+
+    INSERT INTO users (full_name, gender, age, email)
+        VALUES ('Usuario Sin Edad', 'MASCULINO', NULL, 'sin-edad@example.com');
+
+    CALL p_log_test('PA04', 'ERROR: Se permitió insertar un usuario sin edad', 'FAIL');
+END //
+
+CREATE OR REPLACE PROCEDURE p_test_pa05_required_email()
+BEGIN
+    DECLARE EXIT HANDLER FOR 1048
+        CALL p_log_test('PA05', 'PA05: Se rechaza un usuario sin email', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('PA05', 'ERROR: No se produjo el error esperado para el email', 'ERROR');
+
+    CALL p_populate();
+
+    INSERT INTO users (full_name, gender, age, email)
+        VALUES ('Usuario Sin Email', 'MASCULINO', 30, NULL);
+
+    CALL p_log_test('PA05', 'ERROR: Se permitió insertar un usuario sin email', 'FAIL');
 END //
 
 -- =============================================================
@@ -89,7 +118,7 @@ CREATE OR REPLACE PROCEDURE p_run_tests()
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-        CALL p_log_test('POPULATE', 'ERROR: El populate falló. No se ejecutaron los tests negativos.', 'ERROR');
+        CALL p_log_test('POPULATE', 'ERROR: Falló la preparación de la suite de aceptación.', 'ERROR');
         SELECT * FROM test_results ORDER BY execution_time, test_id;
         SELECT test_status, COUNT(*) AS total FROM test_results GROUP BY test_status;
     END;
@@ -98,9 +127,11 @@ BEGIN
 
     CALL p_populate();
 
+    CALL p_test_pa03_required_name();
+    CALL p_test_pa04_required_age();
+    CALL p_test_pa05_required_email();
     CALL p_test_rn01_minimum_age();
     CALL p_test_rn02_unique_email();
-    CALL p_test_pa02_optional_gender();
 
     SELECT * FROM test_results ORDER BY execution_time, test_id;
     SELECT test_status, COUNT(*) AS total FROM test_results GROUP BY test_status;
