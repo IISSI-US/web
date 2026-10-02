@@ -149,19 +149,13 @@ La planificación por grupos es tentativa y está sujeta a cambios
 
 ## Exámenes
 
-### Grupos 1 y 3 de TI
-- Teoría Bloque I: 14 de Octubre
-- Teoría Bloque II: 9 de Diciembre
-- Laboratorios: 14 y 16 de Diciembre
+El examen de teoría del bloque-1 tendrá lugar los días 20 y 21 de octubre en el horario habitual de cada grupo:
 
-### Grupos 2 de TI y DG
-- Teoría Bloque I: 13 de Octubre
-- Teoría Bloque II: 10 de Diciembre
-- Laboratorios: 15 y 17 de Diciembre
+* IC-1: 20-Octubre 8:30h Aula A2.16
+* IC-2: 20-Octubre 17:40h Aula A2.16
+* TI-1: 21-Octubre 10:40h Aula A3.11
+* TI-2: 20-Octubre 10:40h Aula A2.16
+* TI-3: 21-Octubre 17:40h Aula A3.11
 
-
-### Grupos 1 y 2 de IC
-- Teoría Bloque I: 13 de Octubre
-- Teoría Bloque II: 10 de Diciembre
-- Laboratorios: 15 y 17 de Diciembre
+Será de tipo test y abarcará hasta el tema de Modelado Conceptual.
 
