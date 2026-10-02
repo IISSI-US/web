@@ -17,7 +17,7 @@ recrean sus bases de datos. Ejecutarlas en una instancia de prácticas.
 Alternativa al objetivo `run-tests`, desde `_code`:
 
 ```bash
-mariadb < runAllTests.sql
+mariadb --abort-source-on-error < runAllTests.sql
 ```
 
 El script maestro usa la misma conexión, sin lanzar clientes secundarios.
@@ -25,3 +25,7 @@ El script maestro usa la misma conexión, sin lanzar clientes secundarios.
 - Aficiones: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/57).
 
 - Pedidos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/58).
+
+El Makefile detiene la ejecución ante errores en archivos incluidos con SOURCE.
+
+- Empleados: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/59).

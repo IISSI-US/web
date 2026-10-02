@@ -5,7 +5,6 @@ rm -rf exports/*
 ./exporta Animales/Main.puml
 ./exporta Apartamentos/Main.puml
 ./exporta Bodegas/Main.puml
-./exporta Empleados/Main.puml
 ./exporta Espectaculos/Main.puml
 ./exporta Proyectos/Main.puml
 ./exporta Usuarios2/Main.puml

@@ -11,3 +11,6 @@ SOURCE aficiones-din/assertTests.sql;
 
 SOURCE pedidos/tests.sql;
 SOURCE pedidos/assertTests.sql;
+
+SOURCE empleados/tests.sql;
+SOURCE empleados/assertTests.sql;

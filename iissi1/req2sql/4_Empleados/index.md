@@ -41,7 +41,7 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Empleados/empleados-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/empleados/empleados-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -274,15 +274,15 @@ EstadisticasSalarioDep2 = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/create_db.sql' label='Empleados/create_db.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/create_db.sql' label='empleados/create_db.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/populate_db.sql' label='Empleados/populate_db.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/populate_db.sql' label='empleados/populate_db.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/queries.sql' label='Empleados/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/queries.sql' label='empleados/queries.sql' collapsed=true %}
 
 ## SQL avanzado
 
@@ -290,54 +290,54 @@ EstadisticasSalarioDep2 = {
 
 Realice procedimientos para insertar en las tablas Departments y Employees:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/p_insert_department.sql' label='Empleados/p_insert_department.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/p_insert_department.sql' label='empleados/p_insert_department.sql' collapsed=true %}
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/p_insert_employee.sql' label='Empleados/p_insert_employee.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/p_insert_employee.sql' label='empleados/p_insert_employee.sql' collapsed=true %}
 
 Realice un procedimiento para igualar las comisiones de todos los empleados al valor de la comisión media:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/p_equate_fees.sql' label='Empleados/p_equate_fees.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/p_equate_fees.sql' label='empleados/p_equate_fees.sql' collapsed=true %}
 
 Implemente un procedimiento que aplique un aumento a la comisión de un empleado en particular:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/p_raise_fee.sql' label='Empleados/p_raise_fee.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/p_raise_fee.sql' label='empleados/p_raise_fee.sql' collapsed=true %}
 
 ### Funciones
 
 Implemente una función que devuelva el número de empleados de una localidad concreta:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/f_num_employees.sql' label='Empleados/f_num_employees.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/f_num_employees.sql' label='empleados/f_num_employees.sql' collapsed=true %}
 
 Implemente una función que calcule la media de las comisiones de los empleados y use esa función dentro de un procedimiento almacenado para igualar las comisiones de todos los empleados al valor de la comisión media:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/f_avg_fee.sql' label='Empleados/f_avg_fee.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/f_avg_fee.sql' label='empleados/f_avg_fee.sql' collapsed=true %}
 
 ### Cursores
 
 Utilice un cursor para recorrer todos los empleados y calcular el valor acumulado de los salarios:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/f_sum_salaries.sql' label='Empleados/f_sum_salaries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/f_sum_salaries.sql' label='empleados/f_sum_salaries.sql' collapsed=true %}
 
 ### Triggers (disparadores)
 
 Implemente un disparador para evitar que un empleado sea su propio jefe:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/t_self_boss.sql' label='Empleados/t_self_boss.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/t_self_boss.sql' label='empleados/t_self_boss.sql' collapsed=true %}
 
 Implemente un disparador que evite que modifique la comisión de un empleado en más de un 20%:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/t_change_fee.sql' label='Empleados/t_change_fee.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/t_change_fee.sql' label='empleados/t_change_fee.sql' collapsed=true %}
 
 Implemente un disparador que evite que un departamento tenga más de cinco empleados:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/t_max_employees_department.sql' label='Empleados/t_max_employees_department.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/t_max_employees_department.sql' label='empleados/t_max_employees_department.sql' collapsed=true %}
 
 Implemente un disparador que en caso de insertar un empleado sin fecha de inicio, le ponga como fecha de inicio la fecha actual:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/sql/t_default_start_date.sql' label='Empleados/t_default_start_date.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/t_default_start_date.sql' label='empleados/t_default_start_date.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Empleados/tests/tests.sql' label='Empleados/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/empleados/tests.sql' label='empleados/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

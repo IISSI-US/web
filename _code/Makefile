@@ -1,6 +1,6 @@
 # Adaptado del Makefile de silence-db. Solo proyectos migrados de req2sql.
 MYSQL ?= mariadb
-DBS := usuarios aficiones-est aficiones-din pedidos
+DBS := usuarios aficiones-est aficiones-din pedidos empleados
 
 .PHONY: help load-all run-tests $(addprefix load-,$(DBS)) $(addprefix test-,$(DBS))
 help:
@@ -11,7 +11,7 @@ load-all: $(addprefix load-,$(DBS))
 run-tests: $(addprefix test-,$(DBS))
 
 $(addprefix load-,$(DBS)): load-%:
-	cd "$*" && $(MYSQL) < loadDB.sql
+	cd "$*" && $(MYSQL) --abort-source-on-error < loadDB.sql
 
 $(addprefix test-,$(DBS)): test-%:
-	cd "$*" && $(MYSQL) < runTests.sql
+	cd "$*" && $(MYSQL) --abort-source-on-error < runTests.sql

@@ -16,3 +16,5 @@ Los demás ejercicios se retirarán al completar sus respectivas migraciones.
 Aficiones: fuentes antiguas retiradas; destinos: `_diagrams/aficiones-est/diagrams.puml`, `_diagrams/aficiones-din/diagrams.puml`.
 
 Pedidos: fuentes antiguas retiradas; destinos: `_diagrams/pedidos/diagrams.puml`.
+
+Empleados: fuentes antiguas retiradas; destinos: `_diagrams/empleados/diagrams.puml`.
