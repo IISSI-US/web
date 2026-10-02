@@ -61,7 +61,7 @@ sistema de información para ayudarle en la gestión de sus proyectos.
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Proyectos/proyectos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/proyectos/proyectos-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -330,18 +330,18 @@ EST = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/createDB.sql' label='Proyectos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/proyectos/createDB.sql' label='proyectos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/populateDB.sql' label='Proyectos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/proyectos/populateDB.sql' label='proyectos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/sql/queries.sql' label='Proyectos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/proyectos/queries.sql' label='proyectos/queries.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Proyectos/tests/tests.sql' label='Proyectos/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/proyectos/tests.sql' label='proyectos/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

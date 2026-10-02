@@ -1,3 +1,5 @@
+@startuml proyectos-dc
+!include ../estilos/final.iuml
     class Proyecto {
         nombre
         descripción
@@ -30,3 +32,13 @@
         fFin [0..1]
     }
 
+
+    ' Asociaciones
+    Proyecto *-- "{ordered} *" Tarea : tiene
+    Proyecto *-- "*" Rol : "tiene"
+    Tarea *-- " * {ordered}" Tarea : compuestaPor
+    Empleado "0..1" -right- "*" Tarea :  esResponsableDe
+    (Empleado, Tarea) .. PeriodoTarea
+    Rol "*" -right- "*" Empleado :  correspondeA
+    (Empleado, Rol) .. PeriodoCargo
+@enduml

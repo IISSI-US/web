@@ -2,7 +2,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 case "${1:-}" in
-  usuarios|aficiones-est|aficiones-din|pedidos|empleados|apartamentos|animales) project="$1" ;;
+  usuarios|aficiones-est|aficiones-din|pedidos|empleados|apartamentos|animales|proyectos) project="$1" ;;
   *) echo "Uso: bash _scripts/export_exercise.sh <proyecto>" >&2; exit 2 ;;
 esac
 output_dir="$ROOT/assets/images/iissi1/req2sql/$project"

@@ -20,3 +20,6 @@ SOURCE apartamentos/assertTests.sql;
 
 SOURCE animales/tests.sql;
 SOURCE animales/assertTests.sql;
+
+SOURCE proyectos/tests.sql;
+SOURCE proyectos/assertTests.sql;

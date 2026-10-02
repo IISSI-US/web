@@ -22,3 +22,5 @@ Empleados: fuentes antiguas retiradas; destinos: `_diagrams/empleados/diagrams.p
 Apartamentos: fuentes antiguas retiradas; destinos: `_diagrams/apartamentos/diagrams.puml`.
 
 Animales: fuentes antiguas retiradas; destinos: `_diagrams/animales/diagrams.puml`.
+
+Proyectos: fuentes antiguas retiradas; destinos: `_diagrams/proyectos/diagrams.puml`.
