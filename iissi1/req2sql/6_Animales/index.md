@@ -51,7 +51,7 @@ pdf_version: true
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Animales/animales-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/animales/animales-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -232,22 +232,22 @@ AdopcionesPorEspecie = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/createDB.sql' label='Animales/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/animales/createDB.sql' label='animales/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/populateDB.sql' label='Animales/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/animales/populateDB.sql' label='animales/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/queries.sql' label='Animales/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/animales/queries.sql' label='animales/queries.sql' collapsed=true %}
 
 ## Triggers
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/sql/triggers.sql' label='Animales/triggers.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/animales/triggers.sql' label='animales/triggers.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Animales/tests/tests.sql' label='Animales/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/animales/tests.sql' label='animales/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

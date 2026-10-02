@@ -1,0 +1,131 @@
+@startuml animales-dc
+!include ../estilos/final.iuml
+class Especie{
+    especie:string
+}
+    class Raza{
+    raza:string
+}
+class Animal{
+    chip:string [0..1]
+    nombre:string [0..1]
+    descripción:string
+}
+abstract class Ingreso {
+    fechaHoraIngreso:date
+}
+class Abandono{
+    fechaHoraAbandono:date
+    lugar:string
+}
+class Entrega{
+}
+class Persona{
+    nombre:string
+    dirección:string
+    email:string
+}
+class Adopción{
+    fechaHoraAdopción:date
+}
+    
+    'Asociaciones
+
+    Especie "0..1" -- "*" Raza : < perteneceA
+    Raza "0..1" -- "*" Animal :  < perteneceA
+    Animal "0..1" --d-- "0..1" Ingreso : esIngresado >
+    'Persona "1" -- "*" Entrega : > realiza
+    Persona "1" -up- "*" Ingreso : entrega >
+    Persona "1" -up- "*" Ingreso : adopta >
+    (Ingreso, Persona) .... Adopción
+    Abandono -r-|> Ingreso : "{Completa, Disjunta}"
+    Entrega -r-|> Ingreso 
+
+    ' Restricciones
+    '--------------
+    
+    note as Ny
+    {RN-01} Una persona no puede adoptar 
+    más de dos animales abandonados en un mes    
+    end note
+    Ny..Adopción
+
+    note top of Abandono
+    {RN-02} En caso de abandono 
+    datos obligatorios fechaAbandono y lugar
+    end note
+    
+@enduml
+
+@startuml animales-dc2
+!include ../estilos/final.iuml
+class Especie{
+    especie:string
+}
+    class Raza{
+    raza:string
+}
+class Animal{
+    chip:string [0..1]
+    nombre:string [0..1]
+    descripción:string
+}
+abstract class Ingreso {
+    fechaHoraIngreso:date
+}
+class Abandono{
+    fechaHoraAbandono:date
+    lugar:string
+}
+class Entrega{
+}
+class Persona{
+    nombre:string
+    dirección:string
+    email:string
+}
+class Adopción{
+    fechaHoraAdopción:date
+}
+
+    ' Relaciones de clasificación
+    Especie "1" -- "*" Raza : contiene >
+    Especie "1" -- "*" Animal : clasifica >
+    Raza "1" -- "0..*" Animal : clasifica >
+
+    ' Ingreso
+    Ingreso <|-- Abandono
+    Ingreso <|-- Entrega
+    Animal "1" -- "1" Ingreso : provieneDe >
+    Persona "1" -- "0..*" Ingreso : entrega >  ' solo si es Entrega
+
+    ' Adopción
+    Persona "1" -- "0..*" Adopción : realiza >
+    Animal "1" -- "0..1" Adopción : esAdoptadoEn >
+
+    ' Restricciones (notas)
+    note as N1
+    [RN-02]
+    Generalización Ingreso = {Completa, Disjunta}
+    - Si Ingreso es Abandono => 
+        lugarHallazgo y fechaHoraHallazgo OBLIGATORIOS
+    - Si Ingreso es Entrega => 
+        Persona OBLIGATORIA con nombre, direccion, email
+    end note
+    N1 .. Ingreso
+
+    note as N2
+    [Integridad]
+    Si Animal.raza != null => 
+        Animal.especie = Animal.raza.especie
+    end note
+    N2 .. Animal
+
+    note as N3
+    [RN-01]
+    Una Persona no puede adoptar > 2 Animales
+    con Ingreso de tipo Abandono en el MISMO mes
+    end note
+    N3 .. Adopción
+
+@enduml

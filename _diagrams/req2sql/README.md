@@ -20,3 +20,5 @@ Pedidos: fuentes antiguas retiradas; destinos: `_diagrams/pedidos/diagrams.puml`
 Empleados: fuentes antiguas retiradas; destinos: `_diagrams/empleados/diagrams.puml`.
 
 Apartamentos: fuentes antiguas retiradas; destinos: `_diagrams/apartamentos/diagrams.puml`.
+
+Animales: fuentes antiguas retiradas; destinos: `_diagrams/animales/diagrams.puml`.

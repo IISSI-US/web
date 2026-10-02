@@ -2,7 +2,6 @@
 
 rm -rf exports/*
 
-./exporta Animales/Main.puml
 ./exporta Bodegas/Main.puml
 ./exporta Espectaculos/Main.puml
 ./exporta Proyectos/Main.puml

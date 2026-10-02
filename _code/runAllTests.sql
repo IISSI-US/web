@@ -17,3 +17,6 @@ SOURCE empleados/assertTests.sql;
 
 SOURCE apartamentos/tests.sql;
 SOURCE apartamentos/assertTests.sql;
+
+SOURCE animales/tests.sql;
+SOURCE animales/assertTests.sql;
