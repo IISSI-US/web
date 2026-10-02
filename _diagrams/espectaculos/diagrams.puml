@@ -1,0 +1,62 @@
+@startuml espectaculos-dc
+!include ../estilos/final.iuml
+    class Espectáculo  {
+        nombre: String
+        denominación: String
+        duración: Decimal
+    }
+    class Representación  {
+        fechaHoraInicio: Date
+    }
+    class Zona  {
+        nombreZona: TipoZona
+    }
+    class Localidad  {
+        numFila: Integer
+        numButaca: Integer
+    }
+    class Precio  {
+        precio: Money
+    }
+    class Entrada  {
+        fechaHoraCompra: Date
+        canal: TipoCanal
+        precioCompra: Money
+    }
+
+    enum TipoCanal  {
+        WEB
+        TAQUILLA
+        INVITACIÓN 
+    }
+    enum TipoZona  {
+        Patio
+        1ª de Balcón
+        2ª de Balcón
+        1ª de Terraza
+        2ª de Terraza
+    }
+    class TipoEspectáculo  {
+        tipo: String
+    }
+    
+    'Asociaciones
+    TipoEspectáculo *-- Espectáculo : contiene >
+    Espectáculo *-- Representación : esRepresentado >
+    Zona *-- Localidad : contiene >
+    Zona "*" - "*" TipoEspectáculo : tieneprecio >
+    Localidad "*" - "*" Representación : está_Ocupada >
+    (Representación , Localidad) .. Entrada
+    (TipoEspectáculo , Zona) .. Precio
+    
+    ' Restricciones
+    note bottom of Representación
+    RN-1: No puede haber más de una representación
+    del mismo espectáculo el mismo día
+    end note
+    note right of Entrada
+    RN-2: La fecha de compra debe ser anterior
+    a la fecha de la representación.
+    Las invitaciones tienen precio cero.
+    end note
+@enduml

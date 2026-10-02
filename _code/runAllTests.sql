@@ -23,3 +23,6 @@ SOURCE animales/assertTests.sql;
 
 SOURCE proyectos/tests.sql;
 SOURCE proyectos/assertTests.sql;
+
+SOURCE espectaculos/tests.sql;
+SOURCE espectaculos/assertTests.sql;

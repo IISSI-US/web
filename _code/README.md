@@ -35,3 +35,5 @@ El Makefile detiene la ejecución ante errores en archivos incluidos con SOURCE.
 - Animales: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/61).
 
 - Proyectos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/62).
+
+- Espectaculos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/63).

@@ -24,3 +24,5 @@ Apartamentos: fuentes antiguas retiradas; destinos: `_diagrams/apartamentos/diag
 Animales: fuentes antiguas retiradas; destinos: `_diagrams/animales/diagrams.puml`.
 
 Proyectos: fuentes antiguas retiradas; destinos: `_diagrams/proyectos/diagrams.puml`.
+
+Espectaculos: fuentes antiguas retiradas; destinos: `_diagrams/espectaculos/diagrams.puml`.

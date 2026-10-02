@@ -52,7 +52,7 @@ La transcripción que aparece a continuación corresponde a una entrevista reali
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Espectaculos/espectaculos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/espectaculos/espectaculos-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -243,28 +243,28 @@ Para crear el esquema de la base de datos en MariaDB se puede usar el siguiente 
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/createDB.sql' label='Espectaculos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/espectaculos/createDB.sql' label='espectaculos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
 Para cargar los datos de prueba se puede usar el siguiente script:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/populateDB.sql' label='Espectaculos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/espectaculos/populateDB.sql' label='espectaculos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
 Para crear las consultas SQL de las expresiones en Álgebra relacional se puede usar el siguiente script:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/queries.sql' label='Espectaculos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/espectaculos/queries.sql' label='espectaculos/queries.sql' collapsed=true %}
 
 ## SQL avanzado
 
 Para implementar las restricciones que no pueden expresarse de forma declarativa usamos triggers. El siguiente script comprueba RN-01 y la condición temporal de RN-02; la otra condición de RN-02, relativa al precio de las invitaciones, se declara en `createDB.sql`:
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/sql/triggers.sql' label='Espectaculos/triggers.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/espectaculos/triggers.sql' label='espectaculos/triggers.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Espectaculos/tests/tests.sql' label='Espectaculos/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/espectaculos/tests.sql' label='espectaculos/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)
