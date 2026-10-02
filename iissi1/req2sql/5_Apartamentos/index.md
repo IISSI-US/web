@@ -64,7 +64,7 @@ La transcripción que aparece a continuación corresponde a una entrevista con u
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Apartamentos/apartamentos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/apartamentos/apartamentos-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -324,22 +324,22 @@ NumReservasHuesped = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/createDB.sql' label='Apartamentos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/apartamentos/createDB.sql' label='apartamentos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/populateDB.sql' label='Apartamentos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/apartamentos/populateDB.sql' label='apartamentos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/queries.sql' label='Apartamentos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/apartamentos/queries.sql' label='apartamentos/queries.sql' collapsed=true %}
 
 ## Triggers
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/sql/triggers.sql' label='Apartamentos/triggers.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/apartamentos/triggers.sql' label='apartamentos/triggers.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Apartamentos/tests/tests.sql' label='Apartamentos/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/apartamentos/tests.sql' label='apartamentos/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

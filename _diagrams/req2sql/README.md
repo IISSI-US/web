@@ -18,3 +18,5 @@ Aficiones: fuentes antiguas retiradas; destinos: `_diagrams/aficiones-est/diagra
 Pedidos: fuentes antiguas retiradas; destinos: `_diagrams/pedidos/diagrams.puml`.
 
 Empleados: fuentes antiguas retiradas; destinos: `_diagrams/empleados/diagrams.puml`.
+
+Apartamentos: fuentes antiguas retiradas; destinos: `_diagrams/apartamentos/diagrams.puml`.

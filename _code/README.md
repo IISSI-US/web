@@ -29,3 +29,5 @@ El script maestro usa la misma conexión, sin lanzar clientes secundarios.
 El Makefile detiene la ejecución ante errores en archivos incluidos con SOURCE.
 
 - Empleados: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/59).
+
+- Apartamentos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/60).

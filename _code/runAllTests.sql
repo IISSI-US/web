@@ -14,3 +14,6 @@ SOURCE pedidos/assertTests.sql;
 
 SOURCE empleados/tests.sql;
 SOURCE empleados/assertTests.sql;
+
+SOURCE apartamentos/tests.sql;
+SOURCE apartamentos/assertTests.sql;
