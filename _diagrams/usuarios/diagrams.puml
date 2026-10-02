@@ -1,0 +1,105 @@
+@startuml usuarios-dc-base
+    title "Usuarios: caso base"
+
+    !include ../estilos/final.iuml
+
+    'Clases
+    Enum Genero << Enumerado >> {
+        MASCULINO
+        FEMENINO
+        OTRO
+    }
+
+    Class Usuario << Entidad >> {
+        nombre: String
+        genero: Genero
+        edad: Integer
+        email: String
+    }
+
+    'Restricciones de negocio
+    Note as rn
+        RN01: Usuarios mayores de edad
+        RN02: Email único por usuario
+    End Note
+
+@enduml
+
+@startuml usuarios-dc-tutores
+    title "Usuarios: tutores"
+    !include ../estilos/final.iuml
+
+    Enum Genero << Enumerado >> {
+        MASCULINO
+        FEMENINO
+        OTRO
+    }
+
+    Class Usuario << Entidad >> {
+        nombre: String
+        genero: Genero
+        edad: Integer
+        email: String
+    }
+    Note as rn
+        RN01: Usuarios mayores de edad
+        RN02: Email único por usuario
+    End Note
+
+    'Asociaciones
+    Usuario  "0..1" -- "0..*" Usuario: tutoraA
+    
+
+    Note as ra
+    Requisitos adicionales:
+        RA01: La edad del tutor deber
+        ser mayor que la del tutorado
+        RA02: Un usuario tutor no puede
+        tutorar a más de 3 usuarios
+        RA03: Un usuario tutor no puede
+        ser tutorado de otro usuario
+    End Note
+
+
+@enduml
+
+@startuml usuarios-dc-parejas
+    title "Usuarios: parejas"
+    !include ../estilos/final.iuml
+
+    Enum Genero << Enumerado >> {
+        MASCULINO
+        FEMENINO
+        OTRO
+    }
+
+    Class Usuario << Entidad >> {
+        nombre: String
+        genero: Genero
+        edad: Integer
+        email: String
+    }
+    Note as rn
+        RN01: Usuarios mayores de edad
+        RN02: Email único por usuario
+    End Note
+
+    'Asociaciones
+    Usuario  "*" -- "*" Usuario: hacePareja
+    ' Restricciones de negocio
+    
+    Note as ra
+    Requisitos adicionales:
+        RA01: La diferencia de edad entre
+        los usuarios no puede ser mayor de 15 años
+        RA02: Un usuario no puede
+        hacer pareja consigo mismo
+        RA03: No se permiten parejas del
+        mismo género si alguno de los
+        dos es menor de 21 años
+        RA04: Un usuario no puede
+        tener más de 2 parejas simultáneas
+    End Note
+
+
+@enduml

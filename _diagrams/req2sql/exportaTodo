@@ -11,7 +11,6 @@ rm -rf exports/*
 ./exporta Espectaculos/Main.puml
 ./exporta Pedidos/Main.puml
 ./exporta Proyectos/Main.puml
-./exporta Usuarios/Main.puml
 ./exporta Usuarios2/Main.puml
 ./exporta Grados/Main.puml
 ./exporta Teoria/Main.puml

@@ -46,7 +46,7 @@ grades-images:
 	bash _scripts/export_grades.sh
 
 # Alias to render all images
-images: mc2mr-images req2sql-images grades-images
+images: mc2mr-images req2sql-images grades-images usuarios-images
 
 # Generate PDF versions from markdown indexes (requires pdf_version: true)
 pdfs:
@@ -89,3 +89,8 @@ serve-prod:
 # Usa _config.dev.yml que sobrescribe url y baseurl
 serve-dev:
 	bundle exec jekyll serve --livereload --config _config.yml,_config.dev.yml
+
+# Piloto de req2sql con fuentes unificadas y estilo compartido
+.PHONY: usuarios-images
+usuarios-images:
+	bash _scripts/export_exercise.sh usuarios
