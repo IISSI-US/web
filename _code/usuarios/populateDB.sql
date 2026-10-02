@@ -21,8 +21,10 @@ BEGIN
         ('Raquel Sampedro', 'FEMENINO', 55, 'rsampedro@gmail.com'),
         ('Marta Lopez', 'FEMENINO', 18, 'mlopez@mail.com'),
         ('David Ruiz', 'MASCULINO', 25, 'druiz@mail.com'),
-        ('Andrea Gomez', 'OTRO', 42, 'agomez@mail.es'),
         ('Ernesto Murillo', 'OTRO', 55, 'emurillo@correo.es');
+
+    INSERT INTO users (full_name, age, email)
+        VALUES ('Andrea Gomez', 27, 'agomez@mail.es');
 END //
 DELIMITER ;
 

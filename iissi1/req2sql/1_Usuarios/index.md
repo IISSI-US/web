@@ -93,7 +93,7 @@ Usuarios = {
 	(u7,  "Raquel Sampedro", 55, FEMENINO,  "rsampedro@gmail.com"),
 	(u8,  "Marta López",     18, FEMENINO,  "mlopez@mail.com"),
 	(u9,  "David Ruiz",      25, MASCULINO, "druiz@mail.com"),
-	(u10, "Andrea Gómez",     27, OTRO,      "agomez@mail.es"),
+	(u10, "Andrea Gómez",     27, NULL,      "agomez@mail.es"),
 	(u11, "Ernesto Murillo",  55, OTRO,      "emurillo@correo.es")
 }
 ```
@@ -184,7 +184,8 @@ MediaGenero = { g, media }
 MediaGenero = {
 	(MASCULINO, 38.20),
 	(FEMENINO, 41.50),
-	(OTRO, 41.00)
+	(OTRO, 55.00),
+	(NULL, 27.00)
 }
 ```
 
@@ -200,7 +201,8 @@ TotalGenero = { g, total }
 TotalGenero = {
 	(MASCULINO, 5),
 	(FEMENINO, 4),
-	(OTRO, 2)
+	(OTRO, 1),
+	(NULL, 1)
 }
 ```
 
@@ -263,7 +265,8 @@ MayoresGenero = { g, mayor }
 MayoresGenero = {
 	(MASCULINO, 58),
 	(FEMENINO, 58),
-	(OTRO, 55)
+	(OTRO, 55),
+	(NULL, 27)
 }
 ```
 
@@ -279,7 +282,8 @@ UsuariosMayoresGenero = { uid, n, ed, g, em }
 UsuariosMayoresGenero = {
 	(u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es"),
 	(u3, "Margarita Cruz", 58, FEMENINO, "mcruz@us.es"),
-	(u11, "Ernesto Murillo", 55, OTRO, "emurillo@correo.es")
+	(u11, "Ernesto Murillo", 55, OTRO, "emurillo@correo.es"),
+	(u10, "Andrea Gómez", 27, NULL, "agomez@mail.es")
 }
 ```
 

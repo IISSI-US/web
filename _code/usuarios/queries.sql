@@ -49,5 +49,5 @@ FROM users u1
 WHERE age = (
     SELECT MAX(u2.age)
     FROM users u2
-    WHERE u2.gender = u1.gender
+    WHERE u2.gender <=> u1.gender
 );
