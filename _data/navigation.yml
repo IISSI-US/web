@@ -54,22 +54,24 @@ req2sql:
     children:
       - title: "1. Usuarios"
         url: /iissi1/req2sql/1_Usuarios/
-      - title: "2. Aficiones"
-        url: /iissi1/req2sql/2_Aficiones/
-      - title: "3. Pedidos"
-        url: /iissi1/req2sql/3_Pedidos/
-      - title: "4. Empleados"
-        url: /iissi1/req2sql/4_Empleados/
-      # - title: "5. Apartamentos"
-      #   url: /iissi1/req2sql/5_Apartamentos/
-      # - title: "6. Animales"
-      #   url: /iissi1/req2sql/6_Animales/
-      # - title: "7. Proyectos"
-      #   url: /iissi1/req2sql/7_Proyectos/
-      # - title: "8. Espectáculos"
-      #   url: /iissi1/req2sql/8_Espectaculos/
-      - title: "9. Bodegas"
-        url: /iissi1/req2sql/9_Bodegas/
+      - title: "2. Aficiones-1N"
+        url: /iissi1/req2sql/2_Aficiones-1N/
+      - title: "3. Aficiones-NM"
+        url: /iissi1/req2sql/3_Aficiones-NM/
+      - title: "4. Pedidos"
+        url: /iissi1/req2sql/4_Pedidos/
+      - title: "5. Empleados"
+        url: /iissi1/req2sql/5_Empleados/
+      - title: "6. Apartamentos"
+        url: /iissi1/req2sql/6_Apartamentos/
+      - title: "7. Animales"
+        url: /iissi1/req2sql/7_Animales/
+      - title: "8. Proyectos"
+        url: /iissi1/req2sql/8_Proyectos/
+      - title: "9. Espectáculos"
+        url: /iissi1/req2sql/9_Espectaculos/
+      - title: "10. Bodegas"
+        url: /iissi1/req2sql/10_Bodegas/
       # - title: "10. Grados"
       #   url: /iissi1/req2sql/10_Grados/
 

@@ -2,9 +2,9 @@
 -- Se conserva la conexión del cliente; grades queda fuera del alcance.
 SOURCE usuarios/tests.sql;
 
-SOURCE aficiones-est/tests.sql;
+SOURCE aficiones-1n/tests.sql;
 
-SOURCE aficiones-din/tests.sql;
+SOURCE aficiones-nm/tests.sql;
 
 SOURCE pedidos/tests.sql;
 

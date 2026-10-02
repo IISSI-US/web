@@ -1,33 +1,31 @@
 -- 
 -- Autor: David Ruiz
 -- Fecha: Noviembre 2024
--- Descripción: Consultas de referencia para Aficiones Dinámicas
+-- Descripción: Consultas de referencia para Aficiones estáticas
 -- 
 
-USE HobbiesDynamicDB;
+USE Hobbies1NDB;
 
 -- Usuarios con sus aficiones
-SELECT u.user_id, l.user_hobby_id, u.full_name, u.age, u.email, h.hobby_name
+SELECT u.user_id, h.hobby_id, u.full_name, u.age, u.email, h.hobby
 FROM users u
-JOIN user_hobby_links l ON u.user_id = l.user_id
-JOIN hobbies h ON h.hobby_id = l.hobby_id;
+JOIN user_hobbies h ON u.user_id = h.user_id;
 
 CREATE OR REPLACE VIEW v_user_hobbies AS
-SELECT u.user_id, l.user_hobby_id, u.full_name, u.age, u.email, h.hobby_name
+SELECT u.user_id, h.hobby_id, u.full_name, u.age, u.email, h.hobby
 FROM users u
-JOIN user_hobby_links l ON u.user_id = l.user_id
-JOIN hobbies h ON h.hobby_id = l.hobby_id;
+JOIN user_hobbies h ON u.user_id = h.user_id;
 
 -- Usuarios a los que les gusta el cine
 SELECT full_name, age, email
 FROM v_user_hobbies
-WHERE hobby_name LIKE '%cine%';
+WHERE hobby = 'CINE';
 
 -- Usuarios sin aficiones
 SELECT *
 FROM users u
 WHERE NOT EXISTS (
-    SELECT 1 FROM user_hobby_links l WHERE l.user_id = u.user_id
+    SELECT 1 FROM user_hobbies h WHERE h.user_id = u.user_id
 );
 
 -- Número de aficiones por usuario

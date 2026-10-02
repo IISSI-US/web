@@ -4,7 +4,7 @@
 -- Descripción: Procedimientos y funciones para Aficiones Dinámicas
 -- 
 
-USE HobbiesDynamicDB;
+USE HobbiesNMDB;
 
 -- Insertar usuario
 DELIMITER //

@@ -13,10 +13,11 @@ Silence antiguo; no es necesario portar `settings.py`, endpoints ni pruebas HTTP
 para este objetivo. Conservar los SQL auxiliares de `sql/`, aunque no participen
 en la carga principal, y documentar su uso.
 
-El alcance se limita a los nueve ejercicios enlazados desde
-`iissi1/req2sql/index.md`: Usuarios, Aficiones, Pedidos, Empleados, Apartamentos,
-Animales, Proyectos, Espectáculos y Bodegas. Aficiones aporta dos proyectos SQL,
-por lo que se migran diez proyectos de origen.
+El análisis inicial abarcó nueve ejercicios de origen enlazados desde
+`iissi1/req2sql/index.md`. Aficiones se separó posteriormente en dos ejercicios
+independientes, por lo que el catálogo publicado contiene ahora diez entradas:
+Usuarios, Aficiones-1N, Aficiones-NM, Pedidos, Empleados, Apartamentos, Animales,
+Proyectos, Espectáculos y Bodegas.
 
 **Grados y Bodegas2 quedan fuera de la migración**, al no estar incluidos en ese
 índice de ejercicios publicados. La existencia de `10_Grados/` en el árbol no lo
@@ -32,8 +33,8 @@ se reunirán en un directorio plano por proyecto, siguiendo la disposición de
 | Origen | Destino en `_code/` | SQL en sql/ | SQL en tests/ | Bloques UML |
 | --- | --- | ---: | ---: | ---: |
 | Usuarios | usuarios | 9 | 2 | 3 |
-| AficionesEst | aficiones-est | 7 | 2 | 1 |
-| AficionesDin | aficiones-din | 7 | 2 | 1 |
+| AficionesEst | aficiones-1n | 7 | 2 | 1 |
+| AficionesDin | aficiones-nm | 7 | 2 | 1 |
 | Pedidos | pedidos | 5 | 2 | 2 |
 | Empleados | empleados | 17 | 2 | 1 |
 | Apartamentos | apartamentos | 5 | 2 | 1 |
@@ -49,9 +50,9 @@ importar por ello el proyecto independiente Bodegas2.
 
 ## Dependencias encontradas
 
-- Las nueve páginas incluidas en el alcance contienen 65 referencias al repositorio origen:
-  61 fuera de comentarios HTML y cuatro dentro de un comentario sobre
-  `_sql/_Usuarios2`. Retirar ese bloque obsoleto sin importar `_sql`.
+- Las páginas de los diez ejercicios publicados contienen referencias al
+   repositorio origen. Retirar el bloque obsoleto sobre `_sql/_Usuarios2` sin
+   importar `_sql`.
 - El include `_includes/sql-embed.html` ya admite rutas locales y aplica
   `relative_url`. Basta sustituir los `src` por `/_code/<proyecto>/<archivo>` y
   actualizar las etiquetas. `_config.yml` ya publica `_code`.
@@ -124,7 +125,7 @@ material docente ajeno a los modelos de requisitos migrados.
    exportadores obsoletos después de comprobar todos sus consumidores.
 5. Construir Jekyll con baseurl vacío y `/web`; comprobar que todos los `data-src`
    locales e imágenes existen en la salida. Regenerar los PDF afectados.
-6. Confirmar que no quedan URLs operativas a silence-db en las nueve páginas
+6. Confirmar que no quedan URLs operativas a silence-db en las diez páginas
    seleccionadas, su SQL, fuentes de diagramas y artefactos asociados. Las ocho
    referencias de `10_Grados/index.md` quedan fuera de esta migración, al igual que
    sus fuentes y artefactos exclusivos; no se exige eliminarlas para cerrar este
@@ -132,10 +133,10 @@ material docente ajeno a los modelos de requisitos migrados.
    como dependencias.
 
 La migración estará completa cuando Web permita leer, descargar, cargar y probar
-los nueve ejercicios seleccionados y regenerar sus diagramas sin consultar ni tener clonado el repo
-origen. Los nueve ejercicios publicados ya están importados en esta rama.
-Los ejecutores de carga y pruebas están en `_code/Makefile` y
-`_code/runAllTests.sql`, con los diez proyectos correspondientes. Las incidencias
+los diez ejercicios publicados y regenerar sus diagramas sin consultar ni tener
+clonado el repo origen. Los ejercicios publicados ya están importados en esta rama.
+Las cargas y pruebas se ejecutan directamente con `mariadb < loadDB.sql` y
+`mariadb < tests.sql`; `_code/runAllTests.sql` permite probarlos en lote. Las incidencias
 para el refinamiento posterior están registradas en las issues #53–#64 de
 IISSI-US/web y enlazadas desde `_code/README.md`.
 
@@ -144,7 +145,7 @@ IISSI-US/web y enlazadas desde `_code/README.md`.
 
 La eliminación del UML antiguo forma parte de cada migración, no de una limpieza
 final separada. Tras cambiar los consumidores, eliminar el directorio equivalente
-de `_diagrams/req2sql/` y sus referencias de exportación. Los nueve ejercicios publicados ya están retirados de ese árbol;
+de `_diagrams/req2sql/` y sus referencias de exportación. Los diez ejercicios publicados ya están retirados de ese árbol;
 solo se conserva el material ajeno al alcance de esta migración.
 
 Los Markdown de los ejercicios no recibirán instrucciones de ejecución ni texto
@@ -152,12 +153,13 @@ nuevo durante la migración. Solo se adaptarán referencias a los recursos migra
 y se retirarán referencias obsoletas; la documentación operativa queda en `_code/`.
 
 
-## Estado tras migrar los nueve ejercicios publicados
+## Estado tras migrar y separar los ejercicios publicados
 
 Usuarios fue confirmado en `649369a`; el resto se ha trasladado con un commit por
-cada ejercicio (Aficiones incluye estática y dinámica). Los SQL originales se
-conservan, con cargadores y ejecutores en `_code/`. Todos los UML de los nueve
-ejercicios se han retirado de `_diagrams/req2sql/` y sustituido por archivos únicos
+cada ejercicio de origen. Aficiones-1N y Aficiones-NM conservan sus variantes
+originales independientes. Los SQL originales se
+conservan, con cargadores y ejecutores en `_code/`. Todos los UML de los diez
+ejercicios publicados se han retirado de `_diagrams/req2sql/` y sustituido por archivos únicos
 con el estilo compartido. `bash _scripts/export_req2sql.sh` exporta los diez proyectos locales.
 
 El material residual de `_diagrams/req2sql/` (Grados, Usuarios2, Teoria y

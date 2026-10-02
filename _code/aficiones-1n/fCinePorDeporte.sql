@@ -4,7 +4,7 @@
 -- Descripción: Función para cambiar CINE por DEPORTE de un usuario
 -- 
 
-USE HobbiesStaticDB;
+USE Hobbies1NDB;
 
 DELIMITER //
 CREATE OR REPLACE FUNCTION f_cine_por_deporte(p_user_id INT)

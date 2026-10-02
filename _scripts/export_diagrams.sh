@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PROJECTS=(usuarios aficiones-est aficiones-din pedidos empleados apartamentos animales proyectos espectaculos bodegas)
+PROJECTS=(usuarios aficiones-1n aficiones-nm pedidos empleados apartamentos animales proyectos espectaculos bodegas)
 
 if [[ "${1:-}" == "all" && "$#" == 1 ]]; then
   selected=("${PROJECTS[@]}")

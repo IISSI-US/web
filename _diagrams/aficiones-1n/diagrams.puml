@@ -1,7 +1,7 @@
-@startuml aficiones-est-dc
+@startuml aficiones-1n-dc
 !include ../estilos/final.iuml
 
-    title "Aficiones conjunto cerrado"
+    title "Aficiones-1N (variante estática)"
 
 
     Enum Género << Enumerado >>{

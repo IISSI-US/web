@@ -1,18 +1,19 @@
 -- 
 -- Autor: David Ruiz
 -- Fecha: Noviembre 2024
--- Descripción: Script para crear la BD de Aficiones estáticas
+-- Descripción: Script para crear la BD de Aficiones Dinámicas
 -- 
 
-DROP DATABASE IF EXISTS HobbiesStaticDB;
-CREATE DATABASE HobbiesStaticDB;
-USE HobbiesStaticDB;
+DROP DATABASE IF EXISTS HobbiesNMDB;
+CREATE DATABASE HobbiesNMDB;
+USE HobbiesNMDB;
 
 -- =============================================================
 -- Eliminamos tablas previas
 -- =============================================================
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_hobbies;
+DROP TABLE IF EXISTS user_hobby_links;
+DROP TABLE IF EXISTS hobbies;
 DROP TABLE IF EXISTS users;
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -22,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT,
     full_name VARCHAR(64) NOT NULL,
-    gender ENUM('MASCULINO','FEMENINO','OTRO') NOT NULL,
+    gender ENUM('MASCULINO','FEMENINO','OTRO') NULL,
     age TINYINT NOT NULL,
     email VARCHAR(255) NOT NULL,
     PRIMARY KEY (user_id),
@@ -31,13 +32,23 @@ CREATE TABLE users (
 );
 
 -- =============================================================
--- Tabla: user_hobbies
+-- Tabla: hobbies
 -- =============================================================
-CREATE TABLE user_hobbies (
+CREATE TABLE hobbies (
     hobby_id INT AUTO_INCREMENT,
+    hobby_name VARCHAR(128) NOT NULL,
+    PRIMARY KEY (hobby_id)
+);
+
+-- =============================================================
+-- Tabla: user_hobby_links
+-- =============================================================
+CREATE TABLE user_hobby_links (
+    user_hobby_id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
-    hobby ENUM('LITERATURA','CINE','DEPORTE','GASTRONOMIA') NOT NULL,
-    PRIMARY KEY (hobby_id),
-    CONSTRAINT fk_user_hobbies_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    CONSTRAINT rn03_user_hobbies_unique UNIQUE (user_id, hobby)
+    hobby_id INT NOT NULL,
+    PRIMARY KEY (user_hobby_id),
+    CONSTRAINT fk_user_hobby_links_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_user_hobby_links_hobby FOREIGN KEY (hobby_id) REFERENCES hobbies(hobby_id),
+    CONSTRAINT rn03_user_hobby_unique UNIQUE (user_id, hobby_id)
 );

@@ -11,10 +11,10 @@ sus referencias de exportación. La fuente única pasa a ser
 
 Usuarios ya está migrado en `_diagrams/usuarios/diagrams.puml`; su directorio
 antiguo se ha eliminado, incluido el diagrama de objetos sin consumidores.
-La retirada de los nueve ejercicios publicados está completada. Aquí quedan
+La retirada de los diez ejercicios publicados está completada. Aquí quedan
 Grados, Usuarios2, Teoria y BaseDatosPedidos, fuera del alcance de esta migración.
 
-Aficiones: fuentes antiguas retiradas; destinos: `_diagrams/aficiones-est/diagrams.puml`, `_diagrams/aficiones-din/diagrams.puml`.
+Aficiones: fuentes antiguas retiradas; destinos: `_diagrams/aficiones-1n/diagrams.puml`, `_diagrams/aficiones-nm/diagrams.puml`.
 
 Pedidos: fuentes antiguas retiradas; destinos: `_diagrams/pedidos/diagrams.puml`.
 

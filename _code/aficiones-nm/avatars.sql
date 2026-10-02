@@ -2,7 +2,7 @@
 -- Autor: David Ruiz
 -- Fecha: Noviembre 2025
 
-USE HobbiesDynamicDB;
+USE HobbiesNMDB;
 
 -- Agregar columna avatar_url
 ALTER TABLE users ADD COLUMN avatar_url VARCHAR(500);

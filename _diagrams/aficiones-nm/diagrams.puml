@@ -1,7 +1,7 @@
-@startuml aficiones-din-dc
+@startuml aficiones-nm-dc
 !include ../estilos/final.iuml
 
-    title "Aficiones conjunto abierto"
+    title "Aficiones-NM (variante dinámica)"
 
 
     Enum Género << Enumerado >>{

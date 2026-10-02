@@ -3,7 +3,7 @@
 -- Fecha: Noviembre 2024
 -- Descripción: Tests negativos para la BD de Aficiones Dinámicas
 -- 
-USE HobbiesDynamicDB;
+USE HobbiesNMDB;
 
 -- =============================================================
 -- TABLA DE RESULTADOS
@@ -38,8 +38,10 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_rn01_age_adult()
 BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000'
         CALL p_log_test('RN01', 'RN01: Edad mínima 18 años', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('RN01', 'ERROR: No se produjo el error esperado para la edad mínima', 'ERROR');
 
     CALL p_populate();
 
@@ -53,8 +55,10 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_rn02_unique_email()
 BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000'
         CALL p_log_test('RN02', 'RN02: Email debe ser único', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('RN02', 'ERROR: No se produjo el error esperado para el email duplicado', 'ERROR');
 
     CALL p_populate();
 
@@ -68,8 +72,10 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_rn03_unique_hobby_per_user()
 BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000'
         CALL p_log_test('RN03', 'RN03: No se pueden repetir aficiones por usuario', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('RN03', 'ERROR: No se produjo el error esperado para la afición repetida', 'ERROR');
 
     CALL p_populate();
 
@@ -82,8 +88,10 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_fk_user_exists()
 BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000'
         CALL p_log_test('FK01', 'FK01: user_id debe existir', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('FK01', 'ERROR: No se produjo el error esperado para user_id', 'ERROR');
 
     CALL p_populate();
 
@@ -96,8 +104,10 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_test_fk_hobby_exists()
 BEGIN
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000'
         CALL p_log_test('FK02', 'FK02: hobby_id debe existir', 'PASS');
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        CALL p_log_test('FK02', 'ERROR: No se produjo el error esperado para hobby_id', 'ERROR');
 
     CALL p_populate();
 
@@ -113,7 +123,7 @@ DELIMITER ;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_run_tests()
 BEGIN
-    -- Si los casos positivos fallan, no ejecutar los negativos
+    -- Restaurar la población positiva antes de ejecutar los casos negativos.
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
         CALL p_log_test('POPULATE', 'ERROR: El populate falló. No se ejecutaron los tests negativos.', 'ERROR');
@@ -123,10 +133,8 @@ BEGIN
 
     DELETE FROM test_results;
 
-    -- Ejecutar populate una sola vez para casos positivos
     CALL p_populate();
 
-    -- Si llegamos aquí, el populate funcionó correctamente y se han pasado los tests positivos
     CALL p_test_rn01_age_adult();
     CALL p_test_rn02_unique_email();
     CALL p_test_rn03_unique_hobby_per_user();
