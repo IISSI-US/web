@@ -19,9 +19,11 @@ con `mariadb < queries.sql`.
 
 `loadDB.sql` carga esquema, trigger, funciones y población. `runTests.sql`
 comprueba que las tres pruebas produzcan PASS y genera un error si no.
-`version2.sql` es un ejemplo parcial sobre fechas de nacimiento: no transforma
-el esquema base. `avatars.sql` es una extensión opcional; sus imágenes del frontend
-no forman parte de la migración. Ninguno de estos dos archivos se carga por defecto.
+`version2.sql` crea y carga una variante ejecutable en `Users_v2DB`, independiente
+de `UsersDB`; `tests_v2.sql` prueba el límite de 18 años y las fechas futuras.
+Ejecutar ambas con `make -C _code test-usuarios-v2`. `avatars.sql` es una extensión
+opcional; sus imágenes del frontend no forman parte de la migración y no se carga
+por defecto.
 
 Las tres vistas UML (base, tutores y parejas) están integradas en
 `_diagrams/usuarios/diagrams.puml` y usan el estilo compartido `final.iuml`.
@@ -32,9 +34,6 @@ La página utiliza la vista base; las ampliaciones se conservan como recursos.
 
 Se conserva la lógica SQL del origen. Discrepancias detectadas:
 
-- La explicación de SQL avanzado describe un trigger para fecha de nacimiento,
-  pero `tCheckAge.sql` comprueba `age`. `version2.sql` no implementa esa validación
-  y mantiene comentadas la tabla y población alternativas.
 - Las pruebas heredadas verifican edad mínima y correo repetido; no cubren todas
   las pruebas de aceptación publicadas.
 

@@ -305,7 +305,7 @@ Para crear las consultas que implementan los requisitos funcionales se puede usa
 
 ## SQL avanzado
 
-Tenemos que implementar una función que calcula la edad de un usuario a partir de su fecha de nacimiento, y un trigger que comprueba que la fecha de nacimiento es anterior a la fecha actual y, además el usuario es mayor de edad.
+El modelo base almacena la edad y el trigger comprueba que sea de al menos 18 años. La función siguiente ilustra cómo calcular la edad a partir de una fecha de nacimiento; como depende de la fecha actual, su resultado no es determinista.
 
 El script para la función es el siguiente:
 
@@ -315,15 +315,19 @@ El script para obtener el dominio de un correo electrónico es el siguiente:
 
 {% include sql-embed.html src='/_code/usuarios/fEmailDomain.sql' label='usuarios/fEmailDomain.sql' collapsed=true %}
 
-El script para el trigger es el siguiente:
+El trigger del modelo base es el siguiente:
 
 {% include sql-embed.html src='/_code/usuarios/tCheckAge.sql' label='usuarios/tCheckAge.sql'  collapsed=true %}
 
 ## Fecha de nacimiento en lugar de la edad
 
-En la creación de la tabla ahora hay que añadir que sustituir la edad por la fecha de nacimiento, pero ya no se puede comprobar que el Usuario es mayor de edad con un simple CHECK, y es necesario usar un TRIGGER, además para calcular la edad definiremos una función. 
+Esta variante ejecutable sustituye la edad almacenada por `birth_date`. Crea la base independiente `Users_v2DB`, con su tabla, población, función, triggers de inserción y actualización y consultas adaptadas; no modifica `UsersDB`.
 
 {% include sql-embed.html src='/_code/usuarios/version2.sql' label='usuarios/version2.sql'  collapsed=true %}
+
+Las pruebas de la variante cubren la fecha futura y el límite exacto de mayoría de edad:
+
+{% include sql-embed.html src='/_code/usuarios/tests_v2.sql' label='usuarios/tests_v2.sql'  collapsed=true %}
 
 ## Pruebas SQL
 

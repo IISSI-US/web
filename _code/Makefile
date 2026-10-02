@@ -2,7 +2,7 @@
 MYSQL ?= mariadb
 DBS := usuarios aficiones-est aficiones-din pedidos empleados apartamentos animales proyectos espectaculos bodegas
 
-.PHONY: help load-all run-tests $(addprefix load-,$(DBS)) $(addprefix test-,$(DBS))
+.PHONY: help load-all run-tests test-usuarios-v2 $(addprefix load-,$(DBS)) $(addprefix test-,$(DBS))
 help:
 	@echo "make -C _code load-<proyecto> | test-<proyecto> | load-all | run-tests"
 	@echo "MYSQL permite configurar el cliente y sus opciones de conexión."
@@ -15,3 +15,7 @@ $(addprefix load-,$(DBS)): load-%:
 
 $(addprefix test-,$(DBS)): test-%:
 	cd "$*" && $(MYSQL) --abort-source-on-error < runTests.sql
+
+test-usuarios-v2:
+	cd usuarios && $(MYSQL) --abort-source-on-error < version2.sql
+	cd usuarios && $(MYSQL) --abort-source-on-error < tests_v2.sql
