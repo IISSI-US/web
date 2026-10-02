@@ -9,7 +9,7 @@ USE UsersDB;
 -- RF01: Usuarios ordenados alfabéticamente
 SELECT *
 FROM users
-ORDER BY full_name ASC;
+ORDER BY full_name ASC, email ASC;
 
 -- RF02: Nombre y correo de las usuarias
 SELECT full_name, email
@@ -25,13 +25,10 @@ WHERE email LIKE '%@us.es';
 SELECT AVG(age) AS average_age, COUNT(*) AS total_users
 FROM users;
 
--- RF05: Estadísticas de edad y total por dominio
-SELECT f_get_email_domain(email) AS email_domain,
-       AVG(age) AS average_age,
-       COUNT(*) AS total_users
+-- RF05: Estadísticas de edad y total de usuarios con dominio us.es
+SELECT AVG(age) AS average_age, COUNT(*) AS total_users
 FROM users
-GROUP BY email_domain
-ORDER BY total_users DESC;
+WHERE email LIKE '%@us.es';
 
 -- RF06: Distribución por género
 SELECT gender, AVG(age) AS average_age, COUNT(*) AS total_users
@@ -43,7 +40,7 @@ SELECT *
 FROM users
 WHERE age = (SELECT MAX(age) FROM users);
 
--- RF08: Usuario de mayor edad por género
+-- RF08: Usuarios de mayor edad por género
 SELECT u1.*
 FROM users u1
 WHERE age = (
@@ -51,3 +48,11 @@ WHERE age = (
     FROM users u2
     WHERE u2.gender <=> u1.gender
 );
+
+-- RF09: Estadísticas de edad y total por dominio
+SELECT f_get_email_domain(email) AS email_domain,
+       AVG(age) AS average_age,
+       COUNT(*) AS total_users
+FROM users
+GROUP BY email_domain
+ORDER BY total_users DESC;

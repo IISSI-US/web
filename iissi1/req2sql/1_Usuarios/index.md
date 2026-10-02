@@ -37,24 +37,24 @@ pdf_version: true
 ### RF-1: Informes simples de Usuarios
 - Como: Profesor de la asignatura
 - Quiero: Que el sistema sea capaz de generar los siguientes informes:
-    - Usuarios ordenados por nombre de la A a la Z
-    - Nombre y correo de los usuarios de género femenino.
-    - Nombre, edad y correo de los usuarios con dominio '@us.es'.
-    - Edad media y total de usuarios.
-    - Edad media y total de los usuarios con dominio '@us.es'.
+	- **RF01:** Usuarios ordenados por nombre de la A a la Z.
+	- **RF02:** Nombre y correo de los usuarios de género femenino.
+	- **RF03:** Nombre, edad y correo de los usuarios con dominio `@us.es`.
+	- **RF04:** Edad media y total de usuarios.
+	- **RF05:** Edad media y total de los usuarios con dominio `@us.es`.
 - Para: Que el estudiante practique con consultas simples.
 
 ### RF-2: Informes complejos de Usuarios
 - Como: Profesor de la asignatura
 - Quiero: Que el sistema sea capaz de generar los siguientes informes:
-    - Edad media de los usuarios según el género.
-    - Número de usuarios según el género.
-    - Edad media de los usuarios según el género.
-    - Total de usuarios según el género.
-    - Usuarios de mayor edad.
-    - Usuarios de mayor edad según el género.
-    - Edad media y total de usuarios según el dominio de su correo electrónico.
+	- **RF06:** Edad media y número de usuarios según el género.
+	- **RF07:** Usuarios de mayor edad.
+	- **RF08:** Usuarios de mayor edad según el género.
+	- **RF09:** Edad media y total de usuarios según el dominio de su correo electrónico.
 - Para: Que el estudiante practique con consultas complejas.
+
+Los identificadores **RF01–RF09** se reutilizan en el álgebra relacional y en
+`queries.sql` para localizar la solución y sus resultados.
 
 ## Pruebas de aceptación (PA)
 
@@ -106,7 +106,29 @@ $$
 \Ren{U(uid,n,ed,g,em)}\left(Usuarios\right)
 $$
 
-- Nombre y correo de las usuarias (género femenino):
+- **RF01:** Usuarios ordenados por nombre. Las relaciones del álgebra relacional
+	no tienen orden; la ordenación se aplica en la consulta SQL. El resultado
+	esperado (ordenado también por correo cuando se repite el nombre) es:
+
+```mr-table
+UsuariosAlfabetico = { nombre, email }
+
+UsuariosAlfabetico = {
+		("Alfonso Marquez", "amarquez@us.es"),
+		("Andrea Gomez", "agomez@mail.es"),
+		("Carlos Arevalo", "carevalo@us.es"),
+		("Daniel Ayala", "dayala1@us.es"),
+		("David Ruiz", "druiz@mail.com"),
+		("David Ruiz", "druiz@us.es"),
+		("Ernesto Murillo", "emurillo@correo.es"),
+		("Inma Hernandez", "inmahernandez@us.es"),
+		("Margarita Cruz", "mcruz@us.es"),
+		("Marta Lopez", "mlopez@mail.com"),
+		("Raquel Sampedro", "rsampedro@gmail.com")
+}
+```
+
+- **RF02:** Nombre y correo de las usuarias (género femenino):
 
 $$
 Mujeres \leftarrow \Proj{n,em}\big(\Sel{g=\text{FEMENINO}}(U)\big)
@@ -123,7 +145,7 @@ Mujeres = {
 }
 ```
 
-- Nombre, edad y correo de los usuarios con dominio “@us.es”:
+- **RF03:** Nombre, edad y correo de los usuarios con dominio “@us.es”:
 
 $$
 UsuariosUS \leftarrow \Proj{n,ed,em}\big(\Sel{\operatorname{dominio}(em)='us.es'}(U)\big)
@@ -144,7 +166,7 @@ UsuariosUS = {
 
 Asumimos una función $\operatorname{dominio}()$ que dado un email devuelve su dominio (la cadena tras la @).
 
-- Edad media y total de usuarios:
+- **RF04:** Edad media y total de usuarios:
 
 $$
 MedTotUsuarios \leftarrow \GroupUp{\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}(U)
@@ -158,7 +180,7 @@ MedTotUsuarios = {
 }
 ```
 
-- Edad media y total de los usuarios con dominio “@us.es”:
+- **RF05:** Edad media y total de los usuarios con dominio “@us.es”:
 
 $$
 MedTotUsuariosUS \leftarrow \GroupUp{\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}(UsuariosUS)
@@ -172,41 +194,24 @@ MedTotUsuariosUS = {
 }
 ```
 
-- Edad media de los usuarios agrupada por género:
+- **RF06:** Edad media y número de usuarios agrupados por género:
 
 $$
-MediaGenero \leftarrow \Group{g,\rho_{media}(\operatorname{AVG}(ed))}{g}(U)
+MediaGenero \leftarrow \Group{g,\rho_{media}(\operatorname{AVG}(ed)),\rho_{total}(\operatorname{COUNT}(*))}{g}(U)
 $$
 
 ```mr-table
-MediaGenero = { g, media }
+MediaGenero = { g, media, total }
 
 MediaGenero = {
-	(MASCULINO, 38.20),
-	(FEMENINO, 41.50),
-	(OTRO, 55.00),
-	(NULL, 27.00)
+	(MASCULINO, 38.20, 5),
+	(FEMENINO, 41.50, 4),
+	(OTRO, 55.00, 1),
+	(NULL, 27.00, 1)
 }
 ```
 
-- Número de usuarios agrupados por género:
-
-$$
-TotalGenero \leftarrow \Group{g,\rho_{total}(\operatorname{COUNT}(*))}{g}(U)
-$$
-
-```mr-table
-TotalGenero = { g, total }
-
-TotalGenero = {
-	(MASCULINO, 5),
-	(FEMENINO, 4),
-	(OTRO, 1),
-	(NULL, 1)
-}
-```
-
-- Edad media y total de usuarios según el dominio del correo electrónico:
+- **RF09:** Edad media y total de usuarios según el dominio del correo electrónico:
 
 $$
 MedTotDominio \leftarrow \Group{\operatorname{dominio}(em),\rho_{media}(\operatorname{AVG}(ed)),\;\rho_{total}(\operatorname{COUNT}(*))}{\operatorname{dominio}(em)}(U)
@@ -224,7 +229,7 @@ MedTotDominio = {
 }
 ```
 
-- Edad del usuario de mayor edad:
+- **RF07:** Edad del usuario de mayor edad:
 
 $$
 edadMayor \leftarrow \GroupUp{\rho_{mayor}(\operatorname{MAX}(ed))}(U)
@@ -238,7 +243,7 @@ edadMayor = {
 }
 ```
 
-- Usuarios de mayor edad:
+- **RF07:** Usuarios de mayor edad:
 
 $$
 UsuariosMayores \leftarrow \Proj{uid,n,ed,g,em}\left(\Sel{ed = mayor}(U \times edadMayor)\right)
@@ -253,7 +258,7 @@ UsuariosMayores = {
 }
 ```
 
-- Edad máxima por género:
+- **RF08:** Edad máxima por género:
 
 $$
 MayoresGenero \leftarrow \Group{g,\rho_{mayor}(\operatorname{MAX}(ed))}{g}(U)
@@ -270,7 +275,7 @@ MayoresGenero = {
 }
 ```
 
-- Usuarios de mayor edad según el género:
+- **RF08:** Usuarios de mayor edad según el género:
 
 $$
 UsuariosMayoresGenero \leftarrow \Proj{uid,n,ed,g,em}\left(\Sel{ed = mayor}(U \NatJoin MayoresGenero)\right)
