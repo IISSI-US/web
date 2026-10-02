@@ -18,7 +18,7 @@ help:
 	@echo ""
 	@echo "=== Diagramas ==="
 	@echo "  mc2mr-images      Renderiza los diagramas de la colección MC→MR"
-	@echo "  req2sql-images    Renderiza los diagramas de la colección Req→SQL"
+	@echo "  req2sql-images    Renderiza los SVG de los ejercicios publicados de Req→SQL"
 	@echo "  grades-images     Renderiza los diagramas de requisitos (grades)"
 	@echo "  images            Renderiza todos los diagramas"
 	@echo "  pdfs              Genera todos los PDF de index.md con pdf_version: true"
@@ -37,7 +37,7 @@ help:
 mc2mr-images:
 	bash _scripts/export_mc2mr.sh
 
-# Render PlantUML diagrams and update public PNGs for Req→MC→MR→SQL
+# Render migrated Req→SQL diagrams with the shared style
 req2sql-images:
 	bash _scripts/export_req2sql.sh
 
@@ -46,7 +46,7 @@ grades-images:
 	bash _scripts/export_grades.sh
 
 # Alias to render all images
-images: mc2mr-images req2sql-images grades-images usuarios-images espectaculos-images proyectos-images animales-images apartamentos-images empleados-images pedidos-images aficiones-images
+images: mc2mr-images req2sql-images grades-images
 
 # Generate PDF versions from markdown indexes (requires pdf_version: true)
 pdfs:
@@ -123,3 +123,7 @@ proyectos-images:
 .PHONY: espectaculos-images
 espectaculos-images:
 	bash _scripts/export_exercise.sh espectaculos
+
+.PHONY: bodegas-images
+bodegas-images:
+	bash _scripts/export_exercise.sh bodegas

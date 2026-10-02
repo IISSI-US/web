@@ -26,3 +26,6 @@ SOURCE proyectos/assertTests.sql;
 
 SOURCE espectaculos/tests.sql;
 SOURCE espectaculos/assertTests.sql;
+
+SOURCE bodegas/tests.sql;
+SOURCE bodegas/assertTests.sql;

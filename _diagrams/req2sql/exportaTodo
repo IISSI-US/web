@@ -2,7 +2,6 @@
 
 rm -rf exports/*
 
-./exporta Bodegas/Main.puml
 ./exporta Usuarios2/Main.puml
 ./exporta Grados/Main.puml
 ./exporta Teoria/Main.puml

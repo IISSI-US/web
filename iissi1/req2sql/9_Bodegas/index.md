@@ -88,7 +88,7 @@ pdf_version: true
 
 ## Diagrama de clases
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc.svg' | relative_url }})
 
 ## Posible extensión
 
@@ -97,7 +97,7 @@ pdf_version: true
 - Se mantienen Bodega–Vino (1..*), Crianza–Cosecha (1..*), y Vino–Uva (M:N) como en el modelo base.
 - RN‑5: Reserva 36 meses (12–24 en barrica; resto en botella). Además, se mantienen RN‑1..RN‑4.
 
-![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/Bodegas/bodegas-dc-examen.png' | relative_url }})
+![Diagrama de clases (examen)]({{ '/assets/images/iissi1/req2sql/bodegas/bodegas-dc-examen.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -427,18 +427,18 @@ VinosUvasV1 = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/sql/createDB.sql' label='Bodegas/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/bodegas/createDB.sql' label='bodegas/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/sql/populateDB.sql' label='Bodegas/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/bodegas/populateDB.sql' label='bodegas/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/sql/queries.sql' label='Bodegas/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/bodegas/queries.sql' label='bodegas/queries.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Bodegas/tests/tests.sql' label='Bodegas/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/bodegas/tests.sql' label='bodegas/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

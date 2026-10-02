@@ -133,21 +133,37 @@ material docente ajeno a los modelos de requisitos migrados.
 
 La migración estará completa cuando Web permita leer, descargar, cargar y probar
 los nueve ejercicios seleccionados y regenerar sus diagramas sin consultar ni tener clonado el repo
-origen. El piloto de Usuarios ya está importado en esta rama; el resto sigue pendiente.
+origen. Los nueve ejercicios publicados ya están importados en esta rama.
 Los ejecutores de carga y pruebas están en `_code/Makefile` y
-`_code/runAllTests.sql`, con lista limitada a Usuarios. Las inconsistencias del
-ejercicio se revisarán después de migrar y están registradas en las issues
-#53, #54, #55 y #56 de IISSI-US/web.
+`_code/runAllTests.sql`, con los diez proyectos correspondientes. Las incidencias
+para el refinamiento posterior están registradas en las issues #53–#64 de
+IISSI-US/web y enlazadas desde `_code/README.md`.
 
 
 ## Limpieza por ejercicio
 
 La eliminación del UML antiguo forma parte de cada migración, no de una limpieza
 final separada. Tras cambiar los consumidores, eliminar el directorio equivalente
-de `_diagrams/req2sql/` y sus referencias de exportación. Usuarios ya está retirado;
-su antiguo diagrama de objetos no tenía consumidores. Los ejercicios pendientes
-conservan sus fuentes hasta migrarse.
+de `_diagrams/req2sql/` y sus referencias de exportación. Los nueve ejercicios publicados ya están retirados de ese árbol;
+solo se conserva el material ajeno al alcance de esta migración.
 
 Los Markdown de los ejercicios no recibirán instrucciones de ejecución ni texto
 nuevo durante la migración. Solo se adaptarán referencias a los recursos migrados
 y se retirarán referencias obsoletas; la documentación operativa queda en `_code/`.
+
+
+## Estado tras migrar los nueve ejercicios publicados
+
+Usuarios fue confirmado en `649369a`; el resto se ha trasladado con un commit por
+cada ejercicio (Aficiones incluye estática y dinámica). Los SQL originales se
+conservan, con cargadores y ejecutores en `_code/`. Todos los UML de los nueve
+ejercicios se han retirado de `_diagrams/req2sql/` y sustituido por archivos únicos
+con el estilo compartido. `make req2sql-images` exporta los diez proyectos locales.
+
+El material residual de `_diagrams/req2sql/` (Grados, Usuarios2, Teoria y
+BaseDatosPedidos, junto con sus utilidades/estilos antiguos) queda fuera de esta
+migración. No se ha alterado `_code/grades` ni `_diagrams/grades`.
+
+Las incidencias de refinamiento de los ocho ejercicios restantes están enlazadas
+en `_code/README.md`. Las suites heredadas no equivalen a una validación completa
+de los requisitos; las correcciones funcionales se harán en la fase posterior.
