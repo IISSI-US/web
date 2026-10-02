@@ -2,8 +2,6 @@
 
 rm -rf exports/*
 
-./exporta Aficiones/MainEstatico.puml
-./exporta Aficiones/MainDinamico.puml
 ./exporta Animales/Main.puml
 ./exporta Apartamentos/Main.puml
 ./exporta Bodegas/Main.puml

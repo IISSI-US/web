@@ -46,7 +46,7 @@ grades-images:
 	bash _scripts/export_grades.sh
 
 # Alias to render all images
-images: mc2mr-images req2sql-images grades-images usuarios-images
+images: mc2mr-images req2sql-images grades-images usuarios-images aficiones-images
 
 # Generate PDF versions from markdown indexes (requires pdf_version: true)
 pdfs:
@@ -94,3 +94,8 @@ serve-dev:
 .PHONY: usuarios-images
 usuarios-images:
 	bash _scripts/export_exercise.sh usuarios
+
+.PHONY: aficiones-images
+aficiones-images:
+	bash _scripts/export_exercise.sh aficiones-est
+	bash _scripts/export_exercise.sh aficiones-din

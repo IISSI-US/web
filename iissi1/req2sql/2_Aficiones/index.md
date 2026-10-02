@@ -46,7 +46,7 @@ Modifique el RI-02 de la versión estática/cerrada del ejercicio de Aficiones p
 
 ### Diagrama de clases
 
-![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-est-dc.png' | relative_url }})
+![Diagrama de clases (estático)]({{ '/assets/images/iissi1/req2sql/aficiones-est/aficiones-est-dc.svg' | relative_url }})
 
 ## Versión dinámica
 
@@ -54,7 +54,7 @@ Modifique el RI-02 de la versión estática/cerrada del ejercicio de Aficiones p
 
 En la versión dinámica, las aficiones se convierten en entidad propia para permitir un catálogo abierto y gestionable. Normalmente aparecen las entidades Usuario y Afición, y una asociación Usuario–Afición para resolver la relación *..**.
 
-![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/Aficiones/aficiones-din-dc.png' | relative_url }})
+![Diagrama de clases (dinámico)]({{ '/assets/images/iissi1/req2sql/aficiones-din/aficiones-din-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -342,41 +342,41 @@ UsuTodasAfi = {}
 
 ### Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/createDB.sql' label='AficionesEst/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-est/createDB.sql' label='aficiones-est/createDB.sql' collapsed=true %}
 
 ### Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/populateDB.sql' label='AficionesEst/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-est/populateDB.sql' label='aficiones-est/populateDB.sql' collapsed=true %}
 
 ### Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/queries.sql' label='AficionesEst/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-est/queries.sql' label='aficiones-est/queries.sql' collapsed=true %}
 
 ### SQL avanzado
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/sql/fCinePorDeporte.sql' label='AficionesEst/fCinePorDeporte.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-est/fCinePorDeporte.sql' label='aficiones-est/fCinePorDeporte.sql' collapsed=true %}
 
 ### Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesEst/tests/tests.sql' label='AficionesEst/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-est/tests.sql' label='aficiones-est/tests.sql' collapsed=true %}
 
 ## Versión dinámica
 
 ### Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/createDB.sql' label='AficionesDin/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-din/createDB.sql' label='aficiones-din/createDB.sql' collapsed=true %}
 
 ### Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/populateDB.sql' label='AficionesDin/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-din/populateDB.sql' label='aficiones-din/populateDB.sql' collapsed=true %}
 
 ### Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/queries.sql' label='AficionesDin/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-din/queries.sql' label='aficiones-din/queries.sql' collapsed=true %}
 
 ### SQL avanzado
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/sql/procedures.sql' label='AficionesDin/procedures.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-din/procedures.sql' label='aficiones-din/procedures.sql' collapsed=true %}
 
 Realice un procedimiento para insertar en la tabla de usuarios e implemente la siguiente prueba de aceptación:
 
@@ -396,6 +396,6 @@ Realice el mismo procedimiento pero de forma transaccional:
 
 ### Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/AficionesDin/tests/tests.sql' label='AficionesDin/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/aficiones-din/tests.sql' label='aficiones-din/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

@@ -1,0 +1,23 @@
+@startuml aficiones-din-dc
+!include ../estilos/final.iuml
+
+    title "Aficiones conjunto abierto"
+
+
+    Enum Género << Enumerado >>{
+        Masculino
+        Femenino
+        Otros
+    } 
+    Class Usuario << Entidad >>{
+        nombre: String
+        género: Género
+        edad: Integer
+        email: String
+    } 
+    Class Afición {
+        afición: String
+    } 
+
+    Usuario "0..*" -- "0..*" Afición: esAficiondoA >
+@enduml
