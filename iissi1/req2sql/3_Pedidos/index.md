@@ -60,7 +60,7 @@ pdf_version: true
 
 ## Diagrama de clases 
 
-![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/Pedidos/pedidos-dc.png' | relative_url }})
+![Diagrama de clases]({{ '/assets/images/iissi1/req2sql/pedidos/pedidos-dc.svg' | relative_url }})
 
 # Modelo Relacional
 
@@ -339,22 +339,22 @@ MesMaxRecaudacion = {
 
 ## Script SQL para crear la base de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/createDB.sql' label='Pedidos/createDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/pedidos/createDB.sql' label='pedidos/createDB.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/populateDB.sql' label='Pedidos/populateDB.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/pedidos/populateDB.sql' label='pedidos/populateDB.sql' collapsed=true %}
 
 ## Consultas
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/queries.sql' label='Pedidos/queries.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/pedidos/queries.sql' label='pedidos/queries.sql' collapsed=true %}
 
 ## Procedimientos
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/sql/procedures.sql' label='Pedidos/procedures.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/pedidos/procedures.sql' label='pedidos/procedures.sql' collapsed=true %}
 
 ## Pruebas SQL
 
-{% include sql-embed.html src='https://raw.githubusercontent.com/IISSI-US/silence-db/main/Pedidos/tests/tests.sql' label='Pedidos/tests/tests.sql' collapsed=true %}
+{% include sql-embed.html src='/_code/pedidos/tests.sql' label='pedidos/tests.sql' collapsed=true %}
 
 > [Versión PDF disponible](./index.pdf)

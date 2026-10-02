@@ -23,3 +23,5 @@ mariadb < runAllTests.sql
 El script maestro usa la misma conexión, sin lanzar clientes secundarios.
 
 - Aficiones: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/57).
+
+- Pedidos: migrado; [incidencias para refinamiento](https://github.com/IISSI-US/web/issues/58).

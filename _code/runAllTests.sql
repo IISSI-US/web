@@ -8,3 +8,6 @@ SOURCE aficiones-est/assertTests.sql;
 
 SOURCE aficiones-din/tests.sql;
 SOURCE aficiones-din/assertTests.sql;
+
+SOURCE pedidos/tests.sql;
+SOURCE pedidos/assertTests.sql;
