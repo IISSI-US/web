@@ -1,5 +1,8 @@
 @startuml animales-dc
 !include ../estilos/final.iuml
+
+skinparam groupInheritance 2
+
 class Especie{
     especie:string
 }
@@ -12,10 +15,10 @@ class Animal{
     descripción:string
 }
 abstract class Ingreso {
-    fechaHoraIngreso:date
+    fIngreso:date
 }
 class Abandono{
-    fechaHoraAbandono:date
+    fAbandono:date
     lugar:string
 }
 class Entrega{
@@ -26,33 +29,28 @@ class Persona{
     email:string
 }
 class Adopción{
-    fechaHoraAdopción:date
+    fAdopción:date
 }
     
     'Asociaciones
 
     Especie "0..1" -- "*" Raza : < perteneceA
     Raza "0..1" -- "*" Animal :  < perteneceA
-    Animal "0..1" --d-- "0..1" Ingreso : esIngresado >
-    'Persona "1" -- "*" Entrega : > realiza
-    Persona "1" -up- "*" Ingreso : entrega >
-    Persona "1" -up- "*" Ingreso : adopta >
-    (Ingreso, Persona) .... Adopción
-    Abandono -r-|> Ingreso : "{Completa, Disjunta}"
-    Entrega -r-|> Ingreso 
+    Animal "0..1" -- "0..1" Ingreso : esIngresado >
+    Persona "1" -- "*" Entrega : realiza >
+    Persona "0..1" -- "*" Animal : adopta >
+    (Persona, Animal) .... Adopción
+    Ingreso <|-- Abandono : "{Completa, Disjunta}"
+    Ingreso <|-- Entrega
 
     ' Restricciones
     '--------------
     
     note as Ny
-    {RN-01} Una persona no puede adoptar 
+    - RN-01: Una persona no puede adoptar
     más de dos animales abandonados en un mes    
-    end note
-    Ny..Adopción
-
-    note top of Abandono
-    {RN-02} En caso de abandono 
-    datos obligatorios fechaAbandono y lugar
+    - RN-02: En caso de abandono
+    datos obligatorios fAbandono y lugar
     end note
     
 @enduml
@@ -71,10 +69,10 @@ class Animal{
     descripción:string
 }
 abstract class Ingreso {
-    fechaHoraIngreso:date
+    fIngreso:date
 }
 class Abandono{
-    fechaHoraAbandono:date
+    fAbandono:date
     lugar:string
 }
 class Entrega{
@@ -85,7 +83,7 @@ class Persona{
     email:string
 }
 class Adopción{
-    fechaHoraAdopción:date
+    fAdopción:date
 }
 
     ' Relaciones de clasificación
@@ -108,7 +106,7 @@ class Adopción{
     [RN-02]
     Generalización Ingreso = {Completa, Disjunta}
     - Si Ingreso es Abandono => 
-        lugarHallazgo y fechaHoraHallazgo OBLIGATORIOS
+        lugarHallazgo y fHallazgo OBLIGATORIOS
     - Si Ingreso es Entrega => 
         Persona OBLIGATORIA con nombre, direccion, email
     end note

@@ -70,7 +70,7 @@ Animales = { animalId, razaId, chip, nombre, descripcion }
 Personas = { personaId, nombre, direccion, email }
 	PK(personaId)
 	AK(email)
-Ingresos = { ingresoId, personaId, animalId, fechaHoraEntrega }
+Ingresos = { ingresoId, personaId, animalId, fIngreso }
 	PK(ingresoId)
 	FK(personaId) / Personas
 	FK(animalId) / Animales
@@ -78,10 +78,10 @@ Ingresos = { ingresoId, personaId, animalId, fechaHoraEntrega }
 Entregas = { ingresoId }
 	PK(ingresoId)
 	FK(ingresoId) / Ingresos
-Abandonos = { ingresoId, fechaHoraAbandono, lugar }
+Abandonos = { ingresoId, fAbandono, lugar }
 	PK(ingresoId)
 	FK(ingresoId) / Ingresos
-Adopciones = { adopcionId, personaId, animalId, fechaHoraAdopcion }
+Adopciones = { adopcionId, personaId, animalId, fAdopción }
 	PK(adopcionId)
 	FK(personaId) / Personas
 	FK(animalId) / Animales
