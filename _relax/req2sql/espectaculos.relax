@@ -3,33 +3,99 @@ description[[Data set para practicas con el ejercicio de Espectaculos]]
 
 TiposEspectaculos = { tipoEspectaculoId, tipo
   'te1', 'Concierto'
+  'te2', 'Danza'
+  'te3', 'Teatro'
 }
 
 Zonas = { zonaId, nombreZona
   'z1', 'Patio'
   'z2', 'Primera Balcon'
+  'z3', 'Segunda Balcon'
+  'z4', 'Primera Terraza'
+  'z5', 'Segunda Terraza'
 }
 
 Precios = { precioId, zonaId, tipoEspectaculoId, precio
   'p1', 'z1', 'te1', 50
   'p2', 'z2', 'te1', 100
+  'p3', 'z3', 'te2', 80
+  'p4', 'z4', 'te2', 60
+  'p5', 'z5', 'te2', 40
+  'p6', 'z3', 'te3', 120
+  'p7', 'z4', 'te3', 100
+  'p8', 'z5', 'te3', 80
 }
 
 Localidades = { localidadId, zonaId, numFila, numButaca
   'l1', 'z1', 5, 12
   'l2', 'z2', 1, 6
+  'l3', 'z3', 5, 12
+  'l4', 'z3', 6, 10
+  'l5', 'z3', 7, 8
+  'l6', 'z4', 1, 6
+  'l7', 'z4', 2, 4
+  'l8', 'z4', 3, 2
+  'l9', 'z5', 1, 6
+  'l10', 'z5', 2, 4
+  'l11', 'z5', 3, 2
 }
 
 Espectaculos = { espectaculoId, tipoEspectaculoId, nombre, denominacion, duracion
-  'e1', 'te1', 'AC/DC', 'Concierto de ACDC', 2.5
+  'e1', 'te1', 'Concierto de ACDC', 'Festival', 2.5
+  'e2', 'te2', 'El lago de los cisnes', 'Ballet', 2.0
+  'e3', 'te2', 'El cascanueces', 'Ballet', 2.5
+  'e4', 'te2', 'La bella durmiente', 'Ballet', 2.5
+  'e5', 'te3', 'La casa de Bernarda Alba', 'Drama', 2.0
+  'e6', 'te3', 'La vida es sueno', 'Drama', 2.5
+  'e7', 'te3', 'La casa de los espiritus', 'Drama', 2.5
 }
 
 Representaciones = { representacionId, espectaculoId, fechaHoraInicio
   'r1', 'e1', '2024-10-15 20:00'
   'r2', 'e1', '2024-10-16 20:00'
+  'r3', 'e2', '2024-10-17 20:00'
+  'r4', 'e2', '2024-10-18 20:00'
+  'r5', 'e2', '2024-10-19 20:00'
+  'r6', 'e3', '2024-10-20 20:00'
+  'r7', 'e3', '2024-10-21 20:00'
+  'r8', 'e3', '2024-10-22 20:00'
+  'r9', 'e4', '2024-10-23 20:00'
+  'r10', 'e5', '2024-10-24 20:00'
+  'r11', 'e6', '2024-10-25 20:00'
+  'r12', 'e7', '2024-10-26 20:00'
 }
 
 Entradas = { entradaId, representacionId, localidadId, fHoraCompra, canal, pCompra
-  'en1', 'r1', 'l1', '2024-10-10 18:00', 'Web',        50
+  'en1', 'r1', 'l1', '2024-10-10 18:00', 'Web', 50
   'en2', 'r2', 'l2', '2024-10-11 15:00', 'Invitacion', 0
+  'en3', 'r3', 'l1', '2024-10-10 18:00', 'Web', 80
+  'en4', 'r3', 'l2', '2024-10-11 15:00', 'Invitacion', 0
+  'en5', 'r3', 'l3', '2024-10-12 12:00', 'Taquilla', 80
+  'en6', 'r4', 'l2', '2024-10-10 18:00', 'Web', 60
+  'en7', 'r4', 'l3', '2024-10-11 15:00', 'Invitacion', 0
+  'en8', 'r4', 'l4', '2024-10-12 12:00', 'Taquilla', 60
+  'en9', 'r5', 'l5', '2024-10-10 18:00', 'Web', 40
+  'en10', 'r5', 'l6', '2024-10-11 15:00', 'Invitacion', 0
+  'en11', 'r5', 'l7', '2024-10-12 12:00', 'Taquilla', 40
+  'en12', 'r6', 'l8', '2024-10-10 18:00', 'Web', 120
+  'en13', 'r6', 'l1', '2024-10-11 15:00', 'Invitacion', 0
+  'en14', 'r6', 'l2', '2024-10-12 12:00', 'Taquilla', 120
+  'en15', 'r7', 'l3', '2024-10-10 18:00', 'Web', 100
+  'en16', 'r7', 'l4', '2024-10-11 15:00', 'Invitacion', 0
+  'en17', 'r7', 'l5', '2024-10-12 12:00', 'Taquilla', 100
+  'en18', 'r8', 'l4', '2024-10-10 18:00', 'Web', 80
+  'en19', 'r8', 'l5', '2024-10-11 15:00', 'Invitacion', 0
+  'en20', 'r8', 'l6', '2024-10-12 12:00', 'Taquilla', 80
+  'en21', 'r9', 'l3', '2024-10-17 18:00', 'Web', 120
+  'en22', 'r9', 'l6', '2024-10-18 15:00', 'Invitacion', 0
+  'en23', 'r9', 'l9', '2024-10-19 12:00', 'Taquilla', 80
+  'en24', 'r10', 'l3', '2024-10-18 18:00', 'Web', 120
+  'en25', 'r10', 'l6', '2024-10-19 15:00', 'Invitacion', 0
+  'en26', 'r10', 'l9', '2024-10-20 12:00', 'Taquilla', 80
+  'en27', 'r11', 'l3', '2024-10-19 18:00', 'Web', 120
+  'en28', 'r11', 'l6', '2024-10-20 15:00', 'Invitacion', 0
+  'en29', 'r11', 'l9', '2024-10-21 12:00', 'Taquilla', 80
+  'en30', 'r12', 'l3', '2024-10-20 18:00', 'Web', 120
+  'en31', 'r12', 'l6', '2024-10-21 15:00', 'Invitacion', 0
+  'en32', 'r12', 'l9', '2024-10-22 12:00', 'Taquilla', 80
 }

@@ -1,3 +1,5 @@
+Dataset para hacer ejercicios de AR
+
 group:Usuarios
 description[[Data set para practicas con el ejercicio de Usuarios]]
 
@@ -11,6 +13,6 @@ Usuarios = { usuarioId, nombre, edad, genero, email
   'u7',  'Raquel Sampedro',   55, 'FEMENINO',  'rsampedro@gmail.com'
   'u8',  'Marta Lopez',       18, 'FEMENINO',  'mlopez@mail.com'
   'u9',  'David Ruiz',        25, 'MASCULINO', 'druiz@mail.com'
-  'u10', 'Andrea Gomez',      27, 'OTRO',      'agomez@mail.es'
+  'u10', 'Andrea Gomez',      27, null,        'agomez@mail.es'
   'u11', 'Ernesto Murillo',   55, 'OTRO',      'emurillo@correo.es'
 }

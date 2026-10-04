@@ -1,0 +1,47 @@
+group:AficionesNM
+description[[Data set para practicas con el ejercicio de Aficiones-NM]]
+
+Usuarios = { usuarioId, nombre, edad, genero, email
+  'u1',  'David Ruiz',        45, 'MASCULINO', 'druiz@us.es'
+  'u2',  'Carlos Arevalo',    58, 'MASCULINO', 'carevalo@us.es'
+  'u3',  'Margarita Cruz',   58, 'FEMENINO',  'mcruz@us.es'
+  'u4',  'Inma Hernandez',   35, 'FEMENINO',  'inmahernandez@us.es'
+  'u5',  'Alfonso Marquez',  35, 'MASCULINO', 'amarquez@us.es'
+  'u6',  'Daniel Ayala',     28, 'MASCULINO', 'dayala1@us.es'
+  'u7',  'Raquel Sampedro',  55, 'FEMENINO',  'rsampedro@gmail.com'
+  'u8',  'Marta Lopez',      18, 'FEMENINO',  'mlopez@mail.com'
+  'u9',  'David Ruiz',       25, 'MASCULINO', 'druiz@mail.com'
+  'u10', 'Andrea Gomez',     27, null,        'agomez@mail.es'
+  'u11', 'Ernesto Murillo',  55, 'OTRO',      'emurillo@correo.es'
+}
+
+Aficiones = { aficionId, aficion
+  'a1', 'Cine'
+  'a2', 'Deporte'
+  'a3', 'Jugar al futbol'
+  'a4', 'Hacer senderismo'
+  'a5', 'Montar a caballo'
+}
+
+UsuariosAficiones = { usuarioAficionId, usuarioId, aficionId
+  'ua1', 'u1', 'a3'
+  'ua2', 'u1', 'a4'
+  'ua3', 'u2', 'a1'
+  'ua4', 'u2', 'a2'
+  'ua5', 'u2', 'a3'
+  'ua6', 'u4', 'a4'
+  'ua7', 'u4', 'a2'
+  'ua8', 'u4', 'a1'
+  'ua9', 'u5', 'a3'
+  'ua10', 'u6', 'a2'
+  'ua11', 'u8', 'a3'
+  'ua12', 'u8', 'a4'
+  'ua13', 'u8', 'a1'
+  'ua14', 'u8', 'a2'
+  'ua15', 'u9', 'a3'
+  'ua16', 'u9', 'a1'
+  'ua17', 'u9', 'a2'
+  'ua18', 'u10', 'a4'
+  'ua19', 'u11', 'a5'
+  'ua20', 'u8', 'a5'
+}

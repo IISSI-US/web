@@ -24,7 +24,8 @@ sidebar: false
 | Ejercicio | RELAX | GIST |
 | --- | --- | --- |
 | Usuarios | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/44df3153b7b1dfba92bdcb7c3777a8bb) | [GIST](https://gist.github.com/druizcortes/44df3153b7b1dfba92bdcb7c3777a8bb) |
-| Aficiones | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/8c3ef43095809a478bc652609b2f5e4a) | [GIST](https://gist.github.com/druizcortes/8c3ef43095809a478bc652609b2f5e4a) |
+| Aficiones-1N | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/8c3ef43095809a478bc652609b2f5e4a) | [GIST](https://gist.github.com/druizcortes/8c3ef43095809a478bc652609b2f5e4a) |
+| Aficiones-NM | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/3241b3aa00f392b50db0cafe9609d4ad) | [GIST](https://gist.github.com/druizcortes/3241b3aa00f392b50db0cafe9609d4ad) |
 | Pedidos | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/24cc0583792178fe778335eb95b5e3d9) | [GIST](https://gist.github.com/druizcortes/24cc0583792178fe778335eb95b5e3d9) |
 | Empleados | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/577891c1673fd2e700d624179827fc5c) | [GIST](https://gist.github.com/druizcortes/577891c1673fd2e700d624179827fc5c) |
 | Apartamentos | [Abrir en RELAX](https://dbis-uibk.github.io/relax/calc/gist/67445e6fee6f0354cacd981393b8d63d) | [GIST](https://gist.github.com/druizcortes/67445e6fee6f0354cacd981393b8d63d) |

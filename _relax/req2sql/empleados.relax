@@ -13,4 +13,6 @@ Empleados = { empleadoId, departamentoId, jefeId, nombreEmpleado, salario, fecha
   'e3', 'd2', null, 'Lola', 2300.00, 2018-08-15, null, 0.3
   'e4', 'd1', 'e1', 'Luis', 1300.00, 2018-08-15, 2018-11-15, 0
   'e5', 'd1', 'e1', 'Ana', 1300.00, 2018-08-15, 2018-11-15, 0
+  'e6', 'd1', 'e1', 'Daniel', 1500.00, 2020-09-15, null, 0.2
+  'e7', null, null, 'Eva', 1200.00, 2021-05-01, null, 0.1
 }

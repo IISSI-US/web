@@ -1,3 +1,5 @@
+Dataset para el ejercicio de pedidos
+
 group:Pedidos
 description[[Data set para practicas con el ejercicio de Pedidos]]
 
@@ -13,12 +15,13 @@ Usuarios = { usuarioId, nombre, provincia, fechaAlta
 }
 
 Productos = { productoId, descripcion, precio, stock
-  'p1', 'Mi Band 3', 19.90, 50
-  'p2', 'Mi Band 4', 29.90, 20
-  'p3', 'Pulsera compatible con Mi Band 3 y 4', 9.90, 150
-  'p4', 'Mi Scooter', 349.90, 25
-  'p5', 'Rueda trasera de respuesto Mi Scooter', 19.90, 50
-  'p6', 'Rueda delantera de respuesto Mi Scooter', 59.90, 50
+  'p1', 'Mi Band 3', 19.90, 45
+  'p2', 'Mi Band 4', 29.90, 16
+  'p3', 'Pulsera compatible con Mi Band 3 y 4', 9.90, 146
+  'p4', 'Mi Scooter', 349.90, 20
+  'p5', 'Rueda trasera de respuesto Mi Scooter', 19.90, 48
+  'p6', 'Rueda delantera de respuesto Mi Scooter', 59.90, 48
+  'p7', 'Producto agotado para pruebas', 1.00, 0
 }
 
 Pedidos = { pedidoId, usuarioId, productoId, fechaCompra, cantidad
@@ -37,4 +40,5 @@ Pedidos = { pedidoId, usuarioId, productoId, fechaCompra, cantidad
   'pe13', 'u7', 'p5', 2019-12-19, 1
   'pe14', 'u7', 'p6', 2019-12-20, 1
   'pe15', 'u8', 'p1', 2019-12-15, 1
+  'pe16', 'u1', 'p1', 2019-05-13, 1
 }
