@@ -17,11 +17,17 @@ conexión con las opciones habituales de `mariadb`.
 Desde este directorio también se puede ejecutar `mariadb < loadDB.sql`,
 `mariadb < tests.sql` y `mariadb < queries.sql`.
 
-El cargador mantiene la selección y el orden del original. Los demás SQL son
-auxiliares y no se añaden automáticamente a la carga. `tests.sql` muestra los
-resultados PASS/FAIL/ERROR para que el alumnado los revise.
+Los atributos y referencias obligatorios se declaran `NOT NULL`. Los triggers
+validan la fecha de compra al insertar o actualizar una entrada, pero no
+revalidan entradas existentes cuando se modifica la fecha de una representación;
+un cambio de fecha puede dejar una compra posterior a la nueva representación.
+La suite usa handlers genéricos `SQLEXCEPTION` para mantener el patrón
+introductorio de PASS/FAIL.
+
+La sintaxis de trigger `BEFORE INSERT OR UPDATE` se ha probado con MariaDB
+12.3.3. La versión mínima compatible no se ha determinado.
 
 El UML se integra en `_diagrams/espectaculos/diagrams.puml`, con el estilo compartido
 `final.iuml`. No se migran el frontend, endpoints ni configuraciones de Silence.
 
-Refinamiento pendiente: [Espectáculos: revisar datos obligatorios y fechas al modificar representaciones](https://github.com/IISSI-US/web/issues/63).
+Alcance y limitaciones del refinamiento: [issue #63](https://github.com/IISSI-US/web/issues/63).
