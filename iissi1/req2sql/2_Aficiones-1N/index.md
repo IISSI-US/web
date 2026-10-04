@@ -92,6 +92,18 @@ Aficiones = {
 
 ### Álgebra relacional
 
+#### Consultas
+
+1. Obtener los usuarios con sus aficiones.
+2. Obtener los usuarios a los que les gusta el cine.
+3. Obtener los usuarios sin aficiones.
+4. Calcular el número de aficiones por usuario.
+5. Calcular el máximo número de aficiones que tiene un usuario.
+6. Obtener los usuarios con el máximo número de aficiones.
+7. Obtener los usuarios con todas las aficiones de la relación.
+
+#### Soluciones
+
 - Renombrado:
 
 $$
@@ -102,86 +114,76 @@ $$
 \Ren{A(aid,uid,af)}(Aficiones)
 $$
 
-- Usuarios con sus aficiones:
+**1. Usuarios con sus aficiones:**
 
 $$
 UA \leftarrow U \NatJoin A
 $$
 
-```mr-table
-UA = { uid, nu, ed, g, em, aid, af }
+$$
+UsuariosAficiones \leftarrow \Proj{nu,ed,g,af}(UA)
+$$
 
-UA = {
-    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", a1, "Deporte"),
-    (u1, "David Ruiz", 45, MASCULINO, "druiz@us.es", a2, "Gastronomía"),
-    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a3, "Deporte"),
-    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a4, "Literatura"),
-    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a5, "Cine"),
-    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a6, "Gastronomía"),
-    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a7, "Cine"),
-    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a8, "Literatura"),
-    (u5, "Alfonso Márquez", 35, MASCULINO, "amarquez@us.es", a9, "Deporte"),
-    (u6, "Daniel Ayala", 28, MASCULINO, "dayala1@us.es", a10, "Cine"),
-    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a11, "Deporte"),
-    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a12, "Gastronomía"),
-    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a13, "Literatura"),
-    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a14, "Cine"),
-    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a15, "Deporte"),
-    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a16, "Literatura"),
-    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a17, "Cine"),
-    (u10, "Andrea Gómez", 27, NULL, "agomez@mail.es", a18, "Gastronomía")
+```mr-table
+UsuariosAficiones = { nu, ed, g, af }
+
+UsuariosAficiones = {
+    ("David Ruiz", 45, MASCULINO, "Deporte"),
+    ("David Ruiz", 45, MASCULINO, "Gastronomía"),
+    ("Carlos Arévalo", 58, MASCULINO, "Deporte"),
+    ("Carlos Arévalo", 58, MASCULINO, "Literatura"),
+    ("Carlos Arévalo", 58, MASCULINO, "Cine"),
+    ("Inma Hernández", 35, FEMENINO, "Gastronomía"),
+    ("Inma Hernández", 35, FEMENINO, "Cine"),
+    ("Inma Hernández", 35, FEMENINO, "Literatura"),
+    ("Alfonso Márquez", 35, MASCULINO, "Deporte"),
+    ("Daniel Ayala", 28, MASCULINO, "Cine"),
+    ("Marta López", 18, FEMENINO, "Deporte"),
+    ("Marta López", 18, FEMENINO, "Gastronomía"),
+    ("Marta López", 18, FEMENINO, "Literatura"),
+    ("Marta López", 18, FEMENINO, "Cine"),
+    ("David Ruiz", 25, MASCULINO, "Deporte"),
+    ("David Ruiz", 25, MASCULINO, "Literatura"),
+    ("David Ruiz", 25, MASCULINO, "Cine"),
+    ("Andrea Gómez", 27, NULL, "Gastronomía")
 }
 ```
 
-- Usuarios a los que les gusta el cine:
+**2. Usuarios a los que les gusta el cine:**
 
 $$
-UCine \leftarrow \Sel{af=\text{Cine}}(UA)
+UCine \leftarrow \Proj{nu}\left(\Sel{af=\text{Cine}}(UA)\right)
 $$
 
 ```mr-table
-UCine = { uid, nu, ed, g, em, aid, af }
+UCine = { nu }
 
 UCine = {
-    (u2, "Carlos Arévalo", 58, MASCULINO, "carevalo@us.es", a5, "Cine"),
-    (u4, "Inma Hernández", 35, FEMENINO, "inmahernandez@us.es", a7, "Cine"),
-    (u6, "Daniel Ayala", 28, MASCULINO, "dayala1@us.es", a10, "Cine"),
-    (u8, "Marta López", 18, FEMENINO, "mlopez@mail.com", a14, "Cine"),
-    (u9, "David Ruiz", 25, MASCULINO, "druiz@mail.com", a17, "Cine")
+    ("Carlos Arévalo"),
+    ("Inma Hernández"),
+    ("Daniel Ayala"),
+    ("Marta López"),
+    ("David Ruiz")
 }
 ```
 
-- Usuarios sin aficiones:
+**3. Usuarios sin aficiones:**
 
 $$
-UsuSinAfi \leftarrow \Proj{uid,nu}\left(U \NatJoin \left(\Proj{uid}(U) -\Proj{uid}(A)\right)\right)
+USinAfi \leftarrow \Proj{nu}\left(U \NatJoin \left(\Proj{uid}(U) -\Proj{uid}(A)\right)\right)
 $$
 
 ```mr-table
-UsuSinAfi = { uid, nu }
+USinAfi = { nu }
 
-UsuSinAfi = {
-    (u3, "Margarita Cruz"),
-    (u7, "Raquel Sampedro"),
-    (u11, "Ernesto Murillo")
+USinAfi = {
+    ("Margarita Cruz"),
+    ("Raquel Sampedro"),
+    ("Ernesto Murillo")
 }
 ```
 
-- Usuarios con todas las aficiones presentes en el conjunto:
-
-$$
-UsuTodasAfi \leftarrow \Proj{uid,nu}\left(\left(\Proj{uid,af}(UA) \Div \Proj{af}(UA)\right) \NatJoin U\right)
-$$
-
-```mr-table
-UsuTodasAfi = { uid, nu }
-
-UsuTodasAfi = {
-    (u8, "Marta López")
-}
-```
-
-- Número de aficiones por usuario:
+**4. Número de aficiones por usuario:**
 
 $$
 NumAfiUsu \leftarrow \Group{uid,\rho_{total}(\operatorname{COUNT}(*))}{uid}(UA)
@@ -199,6 +201,48 @@ NumAfiUsu = {
     (u8, 4),
     (u9, 3),
     (u10, 1)
+}
+```
+
+**5. Máximo número de aficiones por usuario:**
+
+$$
+MaxAfi \leftarrow \GroupUp{\rho_{maxAfi}(\operatorname{MAX}(total))}(NumAfiUsu)
+$$
+
+```mr-table
+MaxAfi = { maxAfi }
+
+MaxAfi = {
+    (4)
+}
+```
+
+**6. Usuarios con el máximo número de aficiones:**
+
+$$
+UsuMaxAfi \leftarrow \Proj{uid,nu}(U \NatJoin \Sel{total=maxAfi}(NumAfiUsu \times MaxAfi))
+$$
+
+```mr-table
+UsuMaxAfi = { uid, nu }
+
+UsuMaxAfi = {
+    (u8, "Marta López")
+}
+```
+
+**7. Usuarios con todas las aficiones presentes en el conjunto:**
+
+$$
+UsuTodasAfi \leftarrow \Proj{uid,nu}\left(\left(\Proj{uid,af}(UA) \Div \Proj{af}(UA)\right) \NatJoin U\right)
+$$
+
+```mr-table
+UsuTodasAfi = { uid, nu }
+
+UsuTodasAfi = {
+    (u8, "Marta López")
 }
 ```
 
