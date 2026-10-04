@@ -25,8 +25,8 @@ CREATE OR REPLACE TABLE areas (
 -- Crear la tabla precios
 CREATE OR REPLACE TABLE prices (
     price_id INT AUTO_INCREMENT,
-    area_id INT,
-    show_type_id INT,
+    area_id INT NOT NULL,
+    show_type_id INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (price_id),
     FOREIGN KEY (area_id) REFERENCES areas(area_id),
@@ -38,9 +38,9 @@ CREATE OR REPLACE TABLE prices (
 -- Crear la tabla localidades
 CREATE OR REPLACE TABLE seats (
     seat_id INT AUTO_INCREMENT,
-    area_id INT,
-    seat_row INT,
-    seat_number INT,
+    area_id INT NOT NULL,
+    seat_row INT NOT NULL,
+    seat_number INT NOT NULL,
     PRIMARY KEY (seat_id),
     FOREIGN KEY (area_id) REFERENCES areas(area_id),
     UNIQUE (area_id, seat_row, seat_number)
@@ -49,10 +49,10 @@ CREATE OR REPLACE TABLE seats (
 -- Crear la tabla Espectáculos
 CREATE OR REPLACE TABLE shows (
     show_id INT AUTO_INCREMENT,
-    show_type_id INT,
+    show_type_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    description VARCHAR(255),
-    duration TIME,
+    description VARCHAR(255) NOT NULL,
+    duration TIME NOT NULL,
     PRIMARY KEY (show_id),
     FOREIGN KEY (show_type_id) REFERENCES show_types(show_type_id)
 );
@@ -60,7 +60,7 @@ CREATE OR REPLACE TABLE shows (
 -- Crear la tabla representaciones
 CREATE OR REPLACE TABLE performances (
     performance_id INT AUTO_INCREMENT,
-    show_id INT,
+    show_id INT NOT NULL,
     start_datetime DATETIME NOT NULL,
     PRIMARY KEY (performance_id),
     FOREIGN KEY (show_id) REFERENCES shows(show_id),
@@ -70,11 +70,11 @@ CREATE OR REPLACE TABLE performances (
 -- Crear la tabla entradas
 CREATE OR REPLACE TABLE tickets (
     ticket_id INT AUTO_INCREMENT,
-    performance_id INT,
-    seat_id INT,
-    purchase_datetime DATETIME,
-    channel VARCHAR(255),
-    purchase_price DECIMAL(10, 2),
+    performance_id INT NOT NULL,
+    seat_id INT NOT NULL,
+    purchase_datetime DATETIME NOT NULL,
+    channel VARCHAR(255) NOT NULL,
+    purchase_price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (ticket_id),
     FOREIGN KEY (performance_id) REFERENCES performances(performance_id),
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id),

@@ -53,10 +53,10 @@ BEGIN
         (2, 2, 2, '2024-10-11 15:00:00', 'Invitación', 0)
     ;
 
-    -- Insertar datos generados con IA:
+    -- Añadir tipos y zonas para los ejemplos de danza y teatro.
     INSERT INTO show_types (type_name) VALUES
-        ('Teatro'),
-        ('Danza')
+        ('Danza'),
+        ('Teatro')
     ;
     INSERT INTO areas (area_name) VALUES
         ('Segunda Balcón'),
@@ -71,7 +71,7 @@ BEGIN
         (4, 3, 100),
         (5, 3, 80)
     ;
-    -- Insertar 3 localidade de cada zona con numero de fila y butaca aleatorios:
+    -- Crear localidades para las zonas adicionales.
     INSERT INTO seats (area_id, seat_row, seat_number) VALUES
         (3, 5, 12),
         (3, 6, 10),
@@ -84,7 +84,7 @@ BEGIN
         (5, 3, 2)
     ;
 
-    -- Insertar 3 espectáculos de cada tipo:
+    -- Crear espectáculos de danza y teatro.
     INSERT INTO shows (show_type_id, name, description, duration) VALUES
         (2, 'El lago de los cisnes', 'Ballet', '02:00:00'),
         (2, 'El cascanueces', 'Ballet', '02:30:00'),
@@ -93,16 +93,20 @@ BEGIN
         (3, 'La vida es sueño', 'Drama', '02:30:00'),
         (3, 'La casa de los espíritus', 'Drama', '02:30:00')
     ;
-    -- Insertar 3 representaciones de cada espectaculo:
+    -- Crear representaciones para los espectáculos de danza.
     INSERT INTO performances (show_id, start_datetime) VALUES
         (2, '2024-10-17 20:00:00'),
         (2, '2024-10-18 20:00:00'),
         (2, '2024-10-19 20:00:00'),
         (3, '2024-10-20 20:00:00'),
         (3, '2024-10-21 20:00:00'),
-        (3, '2024-10-22 20:00:00')
+        (3, '2024-10-22 20:00:00'),
+        (4, '2024-10-23 20:00:00'),
+        (5, '2024-10-24 20:00:00'),
+        (6, '2024-10-25 20:00:00'),
+        (7, '2024-10-26 20:00:00')
     ;
-    -- Insertar 3 entradas de cada representacion, si son de channel Invitación el price es 0:
+    -- Cada representación adicional tiene tres entradas, incluida una invitación.
     INSERT INTO tickets (performance_id, seat_id, purchase_datetime, channel, purchase_price) VALUES
         (3, 1, '2024-10-10 18:00:00', 'Web', 80),
         (3, 2, '2024-10-11 15:00:00', 'Invitación', 0),
@@ -121,7 +125,19 @@ BEGIN
         (7, 5, '2024-10-12 12:00:00', 'Taquilla', 100),
         (8, 4, '2024-10-10 18:00:00', 'Web', 80),
         (8, 5, '2024-10-11 15:00:00', 'Invitación', 0),
-        (8, 6, '2024-10-12 12:00:00', 'Taquilla', 80)
+        (8, 6, '2024-10-12 12:00:00', 'Taquilla', 80),
+        (9, 3, '2024-10-17 18:00:00', 'Web', 120),
+        (9, 6, '2024-10-18 15:00:00', 'Invitación', 0),
+        (9, 9, '2024-10-19 12:00:00', 'Taquilla', 80),
+        (10, 3, '2024-10-18 18:00:00', 'Web', 120),
+        (10, 6, '2024-10-19 15:00:00', 'Invitación', 0),
+        (10, 9, '2024-10-20 12:00:00', 'Taquilla', 80),
+        (11, 3, '2024-10-19 18:00:00', 'Web', 120),
+        (11, 6, '2024-10-20 15:00:00', 'Invitación', 0),
+        (11, 9, '2024-10-21 12:00:00', 'Taquilla', 80),
+        (12, 3, '2024-10-20 18:00:00', 'Web', 120),
+        (12, 6, '2024-10-21 15:00:00', 'Invitación', 0),
+        (12, 9, '2024-10-22 12:00:00', 'Taquilla', 80)
     ;
 
 
