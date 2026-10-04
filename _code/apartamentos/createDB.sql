@@ -30,8 +30,8 @@ CREATE OR REPLACE TABLE tourist_areas (
 
 CREATE OR REPLACE TABLE accommodations (
     accommodation_id INT PRIMARY KEY,
-    owner_id INT,
-    area_id INT,
+    owner_id INT NOT NULL,
+    area_id INT NOT NULL,
     address VARCHAR(100),
     bedrooms INT,
     bathrooms INT,
@@ -45,10 +45,10 @@ CREATE OR REPLACE TABLE accommodations (
 
 CREATE OR REPLACE TABLE reservations (
     reservation_id INT PRIMARY KEY,
-    guest_id INT,
-    accommodation_id INT,
-    check_in DATE,
-    check_out DATE,
+    guest_id INT NOT NULL,
+    accommodation_id INT NOT NULL,
+    check_in DATE NOT NULL,
+    check_out DATE NOT NULL,
     comment TEXT,
     rating INT,
     CONSTRAINT rn01_reservations_dates CHECK (check_in < check_out),

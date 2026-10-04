@@ -1,5 +1,6 @@
 @startuml apartamentos-dc
 !include ../estilos/final.iuml
+skinparam groupInheritance 2
 
 class Usuario {
   dni: String
@@ -62,12 +63,15 @@ enum TipoServicio {
     Huésped "1" -- "*" Reserva : realiza >
     Alojamiento "1" -- "*" Reserva : esReservado >
     Alojamiento "1" -- "*" Foto : contiene >
-    Alojamiento "1" -- "1" ZonaTurística : ubicadoEn >
+    ZonaTurística "1" -- "0..*" Alojamiento : ubicadoEn >
     Alojamiento "1" -- "*" Servicio : ofrece >
-    note right of Reserva
+
+    note as RN
       RN-01: checkIn debe ser anterior a checkOut.
       RN-02: La valoración, si existe, está entre 1 y 5.
       RN-03: Dos reservas del mismo alojamiento no se solapan;
       se permite que una comience el día en que otra termina.
+      RN-04: La existencia de una reserva representa la confirmación
+      del huésped y del propietario; comentario y valoración son opcionales.
     end note
 @enduml

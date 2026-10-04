@@ -35,7 +35,8 @@ BEGIN
 
     -- Insertar datos en la tabla reservas
     INSERT INTO reservations (reservation_id, guest_id, accommodation_id, check_in, check_out, comment, rating) VALUES
-        (1, 1, 1, '2024-10-01', '2024-10-10', 'Excelente estancia', 1)
+        (1, 1, 1, '2024-10-01', '2024-10-10', 'Excelente estancia', 1),
+        (54, 1, 1, '2024-10-10', '2024-10-15', 'Reserva contigua', NULL)
     ;
 
     -- Insertar datos en la tabla servicios

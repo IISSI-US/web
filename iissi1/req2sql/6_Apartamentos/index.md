@@ -116,6 +116,7 @@ Reservas = {
 	(r1, u2, a1, "2024-10-01", "2024-10-10", "Excelente estancia", 1)
 }
 
+
 Fotos = { fotoId, alojamientoId, titulo, fotoURL }
 	PK(fotoId)
 	FK(alojamientoId) / Alojamientos
@@ -132,6 +133,10 @@ Servicios = {
 	(s2, a1, "Piscina", true)
 }
 ```
+
+En esta versión, la existencia de una fila en `Reservas` representa que el
+huésped y el propietario confirmaron la reserva. El comentario y la valoración
+son opcionales y se guardan en esa misma fila.
 
 ## Álgebra relacional
 

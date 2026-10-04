@@ -27,6 +27,24 @@ BEGIN
     CALL p_log_test('UQ01', 'ERROR: Se permitió duplicar un correo', 'FAIL');
 END //
 
+CREATE OR REPLACE PROCEDURE p_test_rn04_accommodation_required()
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION CALL p_log_test('RN04A', 'RN-04: Un alojamiento requiere propietario y zona turística', 'PASS');
+    CALL p_populate();
+    INSERT INTO accommodations (accommodation_id, owner_id, area_id, address, bedrooms, bathrooms, max_occupancy)
+    VALUES (100, NULL, NULL, 'Calle Nueva 100', 1, 1, 2);
+    CALL p_log_test('RN04A', 'ERROR: Se permitió un alojamiento sin propietario o zona', 'FAIL');
+END //
+
+CREATE OR REPLACE PROCEDURE p_test_rn04_reservation_required()
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION CALL p_log_test('RN04B', 'RN-04: Una reserva requiere huésped, alojamiento y fechas', 'PASS');
+    CALL p_populate();
+    INSERT INTO reservations (reservation_id, guest_id, accommodation_id, check_in, check_out)
+    VALUES (100, NULL, NULL, NULL, NULL);
+    CALL p_log_test('RN04B', 'ERROR: Se permitió una reserva sin datos obligatorios', 'FAIL');
+END //
+
 CREATE OR REPLACE PROCEDURE p_test_rn01_dates()
 BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION CALL p_log_test('RN01', 'RN01: El check-in debe ser anterior al check-out', 'PASS');
@@ -61,6 +79,8 @@ BEGIN
     DELETE FROM test_results;
     CALL p_populate();
     CALL p_test_uq01_email();
+    CALL p_test_rn04_accommodation_required();
+    CALL p_test_rn04_reservation_required();
     CALL p_test_rn01_dates();
     CALL p_test_rn02_rating();
     CALL p_test_rn03_overlap();
