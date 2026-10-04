@@ -5,35 +5,21 @@
 -- no tiene más de 5 Empleados.
 
 DELIMITER //
-CREATE OR REPLACE PROCEDURE p_check_max_department(p_department_id INT)
-BEGIN 
-	DECLARE n INT; 
-	SET n = (
-		SELECT COUNT(*)
+CREATE OR REPLACE TRIGGER t_biu_max_employees_department
+BEFORE INSERT OR UPDATE ON employees
+FOR EACH ROW
+BEGIN
+	DECLARE v_employee_count INT DEFAULT 0;
+
+	IF NOT (NEW.department_id <=> OLD.department_id) THEN
+		SELECT COUNT(*) INTO v_employee_count
 		FROM employees
-		WHERE department_id = p_department_id
-	); 
-	IF (n > 4) THEN 
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 
-			'A department cannot have more than 5 employees'; 
-	END IF; 
-END //
-DELIMITER ;
+		WHERE department_id = NEW.department_id;
 
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bi_max_employees_department 
-BEFORE INSERT ON employees FOR EACH ROW 
-BEGIN 
-	CALL p_check_max_department(NEW.department_id);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE OR REPLACE TRIGGER t_bu_max_employees_department 
-BEFORE UPDATE ON employees FOR EACH ROW 
-BEGIN 
-	IF (NEW.department_id <> OLD.department_id) THEN
-		CALL p_check_max_department(NEW.department_id);
+		IF v_employee_count > 4 THEN
+			SIGNAL SQLSTATE '45000'
+				SET MESSAGE_TEXT = 'RN-01: Un departamento no puede tener más de cinco empleados';
+		END IF;
 	END IF;
 END //
 DELIMITER ;

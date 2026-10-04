@@ -49,7 +49,6 @@ ORDER BY department_id, name_emp ASC;
 SELECT *
 FROM employees, departments;
 
-/* employees y departments en los que trabajan. Natural join */
 /* Opción 1: */
 SELECT name_emp, salary, start_date, name_dep
 FROM employees e, departments d
@@ -59,28 +58,25 @@ SELECT name_emp, salary, start_date, name_dep
 FROM employees NATURAL JOIN departments;
 
 /* Join parciales */
-/* Para hacer una prueba borramos el departamento de Ana */ 
-UPDATE employees SET department_id=NULL WHERE employee_id=5;
-
-/* En el left join se devuelve a Ana, aunque no tenga departamento */
-SELECT name_emp, salary, start_date, name_dep
+/* LEFT JOIN conserva todos los empleados, incluso si no tienen departamento */
+SELECT e.employee_id, e.name_emp, d.department_id, d.name_dep
 FROM employees e
-  LEFT JOIN departments d
+	LEFT JOIN departments d
   ON e.department_id=d.department_id;
   
-/* En el right join se devuelve el Departamento de Arte, aunque no tenga employees */
-SELECT name_emp, salary, start_date, name_dep
+/* RIGHT JOIN conserva igualmente todos los departamentos */
+SELECT e.employee_id, e.name_emp, d.department_id, d.name_dep
 FROM employees e
   RIGHT JOIN departments d
   ON e.department_id=d.department_id;
   
 /* Ejemplo de unión de left y right join, devuelve el full join */
-SELECT *
+SELECT e.employee_id, e.name_emp, d.department_id, d.name_dep
 FROM employees e
 	LEFT JOIN departments d
 	ON e.department_id=d.department_id
 UNION
-SELECT *
+SELECT e.employee_id, e.name_emp, d.department_id, d.name_dep
 FROM employees e
 	RIGHT JOIN departments d
 	ON e.department_id=d.department_id;
@@ -106,22 +102,24 @@ SELECT COUNT(*), MIN(salary), MAX(salary), AVG(salary), SUM(salary)
 FROM employees;
 
 /* Estadísticas salarys por departamento */
-SELECT department_id,
+SELECT e.department_id,
 	COUNT(*),
-	AVG(salary) avg_salary,
-	AVG(salary * (1+fee)) salary_with_fee,
-	SUM(salary) total_salaries
-FROM employees
-GROUP BY department_id;
+	AVG(e.salary) avg_salary,
+	AVG(e.salary * (1+e.fee)) salary_with_fee,
+	SUM(e.salary) total_salaries
+FROM employees e
+JOIN departments d ON d.department_id=e.department_id
+GROUP BY e.department_id;
 
 /* Estadísticas salarys por departamento con al menos dos empleado*/
-SELECT department_id,
+	SELECT e.department_id,
 	COUNT(*), 
-	AVG(salary) avg_salary,
-	AVG(salary * (1+fee)) salary_with_fee,
-	SUM(salary) total_salaries
-FROM employees
-GROUP BY department_id HAVING COUNT(*)>1;
+	AVG(e.salary) avg_salary,
+	AVG(e.salary * (1+e.fee)) salary_with_fee,
+	SUM(e.salary) total_salaries
+FROM employees e
+JOIN departments d ON d.department_id=e.department_id
+GROUP BY e.department_id HAVING COUNT(*)>1;
 /* Opción 2: Usando la vista employees_departments */
 CREATE OR REPLACE VIEW v_employees_departments AS
 SELECT * 
@@ -138,39 +136,45 @@ GROUP BY department_id HAVING COUNT(*)>1;
 /* employees con salary mayor que la media de su departamento*/ 
 SELECT * FROM employees
 WHERE salary >
-ALL (SELECT AVG(salary)
-       FROM employees
-       GROUP BY department_id);
+ALL (SELECT AVG(e2.salary)
+       FROM employees e2
+	JOIN departments d2 ON d2.department_id=e2.department_id
+	GROUP BY e2.department_id);
        
 /* Departamento con más employees */
 /* Opción 1 */
-SELECT department_id FROM employees
-GROUP BY department_id HAVING COUNT(*)>= ALL 
+SELECT e.department_id FROM employees e
+JOIN departments d ON d.department_id=e.department_id
+GROUP BY e.department_id HAVING COUNT(*)>= ALL
    ( SELECT COUNT(*) 
-     FROM employees 
-     GROUP BY department_id
+	FROM employees e2
+	JOIN departments d2 ON d2.department_id=e2.department_id
+	GROUP BY e2.department_id
     );
 
 /* Opción 2 */
-SELECT department_id FROM employees
-GROUP BY department_id HAVING COUNT(*) =
+SELECT e.department_id FROM employees e
+JOIN departments d ON d.department_id=e.department_id
+GROUP BY e.department_id HAVING COUNT(*) =
    ( SELECT MAX(total) FROM
       ( SELECT COUNT(*) AS total
-        FROM employees
-        GROUP BY department_id
+	FROM employees e2
+	JOIN departments d2 ON d2.department_id=e2.department_id
+	GROUP BY e2.department_id
        ) num_employees
    );
    
 
 /* Vista con las estadísticas de los employees por Departamento */
 CREATE OR REPLACE VIEW v_stat_employees AS 
-SELECT department_id,
+SELECT e.department_id,
 	COUNT(*) AS num_employees,
-	AVG(salary) avg_salary,
-	AVG(salary * (1+fee)) salary_with_fee,
-	SUM(salary) total_salary
-FROM employees
-GROUP BY department_id;
+	AVG(e.salary) avg_salary,
+	AVG(e.salary * (1+e.fee)) salary_with_fee,
+	SUM(e.salary) total_salary
+FROM employees e
+JOIN departments d ON d.department_id=e.department_id
+GROUP BY e.department_id;
 
 /* Número de employees que tiene el departamento con más employees */
 SELECT MAX(num_employees)

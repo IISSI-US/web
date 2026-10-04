@@ -11,7 +11,7 @@ pdf_version: true
 
 # Requisitos
 
-Se pretende realizar un pequeño sistema de información para gestionar los empleados de los departamentos de una empresa. Cada empleado pertenece a un departamento y puede tener un jefe. Cada departamento pertenece a una localidad. Cada empleado tiene un salario y una comisión, además se almacena la fecha de inicio y de finalización de su contrato.
+Se pretende realizar un pequeño sistema de información para gestionar los empleados de los departamentos de una empresa. Cada empleado puede pertenecer a cero o un departamento y puede tener un jefe. Cada departamento pertenece a una localidad. Cada empleado tiene un salario y una comisión; también se almacenan las fechas de inicio y, si existe, de finalización de su contrato.
 
 ## Requisitos de información (RI)
 
@@ -22,19 +22,19 @@ Se pretende realizar un pequeño sistema de información para gestionar los empl
 
 ### RI-02: Empleados
 - **Como:** Profesor de la asignatura
-- **Quiero:** Poder almacenar la siguiente información de los empleados: nombre (obligatorio y único), salario, comisión, fecha de inicio y finalización del contrato (opcionales), jefe (opcional) y departamento al que pertenece (obligatorio)
+- **Quiero:** Poder almacenar la siguiente información de los empleados: nombre (obligatorio y único), salario, comisión y fecha de inicio (obligatorios; si no se indica esta última, se asigna la fecha actual), fecha de fin (opcional), jefe (opcional) y departamento al que pertenece (opcional)
 - **Para:** Que el alumno practique con un sistema de información sencillo
 
 ## Reglas de negocio (RN)
 
 ### RN-01: Departamentos
 - **Como:** Profesor de la asignatura
-- **Quiero:** Un departamento no puede tener más de cinco empleados y la combinación nombre y localidad no puede repetirse
+- **Quiero:** Un departamento no puede tener más de cinco empleados y la combinación nombre y localidad informada no puede repetirse. Si la localidad es NULL, pueden existir varios departamentos con el mismo nombre porque la localidad es desconocida.
 - **Para:** Que el alumno practique con restricciones simples
 
 ### RN-02: Empleados
 - **Como:** Profesor de la asignatura
-- **Quiero:** Un empleado no puede ser jefe de si mismo, la comisión es un porcentaje del salario y no puede ser negativa, ni modificarse en más de un 20% de golpe
+- **Quiero:** Un empleado no puede ser jefe de si mismo; la comisión es un porcentaje del salario, no puede ser negativa y no puede variar en más de 20 puntos porcentuales de golpe
 - **Para:** Que el alumno practique con restricciones simples
 
 # Modelo Conceptual
@@ -64,7 +64,9 @@ Empleados = {
 	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5),
 	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3),
 	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0),
-	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0)
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2),
+	(e7, NULL, NULL, 'Eva', 1200.00, '2021-05-01', NULL, 0.1)
 }
 ```
 
@@ -91,7 +93,9 @@ EmpleadosSueldoBajo = { eId, dId, jId, en, s, fI, fF, c }
 
 EmpleadosSueldoBajo = {
 	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0),
-	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0)
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2),
+	(e7, NULL, NULL, 'Eva', 1200.00, '2021-05-01', NULL, 0.1)
 }
 ```
 
@@ -107,7 +111,9 @@ FechasContratos = { fI, fF }
 FechasContratos = {
 	('2017-09-15', NULL),
 	('2018-08-15', NULL),
-	('2018-08-15', '2018-11-15')
+	('2018-08-15', '2018-11-15'),
+	('2020-09-15', NULL),
+	('2021-05-01', NULL)
 }
 ```
 
@@ -151,7 +157,13 @@ ProductoEmpleadosDepartamentos = {
 	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, d3, 'Informática', 'Sevilla'),
 	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d1, 'Arte', 'Cádiz'),
 	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d2, 'Historia', NULL),
-	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d3, 'Informática', 'Sevilla')
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, d3, 'Informática', 'Sevilla'),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2, d1, 'Arte', 'Cádiz'),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2, d2, 'Historia', NULL),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2, d3, 'Informática', 'Sevilla'),
+	(e7, NULL, NULL, 'Eva', 1200.00, '2021-05-01', NULL, 0.1, d1, 'Arte', 'Cádiz'),
+	(e7, NULL, NULL, 'Eva', 1200.00, '2021-05-01', NULL, 0.1, d2, 'Historia', NULL),
+	(e7, NULL, NULL, 'Eva', 1200.00, '2021-05-01', NULL, 0.1, d3, 'Informática', 'Sevilla')
 }
 ```
 
@@ -169,14 +181,15 @@ EmpleadosDepartamentos = {
 	(e2, d1, NULL, 'Jose', 2500.00, '2018-08-15', NULL, 0.5, 'Arte', 'Cádiz'),
 	(e3, d2, NULL, 'Lola', 2300.00, '2018-08-15', NULL, 0.3, 'Historia', NULL),
 	(e4, d1, e1, 'Luis', 1300.00, '2018-08-15', '2018-11-15', 0, 'Arte', 'Cádiz'),
-	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, 'Arte', 'Cádiz')
+	(e5, d1, e1, 'Ana', 1300.00, '2018-08-15', '2018-11-15', 0, 'Arte', 'Cádiz'),
+	(e6, d1, e1, 'Daniel', 1500.00, '2020-09-15', NULL, 0.2, 'Arte', 'Cádiz')
 }
 ```
 
 - Departamentos con empleados:
 
 $$
-\Proj{dId}(E)
+\Proj{dId}(E \NatJoin D)
 $$
 
 ```mr-table
@@ -191,7 +204,7 @@ DepartamentosConEmpleados = {
 - Departamentos sin empleados:
 
 $$
-\Proj{dId}(D) - \Proj{dId}(E)
+\Proj{dId}(D) - \Proj{dId}(E \NatJoin D)
 $$
 
 ```mr-table
@@ -212,21 +225,21 @@ $$
 EstadisticasSalario = { total, minSalario, maxSalario, mediaSalario, sumaSalarios }
 
 EstadisticasSalario = {
-	(5, 1300.00, 2500.00, 1940.00, 9700.00)
+	(7, 1200.00, 2500.00, 1771.43, 12400.00)
 }
 ```
 
 - Estadísticas de salario por departamento:
 
 $$
-\Group{dId,\rho_{total}(\operatorname{COUNT}(*)),\;\rho_{minSalario}(\operatorname{MIN}(s)),\;\rho_{maxSalario}(\operatorname{MAX}(s)),\;\rho_{mediaSalario}(\operatorname{AVG}(s)),\;\rho_{sumaSalarios}(\operatorname{SUM}(s))}{dId}(E)
+\Group{dId,\rho_{total}(\operatorname{COUNT}(*)),\;\rho_{minSalario}(\operatorname{MIN}(s)),\;\rho_{maxSalario}(\operatorname{MAX}(s)),\;\rho_{mediaSalario}(\operatorname{AVG}(s)),\;\rho_{sumaSalarios}(\operatorname{SUM}(s))}{dId}(E \NatJoin D)
 $$
 
 ```mr-table
 EstadisticasSalarioDepartamento = { dId, total, minSalario, maxSalario, mediaSalario, sumaSalarios }
 
 EstadisticasSalarioDepartamento = {
-	(d1, 4, 1300.00, 2500.00, 1850.00, 7400.00),
+	(d1, 5, 1300.00, 2500.00, 1780.00, 8900.00),
 	(d2, 1, 2300.00, 2300.00, 2300.00, 2300.00)
 }
 ```
@@ -234,14 +247,14 @@ EstadisticasSalarioDepartamento = {
 - Estadísticas de salarios por departamento con al menos dos empleados:
 
 $$
-   NumEmpDep \leftarrow \Group{dId,\rho_{total}(\operatorname{COUNT}(*))}{dId}(E)
+	NumEmpDep \leftarrow \Group{dId,\rho_{total}(\operatorname{COUNT}(*))}{dId}(E \NatJoin D)
 $$
 
 ```mr-table
 NumEmpDep = { dId, total }
 
 NumEmpDep = {
-	(d1, 4),
+	(d1, 5),
 	(d2, 1)
 }
 ```
@@ -266,7 +279,7 @@ $$
 EstadisticasSalarioDep2 = { dId, total, minSalario, maxSalario, mediaSalario, sumaSalarios }
 
 EstadisticasSalarioDep2 = {
-	(d1, 4, 1300.00, 2500.00, 1850.00, 7400.00)
+	(d1, 5, 1300.00, 2500.00, 1780.00, 8900.00)
 }
 ```
 

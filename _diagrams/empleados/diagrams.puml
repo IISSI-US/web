@@ -5,27 +5,23 @@
 
     class Departamento {
         nombre: String
-        localidad: String
+        localidad: String [0..1]
     }
     class Empleado {
         nombre: String
         fechaInicio: Date
-        fechaFin: Date
+        fechaFin: Date [0..1]
         salario: Double
         comisión: Double
     }
     'Asociaciones
-    Empleado "1" -- "0..*" Departamento: trabajaEn >
-    Empleado "Jefe 0..1" -- "Subordinado *" Empleado: tieneJefe >
-    'Agregamos notas al modelo
-    Note left of Departamento
-        - La combinación nombre y localidad no se puede repetir
-        - Un departamento no puede tener más de 5 empleados
-    End Note
-    Note left of Empleado
-        - Un empleado no puede ser su propio jefe
-        - La comisión es un porcentaje del salario entre 0 y 100
-        - Los nombres de los empleados son únicos
-        - La fecha de inicio del contrato no puede ser posterior a la fecha de fin
-    End Note
+    Departamento "0..1" -- "0..*" Empleado: trabajaEn >
+    Empleado "0..1 Jefe" -- "0..* Subordinado" Empleado: coordina >
+    note as RN
+        RN-01: Un departamento no puede tener más de cinco empleados;
+        la combinación nombre y localidad no se puede repetir.
+        RN-02: Un empleado no puede ser su propio jefe;
+        la comisión está entre 0 y 1 y su diferencia absoluta no puede
+        superar 0.2 (20 puntos porcentuales) en una actualización.
+    end note
 @enduml
