@@ -25,7 +25,7 @@
     }
     class PeriodoTarea {
         fInicio
-        fFin
+        fFin [0..1]
     }
     class PeriodoCargo {
         fInicio
@@ -36,9 +36,21 @@
     ' Asociaciones
     Proyecto *-- "{ordered} *" Tarea : tiene
     Proyecto *-- "*" Rol : "tiene"
-    Tarea *-- " * {ordered}" Tarea : compuestaPor
-    Empleado "0..1" -right- "*" Tarea :  esResponsableDe
-    (Empleado, Tarea) .. PeriodoTarea
-    Rol "*" -right- "*" Empleado :  correspondeA
-    (Empleado, Rol) .. PeriodoCargo
+    Tarea "0..1" *-- "0..* {ordered}" Tarea : compuestaPor
+    Empleado "1" -- "0..*" PeriodoTarea : participaEn
+    Tarea "1" -- "0..*" PeriodoTarea : tieneAsignaciones
+    Empleado "1" -- "0..*" PeriodoCargo : desempeña
+    Rol "1" -- "0..*" PeriodoCargo : tieneHistorial
+
+    note as rn
+        RN-01: La descripción del proyecto es obligatoria y las referencias
+        obligatorias a proyecto, tarea, rol o empleado no admiten NULL.
+        RN-02: Los periodos permiten historial; fFin puede quedar sin definir,
+        pero si existe no puede ser anterior a fInicio. Las fechas son inclusivas.
+        RN-03: Los periodos de una tarea no se solapan; solo hay una persona
+        responsable activa y se permiten reasignaciones históricas.
+        RN-04: Una subtarea pertenece al mismo proyecto que su tarea padre.
+        RN-05: Varios empleados pueden desempeñar el mismo rol
+        simultáneamente.
+    end note
 @enduml

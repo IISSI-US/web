@@ -57,13 +57,13 @@ WHERE pid = 1
 GROUP BY eid, en;
 
 -- ProyectosRoles: roles de cada proyecto
-SELECT p.project_id AS pid, p.name AS pn, p.budget AS pres,
-       r.role_id AS rid, r.name AS rn
+SELECT p.project_id AS pid, p.name AS pn, p.description AS pdesc,
+       p.budget AS pres, r.role_id AS rid, r.name AS rn
 FROM projects p
 JOIN roles r ON r.project_id = p.project_id;
 
 -- ProyectosTareas: tareas de cada proyecto
-SELECT p.project_id AS pid, p.name AS pn, p.budget AS pres,
+SELECT p.project_id AS pid, p.name AS pn, p.description AS pdesc, p.budget AS pres,
        t.task_id AS tid, t.position AS ord, t.task_code AS cod,
        t.description AS tdesc, t.estimate AS est
 FROM projects p

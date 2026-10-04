@@ -13,6 +13,7 @@ USE ProyectosDB;
 CREATE OR REPLACE TABLE projects (
     project_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
     budget DECIMAL(15, 2) NOT NULL,
     CONSTRAINT ck_projects_budget CHECK (budget > 0)
 );
@@ -20,7 +21,7 @@ CREATE OR REPLACE TABLE projects (
 -- Crear la tabla roles
 CREATE OR REPLACE TABLE roles (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
-    project_id INT,
+    project_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     FOREIGN KEY (project_id) REFERENCES projects(project_id)
 );
@@ -28,7 +29,7 @@ CREATE OR REPLACE TABLE roles (
 -- Crear la tabla tareas
 CREATE OR REPLACE TABLE tasks (
     task_id INT AUTO_INCREMENT PRIMARY KEY,
-    project_id INT,
+    project_id INT NOT NULL,
     position INT NOT NULL,
     task_code CHAR(12) NOT NULL,
     description TEXT NOT NULL,
@@ -62,25 +63,23 @@ CREATE OR REPLACE TABLE employees (
 -- Crear la tabla role_periods
 CREATE OR REPLACE TABLE role_periods (
     role_period_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT,
-    role_id INT,
+    employee_id INT NOT NULL,
+    role_id INT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE,
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
     FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    UNIQUE (employee_id, role_id),
     CONSTRAINT ck_role_periods_dates CHECK (end_date IS NULL OR end_date >= start_date)
 );
 
 -- Crear la tabla task_periods
 CREATE OR REPLACE TABLE task_periods (
     task_period_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT,
-    task_id INT,
+    employee_id INT NOT NULL,
+    task_id INT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE,
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
     FOREIGN KEY (task_id) REFERENCES tasks(task_id),
-    UNIQUE (employee_id, task_id),
     CONSTRAINT ck_task_periods_dates CHECK (end_date IS NULL OR end_date >= start_date)
 );
