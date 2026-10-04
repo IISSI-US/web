@@ -154,7 +154,7 @@ UCine = {
 - Usuarios sin aficiones:
 
 $$
-UsuSinAfi \leftarrow \Proj{uid,nu}\big(U \NatJoin (\Proj{uid}(U) -\Proj{uid}(A))\big)
+UsuSinAfi \leftarrow \Proj{uid,nu}\left(U \NatJoin \left(\Proj{uid}(U) -\Proj{uid}(A)\right)\right)
 $$
 
 ```mr-table
@@ -164,6 +164,20 @@ UsuSinAfi = {
     (u3, "Margarita Cruz"),
     (u7, "Raquel Sampedro"),
     (u11, "Ernesto Murillo")
+}
+```
+
+- Usuarios con todas las aficiones presentes en el conjunto:
+
+$$
+UsuTodasAfi \leftarrow \Proj{uid,nu}\left(\left(\Proj{uid,af}(UA) \Div \Proj{af}(UA)\right) \NatJoin U\right)
+$$
+
+```mr-table
+UsuTodasAfi = { uid, nu }
+
+UsuTodasAfi = {
+    (u8, "Marta López")
 }
 ```
 
