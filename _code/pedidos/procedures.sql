@@ -82,7 +82,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- Crear pedido con fecha y cantidad (defaults manejados por la tabla)
+-- Crear pedido con fecha y cantidad obligatorias
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_insert_order(
     IN p_user_id INT,
@@ -92,7 +92,7 @@ CREATE OR REPLACE PROCEDURE p_insert_order(
 )
 BEGIN
     INSERT INTO orders(user_id, product_id, amount, purchase_date)
-    VALUES (p_user_id, p_product_id, IFNULL(p_amount, 1), IFNULL(p_purchase_date, CURRENT_DATE()));
+    VALUES (p_user_id, p_product_id, p_amount, p_purchase_date);
 END //
 DELIMITER ;
 

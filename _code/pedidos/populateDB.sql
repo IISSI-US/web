@@ -32,7 +32,8 @@ BEGIN
         ('Pulsera compatible con Mi Band 3 y 4', 9.90, 150),
         ('Mi Scooter', 349.90, 25),
         ('Rueda trasera de respuesto Mi Scooter', 19.90, 50),
-        ('Rueda delantera de respuesto Mi Scooter', 59.90, 50);
+        ('Rueda delantera de respuesto Mi Scooter', 59.90, 50),
+        ('Producto agotado para pruebas', 1.00, 0);
 
     INSERT INTO orders (user_id, product_id, amount, purchase_date) VALUES
         (1, 1, 2, '2019-05-13'),
@@ -49,7 +50,8 @@ BEGIN
         (7, 4, 1, '2019-12-18'),
         (7, 5, 1, '2019-12-19'),
         (7, 6, 1, '2019-12-20'),
-        (8, 1, 1, '2019-12-15');
+        (8, 1, 1, '2019-12-15'),
+        (1, 1, 1, '2019-05-13');
 END //
 DELIMITER ;
 

@@ -12,14 +12,15 @@ Desde la raíz de Web:
 bash _scripts/export_diagrams.sh pedidos
 ```
 
-La carga recrea `OrdersDB`. Usar una instancia de prácticas y configurar la
-conexión con las opciones habituales de `mariadb`.
+La carga recrea `OrdersDB`, instala los triggers y carga los datos positivos de
+prueba. Usar una instancia de prácticas y configurar la conexión con las opciones
+habituales de `mariadb`.
 Desde este directorio también se puede ejecutar `mariadb < loadDB.sql`,
 `mariadb < tests.sql` y `mariadb < queries.sql`.
 
-El cargador mantiene la selección y el orden del original. Los demás SQL son
-auxiliares y no se añaden automáticamente a la carga. `tests.sql` muestra los
-resultados PASS/FAIL/ERROR para que el alumnado los revise.
+El cargador incluye `triggers.sql` antes de `populateDB.sql`. La suite contiene
+solo casos negativos; cada prueba restablece la población y muestra su resultado
+PASS/FAIL/ERROR para que el alumnado lo revise.
 
 El UML se integra en `_diagrams/pedidos/diagrams.puml`, con el estilo compartido
 `final.iuml`. No se migran el frontend, endpoints ni configuraciones de Silence.

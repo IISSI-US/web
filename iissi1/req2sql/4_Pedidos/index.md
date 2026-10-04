@@ -84,12 +84,13 @@ Usuarios = {
 	(u8, "Carlos Arévalo", "Málaga", "2018-09-07")
 }
 Productos = {
-	(p1, "Mi Band 3", 19.90, 50),
-	(p2, "Mi Band 4", 29.90, 20),
-	(p3, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
-	(p4, "Mi Scooter", 349.90, 25),
-	(p5, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
-	(p6, "Rueda delantera de respuesto Mi Scooter", 59.90, 50)
+	(p1, "Mi Band 3", 19.90, 45),
+	(p2, "Mi Band 4", 29.90, 16),
+	(p3, "Pulsera compatible con Mi Band 3 y 4", 9.90, 146),
+	(p4, "Mi Scooter", 349.90, 20),
+	(p5, "Rueda trasera de respuesto Mi Scooter", 19.90, 48),
+	(p6, "Rueda delantera de respuesto Mi Scooter", 59.90, 48),
+	(p7, "Producto agotado para pruebas", 1.00, 0)
 }
 Pedidos = {
 	(pe1, u1, p1, "2019-05-13", 2),
@@ -106,7 +107,8 @@ Pedidos = {
 	(pe12, u7, p4, "2019-12-18", 1),
 	(pe13, u7, p5, "2019-12-19", 1),
 	(pe14, u7, p6, "2019-12-20", 1),
-	(pe15, u8, p1, "2019-12-15", 1)
+	(pe15, u8, p1, "2019-12-15", 1),
+	(pe16, u1, p1, "2019-05-13", 1)
 }
 ```
 
@@ -138,21 +140,22 @@ $$
 UPP = { uId, n, prov, fa, pedId, pId, fc, c, d, pr, st }
 
 UPP = {
-	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe1, p1, "2019-05-13", 2, "Mi Band 3", 19.90, 50),
-	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe2, p3, "2019-05-13", 2, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
-	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 20),
-	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
-	(u3, "Raquel Lobato", "Granada", "2018-12-01", pe5, p4, "2019-06-15", 2, "Mi Scooter", 349.90, 25),
-	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe6, p5, "2019-06-18", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
-	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe7, p6, "2019-06-18", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 50),
-	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 25),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe9, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe10, p2, "2019-12-16", 1, "Mi Band 4", 29.90, 20),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe11, p3, "2019-12-17", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe12, p4, "2019-12-18", 1, "Mi Scooter", 349.90, 25),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe13, p5, "2019-12-19", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 50),
-	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe14, p6, "2019-12-20", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 50),
-	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50)
+	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe1, p1, "2019-05-13", 2, "Mi Band 3", 19.90, 45),
+	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe2, p3, "2019-05-13", 2, "Pulsera compatible con Mi Band 3 y 4", 9.90, 146),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 16),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 146),
+	(u3, "Raquel Lobato", "Granada", "2018-12-01", pe5, p4, "2019-06-15", 2, "Mi Scooter", 349.90, 20),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe6, p5, "2019-06-18", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 48),
+	(u4, "Antonio Gómez", "Sevilla", "2018-03-11", pe7, p6, "2019-06-18", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 48),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 20),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe9, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 45),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe10, p2, "2019-12-16", 1, "Mi Band 4", 29.90, 16),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe11, p3, "2019-12-17", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 146),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe12, p4, "2019-12-18", 1, "Mi Scooter", 349.90, 20),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe13, p5, "2019-12-19", 1, "Rueda trasera de respuesto Mi Scooter", 19.90, 48),
+	(u7, "Carlos Rivero", "Huelva", "2018-09-07", pe14, p6, "2019-12-20", 1, "Rueda delantera de respuesto Mi Scooter", 59.90, 48),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 45),
+	(u1, "David Ruiz", "Sevilla", "2018-05-18", pe16, p1, "2019-05-13", 1, "Mi Band 3", 19.90, 45)
 }
 ```
 
@@ -166,10 +169,10 @@ $$
 PedidosMalaga = { uId, n, prov, fa, pedId, pId, fc, c, d, pr, st }
 
 PedidosMalaga = {
-	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 20),
-	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 150),
-	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 25),
-	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 50)
+	(u2, "Marta López", "Málaga", "2018-06-12", pe3, p2, "2019-06-11", 3, "Mi Band 4", 29.90, 16),
+	(u2, "Marta López", "Málaga", "2018-06-12", pe4, p3, "2019-06-11", 1, "Pulsera compatible con Mi Band 3 y 4", 9.90, 146),
+	(u5, "Inma Hernández", "Málaga", "2018-04-12", pe8, p4, "2019-12-15", 2, "Mi Scooter", 349.90, 20),
+	(u8, "Carlos Arévalo", "Málaga", "2018-09-07", pe15, p1, "2019-12-15", 1, "Mi Band 3", 19.90, 45)
 }
 ```
 
@@ -182,12 +185,13 @@ $$
 ```mr-table
 StockBajo = { d, st }
 
-StockBajo = {
-	("Mi Band 3", 50),
-	("Mi Band 4", 20),
-	("Mi Scooter", 25),
-	("Rueda trasera de respuesto Mi Scooter", 50),
-	("Rueda delantera de respuesto Mi Scooter", 50)
+ StockBajo = {
+	("Mi Band 3", 45),
+	("Mi Band 4", 16),
+	("Mi Scooter", 20),
+	("Rueda trasera de respuesto Mi Scooter", 48),
+	("Rueda delantera de respuesto Mi Scooter", 48),
+	("Producto agotado para pruebas", 0)
 }
 ```
 
@@ -201,7 +205,7 @@ $$
 NumPedidosUsuario = { uId, n, total }
 
 NumPedidosUsuario = {
-	(u1, "David Ruiz", 2),
+	(u1, "David Ruiz", 3),
 	(u2, "Marta López", 2),
 	(u3, "Raquel Lobato", 1),
 	(u4, "Antonio Gómez", 2),
@@ -221,7 +225,7 @@ $$
 ImporteTotalUsuario = { uId, n, totalGasto }
 
 ImporteTotalUsuario = {
-	(u1, "David Ruiz", 59.60),
+	(u1, "David Ruiz", 79.50),
 	(u2, "Marta López", 99.60),
 	(u3, "Raquel Lobato", 699.80),
 	(u4, "Antonio Gómez", 79.80),
@@ -241,7 +245,7 @@ $$
 PedidosPorMes = { mes, total }
 
 PedidosPorMes = {
-	(5, 2),
+	(5, 3),
 	(6, 5),
 	(12, 8)
 }
@@ -257,7 +261,7 @@ $$
 GPUM = { uId, n, mes, totalGasto }
 
 GPUM = {
-	(u1, "David Ruiz", 5, 59.60),
+	(u1, "David Ruiz", 5, 79.50),
 	(u2, "Marta López", 6, 99.60),
 	(u3, "Raquel Lobato", 6, 699.80),
 	(u4, "Antonio Gómez", 6, 79.80),
@@ -275,7 +279,7 @@ $$
 MGPM = { mes, maxGasto }
 
 MGPM = {
-	(5, 59.60),
+	(5, 79.50),
 	(6, 699.80),
 	(12, 699.80)
 }
@@ -289,7 +293,7 @@ $$
 MasGastaPorMes = { n, mes, totalGasto }
 
 MasGastaPorMes = {
-	("David Ruiz", 5, 59.60),
+	("David Ruiz", 5, 79.50),
 	("Raquel Lobato", 6, 699.80),
 	("Inma Hernández", 12, 699.80)
 }
@@ -305,7 +309,7 @@ $$
 RPM = { mes, recaudacion }
 
 RPM = {
-	(5, 59.60),
+	(5, 79.50),
 	(6, 879.20),
 	(12, 1209.10)
 }
@@ -340,6 +344,10 @@ MesMaxRecaudacion = {
 ## Script SQL para crear la base de datos
 
 {% include sql-embed.html src='/_code/pedidos/createDB.sql' label='pedidos/createDB.sql' collapsed=true %}
+
+## Triggers de reglas de negocio
+
+{% include sql-embed.html src='/_code/pedidos/triggers.sql' label='pedidos/triggers.sql' collapsed=true %}
 
 ## Script SQL para la carga inicial de datos
 
