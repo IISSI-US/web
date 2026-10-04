@@ -55,6 +55,11 @@ pdf_version: true
 - Quiero: Cada vino de crianza tiene como máximo una cosecha por año, y tiene al menos una cosecha
 - Para: Que el estudiante practique con restricciones complejas.
 
+### RN-5: Especialización de vinos
+- Como: Profesor de la asignatura
+- Quiero: Que cada vino pertenezca exactamente a uno de los subtipos Joven o Crianza.
+- Para: Reflejar la especialización completa y disjunta del modelo conceptual. La clave de cada subtipo es también clave foránea a Vinos.
+
 ## Requisitos funcionales (RF)
 
 ### RF-1: Informes simples de Bodegas
@@ -159,42 +164,46 @@ VinosUvas = {
 }
 ```
 
+La especialización se representa con tablas de subtipo: `Jóvenes.vinoId` y
+`Crianzas.vinoId` son PK y FK a `Vinos.vinoId`. Los triggers impiden que el mismo
+vino aparezca en ambos subtipos.
+
 ## Álgebra relacional
 
 -Renombrado:
 
 $$
-B = \Ren{B(bid,nb,do)}(Bodegas)
+B = \Ren{B\left(bid,nb,do\right)}\left(Bodegas\right)
 $$
 
 $$
-V = \Ren{V(vid,bid,nv,g)}(Vinos)
+V = \Ren{V\left(vid,bid,nv,g\right)}\left(Vinos\right)
 $$ 
 
 $$
-J = \Ren{J(vid,tba,tbo)}(Jóvenes)
+J = \Ren{J\left(vid,tba,tbo\right)}\left(Jóvenes\right)
 $$ 
 
 $$
-C = \Ren{C(vid,tba,tbo)}(Crianzas)
+C = \Ren{C\left(vid,tba,tbo\right)}\left(Crianzas\right)
 $$
 
 $$
-U = \Ren{U(uid,nu)}(Uvas)
+U = \Ren{U\left(uid,nu\right)}\left(Uvas\right)
 $$
 
 $$
-Co = \Ren{Co(coid,vid,a,c)}(Cosechas)
+Co = \Ren{Co\left(coid,vid,a,c\right)}\left(Cosechas\right)
 $$ 
 
 $$
-VU = \Ren{VU(vuid,vid,uid)}(VinosUvas)
+VU = \Ren{VU\left(vuid,vid,uid\right)}\left(VinosUvas\right)
 $$
 
 - Seleccionar todas las bodegas con denominación de origen Rioja:
 
 $$
-Riojas \leftarrow \Sel{do=\text{'Rioja'}}(B)
+Riojas \leftarrow \Sel{do=\text{'Rioja'}}\left(B\right)
 $$
 
 ```mr-table
@@ -208,7 +217,7 @@ Riojas = {
 - Listado de vinos con sus uvas:
 
 $$
-VVUU \leftarrow V \NatJoin VU \NatJoin U
+VVUU \leftarrow \left(V \NatJoin VU \NatJoin U\right)
 $$
 
 ```mr-table
@@ -227,7 +236,7 @@ VVUU = {
 - Crianzas con sus cosechas:
 
 $$
-CCo \leftarrow V \NatJoin C \NatJoin Co
+CCo \leftarrow \left(V \NatJoin C \NatJoin Co\right)
 $$
 
 ```mr-table
@@ -243,7 +252,7 @@ CCo = {
 - Mostrar todas las bodegas que producen vinos tanto jóvenes como crianzas:
 
 $$
-BV \leftarrow B \NatJoin V
+BV \leftarrow \left(B \NatJoin V\right)
 $$
 
 ```mr-table
@@ -258,7 +267,7 @@ BV = {
 ```
 
 $$
-BodegasJovenes \leftarrow \Proj{bid,nb}(BV \NatJoin J)
+BodegasJovenes \leftarrow \Proj{bid,nb}\left(BV \NatJoin J\right)
 $$
 
 ```mr-table
@@ -271,7 +280,7 @@ BodegasJovenes = {
 ```
 
 $$
-BodegasCrianzas \leftarrow \Proj{bid,nb}(BV \NatJoin C)
+BodegasCrianzas \leftarrow \Proj{bid,nb}\left(BV \NatJoin C\right)
 $$
 
 ```mr-table
@@ -299,7 +308,7 @@ BodegasJovenesCrianzas = {
 - Nombre de las bodegas y vinos que están compuestos, al menos, con uva "Tempranillo":
 
 $$
-BT \leftarrow \Proj{nb,nv}\big(\Sel{nu=\text{'Tempranillo'}}(BV \NatJoin VU \NatJoin U)\big)
+BT \leftarrow \Proj{nb,nv}\left(\Sel{nu=\text{'Tempranillo'}}\left(BV \NatJoin VU \NatJoin U\right)\right)
 $$
 
 ```mr-table
@@ -315,7 +324,7 @@ BT = {
 - Total de cosechas por vino de crianza:
 
 $$
-TotalCosechasCrianza \leftarrow \Group{vid,\rho_{total}(\operatorname{COUNT}(*))}{vid}(C \NatJoin Co)
+TotalCosechasCrianza \leftarrow \Group{vid,\rho_{total}(\operatorname{COUNT}(*))}{vid}\left(C \NatJoin Co\right)
 $$
 
 ```mr-table
@@ -330,7 +339,7 @@ TotalCosechasCrianza = {
 - Nombre del vino joven con más grados:
 
 $$
-maxGrados \leftarrow \GroupUp{\rho_{maxG}(\operatorname{MAX}(g))}(V \NatJoin J)
+maxGrados \leftarrow \GroupUp{\rho_{maxG}(\operatorname{MAX}(g))}\left(V \NatJoin J\right)
 $$
 
 ```mr-table
@@ -342,7 +351,7 @@ maxGrados = {
 ```
 
 $$
-VinoMasGrados \leftarrow \Proj{nv}\big(\Sel{g=maxG}((V \NatJoin J) \times maxGrados)\big)
+VinoMasGrados \leftarrow \Proj{nv}\left(\Sel{g=maxG}\left((V \NatJoin J) \times maxGrados\right)\right)
 $$
 
 ```mr-table
@@ -356,7 +365,7 @@ VinoMasGrados = {
 - Número de vinos crianza por cosecha:
 
 $$
-NumCCo \leftarrow \Group{a,\rho_{total}(\operatorname{COUNT}(vid))}{a}(Co)
+NumCCo \leftarrow \Group{a,\rho_{total}(\operatorname{COUNT}(vid))}{a}\left(Co\right)
 $$
 
 ```mr-table
@@ -372,7 +381,7 @@ NumCCo = {
 - Bodegas con más vinos:
 
 $$
-BodegasNumVinos \leftarrow \Group{bid,nb,\rho_{total}(\operatorname{COUNT}(vid))}{bid,nb}(BV)
+BodegasNumVinos \leftarrow \Group{bid,nb,\rho_{total}(\operatorname{COUNT}(vid))}{bid,nb}\left(BV\right)
 $$
 
 ```mr-table
@@ -397,7 +406,7 @@ maxVinos = {
 ```
 
 $$
-BodegasMasVinos \leftarrow \Proj{bid,nb}\left(\Sel{total=maxTotal}(BodegasNumVinos \times maxVinos)\right)
+BodegasMasVinos \leftarrow \Proj{bid,nb}\left(\Sel{total=maxTotal}\left(BodegasNumVinos \times maxVinos\right)\right)
 $$
 
 ```mr-table
@@ -412,7 +421,7 @@ BodegasMasVinos = {
 - Vinos que tienen, al menos, las mismas uvas que el vino 'v1':
 
 $$
-VinosUvasV1 \leftarrow \Proj{vid,nv}\left(\left({\Proj{vid,uid}(VU)}\Div{\Proj{uid}\left(\Sel{vid=v1}(VU)\right)}\right) \NatJoin V \right)
+VinosUvasV1 \leftarrow \Proj{vid,nv}\left(\left({\Proj{vid,uid}\left(VU\right)}\Div{\Proj{uid}\left(\Sel{vid=v1}\left(VU\right)\right)}\right) \NatJoin V\right)
 $$
 
 ```mr-table
@@ -429,9 +438,19 @@ VinosUvasV1 = {
 
 {% include sql-embed.html src='/_code/bodegas/createDB.sql' label='bodegas/createDB.sql' collapsed=true %}
 
+## Triggers de especialización
+
+{% include sql-embed.html src='/_code/bodegas/triggers.sql' label='bodegas/triggers.sql' collapsed=true %}
+
 ## Script SQL para la carga inicial de datos
 
 {% include sql-embed.html src='/_code/bodegas/populateDB.sql' label='bodegas/populateDB.sql' collapsed=true %}
+
+`populateDB.sql` contiene al menos una cosecha por Crianza. La estructura de
+tablas puede enlazar cada cosecha solo con una Crianza y limitar una cosecha por
+año, pero no puede exigir declarativamente que toda Crianza insertada a mano
+tenga una fila hija en `Cosechas`; eso requeriría una operación transaccional de
+alta, que queda fuera de este flujo introductorio.
 
 ## Consultas
 

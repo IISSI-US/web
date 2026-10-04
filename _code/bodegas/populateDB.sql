@@ -17,6 +17,8 @@ BEGIN
     DELETE FROM grapes;
     DELETE FROM wineries;
     SET FOREIGN_KEY_CHECKS = 1;
+    ALTER TABLE wines AUTO_INCREMENT = 1;
+    ALTER TABLE harvests AUTO_INCREMENT = 1;
 
     INSERT INTO wineries (winery_id, winery_name, origin_designation) VALUES
         (1, 'Bodegas El Sol', 'Rioja'),

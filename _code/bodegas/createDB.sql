@@ -56,7 +56,7 @@ CREATE TABLE young_wines (
     PRIMARY KEY (wine_id),
     FOREIGN KEY (wine_id) REFERENCES wines(wine_id),
     CONSTRAINT rn02_young_wines_age CHECK (
-        barrel_months <= 6 AND barrel_months + bottle_months <= 12
+        barrel_months >= 0 AND barrel_months < 6 AND bottle_months >= 0
     )
 );
 
@@ -70,7 +70,9 @@ CREATE TABLE aged_wines (
     PRIMARY KEY (wine_id),
     FOREIGN KEY (wine_id) REFERENCES wines(wine_id),
     CONSTRAINT rn02_aged_wines_age CHECK (
-        barrel_months >= 6 AND barrel_months + bottle_months >= 24
+        barrel_months BETWEEN 6 AND 12
+        AND bottle_months >= 0
+        AND barrel_months + bottle_months >= 24
     )
 );
 
@@ -91,9 +93,9 @@ CREATE TABLE harvests (
     harvest_id INT AUTO_INCREMENT,
     wine_id INT NOT NULL,
     harvest_year YEAR NOT NULL,
-    quality VARCHAR(100) NOT NULL,
+    quality ENUM('Excelente','Muy buena','Buena','Normal','Mala') NOT NULL,
     PRIMARY KEY (harvest_id),
-    FOREIGN KEY (wine_id) REFERENCES wines(wine_id) ON DELETE CASCADE,
+    FOREIGN KEY (wine_id) REFERENCES aged_wines(wine_id) ON DELETE CASCADE,
     CONSTRAINT rn04_harvests_unique_year UNIQUE (wine_id, harvest_year)
 );
 

@@ -12,14 +12,17 @@ Desde la raíz de Web:
 bash _scripts/export_diagrams.sh bodegas
 ```
 
-La carga recrea `BodegasDB`. Usar una instancia de prácticas y configurar la
+La carga recrea `BodegasDB`, instala las restricciones adicionales y carga los
+datos positivos de ejemplo. Usar una instancia de prácticas y configurar la
 conexión con las opciones habituales de `mariadb`.
 Desde este directorio también se puede ejecutar `mariadb < loadDB.sql`,
 `mariadb < tests.sql` y `mariadb < queries.sql`.
 
-El cargador mantiene la selección y el orden del original. Los demás SQL son
-auxiliares y no se añaden automáticamente a la carga. `tests.sql` muestra los
-resultados PASS/FAIL/ERROR para que el alumnado los revise.
+El cargador instala triggers de disjunción antes de cargar el ejemplo. La suite
+contiene casos negativos de las RN; cada test restablece el populate y muestra
+el resultado PASS/FAIL/ERROR. Con esta traducción por tres tablas, el populate
+incluye cosechas para cada Crianza; el esquema no puede imponer esa existencia
+mínima frente a inserciones manuales arbitrarias.
 
 El UML se integra en `_diagrams/bodegas/diagrams.puml`, con el estilo compartido
 `final.iuml`. No se migran el frontend, endpoints ni configuraciones de Silence.
